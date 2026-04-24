@@ -1,0 +1,3118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEXIAE — Auditoría Documental Automatizada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Fondos dark (suavizados) */
+  --bg-deep:#121826;
+  --bg-dark:#1A2032;
+  --bg-mid:#1E2436;
+  --bg-card:#232A3E;
+
+  /* Fondos light */
+  --bg-light:#FAFAF7;
+  --bg-light-2:#F3F2EC;
+  --bg-light-3:#FFFFFF;
+
+  /* Textos dark */
+  --text-primary:#E8ECF4;
+  --text-secondary:#AAB4C5;
+  --text-muted:#7C8599;
+  --text-faint:#4E5764;
+
+  /* Textos light */
+  --text-dark:#1C1C1A;
+  --text-dark-sub:#5A5A56;
+
+  /* Acento */
+  --accent:#3B82F6;
+  --accent-hover:#2563EB;
+  --accent-glow:rgba(59,130,246,0.35);
+  --accent-bg:rgba(59,130,246,0.10);
+  --accent-bg-light:rgba(59,130,246,0.06);
+
+  /* Estados */
+  --state-ok:#10B981;
+  --state-ok-bg:rgba(16,185,129,0.12);
+  --state-warn:#F59E0B;
+  --state-warn-bg:rgba(245,158,11,0.12);
+  --state-alert:#EF4444;
+  --state-alert-bg:rgba(239,68,68,0.12);
+
+  /* Bordes */
+  --border:rgba(255,255,255,0.06);
+  --border-strong:rgba(255,255,255,0.12);
+  --border-light:rgba(28,28,26,0.08);
+
+  /* Scanner */
+  --scan:rgba(59,130,246,0.4);
+
+  /* Tipografías */
+  --serif:'Instrument Sans',sans-serif;
+  --sans:'Inter',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg-deep);
+  color:var(--text-primary);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* ============================================================
+   SCANNER LINE
+============================================================ */
+.scanner-line{
+  position:fixed;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent 0%,var(--scan) 20%,var(--scan) 80%,transparent 100%);
+  box-shadow:0 0 8px var(--scan),0 0 16px var(--accent-glow);
+  z-index:1;pointer-events:none;
+  animation:scan-vertical 14s linear infinite;
+}
+@keyframes scan-vertical{
+  0%{top:-2%;opacity:0}
+  5%{opacity:0.7}
+  95%{opacity:0.7}
+  100%{top:102%;opacity:0}
+}
+
+/* Grid sutil de fondo en secciones dark */
+.bg-grid::before{
+  content:"";
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background-image:
+    linear-gradient(var(--border) 1px,transparent 1px),
+    linear-gradient(90deg,var(--border) 1px,transparent 1px);
+  background-size:48px 48px;
+  opacity:0.35;
+  z-index:0;
+  pointer-events:none;
+  mask-image:radial-gradient(ellipse at center,black 0%,transparent 70%);
+}
+
+/* ============================================================
+   NAV
+============================================================ */
+nav.topnav{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  background:rgba(18,24,38,0.78);
+  border-bottom:1px solid var(--border);
+  padding:1rem 2rem;
+}
+.nav-wrap{
+  max-width:1200px;margin:0 auto;
+  display:flex;align-items:center;justify-content:space-between;gap:2rem;
+}
+.logo{
+  font-family:var(--serif);font-weight:700;font-size:22px;
+  letter-spacing:-0.02em;color:var(--text-primary);
+  text-decoration:none;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.logo-mark{
+  width:28px;height:28px;background:var(--accent);
+  border-radius:6px;display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:white;font-weight:700;
+  box-shadow:0 0 20px var(--accent-glow);
+  font-family:var(--serif);
+}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-links a{
+  color:var(--text-secondary);text-decoration:none;
+  font-size:14px;font-weight:500;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--text-primary)}
+.btn-nav{
+  background:var(--accent);color:white;
+  padding:8px 18px;border-radius:8px;
+  font-weight:600;font-size:14px;
+  transition:all 0.2s;border:1px solid var(--accent);
+}
+.btn-nav:hover{
+  background:var(--accent-hover);
+  transform:translateY(-1px);
+  box-shadow:0 8px 24px var(--accent-glow);
+}
+
+/* ============================================================
+   HERO
+============================================================ */
+.hero{
+  padding:10rem 2rem 6rem;
+  position:relative;z-index:2;
+}
+.hero-wrap{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:1.05fr 1fr;gap:4rem;
+  align-items:center;
+}
+.launch-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-bg);border:1px solid rgba(59,130,246,0.25);
+  color:var(--accent);padding:6px 14px;border-radius:100px;
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;
+  margin-bottom:2rem;animation:pulse-badge 2.5s ease-in-out infinite;
+}
+.launch-badge::before{
+  content:"";width:6px;height:6px;
+  background:var(--accent);border-radius:50%;
+  box-shadow:0 0 10px var(--accent);
+  animation:blink 1.2s ease-in-out infinite;
+}
+@keyframes pulse-badge{0%,100%{transform:scale(1)}50%{transform:scale(1.02)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.3}}
+
+h1.hero-title{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(42px,5.8vw,68px);
+  line-height:1.04;letter-spacing:-0.035em;
+  margin-bottom:1.5rem;color:var(--text-primary);
+}
+h1.hero-title .accent{
+  color:var(--accent);position:relative;display:inline-block;
+  font-style:italic;
+}
+p.hero-lead{
+  font-size:18px;line-height:1.6;color:var(--text-secondary);
+  margin-bottom:2rem;max-width:540px;font-weight:400;
+}
+
+.cta-group{
+  display:flex;gap:1rem;flex-wrap:wrap;align-items:center;
+  margin-bottom:2rem;
+}
+
+.btn-primary{
+  background:var(--accent);color:white;
+  padding:15px 28px;border-radius:10px;font-weight:600;font-size:15px;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:10px;
+  border:none;cursor:pointer;
+  transition:all 0.25s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:0 4px 16px rgba(59,130,246,0.25),0 0 0 1px rgba(255,255,255,0.05) inset;
+  font-family:var(--sans);
+}
+.btn-primary:hover{
+  background:var(--accent-hover);
+  transform:translateY(-2px);
+  box-shadow:0 12px 32px var(--accent-glow),0 0 0 1px rgba(255,255,255,0.08) inset;
+}
+.btn-primary .arrow{transition:transform 0.25s}
+.btn-primary:hover .arrow{transform:translateX(4px)}
+
+.btn-secondary{
+  background:transparent;color:var(--text-primary);
+  padding:14px 26px;border-radius:10px;
+  font-weight:500;font-size:15px;text-decoration:none;
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid var(--border-strong);
+  transition:all 0.25s;font-family:var(--sans);
+}
+.btn-secondary:hover{
+  border-color:var(--accent);color:var(--accent);background:var(--accent-bg);
+}
+
+/* Trial CTA box dentro del hero */
+.hero-trial-box{
+  background:linear-gradient(135deg,rgba(59,130,246,0.08) 0%,rgba(6,182,212,0.05) 100%);
+  border:1px solid rgba(59,130,246,0.25);
+  border-radius:16px;
+  padding:1.5rem 1.75rem;
+  margin-bottom:2rem;
+  position:relative;
+  overflow:hidden;
+}
+.hero-trial-box::before{
+  content:"";
+  position:absolute;top:0;left:0;width:4px;height:100%;
+  background:linear-gradient(180deg,var(--accent),#06B6D4);
+  border-radius:4px 0 0 4px;
+}
+.htb-top{
+  display:flex;align-items:center;gap:14px;margin-bottom:1.25rem;
+}
+.htb-gift{font-size:28px;line-height:1}
+.htb-title{
+  font-family:var(--serif);font-size:20px;font-weight:600;
+  color:var(--text-primary);letter-spacing:-0.015em;margin-bottom:2px;
+}
+.htb-sub{
+  font-size:13px;color:var(--text-secondary);font-weight:400;
+}
+.btn-primary-xl{
+  padding:17px 32px !important;
+  font-size:16px !important;
+}
+.btn-link{
+  border:none !important;background:transparent !important;
+  padding:15px 12px !important;color:var(--accent) !important;
+}
+.btn-link:hover{background:transparent !important;color:var(--accent-hover) !important}
+
+.hero-trust{
+  display:flex;align-items:center;gap:12px;
+  font-size:13px;color:var(--text-muted);
+  font-family:var(--mono);
+}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--state-ok);box-shadow:0 0 6px var(--state-ok)}
+
+/* ============================================================
+   HERO VISUAL — Dashboard animado
+============================================================ */
+.hero-visual{
+  position:relative;
+  border:1px solid var(--border-strong);
+  border-radius:16px;
+  background:var(--bg-mid);
+  overflow:hidden;
+  box-shadow:
+    0 40px 80px rgba(0,0,0,0.35),
+    0 0 0 1px rgba(255,255,255,0.04) inset,
+    0 0 60px rgba(59,130,246,0.08);
+}
+.visual-header{
+  background:var(--bg-card);
+  border-bottom:1px solid var(--border);
+  padding:14px 18px;
+  display:flex;align-items:center;gap:14px;
+}
+.visual-dots{display:flex;gap:6px}
+.visual-dots span{width:10px;height:10px;border-radius:50%}
+.visual-dots span:nth-child(1){background:#FF5F57}
+.visual-dots span:nth-child(2){background:#FDBC2E}
+.visual-dots span:nth-child(3){background:#28CA42}
+.visual-title{
+  font-family:var(--mono);font-size:12px;
+  color:var(--text-secondary);letter-spacing:0.02em;
+}
+.visual-body{
+  padding:22px;display:flex;flex-direction:column;gap:18px;
+}
+.proc-summary{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:10px;padding:14px 16px;
+  opacity:0;animation:fade-up 0.5s ease forwards 0.2s;
+}
+.proc-summary-top{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:10px;
+}
+.proc-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--text-muted);
+}
+.proc-count{font-family:var(--serif);letter-spacing:-0.015em}
+.proc-done{font-size:20px;font-weight:700;color:var(--text-primary)}
+.proc-slash{color:var(--text-faint);margin:0 3px;font-size:16px}
+.proc-total{font-size:14px;color:var(--text-muted);font-weight:500}
+.progress-bar{
+  width:100%;height:6px;
+  background:rgba(255,255,255,0.06);border-radius:3px;
+  overflow:hidden;margin-bottom:10px;
+}
+.progress-fill{
+  height:100%;background:linear-gradient(90deg,var(--accent),#06B6D4);
+  width:0;animation:fill-bar 2.5s cubic-bezier(0.4,0,0.2,1) forwards;
+  animation-delay:0.4s;box-shadow:0 0 12px var(--accent);
+  border-radius:3px;
+}
+@keyframes fill-bar{to{width:100%}}
+.proc-meta{
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--mono);font-size:11px;color:var(--text-muted);
+}
+.proc-speed{color:var(--accent);font-weight:600;letter-spacing:0.02em}
+
+.result-tags{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+  opacity:0;animation:fade-up 0.5s ease forwards 0.8s;
+}
+.r-tag{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:10px;padding:12px;
+  display:flex;align-items:center;gap:12px;
+}
+.r-ico{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:700;flex-shrink:0;
+}
+.r-ok .r-ico{background:var(--state-ok-bg);color:var(--state-ok)}
+.r-warn .r-ico{background:var(--state-warn-bg);color:var(--state-warn)}
+.r-alert .r-ico{background:var(--state-alert-bg);color:var(--state-alert)}
+.r-num{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--text-primary);line-height:1}
+.r-label{font-family:var(--mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-top:3px}
+
+.file-list{
+  display:flex;flex-direction:column;gap:2px;
+  background:rgba(255,255,255,0.02);border:1px solid var(--border);
+  border-radius:10px;padding:8px;
+  opacity:0;animation:fade-up 0.5s ease forwards 1.2s;
+}
+.file-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 12px;font-family:var(--mono);font-size:11px;
+  border-radius:6px;transition:background 0.2s;
+}
+.file-row:hover{background:rgba(255,255,255,0.03)}
+.f-name{color:var(--text-secondary)}
+.f-tag{
+  font-size:9px;font-weight:600;letter-spacing:0.08em;
+  padding:3px 8px;border-radius:4px;text-transform:uppercase;
+}
+.f-tag-ok{background:var(--state-ok-bg);color:var(--state-ok)}
+.f-tag-warn{background:var(--state-warn-bg);color:var(--state-warn)}
+.f-tag-alert{background:var(--state-alert-bg);color:var(--state-alert)}
+@keyframes fade-up{
+  from{opacity:0;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* ============================================================
+   HERO DEMO — Antes / Procesando / Después
+============================================================ */
+.hero-demo .visual-header{
+  justify-content:space-between;
+}
+.demo-btn{
+  background:var(--accent);color:white;border:none;
+  padding:6px 14px;border-radius:6px;cursor:pointer;
+  font-family:var(--sans);font-size:12px;font-weight:600;
+  transition:all 0.2s;margin-left:auto;
+  box-shadow:0 2px 8px var(--accent-glow);
+}
+.demo-btn:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.demo-btn:disabled{opacity:0.7;cursor:wait}
+
+.demo-body{padding:24px;min-height:380px;position:relative}
+
+/* Panel 1: ANTES */
+.demo-folder-head{
+  display:flex;align-items:center;gap:10px;
+  padding-bottom:14px;margin-bottom:14px;
+  border-bottom:1px solid var(--border);
+  font-family:var(--mono);font-size:13px;
+}
+.demo-folder-icon{font-size:18px}
+.demo-folder-name{color:var(--text-primary);font-weight:600}
+.demo-folder-count{color:var(--text-muted);font-size:12px}
+
+.demo-files-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:6px;
+}
+.demo-file-item{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;background:rgba(255,255,255,0.02);
+  border:1px solid var(--border);border-radius:6px;
+  font-family:var(--mono);font-size:11.5px;
+  color:var(--text-secondary);
+}
+
+.demo-before-status{
+  margin-top:16px;padding-top:14px;
+  border-top:1px solid var(--border);
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-muted);letter-spacing:0.02em;
+}
+
+/* Panel 2: PROCESANDO */
+.demo-proc-wrap{
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  min-height:300px;gap:1rem;padding:2rem;
+}
+.demo-proc-msg{
+  font-family:var(--mono);font-size:14px;
+  color:var(--text-primary);font-weight:500;
+  letter-spacing:0.02em;
+}
+.demo-progress-bar{
+  width:70%;height:8px;
+  background:rgba(255,255,255,0.06);
+  border-radius:4px;overflow:hidden;
+}
+.demo-progress-fill{
+  height:100%;width:0;
+  background:linear-gradient(90deg,var(--accent),#06B6D4);
+  border-radius:4px;transition:width 0.2s ease;
+  box-shadow:0 0 12px var(--accent);
+}
+.demo-proc-count{
+  font-family:var(--mono);font-size:13px;
+  color:var(--text-secondary);font-weight:600;
+}
+
+/* Panel 3: DESPUÉS */
+.demo-after-stats{
+  display:flex;align-items:center;gap:6px;
+  margin-bottom:16px;padding-bottom:14px;
+  border-bottom:1px solid var(--border);
+  font-family:var(--mono);font-size:12px;
+}
+.demo-after-ok{color:var(--state-ok);font-weight:600}
+.demo-after-speed{color:var(--text-muted)}
+
+.demo-folders{
+  display:flex;flex-direction:column;gap:6px;margin-bottom:18px;
+}
+.demo-folder-row{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-radius:8px;
+  font-family:var(--mono);font-size:12px;
+  border:1px solid;
+}
+.demo-folder-row .demo-folder-label{flex:1;font-weight:600}
+.demo-folder-row .demo-folder-qty{font-weight:600;font-size:11.5px}
+.demo-folder-ok{
+  background:var(--state-ok-bg);
+  border-color:rgba(16,185,129,0.25);
+  color:var(--state-ok);
+}
+.demo-folder-dup{
+  background:var(--accent-bg);
+  border-color:rgba(59,130,246,0.25);
+  color:var(--accent);
+}
+.demo-folder-rev{
+  background:var(--state-warn-bg);
+  border-color:rgba(245,158,11,0.25);
+  color:var(--state-warn);
+}
+
+.demo-reports{
+  padding-top:14px;border-top:1px solid var(--border);
+}
+.demo-reports-title{
+  font-family:var(--mono);font-size:10px;
+  color:var(--text-muted);letter-spacing:0.08em;
+  text-transform:uppercase;margin-bottom:8px;
+}
+.demo-reports-pills{
+  display:flex;flex-wrap:wrap;gap:6px;
+}
+.demo-rep-pill{
+  font-family:var(--mono);font-size:10px;
+  padding:5px 10px;border-radius:4px;
+}
+.demo-rep-excel{background:var(--state-ok-bg);color:var(--state-ok)}
+.demo-rep-html{background:var(--accent-bg);color:var(--accent)}
+.demo-rep-pdf{background:var(--state-alert-bg);color:var(--state-alert)}
+
+.demo-reset{
+  margin-top:14px;
+  background:transparent;border:1px solid var(--border-strong);
+  color:var(--text-muted);font-family:var(--mono);
+  font-size:11px;padding:6px 14px;border-radius:4px;
+  cursor:pointer;transition:all 0.2s;
+  letter-spacing:0.04em;
+}
+.demo-reset:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ============================================================
+   STATS BAR (light, transición)
+============================================================ */
+.stats-bar{
+  background:var(--bg-light);
+  padding:3rem 2rem;
+  border-top:1px solid var(--border-light);
+  border-bottom:1px solid var(--border-light);
+  position:relative;z-index:2;
+}
+.stats-wrap{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+}
+.stat-cell{
+  text-align:center;padding:1.5rem 1rem;
+  border-right:1px solid var(--border-light);
+}
+.stat-cell:last-child{border-right:none}
+.stat-num{
+  font-family:var(--serif);font-size:56px;font-weight:600;
+  color:var(--accent);line-height:1;
+  letter-spacing:-0.035em;margin-bottom:12px;
+}
+.stat-label{font-size:13px;color:var(--text-dark-sub);line-height:1.5}
+
+/* ============================================================
+   SECCIÓN TRIAL DESTACADO (dark)
+============================================================ */
+.trial-section{
+  padding:6rem 2rem;position:relative;z-index:2;
+  background:
+    radial-gradient(ellipse at 50% 0%,var(--accent-bg) 0%,transparent 50%),
+    var(--bg-dark);
+  border-top:1px solid var(--border);
+}
+.trial-wrap{max-width:1000px;margin:0 auto;text-align:center}
+.section-label{
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:1rem;
+}
+.section-label.alt{color:var(--accent)}
+h2.section-title{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(36px,5vw,56px);line-height:1.05;
+  letter-spacing:-0.03em;margin-bottom:1.25rem;
+}
+.section-sub{
+  font-size:18px;color:var(--text-secondary);
+  max-width:600px;margin:0 auto 3rem;line-height:1.6;
+}
+.section-header{text-align:center;margin-bottom:4rem}
+.section-header.light h2.section-title{color:var(--text-dark)}
+.section-header.light .section-sub{color:var(--text-dark-sub)}
+
+.trial-features{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+  margin:3rem 0;
+}
+.trial-feat{
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:12px;padding:1.5rem 1rem;transition:all 0.3s;
+}
+.trial-feat:hover{
+  border-color:var(--accent);transform:translateY(-4px);
+  box-shadow:0 16px 32px rgba(0,0,0,0.3);
+}
+.trial-feat-num{
+  font-family:var(--serif);font-size:32px;font-weight:700;
+  color:var(--accent);line-height:1;
+  letter-spacing:-0.02em;margin-bottom:6px;
+}
+.trial-feat-label{font-size:13px;color:var(--text-secondary);font-weight:500}
+
+.trial-cta{
+  margin-top:3rem;
+  display:inline-flex;flex-direction:column;align-items:center;gap:1rem;
+}
+.trial-cta-disclaimer{
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-muted);letter-spacing:0.05em;
+}
+.btn-xl{
+  background:var(--accent);color:white;
+  padding:18px 36px;border-radius:14px;font-weight:600;font-size:16px;
+  text-decoration:none;
+  display:inline-flex;align-items:center;gap:12px;
+  border:none;cursor:pointer;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  box-shadow:0 8px 32px var(--accent-glow),0 0 0 1px rgba(255,255,255,0.05) inset;
+  font-family:var(--sans);
+  position:relative;overflow:hidden;
+}
+.btn-xl::before{
+  content:"";position:absolute;top:0;left:-100%;
+  width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);
+  transition:left 0.6s;
+}
+.btn-xl:hover{
+  transform:translateY(-3px);
+  box-shadow:0 16px 48px var(--accent-glow);
+}
+.btn-xl:hover::before{left:100%}
+
+/* ============================================================
+   SIMULADOR (light)
+============================================================ */
+.sim-section{
+  padding:6rem 2rem;
+  background:var(--bg-light);
+  position:relative;z-index:2;
+}
+.sim-wrap{max-width:1200px;margin:0 auto}
+.sim-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem;
+}
+.sim-box{
+  background:white;border:1px solid var(--border-light);
+  border-radius:16px;padding:1.5rem;
+}
+.sim-box-title{
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-dark-sub);letter-spacing:0.08em;
+  text-transform:uppercase;margin-bottom:1rem;
+  padding-bottom:0.75rem;border-bottom:1px solid var(--border-light);
+}
+.file-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 12px;margin-bottom:6px;
+  background:var(--bg-light-2);border:1px solid transparent;
+  border-radius:8px;cursor:pointer;
+  transition:all 0.2s;
+}
+.file-item:hover{background:#ECE9E0}
+.file-item.selected{
+  background:var(--accent-bg-light);
+  border-color:rgba(59,130,246,0.3);
+}
+.fi-name{
+  flex:1;font-family:var(--mono);font-size:12px;color:var(--text-dark);
+}
+.fi-sz{
+  font-family:var(--mono);font-size:10px;color:var(--text-dark-sub);
+}
+.run-btn{
+  width:100%;margin-top:0.75rem;
+  background:var(--accent);color:white;
+  padding:12px;border-radius:8px;border:none;
+  font-family:var(--sans);font-size:14px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+}
+.run-btn:hover{background:var(--accent-hover)}
+.run-btn:disabled{opacity:0.5;cursor:not-allowed}
+#res-list{min-height:200px}
+.res-item{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:10px 12px;margin-bottom:6px;
+  background:var(--bg-light-2);border-radius:8px;
+  opacity:0;animation:fade-up 0.3s ease forwards;
+}
+.res-name{font-family:var(--mono);font-size:12px;color:var(--text-dark)}
+.res-tag{
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  padding:3px 8px;border-radius:4px;letter-spacing:0.05em;
+}
+.res-tag.ok{background:var(--state-ok-bg);color:var(--state-ok)}
+.res-tag.dup{background:var(--accent-bg-light);color:var(--accent)}
+.res-tag.alt{background:var(--state-alert-bg);color:var(--state-alert)}
+.res-tag.rev{background:var(--state-warn-bg);color:var(--state-warn)}
+.sim-sum{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+  padding:1rem;margin-top:1rem;
+  background:var(--bg-light-2);border-radius:8px;
+}
+.ss-n{font-family:var(--serif);font-size:26px;font-weight:700;line-height:1;text-align:center}
+.ss-l{
+  font-family:var(--mono);font-size:9px;color:var(--text-dark-sub);
+  text-align:center;margin-top:4px;letter-spacing:0.08em;
+}
+.sim-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:3rem 1.5rem;text-align:center;min-height:280px;
+}
+.sim-empty-icon{
+  font-size:40px;color:var(--accent);opacity:0.3;
+  margin-bottom:1rem;animation:bounce-down 2s ease-in-out infinite;
+}
+@keyframes bounce-down{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(6px)}
+}
+.sim-empty-text{
+  font-family:var(--mono);font-size:12px;
+  color:var(--text-dark-sub);line-height:1.7;
+}
+.sim-empty-text strong{color:var(--accent);font-weight:600}
+
+/* ============================================================
+   FUNCIONES (light)
+============================================================ */
+.features-section{
+  background:var(--bg-light);
+  padding:6rem 2rem;
+  position:relative;z-index:2;
+  border-top:1px solid var(--border-light);
+}
+.features-wrap{max-width:1200px;margin:0 auto}
+.feat-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;
+}
+.feat-card{
+  background:white;border:1px solid var(--border-light);
+  border-radius:16px;padding:2rem;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1);
+  position:relative;overflow:hidden;
+}
+.feat-card:hover{
+  transform:translateY(-4px);border-color:var(--accent);
+  box-shadow:0 20px 40px rgba(59,130,246,0.12);
+}
+.feat-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.feat-card:hover::before{opacity:1}
+.feat-num{
+  font-family:var(--mono);font-size:11px;color:var(--accent);
+  letter-spacing:0.12em;margin-bottom:0.75rem;
+}
+.feat-icon{
+  width:48px;height:48px;background:var(--accent-bg-light);
+  border-radius:12px;display:flex;align-items:center;justify-content:center;
+  margin-bottom:1rem;font-size:22px;
+}
+.feat-name{
+  font-family:var(--serif);font-size:22px;font-weight:600;
+  color:var(--text-dark);margin-bottom:0.75rem;
+  letter-spacing:-0.02em;line-height:1.2;
+}
+.feat-desc{font-size:14.5px;color:var(--text-dark-sub);line-height:1.6;margin-bottom:0.75rem}
+.feat-badge{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.06em;
+  color:var(--accent);font-weight:600;
+  padding:4px 8px;border-radius:4px;background:var(--accent-bg-light);
+  display:inline-block;
+}
+
+/* ============================================================
+   WORKFLOW (dark)
+============================================================ */
+.workflow-section{
+  background:var(--bg-deep);padding:6rem 2rem;
+  position:relative;z-index:2;
+  border-top:1px solid var(--border);
+}
+.workflow-wrap{max-width:1200px;margin:0 auto}
+.flow-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;
+  margin-top:3rem;
+}
+.flow-step{
+  background:var(--bg-mid);border:1px solid var(--border);
+  border-radius:14px;padding:1.75rem;position:relative;
+  transition:all 0.3s;
+}
+.flow-step:hover{border-color:var(--accent);transform:translateY(-3px)}
+.flow-n{
+  font-family:var(--mono);font-size:11px;color:var(--accent);
+  letter-spacing:0.12em;margin-bottom:1rem;
+}
+.flow-title{
+  font-family:var(--serif);font-size:18px;font-weight:600;
+  color:var(--text-primary);margin-bottom:0.5rem;
+  letter-spacing:-0.015em;
+}
+.flow-desc{font-size:13.5px;color:var(--text-secondary);line-height:1.55}
+
+/* ============================================================
+   PRICING (dark)
+============================================================ */
+.pricing-section{
+  background:var(--bg-dark);padding:6rem 2rem;
+  position:relative;z-index:2;
+  border-top:1px solid var(--border);
+}
+.pricing-wrap{max-width:1300px;margin:0 auto}
+
+.billing-toggle{
+  display:flex;background:var(--bg-card);
+  border:1px solid var(--border);border-radius:100px;
+  padding:5px;gap:2px;
+  margin:0 auto 3rem;width:fit-content;
+}
+.bt-option{
+  background:transparent;border:none;color:var(--text-secondary);
+  font-family:var(--sans);font-size:14px;font-weight:500;
+  padding:10px 24px;border-radius:100px;cursor:pointer;
+  transition:all 0.25s;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.bt-option:hover{color:var(--text-primary)}
+.bt-option.active{
+  background:var(--accent);color:white;
+  box-shadow:0 4px 12px var(--accent-glow);
+}
+.bt-save{
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:0.08em;text-transform:uppercase;
+  background:rgba(16,185,129,0.2);color:var(--state-ok);
+  padding:3px 7px;border-radius:4px;
+}
+.bt-option.active .bt-save{background:rgba(255,255,255,0.25);color:white}
+
+.price-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;
+}
+.price-card{
+  background:var(--bg-mid);border:1px solid var(--border);
+  border-radius:16px;padding:2rem 1.75rem;
+  display:flex;flex-direction:column;
+  transition:all 0.3s;position:relative;
+}
+.price-card:hover{transform:translateY(-4px);border-color:var(--border-strong)}
+.price-card.popular{
+  border:2px solid var(--accent);
+  background:linear-gradient(180deg,rgba(59,130,246,0.08) 0%,var(--bg-mid) 100%);
+  box-shadow:0 20px 48px rgba(59,130,246,0.18);
+}
+.popular-badge{
+  position:absolute;top:-12px;right:1.5rem;
+  background:var(--accent);color:white;
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:5px 10px;border-radius:100px;
+  box-shadow:0 4px 12px var(--accent-glow);
+}
+
+/* TRIAL destacado */
+.price-card.trial-featured{
+  border:2px solid var(--state-ok);
+  background:linear-gradient(180deg,rgba(16,185,129,0.08) 0%,var(--bg-mid) 100%);
+  box-shadow:0 20px 48px rgba(16,185,129,0.15);
+}
+.trial-badge{
+  position:absolute;top:-12px;left:1.5rem;
+  background:var(--state-ok);color:white;
+  font-family:var(--mono);font-size:9px;font-weight:700;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:5px 10px;border-radius:100px;
+  box-shadow:0 4px 12px rgba(16,185,129,0.35);
+}
+.trial-cta-btn{
+  background:var(--state-ok) !important;color:white;
+  border:none;
+}
+.trial-cta-btn:hover{
+  background:#0E9F72 !important;
+  box-shadow:0 8px 20px rgba(16,185,129,0.3) !important;
+}
+
+.price-name{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:8px;
+}
+.price-tagline{
+  font-size:13px;color:var(--text-muted);
+  margin-bottom:1.25rem;min-height:20px;
+}
+.price-amount{
+  font-family:var(--serif);font-size:44px;font-weight:700;
+  color:var(--text-primary);letter-spacing:-0.03em;
+  line-height:1;margin-bottom:4px;
+}
+.price-amount .currency{font-size:22px;vertical-align:top;color:var(--text-muted);font-weight:500;margin-right:2px}
+.price-amount .period{font-size:14px;color:var(--text-muted);font-weight:400;letter-spacing:0;margin-left:4px}
+.price-amount-ars{
+  font-family:var(--mono);font-size:12.5px;
+  color:var(--text-muted);margin-bottom:1.25rem;
+}
+.price-annual-note{
+  font-size:11.5px;color:var(--state-ok);
+  font-weight:500;margin-bottom:1.5rem;
+}
+.price-divider{height:1px;background:var(--border);margin:0 0 1.25rem}
+.price-features{list-style:none;margin:0 0 1.5rem;padding:0;flex:1}
+.price-features li{
+  font-size:13.5px;color:var(--text-secondary);
+  padding:6px 0 6px 22px;position:relative;line-height:1.5;
+}
+.price-features li::before{
+  content:"✓";position:absolute;left:0;top:7px;
+  color:var(--accent);font-weight:700;font-size:13px;
+}
+.price-features li.no::before{content:"—";color:var(--text-faint)}
+.price-features li.no{color:var(--text-faint)}
+
+.price-cta{
+  width:100%;padding:13px;background:var(--accent);color:white;
+  border:none;border-radius:10px;
+  font-weight:600;font-size:14px;cursor:pointer;
+  transition:all 0.25s;font-family:var(--sans);
+  text-align:center;text-decoration:none;display:block;
+}
+.price-cta:hover{
+  background:var(--accent-hover);transform:translateY(-1px);
+  box-shadow:0 8px 20px var(--accent-glow);
+}
+.price-cta.ghost{background:transparent;border:1px solid var(--border-strong);color:var(--text-primary)}
+.price-cta.ghost:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-bg);box-shadow:none}
+.price-cta.contact{background:transparent;border:1px dashed var(--border-strong);color:var(--text-primary)}
+.price-cta.contact:hover{border-color:var(--accent);color:var(--accent);border-style:solid}
+
+/* ============================================================
+   REPORTES (light)
+============================================================ */
+.reports-section{
+  background:var(--bg-light);padding:6rem 2rem;
+  position:relative;z-index:2;
+}
+.reports-wrap{max-width:1200px;margin:0 auto}
+.tabs-box{
+  background:white;border:1px solid var(--border-light);
+  border-radius:16px;overflow:hidden;margin-top:3rem;
+  box-shadow:0 4px 40px rgba(0,0,0,0.04);
+}
+.tabs-row{display:flex;border-bottom:1px solid var(--border-light);background:var(--bg-light-2)}
+.tab-btn{
+  flex:1;padding:14px;border:none;cursor:pointer;
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  letter-spacing:0.07em;text-transform:uppercase;
+  background:transparent;color:var(--text-dark-sub);
+  border-bottom:2px solid transparent;
+  transition:all 0.2s;
+}
+.tab-btn:hover{color:var(--text-dark)}
+.tab-btn.active{
+  background:white;color:var(--accent);
+  border-bottom-color:var(--accent);
+}
+.tab-panel{padding:2rem;display:none}
+.tab-panel.active{display:block}
+
+.report-head{
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;
+}
+.report-head-title{
+  font-family:var(--mono);font-size:10px;color:var(--text-dark-sub);
+  letter-spacing:0.08em;text-transform:uppercase;
+}
+.report-head-file{
+  font-size:15px;font-weight:600;color:var(--text-dark);margin-top:4px;
+}
+.report-head-pill{
+  font-family:var(--mono);font-size:10px;
+  padding:4px 10px;border-radius:3px;letter-spacing:0.05em;
+}
+.pill-excel{background:var(--state-ok-bg);color:var(--state-ok)}
+.pill-html{background:var(--accent-bg-light);color:var(--accent)}
+.pill-pdf{background:var(--state-alert-bg);color:var(--state-alert)}
+
+.excel-table{width:100%;border-collapse:collapse;font-size:12px;font-family:var(--mono)}
+.excel-table th{
+  background:var(--bg-light-2);padding:8px 10px;text-align:left;
+  color:var(--text-dark-sub);font-size:10px;letter-spacing:0.06em;
+  border-bottom:1px solid var(--border-light);
+}
+.excel-table td{
+  padding:7px 10px;border-bottom:1px solid var(--border-light);
+  color:var(--text-dark);
+}
+.excel-table tr.alt td{background:#FAFAF7}
+.status-pill{
+  padding:2px 7px;border-radius:2px;font-size:10px;font-weight:600;
+}
+.status-pill.ok{background:var(--state-ok-bg);color:var(--state-ok)}
+.status-pill.dup{background:var(--accent-bg-light);color:var(--accent)}
+.status-pill.rev{background:var(--state-warn-bg);color:var(--state-warn)}
+
+/* HTML report mockup */
+.html-dashboard{background:var(--bg-light-2);border-radius:8px;padding:1.5rem;border:1px solid var(--border-light)}
+.html-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1.25rem}
+.html-metric{
+  background:white;border-radius:6px;padding:0.875rem;text-align:center;
+  border:1px solid var(--border-light);
+}
+.hm-num{font-family:var(--serif);font-size:24px;font-weight:700;line-height:1}
+.hm-l{font-family:var(--mono);font-size:9px;color:var(--text-dark-sub);margin-top:3px;letter-spacing:0.05em}
+.score-box{
+  background:white;border-radius:6px;padding:1rem;
+  border:1px solid var(--border-light);margin-bottom:1rem;
+}
+.score-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:0.625rem}
+.score-label{font-family:var(--mono);font-size:10px;color:var(--text-dark-sub);letter-spacing:0.06em;text-transform:uppercase}
+.score-pill{
+  font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:3px;
+  letter-spacing:0.04em;background:var(--state-warn-bg);color:var(--state-warn);
+}
+.score-bar-bg{height:8px;background:var(--bg-light-2);border-radius:4px;overflow:hidden}
+.score-bar-fill{height:100%;width:54%;background:linear-gradient(90deg,var(--state-ok),var(--state-warn));border-radius:4px}
+.dups-box{background:white;border-radius:6px;padding:1rem;border:1px solid var(--border-light)}
+.dups-title{font-family:var(--mono);font-size:10px;color:var(--text-dark-sub);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:0.75rem}
+.dups-list{font-family:var(--mono);font-size:11px;line-height:2;color:var(--text-dark)}
+
+/* PDF report mockup */
+.pdf-mock{
+  background:#f8f8f8;border:1px solid var(--border-light);border-radius:6px;
+  padding:1.5rem;font-family:var(--mono);font-size:12px;
+}
+.pdf-mock-head{
+  display:flex;justify-content:space-between;align-items:flex-start;
+  padding-bottom:1rem;border-bottom:2px solid var(--text-dark);margin-bottom:1rem;
+}
+.pdf-title{font-size:13px;font-weight:600;color:var(--text-dark);letter-spacing:0.04em}
+.pdf-sub{font-size:11px;color:var(--text-dark-sub);margin-top:3px}
+.pdf-date{font-size:10px;color:var(--text-dark-sub);text-align:right}
+.pdf-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.pdf-block-label{font-size:10px;color:var(--text-dark-sub);margin-bottom:0.375rem;text-transform:uppercase;letter-spacing:0.05em}
+.pdf-state-box{
+  background:var(--state-warn-bg);border-left:3px solid var(--state-warn);
+  padding:0.5rem 0.75rem;border-radius:0 3px 3px 0;
+}
+.pdf-state-title{font-size:11px;font-weight:600;color:var(--state-warn)}
+.pdf-state-sub{font-size:10px;color:var(--text-dark-sub);margin-top:2px}
+.pdf-metrics{font-size:11px;color:var(--text-dark);line-height:1.8}
+
+/* ============================================================
+   ROADMAP (light con cards)
+============================================================ */
+.roadmap-section{
+  background:var(--bg-light-2);padding:6rem 2rem;
+  position:relative;z-index:2;
+  border-top:1px solid var(--border-light);
+}
+.roadmap-wrap{max-width:1200px;margin:0 auto}
+.roadmap-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:1rem;margin-top:3rem;
+}
+.roadmap-card{
+  background:white;border:1px solid var(--border-light);
+  border-radius:12px;padding:1.75rem 1.5rem;
+  transition:all 0.3s;
+}
+.roadmap-card:hover{
+  border-color:var(--accent);transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(59,130,246,0.1);
+}
+.rm-tag{
+  font-family:var(--mono);font-size:10px;color:var(--accent);
+  letter-spacing:0.1em;margin-bottom:8px;
+}
+.rm-name{
+  font-family:var(--serif);font-size:18px;font-weight:600;
+  color:var(--text-dark);margin-bottom:6px;letter-spacing:-0.015em;
+}
+.rm-desc{font-size:12.5px;color:var(--text-dark-sub);line-height:1.6}
+
+/* ============================================================
+   CTA FINAL (dark)
+============================================================ */
+.final-cta{
+  background:var(--bg-deep);padding:7rem 2rem;
+  text-align:center;position:relative;z-index:2;
+  border-top:1px solid var(--border);
+  overflow:hidden;
+}
+.final-cta::before{
+  content:"";position:absolute;top:0;left:0;right:0;bottom:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(59,130,246,0.08) 0%,transparent 60%);
+  pointer-events:none;
+}
+.final-cta-wrap{max-width:700px;margin:0 auto;position:relative;z-index:1}
+.final-cta h2{
+  font-family:var(--serif);font-size:clamp(36px,5vw,56px);
+  font-weight:600;line-height:1.05;letter-spacing:-0.035em;
+  color:var(--text-primary);margin-bottom:1.25rem;
+}
+.final-cta p{font-size:18px;color:var(--text-secondary);margin-bottom:2.5rem}
+.final-cta-group{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* ============================================================
+   FOOTER
+============================================================ */
+footer.site-footer{
+  background:var(--bg-deep);
+  border-top:1px solid var(--border);
+  padding:3rem 2rem 2rem;
+  position:relative;z-index:2;
+}
+.footer-wrap{
+  max-width:1200px;margin:0 auto;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:1.5rem;
+}
+.footer-brand{
+  display:flex;align-items:center;gap:0.5rem;
+  font-family:var(--serif);font-weight:700;font-size:18px;
+  color:var(--text-primary);
+}
+.footer-links{display:flex;gap:1.5rem;font-size:13px}
+.footer-links a{color:var(--text-secondary);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(--accent)}
+.footer-copy{
+  font-family:var(--mono);font-size:11px;
+  color:var(--text-muted);letter-spacing:0.04em;
+}
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+@media (max-width:900px){
+  .hero{padding:7rem 1.5rem 4rem}
+  .hero-wrap{grid-template-columns:1fr;gap:3rem}
+  .nav-links{display:none}
+  .nav-links .btn-nav{display:inline-flex}
+  .stats-wrap{grid-template-columns:repeat(2,1fr)}
+  .stat-cell{border-right:none;border-bottom:1px solid var(--border-light)}
+  .stat-cell:nth-child(2){border-right:none}
+  .trial-features{grid-template-columns:repeat(2,1fr)}
+  .trial-section,.features-section,.workflow-section,.pricing-section,
+  .reports-section,.roadmap-section,.sim-section{padding:4rem 1.5rem}
+  .sim-grid{grid-template-columns:1fr}
+  .feat-grid{grid-template-columns:1fr}
+  .flow-steps{grid-template-columns:repeat(2,1fr)}
+  .price-grid{grid-template-columns:1fr}
+  .html-metrics{grid-template-columns:repeat(2,1fr)}
+  .tabs-row{flex-wrap:wrap}
+  .pdf-grid{grid-template-columns:1fr}
+}
+
+/* ============================================================
+   MODALES (Lead + Consulta)
+============================================================ */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(10,14,24,0.75);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;
+  padding:1rem;
+  animation:modal-fade 0.25s ease;
+}
+.modal-overlay.open{display:flex}
+@keyframes modal-fade{from{opacity:0}to{opacity:1}}
+.modal-box{
+  background:var(--bg-mid);
+  border:1px solid var(--border-strong);
+  border-radius:20px;
+  width:100%;max-width:520px;
+  max-height:92vh;overflow-y:auto;
+  box-shadow:0 40px 80px rgba(0,0,0,0.5);
+  animation:modal-up 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes modal-up{from{opacity:0;transform:translateY(20px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+.modal-head{
+  padding:1.75rem 2rem 1rem;
+  border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:flex-start;gap:1rem;
+}
+.modal-title-wrap{flex:1}
+.modal-kicker{
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:0.5rem;
+}
+.modal-title{
+  font-family:var(--serif);font-size:24px;font-weight:600;
+  color:var(--text-primary);letter-spacing:-0.02em;line-height:1.2;
+  margin-bottom:0.5rem;
+}
+.modal-sub{
+  font-size:13.5px;color:var(--text-secondary);line-height:1.5;
+}
+.modal-close{
+  background:transparent;border:none;
+  color:var(--text-muted);
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;font-size:20px;line-height:1;
+  transition:all 0.2s;flex-shrink:0;
+}
+.modal-close:hover{background:rgba(255,255,255,0.06);color:var(--text-primary)}
+.modal-body{padding:1.5rem 2rem 2rem}
+.field{margin-bottom:1rem}
+.field label{
+  display:block;
+  font-family:var(--mono);font-size:10px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:var(--text-muted);margin-bottom:6px;
+}
+.field input,.field textarea,.field select{
+  width:100%;
+  background:var(--bg-deep);
+  border:1px solid var(--border-strong);
+  border-radius:10px;
+  padding:12px 14px;
+  color:var(--text-primary);
+  font-family:var(--sans);font-size:14px;
+  transition:all 0.2s;
+  outline:none;
+}
+.field textarea{resize:vertical;min-height:100px;line-height:1.5}
+.field input:focus,.field textarea:focus,.field select:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(59,130,246,0.15);
+}
+.field input::placeholder,.field textarea::placeholder{color:var(--text-faint)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.field-hint{
+  font-size:11.5px;color:var(--text-muted);margin-top:5px;
+}
+.modal-billing-toggle{
+  display:flex;background:var(--bg-deep);
+  border:1px solid var(--border);border-radius:8px;
+  padding:3px;gap:2px;margin-bottom:1rem;
+}
+.modal-billing-toggle button{
+  flex:1;background:transparent;border:none;
+  color:var(--text-secondary);
+  font-family:var(--sans);font-size:13px;font-weight:500;
+  padding:9px;border-radius:6px;cursor:pointer;
+  transition:all 0.2s;
+  display:inline-flex;align-items:center;justify-content:center;gap:6px;
+}
+.modal-billing-toggle button.active{
+  background:var(--accent);color:white;
+  box-shadow:0 2px 8px rgba(59,130,246,0.3);
+}
+.modal-billing-save{
+  font-family:var(--mono);font-size:8px;font-weight:700;
+  background:rgba(16,185,129,0.2);color:var(--state-ok);
+  padding:2px 5px;border-radius:3px;letter-spacing:0.05em;
+}
+.modal-billing-toggle button.active .modal-billing-save{
+  background:rgba(255,255,255,0.25);color:white;
+}
+.modal-submit{
+  width:100%;
+  background:var(--accent);color:white;
+  border:none;border-radius:10px;
+  padding:15px;margin-top:0.5rem;
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  cursor:pointer;transition:all 0.25s;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 16px rgba(59,130,246,0.25);
+}
+.modal-submit:hover{
+  background:var(--accent-hover);
+  transform:translateY(-1px);
+  box-shadow:0 8px 24px var(--accent-glow);
+}
+.modal-submit:disabled{opacity:0.6;cursor:wait;transform:none}
+.modal-submit.trial-mode{background:var(--state-ok);box-shadow:0 4px 16px rgba(16,185,129,0.25)}
+.modal-submit.trial-mode:hover{background:#0E9F72;box-shadow:0 8px 24px rgba(16,185,129,0.35)}
+.modal-footer-note{
+  margin-top:1rem;padding-top:1rem;
+  border-top:1px solid var(--border);
+  font-family:var(--mono);font-size:10.5px;
+  color:var(--text-muted);text-align:center;letter-spacing:0.03em;
+  line-height:1.6;
+}
+
+/* Pantalla de éxito */
+.success-panel{display:none;text-align:center;padding:1rem 0}
+.success-panel.show{display:block;animation:fade-up 0.4s ease}
+.success-icon{
+  width:64px;height:64px;margin:0 auto 1.25rem;
+  background:rgba(16,185,129,0.15);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--state-ok);font-size:32px;
+  animation:pop-in 0.5s cubic-bezier(0.34,1.56,0.64,1);
+}
+@keyframes pop-in{from{transform:scale(0)}to{transform:scale(1)}}
+.success-title{
+  font-family:var(--serif);font-size:22px;font-weight:600;
+  color:var(--text-primary);letter-spacing:-0.02em;
+  margin-bottom:0.5rem;
+}
+.success-sub{
+  font-size:14px;color:var(--text-secondary);
+  line-height:1.6;margin-bottom:1.5rem;
+}
+.success-actions{
+  display:flex;flex-direction:column;gap:0.75rem;margin-top:1.5rem;
+}
+.success-btn{
+  width:100%;padding:14px;border-radius:10px;
+  font-family:var(--sans);font-size:14px;font-weight:600;
+  cursor:pointer;transition:all 0.25s;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  text-decoration:none;border:none;
+}
+.success-btn-primary{
+  background:var(--accent);color:white;
+  box-shadow:0 4px 16px rgba(59,130,246,0.25);
+}
+.success-btn-primary:hover{background:var(--accent-hover);transform:translateY(-1px)}
+.success-btn-mp{
+  background:linear-gradient(135deg,#009EE3 0%,#0077B5 100%);color:white;
+}
+.success-btn-mp:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(0,158,227,0.3)}
+.success-btn-ghost{
+  background:transparent;color:var(--text-primary);
+  border:1px solid var(--border-strong);
+}
+.success-btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.success-steps{
+  background:rgba(59,130,246,0.05);
+  border:1px solid rgba(59,130,246,0.15);
+  border-radius:10px;padding:1rem 1.25rem;
+  margin:1.25rem 0;text-align:left;
+}
+.success-step{
+  display:flex;gap:10px;font-size:13px;
+  color:var(--text-secondary);line-height:1.5;
+  padding:4px 0;
+}
+.success-step-num{
+  flex-shrink:0;width:20px;height:20px;
+  background:var(--accent);color:white;
+  border-radius:50%;font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+}
+
+@media(max-width:600px){
+  .modal-head{padding:1.25rem 1.5rem 1rem}
+  .modal-body{padding:1.25rem 1.5rem 1.5rem}
+  .modal-title{font-size:20px}
+  .field-row{grid-template-columns:1fr}
+}
+/* ============================================================
+   MODALES (Lead capture + Consulta)
+============================================================ */
+.modal-overlay{
+  position:fixed;inset:0;z-index:200;
+  background:rgba(10,14,24,0.8);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;
+  padding:1rem;
+  opacity:0;transition:opacity 0.25s;
+}
+.modal-overlay.open{display:flex;opacity:1}
+.modal-box{
+  background:var(--bg-mid);
+  border:1px solid var(--border-strong);
+  border-radius:20px;
+  max-width:500px;width:100%;
+  max-height:90vh;overflow-y:auto;
+  position:relative;
+  box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.04) inset;
+  transform:translateY(20px);
+  transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-close{
+  position:absolute;top:1rem;right:1rem;z-index:2;
+  width:34px;height:34px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid var(--border);
+  border-radius:50%;color:var(--text-secondary);
+  font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.2s;
+}
+.modal-close:hover{background:rgba(255,255,255,0.1);color:var(--text-primary)}
+
+/* Modal HEADER */
+.modal-header{padding:2.25rem 2rem 1rem;position:relative}
+.modal-plan-pill{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:10px;
+  letter-spacing:0.12em;text-transform:uppercase;
+  background:var(--accent-bg);border:1px solid rgba(59,130,246,0.25);
+  color:var(--accent);padding:5px 11px;border-radius:100px;
+  margin-bottom:1rem;
+}
+.modal-plan-pill.trial{background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.3);color:var(--state-ok)}
+.modal-plan-pill.sentinel{background:rgba(245,158,11,0.12);border-color:rgba(245,158,11,0.3);color:var(--state-warn)}
+.modal-title{
+  font-family:var(--serif);font-size:26px;font-weight:600;
+  line-height:1.15;letter-spacing:-0.02em;
+  color:var(--text-primary);margin-bottom:0.5rem;
+}
+.modal-sub{
+  font-size:14.5px;color:var(--text-secondary);line-height:1.55;
+}
+
+/* Modal BODY */
+.modal-body{padding:0 2rem 2rem}
+.form-field{margin-bottom:1rem}
+.form-label{
+  display:block;
+  font-family:var(--mono);font-size:10px;
+  color:var(--text-muted);letter-spacing:0.08em;
+  text-transform:uppercase;margin-bottom:6px;
+}
+.form-input{
+  width:100%;padding:12px 14px;
+  background:var(--bg-card);
+  border:1px solid var(--border);
+  border-radius:10px;
+  color:var(--text-primary);
+  font-family:var(--sans);font-size:14.5px;
+  transition:all 0.2s;
+}
+.form-input:focus{
+  outline:none;border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-bg);
+}
+.form-input::placeholder{color:var(--text-faint)}
+textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
+
+.form-submit{
+  width:100%;padding:15px;margin-top:0.5rem;
+  background:var(--accent);color:white;border:none;
+  border-radius:10px;
+  font-family:var(--sans);font-size:15px;font-weight:600;
+  cursor:pointer;transition:all 0.2s;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+}
+.form-submit:hover{background:var(--accent-hover);transform:translateY(-1px);box-shadow:0 8px 20px var(--accent-glow)}
+.form-submit:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.form-submit.trial{background:var(--state-ok)}
+.form-submit.trial:hover{background:#0E9F72;box-shadow:0 8px 20px rgba(16,185,129,0.3)}
+
+.form-note{
+  font-family:var(--mono);font-size:10.5px;
+  color:var(--text-muted);letter-spacing:0.04em;
+  margin-top:1rem;text-align:center;line-height:1.6;
+}
+
+/* Pantalla de éxito */
+.success-screen{
+  padding:3rem 2rem 2rem;text-align:center;
+}
+.success-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:var(--state-ok-bg);
+  display:inline-flex;align-items:center;justify-content:center;
+  font-size:30px;color:var(--state-ok);
+  margin-bottom:1.25rem;
+}
+.success-title{
+  font-family:var(--serif);font-size:24px;font-weight:600;
+  color:var(--text-primary);letter-spacing:-0.02em;
+  margin-bottom:0.75rem;line-height:1.2;
+}
+.success-msg{
+  font-size:14.5px;color:var(--text-secondary);
+  line-height:1.6;margin-bottom:2rem;
+  max-width:380px;margin-left:auto;margin-right:auto;
+}
+.success-actions{
+  display:flex;flex-direction:column;gap:10px;
+  max-width:340px;margin:0 auto;
+}
+.success-actions a{
+  padding:14px 20px;border-radius:10px;
+  font-family:var(--sans);font-size:14.5px;font-weight:600;
+  text-decoration:none;
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  transition:all 0.2s;border:1px solid transparent;
+}
+.success-actions .sa-download{
+  background:var(--accent);color:white;
+}
+.success-actions .sa-download:hover{background:var(--accent-hover);box-shadow:0 8px 20px var(--accent-glow)}
+.success-actions .sa-pay{
+  background:var(--state-ok);color:white;
+}
+.success-actions .sa-pay:hover{background:#0E9F72;box-shadow:0 8px 20px rgba(16,185,129,0.3)}
+.success-actions .sa-ghost{
+  background:transparent;color:var(--text-secondary);
+  border-color:var(--border-strong);
+}
+.success-actions .sa-ghost:hover{color:var(--text-primary);border-color:var(--accent)}
+.success-actions .sa-ico{font-size:18px}
+.success-flow-note{
+  margin-top:1.5rem;padding:1rem;
+  background:var(--bg-card);border:1px solid var(--border);
+  border-radius:10px;
+  font-size:12.5px;color:var(--text-secondary);line-height:1.55;
+  text-align:left;
+}
+.success-flow-note strong{color:var(--text-primary);font-weight:600}
+
+@media (max-width:600px){
+  .modal-box{max-width:100%}
+  .modal-header{padding:2rem 1.5rem 1rem}
+  .modal-body{padding:0 1.5rem 1.5rem}
+  .success-screen{padding:2.5rem 1.5rem 1.5rem}
+}
+/* ============================================
+   SCREENSHOTS SECTION
+   ============================================ */
+.screens-section{
+  background:var(--bg-light);
+  padding:120px 0 140px;
+  position:relative;
+  overflow:hidden;
+}
+.screens-section::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(rgba(28,28,26,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(28,28,26,0.025) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;
+  opacity:.7;
+}
+.screens-wrap{
+  max-width:1240px;
+  margin:0 auto;
+  padding:0 32px;
+  position:relative;
+  z-index:1;
+}
+.screens-section .section-header{
+  text-align:center;
+  margin-bottom:56px;
+}
+.screens-section .section-label{
+  color:var(--accent);
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  margin-bottom:14px;
+  display:inline-block;
+}
+.screens-section .section-title{
+  font-family:var(--serif);
+  font-size:clamp(32px,4.6vw,52px);
+  font-weight:600;
+  color:var(--text-dark);
+  letter-spacing:-0.025em;
+  line-height:1.08;
+  margin:0 0 16px;
+}
+.screens-section .section-sub{
+  font-size:17px;
+  color:var(--text-dark-sub);
+  max-width:580px;
+  margin:0 auto;
+  line-height:1.55;
+}
+
+/* Tabs */
+.screens-tabs{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+  margin-bottom:36px;
+  flex-wrap:wrap;
+}
+.screens-tab{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 22px;
+  background:var(--bg-light-3);
+  border:1px solid var(--border-light);
+  border-radius:10px;
+  cursor:pointer;
+  font-family:var(--sans);
+  font-size:14px;
+  font-weight:500;
+  color:var(--text-dark-sub);
+  transition:all 0.2s ease;
+  letter-spacing:-0.01em;
+}
+.screens-tab:hover{
+  border-color:rgba(59,130,246,0.3);
+  color:var(--text-dark);
+  transform:translateY(-1px);
+}
+.screens-tab.active{
+  background:var(--text-dark);
+  border-color:var(--text-dark);
+  color:#fff;
+  box-shadow:0 4px 14px rgba(28,28,26,0.18);
+}
+.screens-tab .st-num{
+  font-family:var(--mono);
+  font-size:11px;
+  opacity:0.55;
+  letter-spacing:0.05em;
+}
+.screens-tab.active .st-num{
+  opacity:0.7;
+}
+.screens-tab .st-name{
+  font-weight:600;
+}
+
+/* Mockup ventana */
+.screens-stage{
+  max-width:1080px;
+  margin:0 auto;
+}
+.screens-window{
+  background:#1e2638;
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.04) inset,
+    0 30px 60px -20px rgba(28,28,40,0.35),
+    0 18px 36px -12px rgba(28,28,40,0.22),
+    0 0 0 1px rgba(28,28,40,0.06);
+  border:1px solid rgba(28,28,40,0.08);
+}
+.screens-titlebar{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:11px 16px;
+  background:linear-gradient(180deg,#2a3247 0%,#232a3e 100%);
+  border-bottom:1px solid rgba(0,0,0,0.25);
+  position:relative;
+}
+.sw-dot{
+  width:11px;
+  height:11px;
+  border-radius:50%;
+  display:inline-block;
+}
+.sw-red{background:#ED6A5E;box-shadow:0 0 0 0.5px rgba(0,0,0,0.15) inset;}
+.sw-yellow{background:#F4BF4F;box-shadow:0 0 0 0.5px rgba(0,0,0,0.15) inset;}
+.sw-green{background:#62C554;box-shadow:0 0 0 0.5px rgba(0,0,0,0.15) inset;}
+.sw-title{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  font-family:var(--mono);
+  font-size:12px;
+  color:rgba(232,236,244,0.65);
+  letter-spacing:0.02em;
+  font-weight:500;
+}
+.screens-canvas{
+  position:relative;
+  background:#0f1420;
+  aspect-ratio:1440 / 860;
+  overflow:hidden;
+}
+.screens-img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:top center;
+  opacity:0;
+  transition:opacity 0.35s ease;
+  display:block;
+}
+.screens-img.active{
+  opacity:1;
+}
+
+/* Caption */
+.screens-caption{
+  margin-top:28px;
+  text-align:center;
+  max-width:720px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.screens-caption p{
+  font-size:16px;
+  color:var(--text-dark-sub);
+  line-height:1.6;
+  margin:0;
+}
+.screens-caption strong{
+  color:var(--text-dark);
+  font-weight:600;
+}
+
+/* Responsive */
+@media (max-width:900px){
+  .screens-section{padding:80px 0 90px;}
+  .screens-wrap{padding:0 20px;}
+  .screens-tab{padding:10px 16px;font-size:13px;}
+  .screens-tab .st-num{display:none;}
+  .sw-title{display:none;}
+  .screens-titlebar{padding:9px 12px;}
+}
+@media (max-width:520px){
+  .screens-tabs{gap:6px;}
+  .screens-tab{padding:9px 12px;font-size:12px;}
+  .screens-window{border-radius:10px;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- SCANNER -->
+<div class="scanner-line"></div>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="nav-wrap">
+    <a href="/" class="logo">
+      <span class="logo-mark">D</span>
+      DEXIAE
+    </a>
+    <div class="nav-links">
+      <a href="#simulador">Demo</a>
+      <a href="#funciones">Funciones</a>
+      <a href="#precios">Precios</a>
+      <a href="#reporte">Reportes</a>
+      <a href="#" onclick="event.preventDefault();openLeadModal('TRIAL')" class="btn-nav">Probar gratis</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero bg-grid">
+  <div class="hero-wrap">
+    <div class="hero-content">
+      <div class="launch-badge">Lanzamiento · Abril 2026</div>
+
+      <h1 class="hero-title">
+        Tus PDFs,<br>
+        procesados en<br>
+        <span class="accent">segundos.</span>
+      </h1>
+
+      <p class="hero-lead">
+        DEXIAE automatiza la extracción, clasificación y auditoría de documentos PDF en lote. Sin nubes, sin servidores — todo en tu equipo con total privacidad.
+      </p>
+
+      <!-- Trial CTA destacado -->
+      <div class="hero-trial-box">
+        <div class="htb-top">
+          <span class="htb-gift">🎁</span>
+          <div>
+            <div class="htb-title">Probá gratis 14 días</div>
+            <div class="htb-sub">Sin tarjeta · Sin registro complejo · 100 documentos incluidos</div>
+          </div>
+        </div>
+        <div class="cta-group">
+          <button onclick="openLeadModal('TRIAL')" class="btn-primary btn-primary-xl">
+            Empezar gratis ahora
+            <span class="arrow">→</span>
+          </button>
+          <a href="#simulador" class="btn-secondary btn-link">
+            Ver demo interactiva →
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-trust">
+        <span class="trust-dot"></span>
+        100% local · sin suscripciones ocultas · Windows
+      </div>
+    </div>
+
+    <!-- Visual: Demo interactiva (Antes / Procesando / Después) -->
+    <div class="hero-visual hero-demo">
+      <div class="visual-header">
+        <div class="visual-dots"><span></span><span></span><span></span></div>
+        <div class="visual-title" id="demo-label">Antes de DEXIAE</div>
+        <button class="demo-btn" id="demo-btn" onclick="runDemo()">▶ Procesar</button>
+      </div>
+      <div class="visual-body demo-body">
+
+        <!-- Panel 1: Antes -->
+        <div class="demo-panel" id="panel-before">
+          <div class="demo-folder-head">
+            <span class="demo-folder-icon">📁</span>
+            <span class="demo-folder-name">Documentos/</span>
+            <span class="demo-folder-count">— 24 archivos</span>
+          </div>
+          <div class="demo-files-grid">
+            <div class="demo-file-item"><span>📄</span><span>documento_001.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>documento_002.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>documento_003.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>documento_004.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>copia_doc_002.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>documento_005.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>documento_006.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>formulario_vacio.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>documento_007.pdf</span></div>
+            <div class="demo-file-item"><span>📄</span><span>+ 14 archivos más…</span></div>
+          </div>
+          <div class="demo-before-status">
+            Sin clasificar · Sin datos extraídos · Sin reporte
+          </div>
+        </div>
+
+        <!-- Panel 2: Procesando -->
+        <div class="demo-panel" id="panel-processing" style="display:none">
+          <div class="demo-proc-wrap">
+            <div class="demo-proc-msg" id="proc-msg">Escaneando archivos…</div>
+            <div class="demo-progress-bar"><div class="demo-progress-fill" id="proc-bar"></div></div>
+            <div class="demo-proc-count" id="proc-count">0 / 24</div>
+          </div>
+        </div>
+
+        <!-- Panel 3: Después -->
+        <div class="demo-panel" id="panel-after" style="display:none">
+          <div class="demo-after-stats">
+            <span class="demo-after-ok">✓ Procesado en 0m 30s</span>
+            <span class="demo-after-speed">· 48 docs/min</span>
+          </div>
+          <div class="demo-folders">
+            <div class="demo-folder-row demo-folder-ok">
+              <span class="demo-folder-icon">📁</span>
+              <span class="demo-folder-label">_PROCESADOS_</span>
+              <span class="demo-folder-qty">19 archivos</span>
+            </div>
+            <div class="demo-folder-row demo-folder-dup">
+              <span class="demo-folder-icon">📁</span>
+              <span class="demo-folder-label">_DUPLICADOS_</span>
+              <span class="demo-folder-qty">3 archivos</span>
+            </div>
+            <div class="demo-folder-row demo-folder-rev">
+              <span class="demo-folder-icon">📁</span>
+              <span class="demo-folder-label">_REVISAR_</span>
+              <span class="demo-folder-qty">2 archivos</span>
+            </div>
+          </div>
+          <div class="demo-reports">
+            <div class="demo-reports-title">Reportes generados</div>
+            <div class="demo-reports-pills">
+              <span class="demo-rep-pill demo-rep-excel">📊 Excel · todos los datos</span>
+              <span class="demo-rep-pill demo-rep-html">🌐 HTML · interactivo</span>
+              <span class="demo-rep-pill demo-rep-pdf">📄 PDF · auditoría</span>
+            </div>
+          </div>
+          <button class="demo-reset" onclick="resetDemo()">↺ Ver de nuevo</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS (light bar) -->
+<section class="stats-bar">
+  <div class="stats-wrap">
+    <div class="stat-cell"><div class="stat-num">&lt;1s</div><div class="stat-label">por documento procesado</div></div>
+    <div class="stat-cell"><div class="stat-num">100%</div><div class="stat-label">local, sin nube</div></div>
+    <div class="stat-cell"><div class="stat-num">6</div><div class="stat-label">herramientas PDF integradas</div></div>
+    <div class="stat-cell"><div class="stat-num">∞</div><div class="stat-label">plantillas en PRO y SENTINEL</div></div>
+  </div>
+</section>
+
+<!-- SIMULADOR (light) -->
+<section class="sim-section" id="simulador">
+  <div class="sim-wrap">
+    <div class="section-header light">
+      <div class="section-label">Demo interactiva</div>
+      <h2 class="section-title">Seleccioná archivos.<br>Mirá cómo trabaja DEXIAE.</h2>
+      <p class="section-sub">Hacé click en los documentos que querés procesar y presioná el botón. DEXIAE los clasifica en tiempo real — igual que con tus archivos reales.</p>
+    </div>
+
+    <div class="sim-grid">
+      <div class="sim-box">
+        <div class="sim-box-title">Documentos del lote — hacé click para seleccionar</div>
+        <div class="file-item" data-t="ok" data-n="contrato_2025_001.pdf" onclick="toggleF(this)">
+          <span>📄</span><span class="fi-name">contrato_2025_001.pdf</span><span class="fi-sz">124 KB</span>
+        </div>
+        <div class="file-item" data-t="ok" data-n="contrato_2025_002.pdf" onclick="toggleF(this)">
+          <span>📄</span><span class="fi-name">contrato_2025_002.pdf</span><span class="fi-sz">456 KB</span>
+        </div>
+        <div class="file-item" data-t="dup" data-n="contrato_2025_001_copia.pdf" onclick="toggleF(this)">
+          <span>📄</span><span class="fi-name">contrato_2025_001_copia.pdf</span><span class="fi-sz">124 KB</span>
+        </div>
+        <div class="file-item" data-t="alt" data-n="documento_firmado_003.pdf" onclick="toggleF(this)">
+          <span>📄</span><span class="fi-name">documento_firmado_003.pdf</span><span class="fi-sz">892 KB</span>
+        </div>
+        <div class="file-item" data-t="ok" data-n="resolucion_2025_004.pdf" onclick="toggleF(this)">
+          <span>📄</span><span class="fi-name">resolucion_2025_004.pdf</span><span class="fi-sz">203 KB</span>
+        </div>
+        <div class="file-item" data-t="rev" data-n="formulario_005.pdf" onclick="toggleF(this)">
+          <span>📄</span><span class="fi-name">formulario_005.pdf</span><span class="fi-sz">87 KB</span>
+        </div>
+        <div class="file-item" data-t="ok" data-n="acta_sesion_006.pdf" onclick="toggleF(this)">
+          <span>📄</span><span class="fi-name">acta_sesion_006.pdf</span><span class="fi-sz">334 KB</span>
+        </div>
+        <button class="run-btn" id="rbtn" onclick="runSim()">Procesar lote seleccionado</button>
+      </div>
+      <div class="sim-box">
+        <div class="sim-box-title">Resultado del procesamiento</div>
+        <div id="res-list"></div>
+        <div class="sim-empty" id="sim-empty">
+          <div class="sim-empty-icon">↓</div>
+          <div class="sim-empty-text">Seleccioná archivos y presioná<br><strong>Procesar lote seleccionado</strong> para ver el resultado</div>
+        </div>
+        <div class="sim-sum" id="sim-sum" style="display:none">
+          <div><div class="ss-n" id="sn-ok" style="color:var(--state-ok)">0</div><div class="ss-l">OK</div></div>
+          <div><div class="ss-n" id="sn-dup" style="color:var(--accent)">0</div><div class="ss-l">DUPLICADO</div></div>
+          <div><div class="ss-n" id="sn-alt" style="color:var(--state-alert)">0</div><div class="ss-l">ALERTA</div></div>
+          <div><div class="ss-n" id="sn-rev" style="color:var(--state-warn)">0</div><div class="ss-l">REVISAR</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FUNCIONES (light) -->
+<section class="features-section" id="funciones">
+  <div class="features-wrap">
+    <div class="section-header light">
+      <div class="section-label">Funciones principales</div>
+      <h2 class="section-title">Un motor completo de<br>auditoría documental.</h2>
+    </div>
+
+    <div class="feat-grid">
+      <div class="feat-card">
+        <div class="feat-num">01</div>
+        <div class="feat-icon">📋</div>
+        <div class="feat-name">Extracción por plantilla</div>
+        <div class="feat-desc">Configurás los campos una vez — nombre, trámite, monto, fecha. DEXIAE los extrae en cada lote sin intervención manual.</div>
+        <div class="feat-badge">Extractor · Listado · todas las ediciones</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">02</div>
+        <div class="feat-icon">🔐</div>
+        <div class="feat-name">Peritaje de firmas digitales</div>
+        <div class="feat-desc">Verificación criptográfica de integridad. Detecta firmas alteradas y extrae los metadatos del firmante. Compatible con firma digital argentina (ONTI).</div>
+        <div class="feat-badge">Solo PRO y SENTINEL</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">03</div>
+        <div class="feat-icon">👁</div>
+        <div class="feat-name">Centinela automático</div>
+        <div class="feat-desc">Vigilancia activa de carpetas. Cada archivo que llega se procesa solo, sin que tengas que hacer nada. Pausable en cualquier momento.</div>
+        <div class="feat-badge">Solo PRO y SENTINEL</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">04</div>
+        <div class="feat-icon">📊</div>
+        <div class="feat-name">Reporte PDF de auditoría</div>
+        <div class="feat-desc">Score de riesgo automático, detección de firmantes, control de expedientes faltantes y registro total de datos. Un reporte estructurado que le da respaldo absoluto a tus auditorías.</div>
+        <div class="feat-badge">Solo PRO y SENTINEL</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">05</div>
+        <div class="feat-icon">🔁</div>
+        <div class="feat-name">Detección de duplicados</div>
+        <div class="feat-desc">Compara contra el lote actual e histórico con clave configurable. Detecta el mismo trámite aunque el archivo se llame diferente.</div>
+        <div class="feat-badge">Todas las ediciones</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-num">06</div>
+        <div class="feat-icon">🛠</div>
+        <div class="feat-name">6 herramientas PDF integradas</div>
+        <div class="feat-desc">Unir PDFs · Dividir / Extraer páginas · PDF a Word · Imágenes a PDF · OCR por Lote · Fusionar Reportes. Todo dentro de la misma aplicación.</div>
+        <div class="feat-badge">CORE · PRO · SENTINEL <span style="opacity:.7;">— OCR por Lote desde PRO</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW (dark) -->
+<section class="workflow-section bg-grid">
+  <div class="workflow-wrap">
+    <div class="section-header">
+      <div class="section-label">Cómo funciona</div>
+      <h2 class="section-title">De la carpeta al reporte<br>en cuatro pasos.</h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-n">01</div>
+        <div class="flow-title">Configurás la plantilla</div>
+        <div class="flow-desc">Definís los campos que querés extraer — una sola vez. DEXIAE aprende la estructura de tus documentos.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-n">02</div>
+        <div class="flow-title">Seleccionás la carpeta</div>
+        <div class="flow-desc">Elegís la carpeta con los PDFs. El pre-vuelo valida que los documentos coincidan con la plantilla antes de procesar.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-n">03</div>
+        <div class="flow-title">DEXIAE procesa</div>
+        <div class="flow-desc">Extrae datos, verifica firmas, detecta duplicados y clasifica cada archivo en carpetas de resultado automáticamente.</div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-n">04</div>
+        <div class="flow-title">Recibís el reporte</div>
+        <div class="flow-desc">Excel con todos los datos extraídos. Reporte HTML interactivo y PDF profesional listo para compartir. En PRO y SENTINEL.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCREENSHOTS (light) -->
+<section class="screens-section">
+  <div class="screens-wrap">
+    <div class="section-header">
+      <div class="section-label">La aplicación</div>
+      <h2 class="section-title">DEXIAE en funcionamiento</h2>
+      <p class="section-sub">Capturas reales de la versión instalable. Sin maquetas, sin mockups inventados.</p>
+    </div>
+
+    <div class="screens-tabs" role="tablist">
+      <button type="button" class="screens-tab active" data-screen="ejecucion" role="tab" aria-selected="true">
+        <span class="st-num">01</span><span class="st-name">Ejecución</span>
+      </button>
+      <button type="button" class="screens-tab" data-screen="laboratorio" role="tab" aria-selected="false">
+        <span class="st-num">02</span><span class="st-name">Laboratorio</span>
+      </button>
+      <button type="button" class="screens-tab" data-screen="herramientas" role="tab" aria-selected="false">
+        <span class="st-num">03</span><span class="st-name">Herramientas</span>
+      </button>
+    </div>
+
+    <div class="screens-stage">
+      <div class="screens-window">
+        <div class="screens-titlebar">
+          <span class="sw-dot sw-red"></span>
+          <span class="sw-dot sw-yellow"></span>
+          <span class="sw-dot sw-green"></span>
+          <span class="sw-title" id="screens-title">DEXIAE — Ejecución</span>
+        </div>
+        <div class="screens-canvas">
+          <img src="screenshots/dexiae-ejecucion.jpg" alt="Módulo Ejecución de DEXIAE" class="screens-img active" id="screen-ejecucion" loading="lazy">
+          <img src="screenshots/dexiae-laboratorio.jpg" alt="Módulo Laboratorio de DEXIAE" class="screens-img" id="screen-laboratorio" loading="lazy">
+          <img src="screenshots/dexiae-herramientas.jpg" alt="Caja de Herramientas de DEXIAE" class="screens-img" id="screen-herramientas" loading="lazy">
+        </div>
+      </div>
+
+      <div class="screens-caption">
+        <p id="screens-desc"><strong>Ejecución.</strong> Elegís una plantilla, definís el patrón de renombrado, y DEXIAE procesa todos los PDFs del lote. Bitácora en vivo, peritaje legal opcional y vigilancia automática de carpetas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING (dark) -->
+<section class="pricing-section" id="precios">
+  <div class="pricing-wrap">
+    <div class="section-header">
+      <div class="section-label">Planes</div>
+      <h2 class="section-title">Elegí tu plan,<br>sin sorpresas.</h2>
+      <p class="section-sub">Todos los planes son por equipo. El precio en dólares es la referencia oficial; el monto en pesos se actualiza cada 3-6 meses. Una vez contratado, tu precio queda fijo mientras mantengas la suscripción.</p>
+    </div>
+
+    <div class="billing-toggle">
+      <button class="bt-option active" data-billing="monthly">Mensual</button>
+      <button class="bt-option" data-billing="annual">Anual <span class="bt-save">Ahorrás 20%</span></button>
+    </div>
+
+    <div class="price-grid">
+      <!-- TRIAL -->
+      <div class="price-card trial-featured">
+        <div class="trial-badge">🎁 Empezá acá</div>
+        <div class="price-name" style="color:var(--state-ok)">TRIAL</div>
+        <div class="price-tagline">Probalo sin riesgo</div>
+        <div class="price-amount"><span class="currency">$</span>0<span class="period">/ 14 días</span></div>
+        <div class="price-amount-ars">Sin tarjeta de crédito</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>100 documentos en total · 3 plantillas</li>
+          <li>Modos Extractor y Listado</li>
+          <li>Clasificación, duplicados, renombrado</li>
+          <li>Pre-vuelo Espejo y Ruteo</li>
+          <li>Reporte Excel</li>
+          <li class="no">Herramientas PDF</li>
+          <li class="no">Peritaje y Centinela</li>
+        </ul>
+        <button onclick="openLeadModal('TRIAL')" class="price-cta trial-cta-btn">Empezar gratis</button>
+      </div>
+
+      <!-- CORE -->
+      <div class="price-card" data-plan="core">
+        <div class="price-name">CORE</div>
+        <div class="price-tagline">Uso personal o profesional</div>
+        <div class="price-amount">
+          <span class="currency">US$</span><span class="p-monthly">29</span><span class="p-annual" style="display:none;">278</span><span class="period p-period-m">/ mes</span><span class="period p-period-a" style="display:none;">/ año</span>
+        </div>
+        <div class="price-amount-ars">
+          <span class="p-monthly">≈ AR$ 44.500 / mes</span>
+          <span class="p-annual" style="display:none;">≈ AR$ 425.000 / año</span>
+        </div>
+        <div class="price-annual-note p-save-note" style="display:none;">Ahorrás AR$ 109.000 vs plan mensual</div>
+        <div class="price-annual-note p-monthly-note">Anual disponible — ahorrás 20%</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>100 docs/mes · 3 plantillas</li>
+          <li>Todo lo de TRIAL</li>
+          <li>Unir, dividir y extraer páginas PDF</li>
+          <li>PDF a Word · imágenes a PDF</li>
+          <li class="no">Sin peritaje ni Centinela</li>
+          <li class="no">Sin reportes HTML/PDF</li>
+        </ul>
+        <button type="button" onclick="openLeadModal('CORE')" class="price-cta plan-cta">Activar CORE</button>
+      </div>
+
+      <!-- PRO (popular) -->
+      <div class="price-card popular" data-plan="pro">
+        <div class="popular-badge">Más elegido</div>
+        <div class="price-name">PRO</div>
+        <div class="price-tagline">Auditoría completa con integridad</div>
+        <div class="price-amount">
+          <span class="currency">US$</span><span class="p-monthly">89</span><span class="p-annual" style="display:none;">854</span><span class="period p-period-m">/ mes</span><span class="period p-period-a" style="display:none;">/ año</span>
+        </div>
+        <div class="price-amount-ars">
+          <span class="p-monthly">≈ AR$ 135.000 / mes</span>
+          <span class="p-annual" style="display:none;">≈ AR$ 1.295.000 / año</span>
+        </div>
+        <div class="price-annual-note p-save-note" style="display:none;">Ahorrás AR$ 325.000 vs plan mensual</div>
+        <div class="price-annual-note p-monthly-note">Anual disponible — ahorrás 20%</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>350 docs/mes · plantillas ilimitadas</li>
+          <li>Todo lo de CORE</li>
+          <li>Peritaje de firmas digitales (verificación + metadatos)</li>
+          <li>OCR por lote · fusionar reportes</li>
+          <li>Reportes HTML interactivo y PDF auditoría</li>
+          <li>Score de riesgo · gaps de numeración</li>
+          <li>Centinela automático de carpetas</li>
+        </ul>
+        <button type="button" onclick="openLeadModal('PRO')" class="price-cta plan-cta">Quiero PRO</button>
+      </div>
+
+      <!-- SENTINEL -->
+      <div class="price-card">
+        <div class="price-name">SENTINEL</div>
+        <div class="price-tagline">Para organizaciones</div>
+        <div class="price-amount">
+          <span class="currency">desde US$</span><span class="p-monthly">150</span><span class="p-annual" style="display:none;">1.500</span><span class="period p-period-m">/ equipo/mes</span><span class="period p-period-a" style="display:none;">/ equipo/año</span>
+        </div>
+        <div class="price-amount-ars">contractual · cotización por organización</div>
+        <div class="price-divider"></div>
+        <ul class="price-features">
+          <li>Documentos ilimitados</li>
+          <li>Todo lo de PRO</li>
+          <li>Múltiples equipos</li>
+          <li>Caps configurables por contrato</li>
+          <li>Onboarding personal incluido</li>
+          <li>Soporte prioritario directo</li>
+        </ul>
+        <button type="button" onclick="openLeadModal('SENTINEL')" class="price-cta contact">Quiero SENTINEL</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORTES (light con tabs) -->
+<section class="reports-section" id="reporte">
+  <div class="reports-wrap">
+    <div class="section-header light">
+      <div class="section-label">Reportes</div>
+      <h2 class="section-title">El resultado de cada lote,<br>documentado y listo para usar.</h2>
+      <p class="section-sub" style="color:var(--text-dark-sub)">DEXIAE genera tres tipos de reporte por lote. Explorá cada uno haciendo click en las pestañas.</p>
+    </div>
+
+    <div class="tabs-box">
+      <div class="tabs-row">
+        <button class="tab-btn active" onclick="showTab('excel', this)">📊 Excel</button>
+        <button class="tab-btn" onclick="showTab('html', this)">🌐 HTML interactivo</button>
+        <button class="tab-btn" onclick="showTab('pdf', this)">📄 PDF auditoría</button>
+      </div>
+
+      <!-- Excel -->
+      <div class="tab-panel active" id="rep-excel">
+        <div class="report-head">
+          <div>
+            <div class="report-head-title">Reporte Excel — todas las ediciones</div>
+            <div class="report-head-file">Reporte_lote_20_docs.xlsx</div>
+          </div>
+          <div class="report-head-pill pill-excel">EXCEL</div>
+        </div>
+        <div style="overflow-x:auto">
+          <table class="excel-table">
+            <thead>
+              <tr>
+                <th>ARCHIVO</th><th>ESTADO</th><th>CAMPO 1</th><th>CAMPO 2</th><th>CAMPO 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>documento_001.pdf</td>
+                <td><span class="status-pill ok">OK</span></td>
+                <td>000001</td><td>valor extraído A</td><td>valor extraído B</td>
+              </tr>
+              <tr class="alt">
+                <td>documento_002.pdf</td>
+                <td><span class="status-pill ok">OK</span></td>
+                <td>000002</td><td>valor extraído A</td><td>valor extraído B</td>
+              </tr>
+              <tr>
+                <td>documento_007.pdf</td>
+                <td><span class="status-pill dup">DUPLICADO</span></td>
+                <td>000001</td><td>valor extraído A</td><td style="color:var(--text-dark-sub)">— dup. de doc_001</td>
+              </tr>
+              <tr class="alt">
+                <td>documento_018.pdf</td>
+                <td><span class="status-pill rev">REVISAR</span></td>
+                <td style="color:var(--text-dark-sub)">—</td>
+                <td style="color:var(--text-dark-sub)">—</td>
+                <td style="color:var(--text-dark-sub)">—</td>
+              </tr>
+              <tr style="background:var(--bg-light-2)">
+                <td colspan="5" style="text-align:center;color:var(--text-dark-sub);font-size:11px">+ 16 registros más · 20 docs en total · ver Excel completo</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div style="margin-top:1rem;font-size:12px;color:var(--text-dark-sub);font-family:var(--mono)">Una fila por documento. Todos los campos de tu plantilla. Disponible en todas las ediciones.</div>
+      </div>
+
+      <!-- HTML -->
+      <div class="tab-panel" id="rep-html">
+        <div class="report-head">
+          <div>
+            <div class="report-head-title">Reporte HTML — PRO y SENTINEL</div>
+            <div class="report-head-file">Reporte_12-04-2026_REPORTE.html</div>
+          </div>
+          <div class="report-head-pill pill-html">HTML</div>
+        </div>
+        <div class="html-dashboard">
+          <div class="html-metrics">
+            <div class="html-metric"><div class="hm-num" style="color:var(--state-ok)">12</div><div class="hm-l">OK</div></div>
+            <div class="html-metric"><div class="hm-num" style="color:var(--accent)">6</div><div class="hm-l">DUPLICADOS</div></div>
+            <div class="html-metric"><div class="hm-num" style="color:var(--state-alert)">0</div><div class="hm-l">ALERTAS</div></div>
+            <div class="html-metric"><div class="hm-num" style="color:var(--state-warn)">2</div><div class="hm-l">REVISAR</div></div>
+          </div>
+          <div class="score-box">
+            <div class="score-top">
+              <div class="score-label">Score de riesgo del lote</div>
+              <div class="score-pill">RIESGO: MEDIO</div>
+            </div>
+            <div class="score-bar-bg"><div class="score-bar-fill"></div></div>
+            <div style="font-size:11px;color:var(--text-dark-sub);margin-top:.5rem">Lote con observaciones. Contiene 6 duplicados y 2 documentos a revisar.</div>
+          </div>
+          <div class="dups-box">
+            <div class="dups-title">Red de duplicados detectada</div>
+            <div class="dups-list">
+              <div><span style="color:var(--accent)">documento_007.pdf</span> <span style="color:var(--text-dark-sub)">→ dup. de</span> <span>documento_001.pdf</span></div>
+              <div><span style="color:var(--accent)">documento_015.pdf</span> <span style="color:var(--text-dark-sub)">→ dup. de</span> <span>documento_009.pdf</span></div>
+              <div style="color:var(--text-dark-sub)">+ 2 más · filtrables en el HTML completo</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:1rem;font-size:12px;color:var(--text-dark-sub);font-family:var(--mono)">Reporte interactivo con filtros por estado, búsqueda y exportación. Se abre directo en el navegador.</div>
+      </div>
+
+      <!-- PDF -->
+      <div class="tab-panel" id="rep-pdf">
+        <div class="report-head">
+          <div>
+            <div class="report-head-title">Reporte PDF — PRO y SENTINEL</div>
+            <div class="report-head-file">Reporte_12-04-2026_REPORTE.pdf</div>
+          </div>
+          <div class="report-head-pill pill-pdf">PDF</div>
+        </div>
+        <div class="pdf-mock">
+          <div class="pdf-mock-head">
+            <div>
+              <div class="pdf-title">DEXIAE — Auditoría Documental Automatizada</div>
+              <div class="pdf-sub">Reporte de Auditoría · LOTE-20260415_143022</div>
+            </div>
+            <div class="pdf-date">
+              <div>12/04/2026 02:15:54</div>
+              <div>Pág. 1 de 4</div>
+            </div>
+          </div>
+          <div class="pdf-grid">
+            <div>
+              <div class="pdf-block-label">Estado del lote</div>
+              <div class="pdf-state-box">
+                <div class="pdf-state-title">RIESGO: MEDIO</div>
+                <div class="pdf-state-sub">Lote con observaciones</div>
+              </div>
+            </div>
+            <div>
+              <div class="pdf-block-label">Métricas</div>
+              <div class="pdf-metrics">
+                20 documentos procesados<br>
+                0m 25s · 1.25s/doc<br>
+                Plantilla: Plantilla_propia
+              </div>
+            </div>
+          </div>
+          <div class="pdf-block-label" style="margin-bottom:0.5rem">Registros del lote</div>
+          <table style="width:100%;border-collapse:collapse;font-size:10.5px">
+            <tr style="background:#EFECEA">
+              <th style="padding:5px 7px;text-align:left;color:var(--text-dark-sub);font-size:9px;border-bottom:1px solid var(--border-light)">ARCHIVO</th>
+              <th style="padding:5px 7px;text-align:left;color:var(--text-dark-sub);font-size:9px;border-bottom:1px solid var(--border-light)">ESTADO</th>
+              <th style="padding:5px 7px;text-align:left;color:var(--text-dark-sub);font-size:9px;border-bottom:1px solid var(--border-light)">MEMO Nro</th>
+              <th style="padding:5px 7px;text-align:left;color:var(--text-dark-sub);font-size:9px;border-bottom:1px solid var(--border-light)">OTORGA</th>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-light)">
+              <td style="padding:4px 7px">documento_001.pdf</td>
+              <td style="padding:4px 7px;color:var(--state-ok)">OK</td>
+              <td style="padding:4px 7px">000001</td>
+              <td style="padding:4px 7px">valor extraído</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-light);background:#f2f2f2">
+              <td style="padding:4px 7px">documento_007.pdf</td>
+              <td style="padding:4px 7px;color:var(--accent)">DUPLICADO</td>
+              <td style="padding:4px 7px">000001</td>
+              <td style="padding:4px 7px;color:var(--text-dark-sub)">dup. de doc_001</td>
+            </tr>
+            <tr>
+              <td colspan="4" style="padding:4px 7px;color:var(--text-dark-sub);font-style:italic">Mostrando 2 de 20 registros · Ver Excel para datos completos.</td>
+            </tr>
+          </table>
+          <div style="margin-top:1rem;font-size:10px;color:var(--text-dark-sub);text-align:center;border-top:1px solid var(--border-light);padding-top:.75rem">
+            DEXIAE — Document Extraction &amp; Intelligent Automation Engine · LOTE-20260415_143022
+          </div>
+        </div>
+        <div style="margin-top:1rem;font-size:12px;color:var(--text-dark-sub);font-family:var(--mono)">4 páginas. Score de riesgo, red de duplicados, peritaje de firmas y tabla completa de registros.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP (light) -->
+<section class="roadmap-section">
+  <div class="roadmap-wrap">
+    <div class="section-header light">
+      <div class="section-label">Roadmap técnico</div>
+      <h2 class="section-title">Lo que viene.</h2>
+      <p class="section-sub" style="color:var(--text-dark-sub)">Próximas capacidades en desarrollo para las siguientes versiones de DEXIAE.</p>
+    </div>
+    <div class="roadmap-grid">
+      <div class="roadmap-card">
+        <div class="rm-tag">01 · PERSISTENCIA</div>
+        <div class="rm-name">Base de datos SQL</div>
+        <div class="rm-desc">Migración del almacenamiento a SQLite/PostgreSQL para histórico robusto, consultas cruzadas y auditoría de lotes a escala.</div>
+      </div>
+      <div class="roadmap-card">
+        <div class="rm-tag">02 · COLABORACIÓN</div>
+        <div class="rm-name">Soporte multiusuario</div>
+        <div class="rm-desc">Cuentas por operador con roles, permisos y trazabilidad. Varios usuarios trabajando en paralelo sobre la misma instalación.</div>
+      </div>
+      <div class="roadmap-card">
+        <div class="rm-tag">03 · AUTOMATIZACIÓN</div>
+        <div class="rm-name">Detección automática de plantilla</div>
+        <div class="rm-desc">Una vez creadas tus plantillas, DEXIAE identifica cuál aplicar a cada lote sin que tengas que seleccionarla manualmente.</div>
+      </div>
+      <div class="roadmap-card">
+        <div class="rm-tag">04 · VISIÓN</div>
+        <div class="rm-name">Dashboard de indicadores</div>
+        <div class="rm-desc">Panel con KPIs de procesamiento, volumen por período, tasas de inconsistencias y tendencias de riesgo del lote.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL (dark) -->
+<section class="final-cta">
+  <div class="final-cta-wrap">
+    <h2>14 días para comprobarlo<br>con tus propios documentos.</h2>
+    <p>Sin tarjeta de crédito. Sin servidores. Sin complicaciones. Instalás, configurás tu primera plantilla en 10 minutos y procesás un lote real.</p>
+    <div class="final-cta-group">
+      <a href="#" onclick="event.preventDefault();openLeadModal('TRIAL')" class="btn-xl">Empezar gratis ahora <span>→</span></a>
+      <a href="#" onclick="event.preventDefault();openConsulta()" class="btn-secondary">Tengo una consulta</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-wrap">
+    <div class="footer-brand">
+      <span class="logo-mark" style="width:24px;height:24px;font-size:12px;">D</span>
+      DEXIAE
+    </div>
+    <div class="footer-links">
+      <a href="#simulador">Demo</a>
+      <a href="#funciones">Funciones</a>
+      <a href="#precios">Precios</a>
+      <a href="mailto:dexiaesoporte@gmail.com">dexiaesoporte@gmail.com</a>
+      <a href="https://instagram.com/get.dexiae">@get.dexiae</a>
+    </div>
+    <div class="footer-copy">© 2026 DEXIAE · Córdoba, Argentina</div>
+  </div>
+</footer>
+
+<!-- ============================================================ -->
+<!-- MODAL: Captura de leads (TRIAL, CORE, PRO, SENTINEL) -->
+<!-- ============================================================ -->
+<div class="modal-overlay" id="lead-modal" onclick="handleOverlayClick(event, 'lead-modal')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeLeadModal()" aria-label="Cerrar">×</button>
+
+    <!-- FORMULARIO -->
+    <div id="lead-form-wrap">
+      <div class="modal-header">
+        <span class="modal-plan-pill" id="lead-pill">TRIAL</span>
+        <h3 class="modal-title" id="lead-title">Empezá tu prueba gratis</h3>
+        <p class="modal-sub" id="lead-sub">14 días para probarlo con tus propios documentos.</p>
+      </div>
+
+      <form class="modal-body" id="lead-form" action="https://formspree.io/f/xyklkprd" method="POST">
+        <input type="hidden" name="_subject" id="lead-subject" value="[DEXIAE] Nuevo lead TRIAL">
+        <input type="hidden" name="plan" id="lead-plan" value="TRIAL">
+        <input type="hidden" name="facturacion" id="lead-billing" value="-">
+        <input type="hidden" name="_gotcha" style="display:none">
+
+        <div class="form-field">
+          <label class="form-label" for="lead-nombre">Nombre completo *</label>
+          <input class="form-input" type="text" id="lead-nombre" name="nombre" required placeholder="Ej: María García" autocomplete="name">
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="lead-email">Email *</label>
+          <input class="form-input" type="email" id="lead-email" name="email" required placeholder="maria@ejemplo.com" autocomplete="email">
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="lead-tel">Teléfono (opcional)</label>
+          <input class="form-input" type="tel" id="lead-tel" name="telefono" required placeholder="+54 351 XXX XXXX" autocomplete="tel">
+        </div>
+
+        <div class="form-field" id="lead-org-wrap" style="display:none">
+          <label class="form-label" for="lead-org">Organización *</label>
+          <input class="form-input" type="text" id="lead-org" name="organizacion" placeholder="Nombre de la empresa u organismo">
+        </div>
+
+        <div class="form-field" id="lead-msg-wrap" style="display:none">
+          <label class="form-label" for="lead-msg">Contanos sobre tu necesidad</label>
+          <textarea class="form-input" id="lead-msg" name="mensaje" placeholder="Cantidad de equipos, volumen mensual, requisitos especiales..."></textarea>
+        </div>
+
+        <button type="submit" class="form-submit" id="lead-submit">
+          <span id="lead-submit-text">Continuar</span>
+        </button>
+
+        <div class="form-note" id="lead-note">
+          Sin tarjeta de crédito · Cancelás cuando quieras
+        </div>
+      </form>
+    </div>
+
+    <!-- ÉXITO TRIAL -->
+    <div id="lead-success-trial" style="display:none">
+      <div class="success-screen">
+        <div class="success-icon">✓</div>
+        <h3 class="success-title">¡Listo! Ya podés descargar DEXIAE</h3>
+        <p class="success-msg">Te enviamos un mail con la guía de primeros pasos. Descargá el instalador y probalo con tus documentos.</p>
+        <div class="success-actions">
+          <a href="https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v1.1.2/DEXIAE_Setup_V1.1.exe" class="sa-download" download>
+            <span class="sa-ico">⬇</span> Descargar DEXIAE Setup
+          </a>
+          <button type="button" onclick="closeLeadModal()" class="sa-ghost" style="cursor:pointer;background:transparent;font-family:var(--sans);">Cerrar</button>
+        </div>
+        <div class="success-flow-note">
+          <strong>Próximos pasos:</strong> instalá DEXIAE, ejecutá el programa y elegí "Iniciar TRIAL de 14 días". Podés procesar hasta 100 documentos durante el período de prueba.
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉXITO CORE/PRO -->
+    <div id="lead-success-paid" style="display:none">
+      <div class="success-screen">
+        <div class="success-icon">✓</div>
+        <h3 class="success-title" id="paid-title">Recibimos tu pedido</h3>
+        <p class="success-msg" id="paid-msg">Un paso más para tener <strong id="paid-plan">CORE</strong> activo. Completá el pago vía Mercado Pago y descargá el instalador.</p>
+        <div class="success-actions">
+          <a href="#" id="paid-pay-btn" class="sa-pay" target="_blank" rel="noopener">
+            <span class="sa-ico">💳</span> Ir a Mercado Pago
+          </a>
+          <a href="https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v1.1.2/DEXIAE_Setup_V1.1.exe" class="sa-download" download>
+            <span class="sa-ico">⬇</span> Descargar DEXIAE Setup
+          </a>
+        </div>
+        <div class="success-flow-note">
+          <strong>Cómo sigue:</strong> instalá DEXIAE y completá el pago. Una vez confirmado, te enviamos la clave de licencia por email en menos de 24hs hábiles al correo que dejaste.
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉXITO SENTINEL -->
+    <div id="lead-success-sentinel" style="display:none">
+      <div class="success-screen">
+        <div class="success-icon">✓</div>
+        <h3 class="success-title">Recibimos tu consulta</h3>
+        <p class="success-msg">Gracias por el interés en DEXIAE SENTINEL. Te contactamos en menos de 24 horas hábiles con una propuesta a medida para tu organización.</p>
+        <div class="success-actions">
+          <button type="button" onclick="closeLeadModal()" class="sa-ghost" style="cursor:pointer;background:transparent;font-family:var(--sans);">Cerrar</button>
+        </div>
+        <div class="success-flow-note">
+          <strong>Mientras tanto:</strong> podés descargar el TRIAL de 14 días para que tu equipo vea DEXIAE en acción antes de la reunión.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL: Tengo una consulta -->
+<!-- ============================================================ -->
+<div class="modal-overlay" id="consulta-modal" onclick="handleOverlayClick(event, 'consulta-modal')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeConsulta()" aria-label="Cerrar">×</button>
+
+    <div id="consulta-form-wrap">
+      <div class="modal-header">
+        <span class="modal-plan-pill">Consulta</span>
+        <h3 class="modal-title">Tengo una consulta</h3>
+        <p class="modal-sub">Escribinos lo que necesites saber. Respondemos en menos de 24hs hábiles.</p>
+      </div>
+
+      <form class="modal-body" id="consulta-form" action="https://formspree.io/f/xyklkprd" method="POST">
+        <input type="hidden" name="_subject" value="[DEXIAE] Consulta general">
+        <input type="hidden" name="tipo" value="consulta-general">
+        <input type="hidden" name="_gotcha" style="display:none">
+
+        <div class="form-field">
+          <label class="form-label" for="c-nombre">Nombre *</label>
+          <input class="form-input" type="text" id="c-nombre" name="nombre" required placeholder="Tu nombre" autocomplete="name">
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="c-email">Email *</label>
+          <input class="form-input" type="email" id="c-email" name="email" required placeholder="tu@ejemplo.com" autocomplete="email">
+        </div>
+
+        <div class="form-field">
+          <label class="form-label" for="c-msg">Tu consulta *</label>
+          <textarea class="form-input" id="c-msg" name="mensaje" required placeholder="Contanos en qué podemos ayudarte..."></textarea>
+        </div>
+
+        <button type="submit" class="form-submit" id="consulta-submit">
+          <span>Enviar consulta</span>
+        </button>
+
+        <div class="form-note">Te respondemos a ese email en menos de 24hs hábiles.</div>
+      </form>
+    </div>
+
+    <!-- Éxito consulta -->
+    <div id="consulta-success" style="display:none">
+      <div class="success-screen">
+        <div class="success-icon">✉</div>
+        <h3 class="success-title">Consulta recibida</h3>
+        <p class="success-msg">Gracias por escribirnos. Te respondemos al email que dejaste en menos de 24hs hábiles.</p>
+        <div class="success-actions">
+          <button type="button" onclick="closeConsulta()" class="sa-ghost" style="cursor:pointer;background:transparent;font-family:var(--sans);">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+// ========== HERO DEMO — Antes / Procesando / Después ==========
+const PROC_MSGS = [
+  'Escaneando archivos…',
+  'Verificando plantilla…',
+  'Extrayendo datos…',
+  'Detectando duplicados…',
+  'Clasificando archivos…',
+  'Generando reportes…'
+];
+let demoRunning = false;
+
+function runDemo(){
+  if (demoRunning) return;
+  demoRunning = true;
+  const btn = document.getElementById('demo-btn');
+  btn.disabled = true;
+  btn.textContent = '⏳';
+  document.getElementById('panel-before').style.display = 'none';
+  document.getElementById('panel-processing').style.display = 'block';
+  document.getElementById('demo-label').textContent = 'DEXIAE procesando…';
+
+  let step = 0, count = 0;
+  const bar = document.getElementById('proc-bar');
+  const msg = document.getElementById('proc-msg');
+  const cnt = document.getElementById('proc-count');
+  const total = 24;
+
+  const interval = setInterval(() => {
+    count += Math.floor(Math.random() * 3) + 1;
+    if (count > total) count = total;
+    const pct = Math.round(count / total * 100);
+    bar.style.width = pct + '%';
+    cnt.textContent = count + ' / ' + total;
+    if (step < PROC_MSGS.length - 1 && pct > (step + 1) * 16){
+      step++;
+      msg.textContent = PROC_MSGS[step];
+    }
+    if (count >= total){
+      clearInterval(interval);
+      setTimeout(() => {
+        document.getElementById('panel-processing').style.display = 'none';
+        document.getElementById('panel-after').style.display = 'block';
+        document.getElementById('demo-label').textContent = 'Después de DEXIAE ✓';
+      }, 500);
+    }
+  }, 180);
+}
+
+function resetDemo(){
+  demoRunning = false;
+  document.getElementById('panel-after').style.display = 'none';
+  document.getElementById('panel-before').style.display = 'block';
+  document.getElementById('demo-label').textContent = 'Antes de DEXIAE';
+  document.getElementById('demo-btn').disabled = false;
+  document.getElementById('demo-btn').textContent = '▶ Procesar';
+  document.getElementById('proc-bar').style.width = '0%';
+  document.getElementById('proc-count').textContent = '0 / 24';
+  document.getElementById('proc-msg').textContent = 'Escaneando archivos…';
+}
+
+// ========== SIMULADOR INTERACTIVO ==========
+function toggleF(el){
+  el.classList.toggle('selected');
+}
+
+function runSim(){
+  const items = document.querySelectorAll('.file-item.selected');
+  if (items.length === 0){
+    alert('Seleccioná al menos un documento para procesar.');
+    return;
+  }
+  const btn = document.getElementById('rbtn');
+  btn.disabled = true;
+  btn.textContent = 'Procesando…';
+
+  // Ocultar estado vacío y mostrar resumen
+  document.getElementById('sim-empty').style.display = 'none';
+  document.getElementById('sim-sum').style.display = 'grid';
+
+  const resList = document.getElementById('res-list');
+  resList.innerHTML = '';
+
+  const counters = {ok:0, dup:0, alt:0, rev:0};
+  const tagMap = {
+    ok: {text:'OK', cls:'ok'},
+    dup: {text:'DUPLICADO', cls:'dup'},
+    alt: {text:'ALERTA', cls:'alt'},
+    rev: {text:'REVISAR', cls:'rev'}
+  };
+
+  // Resetear contadores antes de animar
+  document.getElementById('sn-ok').textContent = '0';
+  document.getElementById('sn-dup').textContent = '0';
+  document.getElementById('sn-alt').textContent = '0';
+  document.getElementById('sn-rev').textContent = '0';
+
+  let idx = 0;
+  const interval = setInterval(() => {
+    if (idx >= items.length){
+      clearInterval(interval);
+      btn.disabled = false;
+      btn.textContent = 'Procesar otra vez';
+      return;
+    }
+    const it = items[idx];
+    const t = it.dataset.t;
+    const n = it.dataset.n;
+    counters[t]++;
+
+    const div = document.createElement('div');
+    div.className = 'res-item';
+    div.style.animationDelay = '0s';
+    const tag = tagMap[t];
+    div.innerHTML = `<span class="res-name">${n}</span><span class="res-tag ${tag.cls}">${tag.text}</span>`;
+    resList.appendChild(div);
+
+    document.getElementById('sn-ok').textContent = counters.ok;
+    document.getElementById('sn-dup').textContent = counters.dup;
+    document.getElementById('sn-alt').textContent = counters.alt;
+    document.getElementById('sn-rev').textContent = counters.rev;
+
+    idx++;
+  }, 350);
+}
+
+// ========== TABS DE REPORTES ==========
+function showTab(tab, btn){
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('rep-'+tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ========== BILLING TOGGLE ==========
+(function(){
+  const options = document.querySelectorAll('.bt-option');
+  const planCards = document.querySelectorAll('.price-card[data-plan]');
+
+  options.forEach(opt => {
+    opt.addEventListener('click', function(){
+      const mode = this.dataset.billing;
+      options.forEach(o => o.classList.remove('active'));
+      this.classList.add('active');
+
+      planCards.forEach(card => {
+        const monthly = card.querySelectorAll('.p-monthly');
+        const annual  = card.querySelectorAll('.p-annual');
+        const periodM = card.querySelectorAll('.p-period-m');
+        const periodA = card.querySelectorAll('.p-period-a');
+        const noteM   = card.querySelectorAll('.p-monthly-note');
+        const noteS   = card.querySelectorAll('.p-save-note');
+
+        if (mode === 'monthly'){
+          monthly.forEach(el => el.style.display = '');
+          annual.forEach(el => el.style.display = 'none');
+          periodM.forEach(el => el.style.display = '');
+          periodA.forEach(el => el.style.display = 'none');
+          noteM.forEach(el => el.style.display = '');
+          noteS.forEach(el => el.style.display = 'none');
+        } else {
+          monthly.forEach(el => el.style.display = 'none');
+          annual.forEach(el => el.style.display = '');
+          periodM.forEach(el => el.style.display = 'none');
+          periodA.forEach(el => el.style.display = '');
+          noteM.forEach(el => el.style.display = 'none');
+          noteS.forEach(el => el.style.display = '');
+        }
+
+        const cta = card.querySelector('.plan-cta');
+        if (cta){
+          const linkM = cta.dataset.linkMonthly;
+          const linkA = cta.dataset.linkAnnual;
+          if (linkM && linkA){
+            cta.href = (mode === 'annual') ? linkA : linkM;
+          }
+        }
+      });
+    });
+  });
+})();
+
+// ========== SMOOTH SCROLL ==========
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e){
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target){
+      e.preventDefault();
+      target.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+
+// ============================================================
+// MODALES — Lead capture + Consulta
+// ============================================================
+const FORMSPREE_URL = 'https://formspree.io/f/xyklkprd';
+
+// Links Mercado Pago por plan y facturación
+const MP_LINKS = {
+  CORE: {
+    monthly: 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=edd3249cabde4d0aa10001f73bfe7e4f',
+    annual:  'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=36d4523940f64923a39cc723003d5714'
+  },
+  PRO: {
+    monthly: 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=f739212a89904cadb057722ad9f1e49d',
+    annual:  'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=bf0b764a56dd4059b7059ee3b89be994'
+  }
+};
+
+// Configuración por plan
+const PLAN_CONFIG = {
+  TRIAL: {
+    pillText: 'TRIAL',
+    pillClass: 'trial',
+    title: 'Empezá tu prueba gratis',
+    sub: '14 días para probarlo con tus propios documentos. Te mandamos el instalador al instante.',
+    subject: '[DEXIAE] Nuevo lead TRIAL',
+    submitText: 'Obtener DEXIAE gratis',
+    note: 'Sin tarjeta de crédito · 14 días · 100 documentos',
+    submitClass: 'trial',
+    showOrg: true,
+    showMsg: true
+  },
+  CORE: {
+    pillText: 'CORE',
+    pillClass: '',
+    title: 'Activar DEXIAE CORE',
+    sub: 'Dejanos tus datos y accedé al pago. Activamos tu licencia en menos de 24hs hábiles.',
+    subject: '[DEXIAE] Nuevo lead CORE',
+    submitText: 'Continuar',
+    note: 'Cancelás cuando quieras · renovación automática',
+    submitClass: '',
+    showOrg: true,
+    showMsg: true
+  },
+  PRO: {
+    pillText: 'PRO',
+    pillClass: '',
+    title: 'Activar DEXIAE PRO',
+    sub: 'Dejanos tus datos y accedé al pago. Activamos tu licencia en menos de 24hs hábiles.',
+    subject: '[DEXIAE] Nuevo lead PRO',
+    submitText: 'Continuar',
+    note: 'Cancelás cuando quieras · renovación automática',
+    submitClass: '',
+    showOrg: true,
+    showMsg: true
+  },
+  SENTINEL: {
+    pillText: 'SENTINEL',
+    pillClass: 'sentinel',
+    title: 'Consultá por SENTINEL',
+    sub: 'Contanos sobre tu organización. Coordinamos una propuesta en menos de 24hs hábiles.',
+    subject: '[DEXIAE] Consulta SENTINEL',
+    submitText: 'Solicitar propuesta',
+    note: 'Contrato a medida · soporte prioritario incluido',
+    submitClass: '',
+    showOrg: true,
+    showMsg: true
+  }
+};
+
+let currentPlan = 'TRIAL';
+
+function getCurrentBilling(){
+  const activeBtn = document.querySelector('.bt-option.active');
+  return activeBtn ? activeBtn.dataset.billing : 'monthly';
+}
+
+// Reset total del estado del modal lead — limpia form, muestra formulario, oculta successes
+function resetLeadModalState(){
+  const form = document.getElementById('lead-form');
+  if (form) form.reset();
+
+  // Mostrar form, ocultar successes
+  document.getElementById('lead-form-wrap').style.display = 'block';
+  document.getElementById('lead-success-trial').style.display = 'none';
+  document.getElementById('lead-success-paid').style.display = 'none';
+  document.getElementById('lead-success-sentinel').style.display = 'none';
+
+  // Reset submit button
+  const submitBtn = document.getElementById('lead-submit');
+  const submitTxt = document.getElementById('lead-submit-text');
+  submitBtn.disabled = false;
+  submitBtn.className = 'form-submit';
+  if (submitTxt) submitTxt.textContent = 'Continuar';
+}
+
+function openLeadModal(plan){
+  currentPlan = plan || 'TRIAL';
+  const cfg = PLAN_CONFIG[currentPlan];
+  const billing = getCurrentBilling();
+
+  // Reset completo primero
+  resetLeadModalState();
+
+  // Textos header
+  const pill = document.getElementById('lead-pill');
+  pill.textContent = cfg.pillText;
+  pill.className = 'modal-plan-pill' + (cfg.pillClass ? ' ' + cfg.pillClass : '');
+
+  // Para CORE/PRO, sumar billing al título para transparencia
+  let titleFinal = cfg.title;
+  if (currentPlan === 'CORE' || currentPlan === 'PRO'){
+    const label = (billing === 'annual') ? 'anual' : 'mensual';
+    titleFinal = `Activar DEXIAE ${currentPlan} · ${label}`;
+  }
+  document.getElementById('lead-title').textContent = titleFinal;
+  document.getElementById('lead-sub').textContent = cfg.sub;
+  document.getElementById('lead-submit-text').textContent = cfg.submitText;
+  document.getElementById('lead-note').textContent = cfg.note;
+
+  // Clase submit button (trial verde o normal azul)
+  const submitBtn = document.getElementById('lead-submit');
+  submitBtn.className = 'form-submit' + (cfg.submitClass ? ' ' + cfg.submitClass : '');
+  submitBtn.disabled = false;
+
+  // Campos hidden
+  document.getElementById('lead-subject').value = cfg.subject;
+  document.getElementById('lead-plan').value = currentPlan;
+  document.getElementById('lead-billing').value = (currentPlan === 'CORE' || currentPlan === 'PRO') ? billing : '-';
+
+  // Campos condicionales
+  const orgWrap = document.getElementById('lead-org-wrap');
+  const orgInput = document.getElementById('lead-org');
+  orgWrap.style.display = cfg.showOrg ? 'block' : 'none';
+  if (cfg.showOrg) orgInput.setAttribute('required','required');
+  else orgInput.removeAttribute('required');
+
+  const msgWrap = document.getElementById('lead-msg-wrap');
+  const msgInput = document.getElementById('lead-msg');
+  msgWrap.style.display = cfg.showMsg ? 'block' : 'none';
+  if (cfg.showMsg) msgInput.setAttribute('required','required');
+  else msgInput.removeAttribute('required');
+
+  // Telefono: siempre requerido en todos los planes
+  const telInput = document.getElementById('lead-tel');
+  if (telInput) telInput.setAttribute('required','required');
+
+  // Abrir modal
+  document.getElementById('lead-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Focus primer campo
+  setTimeout(() => { document.getElementById('lead-nombre').focus(); }, 150);
+}
+
+function closeLeadModal(){
+  document.getElementById('lead-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  // Reset después de la animación (300ms)
+  setTimeout(resetLeadModalState, 300);
+}
+
+// Reset total del estado del modal consulta
+function resetConsultaModalState(){
+  const form = document.getElementById('consulta-form');
+  if (form) form.reset();
+  document.getElementById('consulta-form-wrap').style.display = 'block';
+  document.getElementById('consulta-success').style.display = 'none';
+  const btn = document.getElementById('consulta-submit');
+  if (btn){
+    btn.disabled = false;
+    btn.innerHTML = '<span>Enviar consulta</span>';
+  }
+}
+
+function openConsulta(){
+  resetConsultaModalState();
+  document.getElementById('consulta-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => { document.getElementById('c-nombre').focus(); }, 150);
+}
+
+function closeConsulta(){
+  document.getElementById('consulta-modal').classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(resetConsultaModalState, 300);
+}
+
+function handleOverlayClick(event, modalId){
+  if (event.target.id === modalId) {
+    if (modalId === 'lead-modal') closeLeadModal();
+    if (modalId === 'consulta-modal') closeConsulta();
+  }
+}
+
+// Handlers de submit
+document.addEventListener('DOMContentLoaded', function(){
+
+  // Lead form
+  const leadForm = document.getElementById('lead-form');
+  if (leadForm){
+    leadForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const btn = document.getElementById('lead-submit');
+      const txt = document.getElementById('lead-submit-text');
+      const originalTxt = txt.textContent;
+      btn.disabled = true;
+      txt.textContent = 'Enviando…';
+
+      try {
+        const formData = new FormData(leadForm);
+        const res = await fetch(FORMSPREE_URL, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok){
+          showLeadSuccess();
+        } else {
+          throw new Error('Formspree error');
+        }
+      } catch (err){
+        console.error(err);
+        alert('Hubo un problema al enviar. Por favor escribinos a dexiaesoporte@gmail.com');
+        btn.disabled = false;
+        txt.textContent = originalTxt;
+      }
+    });
+  }
+
+  // Consulta form
+  const consultaForm = document.getElementById('consulta-form');
+  if (consultaForm){
+    consultaForm.addEventListener('submit', async function(e){
+      e.preventDefault();
+      const btn = document.getElementById('consulta-submit');
+      const originalHTML = btn.innerHTML;
+      btn.disabled = true;
+      btn.innerHTML = '<span>Enviando…</span>';
+
+      try {
+        const formData = new FormData(consultaForm);
+        const res = await fetch(FORMSPREE_URL, {
+          method: 'POST',
+          body: formData,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok){
+          document.getElementById('consulta-form-wrap').style.display = 'none';
+          document.getElementById('consulta-success').style.display = 'block';
+        } else {
+          throw new Error('Formspree error');
+        }
+      } catch (err){
+        console.error(err);
+        alert('Hubo un problema al enviar. Por favor escribinos a dexiaesoporte@gmail.com');
+        btn.disabled = false;
+        btn.innerHTML = originalHTML;
+      }
+    });
+  }
+});
+
+function showLeadSuccess(){
+  // Ocultar formulario
+  document.getElementById('lead-form-wrap').style.display = 'none';
+
+  if (currentPlan === 'TRIAL'){
+    document.getElementById('lead-success-trial').style.display = 'block';
+  } else if (currentPlan === 'SENTINEL'){
+    document.getElementById('lead-success-sentinel').style.display = 'block';
+  } else {
+    // CORE o PRO
+    const billing = getCurrentBilling();
+    const mpUrl = MP_LINKS[currentPlan][billing];
+    const payBtn = document.getElementById('paid-pay-btn');
+    payBtn.href = mpUrl;
+    document.getElementById('paid-plan').textContent = currentPlan;
+    document.getElementById('paid-title').textContent = `Recibimos tu pedido ${currentPlan}`;
+
+    const billingLabel = (billing === 'annual') ? 'anual' : 'mensual';
+    const msgEl = document.getElementById('paid-msg');
+    msgEl.innerHTML = `Un paso más para tener <strong>${currentPlan} ${billingLabel}</strong> activo. Completá el pago vía Mercado Pago y descargá el instalador.`;
+
+    document.getElementById('lead-success-paid').style.display = 'block';
+  }
+}
+
+// Escape cierra modales
+document.addEventListener('keydown', function(e){
+  if (e.key === 'Escape'){
+    if (document.getElementById('lead-modal').classList.contains('open')) closeLeadModal();
+    if (document.getElementById('consulta-modal').classList.contains('open')) closeConsulta();
+  }
+});
+
+// ============================================
+// SCREENSHOTS TABS
+// ============================================
+(function(){
+  const SCREENS_DATA = {
+    ejecucion: {
+      title: 'DEXIAE — Ejecución',
+      desc: '<strong>Ejecución.</strong> Elegís una plantilla, definís el patrón de renombrado, y DEXIAE procesa todos los PDFs del lote. Bitácora en vivo, peritaje legal opcional y vigilancia automática de carpetas.'
+    },
+    laboratorio: {
+      title: 'DEXIAE — Laboratorio',
+      desc: '<strong>Laboratorio.</strong> Diseñá tus plantillas con vista previa real del documento. Definís columnas, etiquetas, estrategias de extracción y reglas de validación. Probás el resultado antes de procesar el lote completo.'
+    },
+    herramientas: {
+      title: 'DEXIAE — Herramientas',
+      desc: '<strong>Caja de Herramientas.</strong> Seis utilidades integradas para preparar tus documentos: unir PDFs, dividir / extraer páginas, PDF a Word, imágenes a PDF, OCR por Lote y Fusionar Reportes.'
+    }
+  };
+
+  const tabs = document.querySelectorAll('.screens-tab');
+  const imgs = document.querySelectorAll('.screens-img');
+  const titleEl = document.getElementById('screens-title');
+  const descEl = document.getElementById('screens-desc');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function(){
+      const screen = this.dataset.screen;
+      const data = SCREENS_DATA[screen];
+      if (!data) return;
+
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected','false');
+      });
+      this.classList.add('active');
+      this.setAttribute('aria-selected','true');
+
+      imgs.forEach(img => img.classList.remove('active'));
+      const target = document.getElementById('screen-' + screen);
+      if (target) target.classList.add('active');
+
+      if (titleEl) titleEl.textContent = data.title;
+      if (descEl) descEl.innerHTML = data.desc;
+    });
+  });
+})();
+
+</script>
+
+</body>
+</html>

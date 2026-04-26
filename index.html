@@ -1517,209 +1517,35 @@ textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
   .modal-body{padding:0 1.5rem 1.5rem}
   .success-screen{padding:2.5rem 1.5rem 1.5rem}
 }
-/* ============================================
-   SCREENSHOTS SECTION
-   ============================================ */
-.screens-section{
-  background:var(--bg-light);
-  padding:120px 0 140px;
-  position:relative;
-  overflow:hidden;
-}
-.screens-section::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(rgba(28,28,26,0.025) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(28,28,26,0.025) 1px,transparent 1px);
-  background-size:48px 48px;
-  pointer-events:none;
-  opacity:.7;
-}
-.screens-wrap{
-  max-width:1240px;
-  margin:0 auto;
-  padding:0 32px;
-  position:relative;
-  z-index:1;
-}
-.screens-section .section-header{
-  text-align:center;
-  margin-bottom:56px;
-}
-.screens-section .section-label{
-  color:var(--accent);
-  font-family:var(--mono);
-  font-size:12px;
-  letter-spacing:0.18em;
-  text-transform:uppercase;
-  margin-bottom:14px;
-  display:inline-block;
-}
-.screens-section .section-title{
-  font-family:var(--serif);
-  font-size:clamp(32px,4.6vw,52px);
-  font-weight:600;
-  color:var(--text-dark);
-  letter-spacing:-0.025em;
-  line-height:1.08;
-  margin:0 0 16px;
-}
-.screens-section .section-sub{
-  font-size:17px;
-  color:var(--text-dark-sub);
-  max-width:580px;
-  margin:0 auto;
-  line-height:1.55;
-}
-
-/* Tabs */
-.screens-tabs{
-  display:flex;
-  justify-content:center;
-  gap:8px;
-  margin-bottom:36px;
-  flex-wrap:wrap;
-}
-.screens-tab{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:12px 22px;
-  background:var(--bg-light-3);
-  border:1px solid var(--border-light);
-  border-radius:10px;
-  cursor:pointer;
-  font-family:var(--sans);
-  font-size:14px;
-  font-weight:500;
-  color:var(--text-dark-sub);
-  transition:all 0.2s ease;
-  letter-spacing:-0.01em;
-}
-.screens-tab:hover{
-  border-color:rgba(59,130,246,0.3);
-  color:var(--text-dark);
-  transform:translateY(-1px);
-}
-.screens-tab.active{
-  background:var(--text-dark);
-  border-color:var(--text-dark);
-  color:#fff;
-  box-shadow:0 4px 14px rgba(28,28,26,0.18);
-}
-.screens-tab .st-num{
-  font-family:var(--mono);
-  font-size:11px;
-  opacity:0.55;
-  letter-spacing:0.05em;
-}
-.screens-tab.active .st-num{
-  opacity:0.7;
-}
-.screens-tab .st-name{
-  font-weight:600;
-}
-
-/* Mockup ventana */
-.screens-stage{
-  max-width:1080px;
-  margin:0 auto;
-}
-.screens-window{
-  background:#1e2638;
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:
-    0 1px 0 rgba(255,255,255,0.04) inset,
-    0 30px 60px -20px rgba(28,28,40,0.35),
-    0 18px 36px -12px rgba(28,28,40,0.22),
-    0 0 0 1px rgba(28,28,40,0.06);
-  border:1px solid rgba(28,28,40,0.08);
-}
-.screens-titlebar{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:11px 16px;
-  background:linear-gradient(180deg,#2a3247 0%,#232a3e 100%);
-  border-bottom:1px solid rgba(0,0,0,0.25);
-  position:relative;
-}
-.sw-dot{
-  width:11px;
-  height:11px;
-  border-radius:50%;
-  display:inline-block;
-}
-.sw-red{background:#ED6A5E;box-shadow:0 0 0 0.5px rgba(0,0,0,0.15) inset;}
-.sw-yellow{background:#F4BF4F;box-shadow:0 0 0 0.5px rgba(0,0,0,0.15) inset;}
-.sw-green{background:#62C554;box-shadow:0 0 0 0.5px rgba(0,0,0,0.15) inset;}
-.sw-title{
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  font-family:var(--mono);
-  font-size:12px;
-  color:rgba(232,236,244,0.65);
-  letter-spacing:0.02em;
-  font-weight:500;
-}
-.screens-canvas{
-  position:relative;
-  background:#0f1420;
-  aspect-ratio:1440 / 860;
-  overflow:hidden;
-}
-.screens-img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:top center;
-  opacity:0;
-  transition:opacity 0.35s ease;
-  display:block;
-}
-.screens-img.active{
-  opacity:1;
-}
-
-/* Caption */
-.screens-caption{
-  margin-top:28px;
-  text-align:center;
-  max-width:720px;
-  margin-left:auto;
-  margin-right:auto;
-}
-.screens-caption p{
-  font-size:16px;
-  color:var(--text-dark-sub);
-  line-height:1.6;
-  margin:0;
-}
-.screens-caption strong{
-  color:var(--text-dark);
-  font-weight:600;
-}
-
-/* Responsive */
-@media (max-width:900px){
-  .screens-section{padding:80px 0 90px;}
-  .screens-wrap{padding:0 20px;}
-  .screens-tab{padding:10px 16px;font-size:13px;}
-  .screens-tab .st-num{display:none;}
-  .sw-title{display:none;}
-  .screens-titlebar{padding:9px 12px;}
-}
-@media (max-width:520px){
-  .screens-tabs{gap:6px;}
-  .screens-tab{padding:9px 12px;font-size:12px;}
-  .screens-window{border-radius:10px;}
-}
+/* SCREENSHOTS */
+.screens-section{background:var(--bg-light);padding:120px 0 140px;position:relative;overflow:hidden;}
+.screens-section::before{content:'';position:absolute;inset:0;background:linear-gradient(rgba(28,28,26,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(28,28,26,0.025) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;opacity:.7;}
+.screens-wrap{max-width:1240px;margin:0 auto;padding:0 32px;position:relative;z-index:1;}
+.screens-section .section-header{text-align:center;margin-bottom:56px;}
+.screens-section .section-label{color:var(--accent);font-family:var(--mono);font-size:12px;letter-spacing:0.18em;text-transform:uppercase;margin-bottom:14px;display:inline-block;}
+.screens-section .section-title{font-family:var(--serif);font-size:clamp(32px,4.6vw,52px);font-weight:600;color:var(--text-dark);letter-spacing:-0.025em;line-height:1.08;margin:0 0 16px;}
+.screens-section .section-sub{font-size:17px;color:var(--text-dark-sub);max-width:580px;margin:0 auto;line-height:1.55;}
+.screens-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:36px;flex-wrap:wrap;}
+.screens-tab{display:inline-flex;align-items:center;gap:10px;padding:12px 22px;background:var(--bg-light-3);border:1px solid var(--border-light);border-radius:10px;cursor:pointer;font-family:var(--sans);font-size:14px;font-weight:500;color:var(--text-dark-sub);transition:all 0.2s ease;letter-spacing:-0.01em;}
+.screens-tab:hover{border-color:rgba(59,130,246,0.3);color:var(--text-dark);transform:translateY(-1px);}
+.screens-tab.active{background:var(--text-dark);border-color:var(--text-dark);color:#fff;box-shadow:0 4px 14px rgba(28,28,26,0.18);}
+.screens-tab .st-num{font-family:var(--mono);font-size:11px;opacity:0.55;letter-spacing:0.05em;}
+.screens-tab.active .st-num{opacity:0.7;}
+.screens-tab .st-name{font-weight:600;}
+.screens-stage{max-width:1080px;margin:0 auto;}
+.screens-window{background:#1e2638;border-radius:14px;overflow:hidden;box-shadow:0 30px 60px -20px rgba(28,28,40,0.35),0 18px 36px -12px rgba(28,28,40,0.22),0 0 0 1px rgba(28,28,40,0.06);border:1px solid rgba(28,28,40,0.08);}
+.screens-titlebar{display:flex;align-items:center;gap:8px;padding:11px 16px;background:linear-gradient(180deg,#2a3247 0%,#232a3e 100%);border-bottom:1px solid rgba(0,0,0,0.25);position:relative;}
+.sw-dot{width:11px;height:11px;border-radius:50%;display:inline-block;}
+.sw-red{background:#ED6A5E;}.sw-yellow{background:#F4BF4F;}.sw-green{background:#62C554;}
+.sw-title{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:12px;color:rgba(232,236,244,0.65);letter-spacing:0.02em;font-weight:500;}
+.screens-canvas{position:relative;background:#0f1420;aspect-ratio:1440/860;overflow:hidden;}
+.screens-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;opacity:0;transition:opacity 0.35s ease;display:block;}
+.screens-img.active{opacity:1;}
+.screens-caption{margin-top:28px;text-align:center;max-width:720px;margin-left:auto;margin-right:auto;}
+.screens-caption p{font-size:16px;color:var(--text-dark-sub);line-height:1.6;margin:0;}
+.screens-caption strong{color:var(--text-dark);font-weight:600;}
+@media(max-width:900px){.screens-section{padding:80px 0 90px;}.screens-wrap{padding:0 20px;}.screens-tab{padding:10px 16px;font-size:13px;}.screens-tab .st-num{display:none;}.sw-title{display:none;}}
+@media(max-width:520px){.screens-tabs{gap:6px;}.screens-tab{padding:9px 12px;font-size:12px;}.screens-window{border-radius:10px;}}
 
 </style>
 </head>
@@ -1980,7 +1806,7 @@ textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
         <div class="feat-icon">🛠</div>
         <div class="feat-name">6 herramientas PDF integradas</div>
         <div class="feat-desc">Unir PDFs · Dividir / Extraer páginas · PDF a Word · Imágenes a PDF · OCR por Lote · Fusionar Reportes. Todo dentro de la misma aplicación.</div>
-        <div class="feat-badge">CORE · PRO · SENTINEL <span style="opacity:.7;">— OCR por Lote desde PRO</span></div>
+        <div class="feat-badge">CORE · PRO · SENTINEL</div>
       </div>
     </div>
   </div>
@@ -2018,7 +1844,7 @@ textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
   </div>
 </section>
 
-<!-- SCREENSHOTS (light) -->
+<!-- SCREENSHOTS -->
 <section class="screens-section">
   <div class="screens-wrap">
     <div class="section-header">
@@ -2026,25 +1852,15 @@ textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
       <h2 class="section-title">DEXIAE en funcionamiento</h2>
       <p class="section-sub">Capturas reales de la versión instalable. Sin maquetas, sin mockups inventados.</p>
     </div>
-
     <div class="screens-tabs" role="tablist">
-      <button type="button" class="screens-tab active" data-screen="ejecucion" role="tab" aria-selected="true">
-        <span class="st-num">01</span><span class="st-name">Ejecución</span>
-      </button>
-      <button type="button" class="screens-tab" data-screen="laboratorio" role="tab" aria-selected="false">
-        <span class="st-num">02</span><span class="st-name">Laboratorio</span>
-      </button>
-      <button type="button" class="screens-tab" data-screen="herramientas" role="tab" aria-selected="false">
-        <span class="st-num">03</span><span class="st-name">Herramientas</span>
-      </button>
+      <button type="button" class="screens-tab active" data-screen="ejecucion" role="tab" aria-selected="true"><span class="st-num">01</span><span class="st-name">Ejecución</span></button>
+      <button type="button" class="screens-tab" data-screen="laboratorio" role="tab" aria-selected="false"><span class="st-num">02</span><span class="st-name">Laboratorio</span></button>
+      <button type="button" class="screens-tab" data-screen="herramientas" role="tab" aria-selected="false"><span class="st-num">03</span><span class="st-name">Herramientas</span></button>
     </div>
-
     <div class="screens-stage">
       <div class="screens-window">
         <div class="screens-titlebar">
-          <span class="sw-dot sw-red"></span>
-          <span class="sw-dot sw-yellow"></span>
-          <span class="sw-dot sw-green"></span>
+          <span class="sw-dot sw-red"></span><span class="sw-dot sw-yellow"></span><span class="sw-dot sw-green"></span>
           <span class="sw-title" id="screens-title">DEXIAE — Ejecución</span>
         </div>
         <div class="screens-canvas">
@@ -2053,7 +1869,6 @@ textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
           <img src="screenshots/dexiae-herramientas.jpg" alt="Caja de Herramientas de DEXIAE" class="screens-img" id="screen-herramientas" loading="lazy">
         </div>
       </div>
-
       <div class="screens-caption">
         <p id="screens-desc"><strong>Ejecución.</strong> Elegís una plantilla, definís el patrón de renombrado, y DEXIAE procesa todos los PDFs del lote. Bitácora en vivo, peritaje legal opcional y vigilancia automática de carpetas.</p>
       </div>
@@ -2468,7 +2283,7 @@ textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
         <h3 class="success-title">¡Listo! Ya podés descargar DEXIAE</h3>
         <p class="success-msg">Te enviamos un mail con la guía de primeros pasos. Descargá el instalador y probalo con tus documentos.</p>
         <div class="success-actions">
-          <a href="https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v1.1.2/DEXIAE_Setup_V1.1.exe" class="sa-download" download>
+          <a href="https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v1.1.3/DEXIAE_Setup_V1.1.3.exe" class="sa-download" download>
             <span class="sa-ico">⬇</span> Descargar DEXIAE Setup
           </a>
           <button type="button" onclick="closeLeadModal()" class="sa-ghost" style="cursor:pointer;background:transparent;font-family:var(--sans);">Cerrar</button>
@@ -2489,7 +2304,7 @@ textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
           <a href="#" id="paid-pay-btn" class="sa-pay" target="_blank" rel="noopener">
             <span class="sa-ico">💳</span> Ir a Mercado Pago
           </a>
-          <a href="https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v1.1.2/DEXIAE_Setup_V1.1.exe" class="sa-download" download>
+          <a href="https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v1.1.3/DEXIAE_Setup_V1.1.3.exe" class="sa-download" download>
             <span class="sa-ico">⬇</span> Descargar DEXIAE Setup
           </a>
         </div>
@@ -2905,12 +2720,10 @@ function openLeadModal(plan){
   else orgInput.removeAttribute('required');
 
   const msgWrap = document.getElementById('lead-msg-wrap');
-  const msgInput = document.getElementById('lead-msg');
   msgWrap.style.display = cfg.showMsg ? 'block' : 'none';
+  const msgInput = document.getElementById('lead-msg');
   if (cfg.showMsg) msgInput.setAttribute('required','required');
   else msgInput.removeAttribute('required');
-
-  // Telefono: siempre requerido en todos los planes
   const telInput = document.getElementById('lead-tel');
   if (telInput) telInput.setAttribute('required','required');
 
@@ -3065,49 +2878,27 @@ document.addEventListener('keydown', function(e){
   }
 });
 
-// ============================================
 // SCREENSHOTS TABS
-// ============================================
 (function(){
-  const SCREENS_DATA = {
-    ejecucion: {
-      title: 'DEXIAE — Ejecución',
-      desc: '<strong>Ejecución.</strong> Elegís una plantilla, definís el patrón de renombrado, y DEXIAE procesa todos los PDFs del lote. Bitácora en vivo, peritaje legal opcional y vigilancia automática de carpetas.'
-    },
-    laboratorio: {
-      title: 'DEXIAE — Laboratorio',
-      desc: '<strong>Laboratorio.</strong> Diseñá tus plantillas con vista previa real del documento. Definís columnas, etiquetas, estrategias de extracción y reglas de validación. Probás el resultado antes de procesar el lote completo.'
-    },
-    herramientas: {
-      title: 'DEXIAE — Herramientas',
-      desc: '<strong>Caja de Herramientas.</strong> Seis utilidades integradas para preparar tus documentos: unir PDFs, dividir / extraer páginas, PDF a Word, imágenes a PDF, OCR por Lote y Fusionar Reportes.'
-    }
+  var SCREENS_DATA = {
+    ejecucion:    { title:'DEXIAE — Ejecución',    desc:'<strong>Ejecución.</strong> Elegís una plantilla, definís el patrón de renombrado, y DEXIAE procesa todos los PDFs del lote. Bitácora en vivo, peritaje legal opcional y vigilancia automática de carpetas.' },
+    laboratorio:  { title:'DEXIAE — Laboratorio',  desc:'<strong>Laboratorio.</strong> Diseñá tus plantillas con vista previa real del documento. Definís columnas, etiquetas, estrategias de extracción y reglas de validación.' },
+    herramientas: { title:'DEXIAE — Herramientas', desc:'<strong>Caja de Herramientas.</strong> Seis utilidades integradas: Unir PDFs, Dividir / Extraer páginas, PDF a Word, Imágenes a PDF, OCR por Lote y Fusionar Reportes.' }
   };
-
-  const tabs = document.querySelectorAll('.screens-tab');
-  const imgs = document.querySelectorAll('.screens-img');
-  const titleEl = document.getElementById('screens-title');
-  const descEl = document.getElementById('screens-desc');
-
-  tabs.forEach(tab => {
+  var tabs = document.querySelectorAll('.screens-tab');
+  var imgs = document.querySelectorAll('.screens-img');
+  var titleEl = document.getElementById('screens-title');
+  var descEl  = document.getElementById('screens-desc');
+  tabs.forEach(function(tab){
     tab.addEventListener('click', function(){
-      const screen = this.dataset.screen;
-      const data = SCREENS_DATA[screen];
-      if (!data) return;
-
-      tabs.forEach(t => {
-        t.classList.remove('active');
-        t.setAttribute('aria-selected','false');
-      });
-      this.classList.add('active');
-      this.setAttribute('aria-selected','true');
-
-      imgs.forEach(img => img.classList.remove('active'));
-      const target = document.getElementById('screen-' + screen);
-      if (target) target.classList.add('active');
-
-      if (titleEl) titleEl.textContent = data.title;
-      if (descEl) descEl.innerHTML = data.desc;
+      var screen = this.dataset.screen;
+      var data = SCREENS_DATA[screen]; if(!data) return;
+      tabs.forEach(function(t){ t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+      this.classList.add('active'); this.setAttribute('aria-selected','true');
+      imgs.forEach(function(img){ img.classList.remove('active'); });
+      var target = document.getElementById('screen-'+screen); if(target) target.classList.add('active');
+      if(titleEl) titleEl.textContent = data.title;
+      if(descEl)  descEl.innerHTML   = data.desc;
     });
   });
 })();

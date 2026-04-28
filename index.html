@@ -1930,46 +1930,64 @@ textarea.form-input{resize:vertical;min-height:100px;font-family:var(--sans)}
   0%,100%{opacity:1}50%{opacity:0.45}
 }
 
-/* Log panel */
-.centinela-log{
-  display:flex;flex-direction:column;gap:3px;
-  max-height:260px;overflow-y:auto;
+/* Excel preview panel */
+.cent-excel-wrap{
+  overflow-x:auto;overflow-y:auto;
+  max-height:260px;
   scrollbar-width:thin;
   scrollbar-color:var(--border-strong) transparent;
 }
-.centinela-log::-webkit-scrollbar{width:4px}
-.centinela-log::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:2px}
+.cent-excel-wrap::-webkit-scrollbar{width:4px;height:4px}
+.cent-excel-wrap::-webkit-scrollbar-thumb{background:var(--border-strong);border-radius:2px}
 
-.cent-log-entry{
-  display:flex;align-items:flex-start;gap:8px;
-  padding:5px 0;
+.cent-excel-table{
+  width:100%;border-collapse:collapse;
+  font-family:var(--mono);font-size:10px;
+  min-width:440px;
+}
+.cent-excel-table thead tr{
+  position:sticky;top:0;z-index:2;
+}
+.cent-excel-table th{
+  background:var(--bg-deep);
+  padding:6px 10px;
+  text-align:left;
+  color:var(--text-faint);
+  font-size:9px;font-weight:700;
+  letter-spacing:0.1em;
+  border-bottom:1px solid var(--border-strong);
+  white-space:nowrap;
+}
+.cent-excel-table td{
+  padding:6px 10px;
   border-bottom:1px solid rgba(255,255,255,0.03);
-  animation:log-appear 0.3s ease forwards;
+  color:var(--text-secondary);
+  white-space:nowrap;
+  overflow:hidden;max-width:130px;text-overflow:ellipsis;
+}
+.cent-excel-row{
+  animation:row-appear 0.35s cubic-bezier(0.4,0,0.2,1) forwards;
   opacity:0;
 }
-@keyframes log-appear{
-  from{opacity:0;transform:translateX(8px)}
+@keyframes row-appear{
+  from{opacity:0;transform:translateX(10px)}
   to{opacity:1;transform:translateX(0)}
 }
-.cent-log-time{
-  font-family:var(--mono);font-size:10px;
-  color:var(--text-faint);white-space:nowrap;
-  flex-shrink:0;padding-top:1px;
+.cent-excel-row:hover td{background:rgba(255,255,255,0.02)}
+.cent-excel-status{
+  font-size:9px;font-weight:700;letter-spacing:0.07em;
+  padding:2px 7px;border-radius:3px;white-space:nowrap;
 }
-.cent-log-text{
-  font-family:var(--mono);font-size:11px;
-  color:var(--text-secondary);flex:1;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+.cent-excel-status.ok {background:var(--state-ok-bg);color:var(--state-ok)}
+.cent-excel-status.dup{background:var(--accent-bg-light);color:var(--accent)}
+.cent-excel-status.alt{background:var(--state-alert-bg);color:var(--state-alert)}
+.cent-excel-status.rev{background:var(--state-warn-bg);color:var(--state-warn)}
+.cent-excel-processing td{color:var(--text-faint)}
+.cent-excel-processing .cent-excel-status{
+  background:rgba(245,158,11,0.1);color:var(--state-warn);
+  animation:badge-blink 0.6s ease-in-out infinite;
 }
-.cent-log-tag{
-  font-family:var(--mono);font-size:9px;font-weight:700;
-  letter-spacing:0.08em;padding:2px 7px;
-  border-radius:3px;flex-shrink:0;
-}
-.cent-log-tag.ok{background:var(--state-ok-bg);color:var(--state-ok)}
-.cent-log-tag.dup{background:var(--accent-bg-light);color:var(--accent)}
-.cent-log-tag.alt{background:var(--state-alert-bg);color:var(--state-alert)}
-.cent-log-tag.rev{background:var(--state-warn-bg);color:var(--state-warn)}
+
 
 /* Footer stats */
 .centinela-footer{
@@ -2151,31 +2169,6 @@ nav.topnav.scrolled{
   background:rgba(12,16,28,0.88) !important;
   box-shadow:0 1px 0 rgba(255,255,255,0.06), 0 4px 32px rgba(0,0,0,0.3);
 }
-/* ── FAQ ── */
-.faq-section{background:var(--bg-light);padding:100px 0 120px;}
-.faq-wrap{max-width:820px;margin:0 auto;padding:0 32px;}
-.faq-section .section-header{text-align:center;margin-bottom:56px;}
-.faq-list{display:flex;flex-direction:column;gap:0;}
-.faq-item{border-bottom:1px solid var(--border-light);}
-.faq-item:first-child{border-top:1px solid var(--border-light);}
-.faq-q{width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:28px 0;gap:24px;text-align:left;}
-.faq-q-text{font-family:var(--sans);font-size:18px;font-weight:600;color:var(--text-dark);line-height:1.4;}
-.faq-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.3s;}
-.faq-icon svg{width:14px;height:14px;stroke:var(--accent);transition:transform 0.3s;}
-.faq-item.open .faq-icon{background:var(--accent);transform:rotate(0deg);}
-.faq-item.open .faq-icon svg{stroke:#fff;transform:rotate(45deg);}
-.faq-a{overflow:hidden;max-height:0;transition:max-height 0.35s ease,padding 0.25s ease;}
-.faq-item.open .faq-a{max-height:300px;}
-.faq-a p{font-family:var(--sans);font-size:16px;color:var(--text-dark-sub);line-height:1.65;padding-bottom:28px;}
-.faq-a p strong{color:var(--text-dark);}
-
-/* ── WHATSAPP WIDGET ── */
-.wa-widget{position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px;}
-.wa-bubble{background:#25D366;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);cursor:pointer;transition:transform 0.2s,box-shadow 0.2s;}
-.wa-bubble:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,0.55);}
-.wa-bubble svg{width:30px;height:30px;fill:#fff;}
-.wa-tooltip{background:var(--bg-deep);color:var(--text);font-family:var(--sans);font-size:13px;font-weight:500;padding:10px 16px;border-radius:10px;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.25);opacity:0;transform:translateX(8px);transition:opacity 0.2s,transform 0.2s;pointer-events:none;}
-.wa-widget:hover .wa-tooltip{opacity:1;transform:translateX(0);}
 
 </style>
 </head>
@@ -2383,9 +2376,22 @@ nav.topnav.scrolled{
 
         <!-- Right: Live log -->
         <div class="centinela-log-panel">
-          <div class="centinela-panel-label">📋 Bitácora en vivo</div>
-          <div class="centinela-log" id="cent-log">
-            <!-- entradas de log aparecen dinámicamente -->
+          <div class="centinela-panel-label">📊 Reporte Excel — datos extraídos en vivo</div>
+          <div class="cent-excel-wrap">
+            <table class="cent-excel-table">
+              <thead>
+                <tr>
+                  <th>ARCHIVO</th>
+                  <th>ESTADO</th>
+                  <th>NRO. EXPTE</th>
+                  <th>OTORGA</th>
+                  <th>FECHA</th>
+                </tr>
+              </thead>
+              <tbody id="cent-excel-body">
+                <!-- filas se agregan dinámicamente -->
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -2490,7 +2496,7 @@ nav.topnav.scrolled{
       <div class="flow-step">
         <div class="flow-n">02</div>
         <div class="flow-title">Seleccionás la carpeta</div>
-        <div class="flow-desc">Elegís la carpeta con los PDFs. El pre-vuelo te muestra una preview de los archivos que van a procesarse y confirma que todo está listo antes de ejecutar.</div>
+        <div class="flow-desc">Elegís la carpeta con los PDFs. El pre-vuelo valida que los documentos coincidan con la plantilla antes de procesar.</div>
       </div>
       <div class="flow-step">
         <div class="flow-n">03</div>
@@ -2852,67 +2858,6 @@ nav.topnav.scrolled{
   </div>
 </section>
 
-<!-- FAQ (light) -->
-<section class="faq-section" id="faq">
-  <div class="faq-wrap">
-    <div class="section-header">
-      <div class="section-label">Preguntas frecuentes</div>
-      <h2 class="section-title">Lo que más nos preguntan.</h2>
-    </div>
-    <div class="faq-list">
-
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span class="faq-q-text">¿Funciona con cualquier PDF o solo con algunos tipos?</span>
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        </button>
-        <div class="faq-a"><p>DEXIAE trabaja con PDFs que tienen texto seleccionable — facturas, contratos, expedientes, legajos escaneados con OCR, resoluciones, remitos. Si el PDF tiene texto embebido, DEXIAE puede extraer sus datos. Para documentos escaneados sin texto, el módulo <strong>OCR por Lote</strong> (PRO y SENTINEL) convierte las imágenes en texto antes de procesarlos.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span class="faq-q-text">¿Mis documentos se suben a algún servidor?</span>
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        </button>
-        <div class="faq-a"><p><strong>No. Nunca.</strong> DEXIAE procesa todo de forma local en tu equipo. Ningún archivo, dato extraído, nombre de documento ni contenido sale de tu PC. La única comunicación de red que realiza es una consulta periódica para verificar el estado de tu licencia — un archivo público, sin enviar ningún dato tuyo. Podés monitorear el tráfico con Wireshark o el Monitor de Recursos de Windows en cualquier momento.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span class="faq-q-text">¿Qué pasa si proceso un lote y algunos archivos no coinciden con la plantilla?</span>
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        </button>
-        <div class="faq-a"><p>DEXIAE los clasifica automáticamente en la carpeta <strong>_REVISAR_</strong>. No los descarta — los separa para que los revisés vos. Los que sí coincidieron van a <strong>_PROCESADOS_</strong>, los duplicados a <strong>_DUPLICADOS_</strong>, y los corruptos o con contraseña a <strong>_CUARENTENA_</strong>. Al final del lote el reporte Excel tiene el estado de cada archivo.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span class="faq-q-text">¿Qué pasa si no tengo conexión a internet?</span>
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        </button>
-        <div class="faq-a"><p>DEXIAE sigue funcionando normalmente. El sistema de verificación de licencia guarda el resultado en caché local por 24 horas. Si no hay conexión, usa ese caché. Solo necesitás internet una vez al día como máximo — y solo para la verificación, no para procesar documentos.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span class="faq-q-text">¿Cómo activo la licencia después de pagar?</span>
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        </button>
-        <div class="faq-a"><p>Dentro de las <strong>24 horas hábiles</strong> de recibido el pago te enviamos una clave de activación por email. La ingresás en la pantalla de licencia de DEXIAE y listo — el acceso se activa de inmediato y queda vinculado a tu equipo. Si necesitás mover la licencia a otra PC, nos contactás y lo gestionamos.</p></div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span class="faq-q-text">¿Puedo probar DEXIAE antes de pagar?</span>
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        </button>
-        <div class="faq-a"><p><strong>Sí, siempre.</strong> El plan TRIAL te da 14 días completos de uso con hasta 100 documentos — sin tarjeta de crédito ni datos de pago. Podés configurar plantillas reales, procesar lotes de tus propios documentos y ver los reportes. Si después de eso no resuelve tu problema, no pagás nada.</p></div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
 <!-- CTA FINAL (dark) -->
 <section class="final-cta">
   <div class="final-cta-wrap">
@@ -3225,7 +3170,6 @@ function centStep(){
 
 function showCentComplete(){
   const filesEl = document.getElementById('cent-files');
-  const logEl   = document.getElementById('cent-log');
   const badge   = document.getElementById('cent-status-badge');
   const stText  = document.getElementById('cent-status-text');
   const btn     = document.getElementById('cent-toggle-btn');
@@ -3233,7 +3177,7 @@ function showCentComplete(){
   if (stText) stText.textContent = 'COMPLETADO';
   if (btn){ btn.textContent = '↺ Nueva sesión'; btn.onclick = resetCentinela; }
 
-  // Inject completion card into files panel
+  // Completion card in left panel
   if (filesEl){
     filesEl.innerHTML = '';
     const card = document.createElement('div');
@@ -3251,19 +3195,20 @@ function showCentComplete(){
     filesEl.appendChild(card);
   }
 
-  // Final log entry
-  if (logEl){
-    const entry = document.createElement('div');
-    entry.className = 'cent-log-entry';
-    const now = new Date();
-    const ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
-    entry.innerHTML = `
-      <span class="cent-log-time">${ts}</span>
-      <span class="cent-log-text" style="color:var(--state-ok);">Lote finalizado — ${centCounts.total} docs</span>
-      <span class="cent-log-tag ok">FIN</span>
+  // Add summary row to Excel
+  const tbody = document.getElementById('cent-excel-body');
+  if (tbody){
+    const summaryRow = document.createElement('tr');
+    summaryRow.className = 'cent-excel-row';
+    summaryRow.style.cssText = 'background:rgba(16,185,129,0.04);';
+    summaryRow.innerHTML = `
+      <td colspan="5" style="text-align:center;color:var(--state-ok);font-size:9px;letter-spacing:0.08em;font-weight:700;padding:8px;">
+        ✓ LOTE FINALIZADO — ${centCounts.total} filas · Excel listo para exportar
+      </td>
     `;
-    logEl.appendChild(entry);
-    logEl.scrollTop = logEl.scrollHeight;
+    tbody.appendChild(summaryRow);
+    const wrap = tbody.closest('.cent-excel-wrap');
+    if (wrap) wrap.scrollTop = wrap.scrollHeight;
   }
 }
 
@@ -3274,12 +3219,12 @@ function resetCentinela(){
   centCounts = {total:0, ok:0, dup:0, warn:0};
   updateCentFooter();
   const filesEl = document.getElementById('cent-files');
-  const logEl   = document.getElementById('cent-log');
+  const tbody   = document.getElementById('cent-excel-body');
   const badge   = document.getElementById('cent-status-badge');
   const stText  = document.getElementById('cent-status-text');
   const btn     = document.getElementById('cent-toggle-btn');
   if (filesEl) filesEl.innerHTML = '';
-  if (logEl)   logEl.innerHTML   = '';
+  if (tbody)   tbody.innerHTML   = '';
   if (badge)   badge.classList.remove('paused');
   if (stText)  stText.textContent = 'ACTIVO';
   if (btn){ btn.textContent = '⏸ Pausar'; btn.onclick = toggleCentinela; }
@@ -3292,7 +3237,7 @@ function addCentFile(file){
   const filesEl = document.getElementById('cent-files');
   if (!filesEl) return;
 
-  // Create the file element
+  // Create the file element in left panel
   const el = document.createElement('div');
   el.className = 'cent-file detecting';
   el.innerHTML = `
@@ -3304,7 +3249,9 @@ function addCentFile(file){
   filesEl.appendChild(el);
   filesEl.scrollTop = filesEl.scrollHeight;
 
-  // → PROCESANDO
+  const tag = CENT_TAG_MAP[file.type];
+
+  // → PROCESANDO badge
   setTimeout(() => {
     if (!el.isConnected) return;
     el.classList.remove('detecting');
@@ -3313,14 +3260,16 @@ function addCentFile(file){
     badge.className = 'cent-file-badge processing';
   }, 900);
 
-  // → RESULTADO
+  // → RESULTADO: update badge + add Excel row
   setTimeout(() => {
     if (!el.isConnected) return;
-    const tag = CENT_TAG_MAP[file.type];
     const badge = el.querySelector('.cent-file-badge');
     badge.textContent = tag.text;
     badge.className = 'cent-file-badge ' + tag.cls;
     el.classList.remove('detecting');
+
+    // Add completed row to Excel
+    addCentExcelRow(file, tag, false);
 
     // Update counters
     centCounts.total++;
@@ -3328,7 +3277,6 @@ function addCentFile(file){
     else if (file.type === 'dup') centCounts.dup++;
     else centCounts.warn++;
     updateCentFooter();
-    addCentLog(file, tag);
 
     // Update last scan time
     const now = new Date();
@@ -3336,7 +3284,7 @@ function addCentFile(file){
     const scanEl = document.getElementById('cent-last-scan');
     if (scanEl) scanEl.textContent = ts;
 
-    // Keep max 5 done items visible, fade out old ones
+    // Keep max 5 done items visible in left panel
     const done = filesEl.querySelectorAll('.cent-file:not(.detecting)');
     if (done.length > 5){
       done[0].classList.add('fading');
@@ -3356,24 +3304,68 @@ function updateCentFooter(){
   if (warn) warn.textContent = centCounts.warn;
 }
 
-function addCentLog(file, tag){
-  const logEl = document.getElementById('cent-log');
-  if (!logEl) return;
-  const now = new Date();
-  const ts = String(now.getHours()).padStart(2,'0') + ':' + String(now.getMinutes()).padStart(2,'0') + ':' + String(now.getSeconds()).padStart(2,'0');
-  const entry = document.createElement('div');
-  entry.className = 'cent-log-entry';
-  entry.innerHTML = `
-    <span class="cent-log-time">${ts}</span>
-    <span class="cent-log-text">${file.name}</span>
-    <span class="cent-log-tag ${tag.cls}">${tag.text}</span>
-  `;
-  logEl.appendChild(entry);
-  logEl.scrollTop = logEl.scrollHeight;
+// Datos de ejemplo para los campos del Excel
+const CENT_EXCEL_DATA = {
+  'contrato_srv_2026_001.pdf':      {expte:'EXP-2026-0341', otorga:'Servicios Río S.A.',    fecha:'02/03/2026'},
+  'acta_directorio_05-2026.pdf':    {expte:'EXP-2026-0412', otorga:'Consejo Directivo',     fecha:'10/04/2026'},
+  'resolucion_047_ANMAT.pdf':       {expte:'EXP-2026-0189', otorga:'Agencia ANMAT',         fecha:'15/02/2026'},
+  'contrato_srv_2026_001 (2).pdf':  {expte:'EXP-2026-0341', otorga:'Servicios Río S.A.',    fecha:'02/03/2026'},
+  'expediente_SEDRONaC_2026.pdf':   {expte:'EXP-2026-0503', otorga:'SEDRONaC',              fecha:'21/04/2026'},
+  'formulario_VACIO_012.pdf':       {expte:'—',             otorga:'—',                     fecha:'—'},
+  'memo_interno_003.pdf':           {expte:'MEM-2026-003',  otorga:'Gerencia General',      fecha:'08/03/2026'},
+  'acta_directorio_05-2026.pdf_2':  {expte:'EXP-2026-0412', otorga:'Consejo Directivo',     fecha:'10/04/2026'},
+  'doc_sin_firma_digital.pdf':      {expte:'EXP-2026-0271', otorga:'Proveedor XYZ',         fecha:'18/03/2026'},
+  'resolucion_048_ANMAT.pdf':       {expte:'EXP-2026-0190', otorga:'Agencia ANMAT',         fecha:'16/02/2026'},
+  'contrato_proveedores_Q2.pdf':    {expte:'EXP-2026-0388', otorga:'Licitación Q2/2026',    fecha:'01/04/2026'},
+  'formulario_incompleto_2026.pdf': {expte:'—',             otorga:'—',                     fecha:'—'},
+};
 
-  // Limit log to 20 entries
-  const entries = logEl.querySelectorAll('.cent-log-entry');
-  if (entries.length > 20) entries[0].remove();
+function addCentExcelRow(file, tag, isProcessing){
+  const tbody = document.getElementById('cent-excel-body');
+  if (!tbody) return null;
+
+  const data = CENT_EXCEL_DATA[file.name] || {expte:'—', otorga:'—', fecha:'—'};
+  const row = document.createElement('tr');
+  row.className = 'cent-excel-row' + (isProcessing ? ' cent-excel-processing' : '');
+  row.dataset.filename = file.name;
+
+  const shortName = file.name.length > 22 ? file.name.slice(0,20)+'…' : file.name;
+  const statusLabel = isProcessing ? 'PROCESANDO…' : tag.text;
+  const statusCls   = isProcessing ? 'processing' : tag.cls;
+  const expte = isProcessing ? '<span style="color:var(--text-faint)">extrayendo…</span>' : data.expte;
+  const otorga= isProcessing ? '<span style="color:var(--text-faint)">extrayendo…</span>' : data.otorga;
+  const fecha = isProcessing ? '<span style="color:var(--text-faint)">extrayendo…</span>' : data.fecha;
+
+  row.innerHTML = `
+    <td title="${file.name}">${shortName}</td>
+    <td><span class="cent-excel-status ${statusCls}">${statusLabel}</span></td>
+    <td>${expte}</td>
+    <td>${otorga}</td>
+    <td>${fecha}</td>
+  `;
+  tbody.appendChild(row);
+
+  // Scroll to bottom
+  const wrap = tbody.closest('.cent-excel-wrap');
+  if (wrap) wrap.scrollTop = wrap.scrollHeight;
+
+  return row;
+}
+
+function updateCentExcelRow(file, tag){
+  const tbody = document.getElementById('cent-excel-body');
+  if (!tbody) return;
+  const row = tbody.querySelector(`tr[data-filename="${file.name}"]`);
+  if (!row) return;
+
+  const data = CENT_EXCEL_DATA[file.name] || {expte:'—', otorga:'—', fecha:'—'};
+  row.classList.remove('cent-excel-processing');
+
+  const cells = row.querySelectorAll('td');
+  if (cells[1]) cells[1].innerHTML = `<span class="cent-excel-status ${tag.cls}">${tag.text}</span>`;
+  if (cells[2]) cells[2].textContent = data.expte;
+  if (cells[3]) cells[3].textContent = data.otorga;
+  if (cells[4]) cells[4].textContent = data.fecha;
 }
 
 function toggleCentinela(){
@@ -3857,35 +3849,8 @@ document.addEventListener('keydown', function(e){
   }, {passive: true});
 })();
 
-// FAQ ACORDEÓN
-(function(){
-  document.querySelectorAll('.faq-q').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var item = this.closest('.faq-item');
-      var isOpen = item.classList.contains('open');
-      // Cerrar todos
-      document.querySelectorAll('.faq-item').forEach(function(i){
-        i.classList.remove('open');
-        i.querySelector('.faq-q').setAttribute('aria-expanded','false');
-      });
-      // Abrir el clickeado si estaba cerrado
-      if(!isOpen){
-        item.classList.add('open');
-        this.setAttribute('aria-expanded','true');
-      }
-    });
-  });
-})();
 
 </script>
-
-<!-- WHATSAPP WIDGET -->
-<div class="wa-widget">
-  <span class="wa-tooltip">¿Tenés una consulta? Escribinos</span>
-  <a class="wa-bubble" href="https://wa.me/543516574188?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20DEXIAE" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-  </a>
-</div>
 
 </body>
 </html>

@@ -2170,6 +2170,26 @@ nav.topnav.scrolled{
   box-shadow:0 1px 0 rgba(255,255,255,0.06), 0 4px 32px rgba(0,0,0,0.3);
 }
 
+/* ── FAQ ── */
+.faq-section{background:var(--bg-light);padding:100px 0 120px;}
+.faq-wrap{max-width:820px;margin:0 auto;padding:0 32px;}
+.faq-section .section-header{text-align:center;margin-bottom:56px;}
+.faq-section .section-label{color:var(--accent);}
+.faq-section .section-title{color:var(--text-dark);}
+.faq-list{display:flex;flex-direction:column;gap:0;}
+.faq-item{border-bottom:1px solid var(--border-light);}
+.faq-item:first-child{border-top:1px solid var(--border-light);}
+.faq-q{width:100%;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;padding:28px 0;gap:24px;text-align:left;}
+.faq-q-text{font-family:var(--sans);font-size:18px;font-weight:600;color:var(--text-dark);line-height:1.4;}
+.faq-icon{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--accent-bg);display:flex;align-items:center;justify-content:center;transition:background 0.2s,transform 0.3s;}
+.faq-icon svg{width:14px;height:14px;stroke:var(--accent);transition:transform 0.3s;}
+.faq-item.open .faq-icon{background:var(--accent);}
+.faq-item.open .faq-icon svg{stroke:#fff;transform:rotate(45deg);}
+.faq-a{overflow:hidden;max-height:0;transition:max-height 0.35s ease,padding 0.25s ease;}
+.faq-item.open .faq-a{max-height:300px;}
+.faq-a p{font-family:var(--sans);font-size:16px;color:var(--text-dark-sub);line-height:1.65;padding-bottom:28px;}
+.faq-a p strong{color:var(--text-dark);}
+
 /* ── WHATSAPP WIDGET ── */
 .wa-widget{position:fixed;bottom:28px;right:28px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;gap:12px;}
 .wa-bubble{background:#25D366;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.4);transition:transform 0.2s,box-shadow 0.2s;text-decoration:none;flex-shrink:0;}
@@ -2860,6 +2880,60 @@ nav.topnav.scrolled{
         <div class="rm-tag">04 · VISIÓN</div>
         <div class="rm-name">Dashboard de indicadores</div>
         <div class="rm-desc">Panel con KPIs de procesamiento, volumen por período, tasas de inconsistencias y tendencias de riesgo del lote.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (light) -->
+<section class="faq-section" id="faq">
+  <div class="faq-wrap">
+    <div class="section-header">
+      <div class="section-label">Preguntas frecuentes</div>
+      <h2 class="section-title">Lo que más nos preguntan.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">¿Funciona con cualquier PDF o solo con algunos tipos?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><p>DEXIAE trabaja con PDFs que tienen texto seleccionable — facturas, contratos, expedientes, legajos escaneados con OCR, resoluciones, remitos. Si el PDF tiene texto embebido, DEXIAE puede extraer sus datos. Para documentos escaneados sin texto, el módulo <strong>OCR por Lote</strong> (PRO y SENTINEL) convierte las imágenes en texto antes de procesarlos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">¿Mis documentos se suben a algún servidor?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><p><strong>No. Nunca.</strong> DEXIAE procesa todo de forma local en tu equipo. Ningún archivo, dato extraído, nombre de documento ni contenido sale de tu PC. La única comunicación de red que realiza es una consulta periódica para verificar el estado de tu licencia — un archivo público, sin enviar ningún dato tuyo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">¿Qué pasa si proceso un lote y algunos archivos no coinciden con la plantilla?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><p>DEXIAE los clasifica automáticamente en la carpeta <strong>_REVISAR_</strong>. No los descarta — los separa para que los revisés vos. Los que sí coincidieron van a <strong>_PROCESADOS_</strong>, los duplicados a <strong>_DUPLICADOS_</strong>, y los corruptos o con contraseña a <strong>_CUARENTENA_</strong>. Al final del lote el reporte Excel tiene el estado de cada archivo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">¿Qué pasa si no tengo conexión a internet?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><p>DEXIAE sigue funcionando normalmente. El sistema de verificación de licencia guarda el resultado en caché local por 24 horas. Si no hay conexión, usa ese caché. Solo necesitás internet una vez al día como máximo — y solo para la verificación, no para procesar documentos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">¿Cómo activo la licencia después de pagar?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><p>Dentro de las <strong>24 horas hábiles</strong> de recibido el pago te enviamos una clave de activación por email. La ingresás en la pantalla de licencia de DEXIAE y listo — el acceso se activa de inmediato y queda vinculado a tu equipo.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false">
+          <span class="faq-q-text">¿Puedo probar DEXIAE antes de pagar?</span>
+          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        </button>
+        <div class="faq-a"><p><strong>Sí, siempre.</strong> El plan TRIAL te da 14 días completos de uso con hasta 100 documentos — sin tarjeta de crédito ni datos de pago. Podés configurar plantillas reales, procesar lotes de tus propios documentos y ver los reportes.</p></div>
       </div>
     </div>
   </div>
@@ -3856,6 +3930,23 @@ document.addEventListener('keydown', function(e){
   }, {passive: true});
 })();
 
+// ========== FAQ ACORDEÓN ==========
+(function(){
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var item = this.closest('.faq-item');
+      var isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(function(i){
+        i.classList.remove('open');
+        i.querySelector('.faq-q').setAttribute('aria-expanded','false');
+      });
+      if(!isOpen){
+        item.classList.add('open');
+        this.setAttribute('aria-expanded','true');
+      }
+    });
+  });
+})();
 
 </script>
 

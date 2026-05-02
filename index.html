@@ -7,8 +7,8 @@
 <!-- ============================================================
      SEO PRIMARIO
 ============================================================ -->
-<title>Auditoría de PDFs sin nube para Contadores y Estudios Jurídicos | DEXIAE</title>
-<meta name="description" content="Auditá documentos PDF en lote sin subir nada a la nube. Extracción automática de datos, detección de duplicados y reportes de auditoría. 100% local, sin servidores, sin suscripciones ocultas. Probalo gratis 14 días — Córdoba, Argentina.">
+<title>Auditoría PDF para Contadores y Estudios Jurídicos | DEXIAE</title>
+<meta name="description" content="Auditá PDFs en lote sin subir nada a la nube. Extracción automática de datos, detección de duplicados y reportes de auditoría. 100% local. Probalo gratis 14 días.">
 <meta name="keywords" content="auditoría documental PDF sin nube, auditar PDFs sin subir a la nube, procesamiento PDF automático, extracción de datos PDF, software auditoría contadores, software estudios jurídicos, clasificación documentos Argentina, DEXIAE, renombrado PDF lote, Centinela carpeta watchdog, auditoría administrativa Córdoba">
 <meta name="robots" content="index, follow">
 <meta name="author" content="DEXIAE">
@@ -23,7 +23,6 @@
 <meta property="og:site_name" content="DEXIAE">
 <meta property="og:title" content="Auditoría de PDFs sin nube, sin servidores | DEXIAE">
 <meta property="og:description" content="Extraé datos, detectá duplicados y generá reportes de auditoría en lote. Todo en tu equipo, sin que un solo archivo salga de tu PC. Probalo gratis 14 días.">
-<meta property="og:description" content="Automatizá la extracción, clasificación y auditoría de tus PDFs en lote. 100% local, sin nube, sin servidores. Probalo gratis 14 días.">
 <meta property="og:image" content="https://dexiae.pages.dev/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -2308,7 +2307,7 @@ nav.topnav.scrolled{
       </h1>
 
       <p class="hero-lead hero-lead-anim">
-        Para <span id="audience-type" class="audience-type"></span> en Argentina. Extraé datos, detectá duplicados y generá reportes de auditoría — todo en tu equipo, sin que un solo documento salga de tu PC.
+        Para profesionales y áreas administrativas del sector público y privado que trabajan con documentos en lote. Extraé datos, detectá duplicados y generá reportes de auditoría — todo en tu equipo, sin que un solo documento salga de tu PC.
       </p>
 
       <!-- Trial CTA destacado -->
@@ -2971,14 +2970,7 @@ nav.topnav.scrolled{
           <span class="faq-q-text">¿Para qué tipo de profesional o área está pensado?</span>
           <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
-        <div class="faq-a"><p>Principalmente para <strong>contadores y estudios contables</strong> que procesan facturas, balances o expedientes en lote; <strong>estudios jurídicos y notariales</strong> que necesitan auditar contratos, resoluciones y documentos firmados digitalmente; y <strong>áreas administrativas</strong> de organismos públicos o privados que manejan grandes volúmenes de documentación. Si tu trabajo implica revisar decenas o cientos de PDFs por semana y extraer datos de ellos, está hecho para vos.</p></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" aria-expanded="false">
-          <span class="faq-q-text">¿Mis documentos se suben a algún servidor?</span>
-          <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-        </button>
-        <div class="faq-a"><p><strong>No. Nunca.</strong> DEXIAE procesa todo de forma local en tu equipo. Ningún archivo, dato extraído, nombre de documento ni contenido sale de tu PC. La única comunicación de red que realiza es una consulta periódica para verificar el estado de tu licencia — un archivo público, sin enviar ningún dato tuyo.</p></div>
+        <div class="faq-a"><p>Para <strong>estudios contables</strong>, <strong>estudios jurídicos y notariales</strong> y <strong>áreas administrativas</strong> de organismos públicos y privados. Si tu trabajo implica revisar decenas o cientos de PDFs por semana y extraer datos de ellos, está hecho para vos.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" aria-expanded="false">
@@ -4031,54 +4023,6 @@ document.addEventListener('keydown', function(e){
     const pct = total > 0 ? (scrolled / total) * 100 : 0;
     bar.style.width = pct + '%';
   }, {passive: true});
-})();
-
-// ========== 2. TYPEWRITER AUDIENCE CYCLING ==========
-(function(){
-  const el = document.getElementById('audience-type');
-  if (!el) return;
-  const audiences = [
-    'contadores',
-    'quienes auditan documentos en lote',
-    'quienes no pueden permitirse errores',
-    'quienes procesan PDFs a diario',
-    'profesionales que trabajan con documentos',
-  ];
-  let aIdx = 0;
-  let cIdx = 0;
-  let deleting = false;
-  let paused = false;
-  const SPEED_TYPE = 45;
-  const SPEED_DEL  = 22;
-  const PAUSE_END  = 2200;
-  const PAUSE_DEL  = 400;
-
-  function tick(){
-    const target = audiences[aIdx];
-    if (!deleting){
-      el.textContent = target.slice(0, cIdx + 1);
-      cIdx++;
-      if (cIdx === target.length){
-        deleting = true;
-        setTimeout(tick, PAUSE_END);
-        return;
-      }
-      setTimeout(tick, SPEED_TYPE);
-    } else {
-      el.textContent = target.slice(0, cIdx - 1);
-      cIdx--;
-      if (cIdx === 0){
-        deleting = false;
-        aIdx = (aIdx + 1) % audiences.length;
-        setTimeout(tick, PAUSE_DEL);
-        return;
-      }
-      setTimeout(tick, SPEED_DEL);
-    }
-  }
-
-  // Start after hero animation delay
-  setTimeout(tick, 900);
 })();
 
 // ========== 3. MOUSE GLOW TRACKER ==========

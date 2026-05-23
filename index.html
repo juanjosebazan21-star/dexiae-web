@@ -7,8 +7,8 @@
 <!-- ============================================================
      SEO PRIMARIO
 ============================================================ -->
-<title>DEXIAE · Software offline para auditar PDFs en lote · Extracción a Excel + Peritaje de firmas + Duplicados</title>
-<meta name="description" content="Software 100% offline para auditar documentos PDF en lote. Extraccion de datos a Excel, peritaje de firmas digitales (ONTI) y deteccion de duplicados. Pensado para estudios contables, juridicos y areas administrativas. Probalo gratis 14 dias.">
+<title>DEXIAE · Auditá PDFs en lote, offline · Trial gratis 14d</title>
+<meta name="description" content="Auditá PDFs en lote sin subirlos a la nube. Extracción a Excel, peritaje de firmas digitales y detección de duplicados. Probalo 14 días gratis.">
 <meta name="keywords" content="auditoria documental PDF offline, extraer datos PDF a Excel, peritaje firmas digitales ONTI, software contadores Argentina, software estudios juridicos, deteccion duplicados PDF, automatizacion documental, OCR por lote, DEXIAE">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="DEXIAE">
@@ -44,7 +44,7 @@
 {"@context":"https://schema.org","@type":"SoftwareApplication","name":"DEXIAE","alternateName":"Document Extraction & Intelligent Automation Engine","url":"https://dexiae.pages.dev/","description":"Software 100% offline para auditar documentos PDF en lote. Extracción de datos a Excel, detección de duplicados, peritaje de firmas digitales y reportes de auditoría.","applicationCategory":"BusinessApplication","applicationSubCategory":"Document Management","operatingSystem":"Windows 10, Windows 11","offers":[{"@type":"Offer","name":"TRIAL","price":"0","priceCurrency":"USD","description":"14 días gratis · 100 documentos"},{"@type":"Offer","name":"CORE","price":"29","priceCurrency":"USD"},{"@type":"Offer","name":"PRO","price":"89","priceCurrency":"USD"}],"creator":{"@type":"Organization","name":"DEXIAE","url":"https://dexiae.pages.dev/","email":"dexiaesoporte@gmail.com","address":{"@type":"PostalAddress","addressLocality":"Córdoba","addressCountry":"AR"},"sameAs":["https://instagram.com/get.dexiae"]},"featureList":["Extracción de datos PDF a Excel por plantilla","Detección automática de duplicados","Peritaje de firmas digitales ONTI","Centinela automático de carpetas","Reportes Excel, HTML y PDF de auditoría","OCR por lote","6 herramientas PDF integradas"],"inLanguage":"es-AR","countryOfOrigin":"AR","softwareVersion":"1.1.3"}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cómo auditás documentos PDF sin subirlos a la nube?","acceptedAnswer":{"@type":"Answer","text":"Todo el procesamiento ocurre en tu propio equipo. No hay servidor externo recibiendo los documentos. Instalás la aplicación en Windows, elegís la carpeta y el procesamiento sucede localmente."}},{"@type":"Question","name":"¿Para qué profesional o área está pensado?","acceptedAnswer":{"@type":"Answer","text":"Para estudios contables, jurídicos, notariales y áreas administrativas del sector público y privado que procesan grandes volúmenes de PDFs."}},{"@type":"Question","name":"¿Funciona con cualquier PDF?","acceptedAnswer":{"@type":"Answer","text":"Con PDFs con texto seleccionable extrae directamente. Para escaneados, el módulo OCR por Lote (PRO y SENTINEL) los convierte antes de procesarlos."}},{"@type":"Question","name":"¿Puedo probar DEXIAE antes de pagar?","acceptedAnswer":{"@type":"Answer","text":"Sí. El plan TRIAL da 14 días completos con hasta 100 documentos, sin tarjeta de crédito. Incluíes peritaje de firmas, Centinela, reportes HTML/PDF y herramientas PDF para evaluar el potencial total."}},{"@type":"Question","name":"¿Por qué Windows muestra una advertencia al instalar?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE es software de desarrollador independiente que aún no acumuló firmas de reputación SmartScreen. No significa que sea malicioso. Hacé click en Más información y Ejecutar de todos modos. El instalador puede inspeccionarse con cualquier antivirus o VirusTotal."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"¿Cómo auditás documentos PDF sin subirlos a la nube?","acceptedAnswer":{"@type":"Answer","text":"Todo el procesamiento ocurre en tu propio equipo. No hay servidor externo recibiendo los documentos. Instalás la aplicación en Windows, elegís la carpeta y el procesamiento sucede localmente."}},{"@type":"Question","name":"¿Para qué profesional o área está pensado?","acceptedAnswer":{"@type":"Answer","text":"Para estudios contables, jurídicos y áreas administrativas del sector público y privado que procesan grandes volúmenes de PDFs."}},{"@type":"Question","name":"¿Funciona con cualquier PDF?","acceptedAnswer":{"@type":"Answer","text":"Sí. DEXIAE incluye motor OCR Tesseract en todas las ediciones, así que lee tanto PDFs con texto seleccionable como escaneados o campos en formato imagen, definiendo una zona en la plantilla. Para procesar PDFs escaneados completos en lote sin zonas, está el módulo OCR por Lote (PRO y SENTINEL)."}},{"@type":"Question","name":"¿Puedo probar DEXIAE antes de pagar?","acceptedAnswer":{"@type":"Answer","text":"Sí. El plan TRIAL da 14 días completos con hasta 100 documentos, sin tarjeta de crédito. Incluíes peritaje de firmas, Centinela, reportes HTML/PDF y herramientas PDF para evaluar el potencial total."}},{"@type":"Question","name":"¿Por qué Windows muestra una advertencia al instalar?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE es software de desarrollador independiente que aún no acumuló firmas de reputación SmartScreen. No significa que sea malicioso. Hacé click en Más información y Ejecutar de todos modos. El instalador puede inspeccionarse con cualquier antivirus o VirusTotal."}}]}
 </script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -726,7 +726,7 @@ nav.top.scrolled{
   position:relative;
   background:var(--bg-0);border:1px solid var(--line-2);
   border-radius:16px;overflow:hidden;
-  min-height:440px;
+  height:440px;
   display:flex;flex-direction:column;
 }
 .trial-preview-bar{
@@ -926,9 +926,9 @@ nav.top.scrolled{
 }
 .cent-toggle:hover{border-color:var(--b);color:var(--b)}
 
-.cent-body{display:grid;grid-template-columns:1fr 1.4fr;min-height:320px}
-.cent-files-panel{padding:20px;border-right:1px solid var(--line)}
-.cent-excel-panel{padding:20px}
+.cent-body{display:grid;grid-template-columns:1fr 1.4fr;height:320px}
+.cent-files-panel{padding:20px;border-right:1px solid var(--line);overflow:hidden}
+.cent-excel-panel{padding:20px;overflow:hidden}
 .cent-panel-label{
   font-family:var(--mono);font-size:10px;letter-spacing:0.12em;
   color:var(--t-lo);text-transform:uppercase;margin-bottom:14px;
@@ -1380,6 +1380,34 @@ nav.top.scrolled{
 .price-feats li::before{content:"+";position:absolute;left:0;top:6px;color:var(--b);font-weight:700;font-size:13px}
 .price-feats li.no::before{content:"−";color:var(--t-faint)}
 .price-feats li.no{color:var(--t-faint)}
+
+/* Bloque destacado dentro de una card de precio (ej: features exclusivas PRO) */
+.price-highlight{
+  background:linear-gradient(180deg,rgba(82,152,255,0.10),rgba(82,152,255,0.04));
+  border:1px solid rgba(82,152,255,0.28);
+  border-radius:12px;
+  padding:14px 16px;
+  margin:0 0 16px;
+  position:relative;
+}
+.price-highlight-label{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:0.18em;
+  color:var(--b);font-weight:700;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;gap:7px;
+}
+.price-highlight-label::before{
+  content:"";width:6px;height:6px;background:var(--b);
+  border-radius:50%;box-shadow:0 0 8px var(--b);
+}
+.price-highlight ul{list-style:none;padding:0;margin:0}
+.price-highlight ul li{
+  font-size:13.5px;color:var(--t-hi);font-weight:500;
+  padding:4px 0 4px 20px;position:relative;line-height:1.45;
+}
+.price-highlight ul li::before{
+  content:"★";position:absolute;left:0;top:4px;
+  color:var(--b);font-size:11px;
+}
 .price-cta{
   width:100%;padding:13px;background:var(--b);color:#0a0d12;
   border-radius:10px;font-weight:600;font-size:14px;
@@ -1431,6 +1459,18 @@ footer.foot{
 .foot-links a{font-size:13.5px;color:var(--t-md);transition:color .15s}
 .foot-links a:hover{color:var(--b)}
 .foot-copy{font-family:var(--mono);font-size:11px;color:var(--t-lo);letter-spacing:0.04em}
+.foot-legal{
+  max-width:1240px;margin:24px auto 0;padding-top:20px;
+  border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;
+}
+.foot-legal-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-legal-links a{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.06em;
+  color:var(--t-lo);text-transform:uppercase;transition:color .15s;
+}
+.foot-legal-links a:hover{color:var(--b)}
+.foot-legal-note{font-family:var(--mono);font-size:10.5px;color:var(--t-faint);letter-spacing:0.04em}
 
 /* === WHATSAPP WIDGET === */
 .wa{
@@ -3047,6 +3087,8 @@ body.has-sys-strip{padding-top:26px}
   /* Footer */
   .foot-inner{flex-direction:column;align-items:flex-start;gap:20px}
   .foot-links{font-size:12.5px}
+  .foot-legal{flex-direction:column;align-items:flex-start;gap:14px}
+  .foot-legal-links{gap:14px}
 
   /* Modal mobile */
   .modal-box{border-radius:16px}
@@ -3926,7 +3968,8 @@ body.has-sys-strip{padding-top:26px}
         <div class="price-divider"></div>
         <ul class="price-feats">
           <li>100 docs/mes · 3 plantillas</li>
-          <li>Todo lo de TRIAL</li>
+          <li>Extracción a Excel por plantilla manual</li>
+          <li>Detección de duplicados</li>
           <li>Unir, dividir y extraer páginas</li>
           <li>PDF a Word · imágenes a PDF</li>
           <li class="no">Sin peritaje ni Centinela</li>
@@ -3940,6 +3983,13 @@ body.has-sys-strip{padding-top:26px}
         <div class="price-amt"><span class="cur">US$</span><span class="p-m">89</span><span class="p-a" style="display:none">854</span><span class="per p-pm">/ mes</span><span class="per p-pa" style="display:none">/ año</span></div>
         <div class="price-ars"><span class="p-m">≈ AR$ 135.000 / mes</span><span class="p-a" style="display:none">≈ AR$ 1.295.000 / año</span></div>
         <div class="price-divider"></div>
+        <div class="price-highlight">
+          <div class="price-highlight-label">Exclusivo PRO</div>
+          <ul>
+            <li>Asistente de plantillas automático</li>
+            <li>Autodetección de plantillas por lote</li>
+          </ul>
+        </div>
         <ul class="price-feats">
           <li>350 docs/mes · plantillas ilimitadas</li>
           <li>Todo lo de CORE</li>
@@ -3989,13 +4039,13 @@ body.has-sys-strip{padding-top:26px}
         <button class="faq-q"><span class="faq-qt">¿Para qué profesional o área está pensado?</span>
           <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
-        <div class="faq-a"><p>Para <strong>estudios contables</strong>, <strong>estudios jurídicos y notariales</strong> y <strong>áreas administrativas</strong> del sector público y privado. Cualquier área que procese grandes volúmenes de PDFs por semana.</p></div>
+        <div class="faq-a"><p>Para <strong>estudios contables</strong>, <strong>estudios jurídicos</strong> y <strong>áreas administrativas</strong> del sector público y privado. Cualquier área que procese grandes volúmenes de PDFs por semana.</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q"><span class="faq-qt">¿Funciona con cualquier PDF?</span>
           <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
         </button>
-        <div class="faq-a"><p>Con PDFs que tienen texto seleccionable — facturas, contratos, expedientes, resoluciones. Para escaneados sin texto, el módulo <strong>OCR por Lote</strong> (PRO y SENTINEL) los convierte en texto antes de procesarlos.</p></div>
+        <div class="faq-a"><p>Sí. DEXIAE incluye motor <strong>OCR Tesseract</strong> en todas las ediciones, así que también lee PDFs escaneados o con campos en formato imagen — definís una zona en la plantilla y el motor extrae el texto de esa imagen. Para procesar PDFs escaneados completos en lote sin definir zonas, está el módulo <strong>OCR por Lote</strong> (PRO y SENTINEL).</p></div>
       </div>
       <div class="faq-item">
         <button class="faq-q"><span class="faq-qt">¿Qué pasa si no tengo conexión a internet?</span>
@@ -4050,6 +4100,14 @@ body.has-sys-strip{padding-top:26px}
       <a href="https://instagram.com/get.dexiae" target="_blank" rel="noopener">Instagram</a>
     </div>
     <div class="foot-copy">© 2026 DEXIAE · Córdoba, AR</div>
+  </div>
+  <div class="foot-legal">
+    <div class="foot-legal-links">
+      <a href="guia-usuario.html">Guía del usuario</a>
+      <a href="eula.html">Términos y EULA</a>
+      <a href="privacidad.html">Política de privacidad</a>
+    </div>
+    <div class="foot-legal-note">DEXIAE V1.1.3 · Desarrollado por Juan José Bazán</div>
   </div>
 </footer>
 

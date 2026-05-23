@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEXIAE — Guía del Usuario V1.1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F5F0;--bg2:#EFECEA;--ink:#1C1C1A;--ink2:#3A3A38;
+  --muted:#7A7A74;--border:rgba(28,28,26,.1);--border2:rgba(28,28,26,.18);
+  --accent:#1A52B8;--accent-bg:#EBF0FC;--accent-txt:#0F3380;
+  --green:#0B6B3C;--green-bg:#E8F5EE;
+  --amber:#9A5A08;--amber-bg:#FDF3E0;
+  --red:#B01A1A;--red-bg:#FDEAEA;
+  --serif:'Playfair Display',Georgia,serif;
+  --sans:'Inter',system-ui,sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.7;-webkit-font-smoothing:antialiased}
+
+/* LAYOUT */
+.wrap{display:grid;grid-template-columns:280px 1fr;min-height:100vh;max-width:1400px;margin:0 auto}
+
+/* SIDEBAR */
+aside{background:var(--bg2);border-right:1px solid var(--border);padding:2rem 1.5rem;position:sticky;top:0;height:100vh;overflow-y:auto}
+.brand{font-family:var(--mono);font-size:18px;font-weight:500;color:var(--accent);letter-spacing:.1em;margin-bottom:.25rem}
+.version{font-family:var(--mono);font-size:11px;color:var(--muted);margin-bottom:2rem}
+
+.search-box{position:relative;margin-bottom:1.5rem}
+.search-box input{width:100%;padding:10px 12px 10px 36px;border:1.5px solid var(--border2);border-radius:6px;font-size:13px;font-family:var(--sans);background:white;color:var(--ink);outline:none;transition:border-color .2s}
+.search-box input:focus{border-color:var(--accent)}
+.search-box::before{content:"⌕";position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:16px}
+
+.edition-filter{margin-bottom:1.5rem;padding:1rem;background:white;border:1px solid var(--border);border-radius:8px}
+.edition-filter-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+.edition-filter select{width:100%;padding:7px 10px;border:1px solid var(--border2);border-radius:5px;font-size:13px;font-family:var(--sans);background:white;color:var(--ink);outline:none;cursor:pointer}
+
+nav ol{list-style:none;counter-reset:sec}
+nav ol li{counter-increment:sec;margin-bottom:2px}
+nav ol li a{display:block;padding:7px 10px;color:var(--ink2);text-decoration:none;font-size:13px;border-radius:5px;line-height:1.4;transition:background .15s}
+nav ol li a:hover{background:white}
+nav ol li a::before{content:counter(sec,decimal-leading-zero) " · ";font-family:var(--mono);color:var(--muted);font-size:11px;margin-right:2px}
+nav ol li a.active{background:var(--accent);color:white}
+nav ol li a.active::before{color:rgba(255,255,255,.7)}
+
+.nav-footer{margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.nav-footer a{display:block;padding:6px 10px;color:var(--muted);font-size:12px;text-decoration:none;border-radius:5px}
+.nav-footer a:hover{color:var(--ink);background:white}
+.print-btn{width:100%;background:var(--ink);color:white;border:none;padding:10px;border-radius:6px;font-family:var(--sans);font-size:12px;font-weight:600;cursor:pointer;margin-top:.5rem;letter-spacing:.02em}
+.print-btn:hover{background:var(--ink2)}
+
+/* MAIN */
+main{padding:3rem 4rem;max-width:880px}
+.doc-header{margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid var(--border)}
+.doc-tag{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--accent);text-transform:uppercase;margin-bottom:.75rem}
+.doc-title{font-family:var(--serif);font-size:52px;font-weight:800;line-height:1.05;letter-spacing:-.015em;margin-bottom:.75rem}
+.doc-sub{font-size:17px;color:var(--muted);line-height:1.6;font-weight:300}
+
+/* SECTIONS */
+section{margin-bottom:4rem;scroll-margin-top:2rem}
+section h2{font-family:var(--serif);font-size:34px;font-weight:800;line-height:1.15;margin-bottom:.5rem;letter-spacing:-.01em;display:flex;align-items:baseline;gap:1rem}
+section h2 .num{font-family:var(--mono);font-size:14px;color:var(--muted);font-weight:500;letter-spacing:.1em}
+section .lead{font-size:16px;color:var(--muted);margin-bottom:2rem;line-height:1.6;max-width:640px}
+
+section h3{font-family:var(--serif);font-size:22px;font-weight:700;margin:2rem 0 .75rem;letter-spacing:-.005em}
+section h4{font-family:var(--sans);font-size:14px;font-weight:700;margin:1.5rem 0 .5rem;text-transform:uppercase;letter-spacing:.05em;color:var(--ink2)}
+
+section p{margin-bottom:1rem}
+section p + p{margin-top:-.25rem}
+
+section ol,section ul{margin:1rem 0 1.25rem 1.5rem}
+section ol li,section ul li{margin-bottom:.5rem;line-height:1.65}
+section ol{counter-reset:step}
+section ol li{list-style:none;counter-increment:step;position:relative;padding-left:.5rem}
+section ol li::before{content:counter(step);position:absolute;left:-2rem;top:.1rem;font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent);background:var(--accent-bg);width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+strong{font-weight:600;color:var(--ink)}
+code{font-family:var(--mono);font-size:.88em;background:var(--bg2);padding:2px 6px;border-radius:3px;color:var(--accent-txt);border:1px solid var(--border)}
+
+/* BADGES — edition markers */
+.edition-badges{display:inline-flex;gap:5px;vertical-align:middle;margin-left:.5rem}
+.badge{font-family:var(--mono);font-size:9px;font-weight:600;letter-spacing:.06em;padding:2px 7px;border-radius:3px;text-transform:uppercase}
+.b-trial{background:var(--green-bg);color:var(--green);border:1px solid rgba(11,107,60,.2)}
+.b-core{background:var(--accent-bg);color:var(--accent-txt);border:1px solid rgba(26,82,184,.2)}
+.b-pro{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(154,90,8,.2)}
+.b-sentinel{background:#1C1C1A;color:#F7F5F0;border:1px solid #1C1C1A}
+.b-all{background:var(--bg2);color:var(--ink2);border:1px solid var(--border)}
+
+/* CALLOUT BOXES */
+.callout{border:1px solid var(--border2);border-left-width:3px;padding:1rem 1.25rem;border-radius:6px;margin:1.25rem 0;background:white}
+.callout-title{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem}
+.c-info{border-left-color:var(--accent)}
+.c-info .callout-title{color:var(--accent)}
+.c-warn{border-left-color:var(--amber);background:var(--amber-bg)}
+.c-warn .callout-title{color:var(--amber)}
+.c-danger{border-left-color:var(--red);background:var(--red-bg)}
+.c-danger .callout-title{color:var(--red)}
+.c-ok{border-left-color:var(--green);background:var(--green-bg)}
+.c-ok .callout-title{color:var(--green)}
+.c-support{border-left-color:var(--ink);background:var(--bg2)}
+.c-support .callout-title{color:var(--ink)}
+
+/* TABLES */
+.tbl-wrap{overflow-x:auto;margin:1.25rem 0;border:1px solid var(--border);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+table th{text-align:left;padding:10px 12px;background:var(--bg2);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);font-weight:600;border-bottom:1px solid var(--border)}
+table td{padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;line-height:1.5}
+table tr:last-child td{border-bottom:none}
+table td.check{color:var(--green);font-weight:600;text-align:center}
+table td.cross{color:var(--muted);text-align:center}
+table td.cat{background:var(--bg2);font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink2);font-weight:600}
+
+/* FOLDER DIAGRAM */
+.folder-tree{font-family:var(--mono);font-size:13px;background:var(--bg2);border:1px solid var(--border);border-radius:6px;padding:1.25rem;margin:1rem 0;line-height:1.9;color:var(--ink)}
+.folder-tree .f{color:var(--accent)}
+.folder-tree .c{color:var(--muted);font-size:11px}
+
+/* DIAGRAM FLOW */
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:1.5rem 0}
+.flow-step{background:white;border:1px solid var(--border2);border-radius:6px;padding:.85rem;position:relative}
+.flow-step .n{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:.08em;margin-bottom:4px}
+.flow-step .t{font-weight:600;font-size:13px;margin-bottom:3px}
+.flow-step .d{font-size:11.5px;color:var(--muted);line-height:1.45}
+
+/* KBD */
+kbd{font-family:var(--mono);font-size:11px;background:white;border:1px solid var(--border2);border-bottom-width:2px;padding:2px 6px;border-radius:4px;color:var(--ink)}
+
+/* ========== EDITION FILTER ========== */
+/* Nav items marked with data-nav-ed get hidden in sidebar when edition doesn't meet minimum */
+body[data-ed="trial"] nav li[data-nav-ed="core"],
+body[data-ed="trial"] nav li[data-nav-ed="pro"],
+body[data-ed="trial"] nav li[data-nav-ed="sentinel"],
+body[data-ed="core"]  nav li[data-nav-ed="pro"],
+body[data-ed="core"]  nav li[data-nav-ed="sentinel"],
+body[data-ed="pro"]   nav li[data-nav-ed="sentinel"]{display:none}
+
+/* Sections marked with data-min-ed get hidden entirely
+   when the selected edition does not meet the minimum */
+body[data-ed="trial"] section[data-min-ed="core"],
+body[data-ed="trial"] section[data-min-ed="pro"],
+body[data-ed="trial"] section[data-min-ed="sentinel"],
+body[data-ed="core"]  section[data-min-ed="pro"],
+body[data-ed="core"]  section[data-min-ed="sentinel"],
+body[data-ed="pro"]   section[data-min-ed="sentinel"]{display:none}
+
+/* Inline blocks (cards, list items, paragraphs) marked with data-min-ed
+   get ATTENUATED instead of hidden — user sees they exist but are grayed out */
+body[data-ed="trial"] :not(section)[data-min-ed="core"],
+body[data-ed="trial"] :not(section)[data-min-ed="pro"],
+body[data-ed="trial"] :not(section)[data-min-ed="sentinel"],
+body[data-ed="core"]  :not(section)[data-min-ed="pro"],
+body[data-ed="core"]  :not(section)[data-min-ed="sentinel"],
+body[data-ed="pro"]   :not(section)[data-min-ed="sentinel"]{
+  opacity:.42;position:relative;pointer-events:none
+}
+body[data-ed="trial"] :not(section)[data-min-ed="core"]::after,
+body[data-ed="trial"] :not(section)[data-min-ed="pro"]::after,
+body[data-ed="trial"] :not(section)[data-min-ed="sentinel"]::after,
+body[data-ed="core"]  :not(section)[data-min-ed="pro"]::after,
+body[data-ed="core"]  :not(section)[data-min-ed="sentinel"]::after,
+body[data-ed="pro"]   :not(section)[data-min-ed="sentinel"]::after{
+  content:"NO DISPONIBLE EN SU EDICIÓN";
+  position:absolute;top:8px;right:8px;
+  font-family:var(--mono);font-size:9px;font-weight:600;
+  letter-spacing:.08em;color:var(--red);
+  background:white;padding:3px 7px;border-radius:3px;
+  border:1px solid var(--red);pointer-events:none
+}
+
+/* Filter banner — shown above main content when a non-"all" edition is active */
+.filter-banner{display:none;margin-bottom:2rem;padding:14px 18px;
+  background:var(--accent-bg);border:1px solid rgba(26,82,184,.2);
+  border-left:3px solid var(--accent);border-radius:6px;
+  font-size:13px;color:var(--accent-txt);line-height:1.5}
+body[data-ed="trial"] .filter-banner,
+body[data-ed="core"] .filter-banner,
+body[data-ed="pro"] .filter-banner,
+body[data-ed="sentinel"] .filter-banner{display:block}
+.filter-banner strong{color:var(--accent-txt)}
+.filter-banner .fb-ed{font-family:var(--mono);font-size:11px;font-weight:600;
+  letter-spacing:.08em;text-transform:uppercase;padding:2px 6px;
+  background:white;border:1px solid rgba(26,82,184,.3);border-radius:3px;
+  margin:0 4px}
+.filter-banner .fb-reset{margin-top:6px;font-size:12px}
+.filter-banner .fb-reset a{color:var(--accent);cursor:pointer;
+  text-decoration:underline;font-weight:500}
+
+/* SEARCH HIGHLIGHT */
+.search-hit{background:#FDE047;color:#1C1C1A;padding:1px 2px;border-radius:2px}
+
+/* SEARCH NO RESULTS */
+section.search-hidden{display:none}
+
+/* PRINT */
+@media print{
+  aside{display:none}
+  .wrap{grid-template-columns:1fr}
+  main{padding:1cm;max-width:100%}
+  section{page-break-inside:avoid;margin-bottom:2rem}
+  section h2{page-break-after:avoid}
+  .doc-header{page-break-after:avoid}
+  body{font-size:11pt;background:white}
+  .callout{page-break-inside:avoid}
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .wrap{grid-template-columns:1fr}
+  aside{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border)}
+  main{padding:2rem 1.5rem}
+  .doc-title{font-size:36px}
+  section h2{font-size:26px}
+}
+</style>
+</head>
+<body data-ed="all">
+
+<div class="wrap">
+
+<!-- ===================== SIDEBAR ===================== -->
+<aside>
+  <div class="brand">DEXIAE</div>
+  <div class="version">Guía del Usuario · V1.1 · 2026</div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Buscar en la guía..." autocomplete="off">
+  </div>
+
+  <div class="edition-filter">
+    <div class="edition-filter-label">Filtrar por edición</div>
+    <select id="editionSelect">
+      <option value="all">Todas las ediciones</option>
+      <option value="trial">TRIAL</option>
+      <option value="core">CORE</option>
+      <option value="pro">PRO</option>
+      <option value="sentinel">SENTINEL</option>
+    </select>
+  </div>
+
+  <nav>
+    <ol id="navList">
+      <li><a href="#intro">Introducción y conceptos</a></li>
+      <li><a href="#instalacion">Instalación</a></li>
+      <li><a href="#activacion">Activación de licencia</a></li>
+      <li><a href="#tour">Primera ejecución y tour</a></li>
+      <li><a href="#plantilla">Modo Extractor: crear plantilla</a></li>
+      <li><a href="#clave-ancla">Clave Única, Ancla y deduplicación</a></li>
+      <li><a href="#listado">Modo Listado (documentos tabulares)</a></li>
+      <li><a href="#procesar">Procesar un lote paso a paso</a></li>
+      <li><a href="#prevuelo">Pre-vuelo: Espejo y Ruteo</a></li>
+      <li><a href="#carpetas">Resultado del lote: las carpetas</a></li>
+      <li><a href="#renombrado">Renombrado automático</a></li>
+      <li><a href="#historico">Excel histórico</a></li>
+      <li data-nav-ed="core"><a href="#herramientas">Herramientas PDF</a></li>
+      <li data-nav-ed="pro"><a href="#ocr">OCR por lote</a></li>
+      <li data-nav-ed="pro"><a href="#peritaje">Peritaje de firmas digitales</a></li>
+      <li data-nav-ed="pro"><a href="#centinela">Centinela automático</a></li>
+      <li data-nav-ed="pro"><a href="#fusionar">Fusionar reportes</a></li>
+      <li><a href="#reportes">Interpretar los reportes</a></li>
+      <li><a href="#logs">Logs y trazabilidad</a></li>
+      <li><a href="#gestion">Gestión de plantillas</a></li>
+      <li><a href="#ediciones">Tabla comparativa de ediciones</a></li>
+      <li><a href="#faq">FAQ y troubleshooting</a></li>
+      <li><a href="#soporte">Soporte</a></li>
+    </ol>
+  </nav>
+
+  <div class="nav-footer">
+    <button class="print-btn" onclick="window.print()">Imprimir / Guardar como PDF</button>
+    <a href="https://dexiae.pages.dev/#contacto" target="_blank">Contactar soporte</a>
+    <a href="https://dexiae.pages.dev" target="_blank">dexiae.pages.dev</a>
+  </div>
+</aside>
+
+<!-- ===================== MAIN ===================== -->
+<main>
+  <header class="doc-header">
+    <div class="doc-tag">Documentación oficial</div>
+    <h1 class="doc-title">Guía del usuario</h1>
+    <p class="doc-sub">Todo lo que necesita saber para configurar, operar y aprovechar DEXIAE en su flujo de trabajo documental. Versión V1.1 — actualizada a mayo de 2026.</p>
+  </header>
+
+  <!-- FILTER BANNER (visible only when edition filter is active) -->
+  <div class="filter-banner" id="filterBanner">
+    <strong>Modo de lectura activo:</strong> está viendo la guía filtrada para la edición <span class="fb-ed" id="fbEditionName">TRIAL</span>. Las secciones y funcionalidades disponibles solo en ediciones superiores fueron <strong>ocultas u marcadas como no disponibles</strong>.
+    <div class="fb-reset"><a onclick="document.getElementById('editionSelect').value='all';document.body.dataset.ed='all';updateBanner();">Ver guía completa con todas las ediciones →</a></div>
+  </div>
+
+  <!-- ===== 1. INTRODUCCIÓN ===== -->
+  <section id="intro">
+    <h2><span class="num">01</span>Introducción y conceptos</h2>
+    <p class="lead">DEXIAE es un motor de procesamiento y auditoría documental diseñado para organismos públicos, estudios profesionales y áreas administrativas que trabajan con grandes volúmenes de archivos PDF.</p>
+
+    <h3>¿Qué problema resuelve?</h3>
+    <p>El procesamiento manual de cientos de documentos consume tiempo, introduce errores y es imposible de auditar. DEXIAE automatiza cuatro tareas críticas en un único flujo: <strong>extracción de datos</strong> por plantilla configurable, <strong>clasificación automática</strong> de archivos, <strong>detección de duplicados e inconsistencias</strong>, y <strong>peritaje criptográfico</strong> de firmas digitales.</p>
+
+    <h3>Principio fundamental: procesamiento local</h3>
+    <p>DEXIAE corre íntegramente en su equipo. Los documentos <strong>nunca se envían a servidores externos</strong>, no se requiere conexión a internet para operar y no existe intermediación por servicios en la nube. Esto tiene dos implicancias: la información confidencial permanece bajo control del organismo, y no hay dependencia de infraestructura de terceros.</p>
+
+    <h3>¿Cuándo usar DEXIAE?</h3>
+    <ul>
+      <li>Extracción masiva de campos fijos de expedientes, resoluciones, contratos, certificaciones.</li>
+      <li>Auditoría de lotes documentales donde se necesita verificar integridad y firmantes.</li>
+      <li>Clasificación y ordenamiento automático de carpetas con cientos o miles de PDFs.</li>
+      <li>Detección de duplicados contra archivos históricos o dentro del mismo lote.</li>
+      <li>Procesamiento de documentos tabulares (listados, grillas, reportes con tablas).</li>
+    </ul>
+
+    <h3>¿Cuándo NO usar DEXIAE?</h3>
+    <ul>
+      <li>Documentos con estructura totalmente variable donde no existe un patrón repetible.</li>
+      <li>Archivos de un solo uso que no justifican configurar una plantilla.</li>
+      <li>Flujos que requieran edición masiva del contenido de los PDFs (DEXIAE extrae y audita, no edita).</li>
+    </ul>
+
+    <div class="callout c-info">
+      <div class="callout-title">Concepto clave</div>
+      <p style="margin:0">Todo el trabajo gira en torno a dos elementos: <strong>una plantilla</strong> (define qué extraer y cómo) y <strong>un lote</strong> (la carpeta con los documentos a procesar). Dominados esos dos conceptos, el resto de la aplicación es navegación.</p>
+    </div>
+  </section>
+
+  <!-- ===== 2. INSTALACIÓN ===== -->
+  <section id="instalacion">
+    <h2><span class="num">02</span>Instalación</h2>
+    <p class="lead">DEXIAE se distribuye como instalador único para Windows. El proceso completo tarda alrededor de dos minutos y no requiere permisos de administrador en la mayoría de las configuraciones.</p>
+
+    <h3>Requisitos del sistema</h3>
+    <ul>
+      <li><strong>Sistema operativo:</strong> Windows 10 o Windows 11 (64 bits).</li>
+      <li><strong>RAM:</strong> 4 GB mínimo, 8 GB recomendado para lotes grandes.</li>
+      <li><strong>Espacio en disco:</strong> aproximadamente 250 MB para la instalación completa.</li>
+      <li><strong>Conexión a internet:</strong> requerida únicamente para la activación inicial de la licencia.</li>
+    </ul>
+
+    <h3>Pasos de instalación</h3>
+    <ol>
+      <li>Descargue el archivo <code>DEXIAE_Setup_V1.1.exe</code> desde el enlace recibido por correo o desde dexiae.pages.dev.</li>
+      <li>Ejecute el instalador. Si Windows SmartScreen emite una advertencia, seleccione "Más información" y luego "Ejecutar de todas formas".</li>
+      <li>Acepte los términos de licencia del usuario final.</li>
+      <li>Confirme la carpeta de destino. El instalador también configurará automáticamente el motor OCR (Tesseract) incluido en el paquete.</li>
+      <li>Al finalizar, encontrará un acceso directo en el escritorio y en el menú Inicio.</li>
+    </ol>
+
+    <div class="callout c-info">
+      <div class="callout-title">Qué se instala</div>
+      <p style="margin:0">El instalador incluye el ejecutable principal, el motor OCR Tesseract con el paquete de idioma español, todas las dependencias necesarias y las librerías de peritaje criptográfico. <strong>No requiere instalar nada por separado.</strong></p>
+    </div>
+
+    <h3>Desinstalación</h3>
+    <p>Desde Panel de Control → Programas → DEXIAE → Desinstalar. El proceso conserva las plantillas que creó en su carpeta de usuario (<code>%APPDATA%\DEXIAE\plantillas</code>) para que pueda reutilizarlas si reinstala.</p>
+  </section>
+
+  <!-- ===== 3. ACTIVACIÓN ===== -->
+  <section id="activacion">
+    <h2><span class="num">03</span>Activación de licencia</h2>
+    <p class="lead">DEXIAE utiliza licencias vinculadas al hardware del equipo. Cada clave es válida para una única máquina, lo que garantiza trazabilidad y control sobre el uso del software.</p>
+
+    <h3>¿Qué es el HWID?</h3>
+    <p>El <strong>Hardware ID (HWID)</strong> es un identificador único generado a partir de componentes del equipo. DEXIAE lo calcula automáticamente en la primera ejecución y lo muestra en la pantalla de activación. Este identificador es el que vincula la clave de licencia al equipo.</p>
+
+    <div class="callout c-warn">
+      <div class="callout-title">Importante</div>
+      <p style="margin:0">El HWID puede cambiar si reemplaza componentes principales del equipo (placa madre, disco principal). Si eso ocurre y la licencia deja de validarse, contacte a soporte para migrar la clave al nuevo hardware.</p>
+    </div>
+
+    <h3>Flujo de activación en primera ejecución</h3>
+    <ol>
+      <li>Al abrir DEXIAE por primera vez aparece la <strong>Pantalla de Bienvenida</strong> con dos opciones: iniciar TRIAL de 14 días o activar con una clave ya adquirida.</li>
+      <li><strong>Opción TRIAL:</strong> otorga acceso inmediato durante 14 días corridos, con un límite total de 100 documentos procesados en todo el período.</li>
+      <li><strong>Opción Activar:</strong> se abre la pantalla de activación. El sistema muestra el HWID del equipo (puede copiarlo con el botón correspondiente) y un campo para pegar la clave recibida.</li>
+      <li>Envíe el HWID al proveedor por correo. Recibirá una clave de activación válida exclusivamente para ese HWID.</li>
+      <li>Pegue la clave en el campo y presione <strong>Activar DEXIAE</strong>. El sistema la valida localmente y, si es correcta, desbloquea las funciones correspondientes a su edición.</li>
+    </ol>
+
+    <h3>¿Qué pasa cuando vence el TRIAL?</h3>
+    <p>Al finalizar los 14 días o al alcanzar los 100 documentos, la aplicación sigue abriendo, pero bloquea el procesamiento de lotes y muestra la pantalla de activación. Las plantillas que haya creado permanecen guardadas; al activar una licencia paga, quedan inmediatamente disponibles.</p>
+
+    <h3>Renovaciones y cambios de edición</h3>
+    <p>Las licencias se facturan en esquema mensual o anual. Para renovar, actualizar de edición (por ejemplo, pasar de CORE a PRO) o migrar el HWID, solicite la nueva clave a soporte y úsela desde <strong>Acerca de DEXIAE → Actualizar licencia</strong>.</p>
+  </section>
+
+  <!-- ===== 4. TOUR ===== -->
+  <section id="tour">
+    <h2><span class="num">04</span>Primera ejecución y tour de la interfaz</h2>
+    <p class="lead">La aplicación está organizada en tres pantallas principales accesibles desde la barra lateral izquierda. Conocerlas es la base para todo lo que sigue.</p>
+
+    <h3>Barra lateral</h3>
+    <ul>
+      <li><strong>Laboratorio</strong> — donde se crean, editan y prueban plantillas.</li>
+      <li><strong>Ejecución</strong> — donde se configuran y lanzan los lotes de procesamiento.</li>
+      <li><strong>Herramientas</strong> — utilidades PDF (unir, dividir, convertir, OCR, fusionar reportes).</li>
+    </ul>
+    <p>Además, la barra lateral contiene el <strong>robot DIXI</strong> (el asistente visual que refleja el estado del sistema), el indicador del motor OCR y el acceso a la ventana "Acerca de DEXIAE" donde se consulta la edición activa, la vigencia de la licencia y la versión instalada.</p>
+
+    <h3>Pantalla Laboratorio</h3>
+    <p>Es el banco de trabajo para definir qué datos extraer. Tiene tres zonas:</p>
+    <ul>
+      <li><strong>Panel superior:</strong> gestión de plantillas (seleccionar, renombrar, eliminar, guardar).</li>
+      <li><strong>Panel central (dos columnas):</strong> a la izquierda la tabla de campos de la plantilla activa; a la derecha el visualizador del documento de referencia con dos modos (Texto y Visual).</li>
+      <li><strong>Panel inferior:</strong> editor para agregar, modificar y eliminar campos.</li>
+    </ul>
+
+    <h3>Pantalla Ejecución</h3>
+    <p>Es el panel de operaciones. Desde acá se elige el modo de trabajo (Extractor o Listado), se activa el peritaje legal, se selecciona la plantilla, se configura el renombrado automático, se vincula el Excel histórico y se lanza el procesamiento. También contiene la bitácora del proceso y los controles del Centinela.</p>
+
+    <h3>Pantalla Herramientas</h3>
+    <p>Seis utilidades independientes: unir PDFs, dividir / extraer páginas, convertir PDF a Word, convertir imágenes a PDF, OCR por lote y fusionar reportes. Funcionan de forma autónoma, sin requerir plantilla ni lote configurados.</p>
+  </section>
+
+  <!-- ===== 5. MODO EXTRACTOR ===== -->
+  <section id="plantilla">
+    <h2><span class="num">05</span>Modo Extractor: crear su primera plantilla</h2>
+    <p class="lead">El Modo Extractor es el núcleo de DEXIAE. Una plantilla es la receta que indica qué campos extraer de cada documento del lote. Se configura una sola vez y se reutiliza en todos los lotes similares.</p>
+
+    <h3>Flujo general</h3>
+    <div class="flow">
+      <div class="flow-step"><div class="n">01</div><div class="t">Cargar documento de referencia</div><div class="d">Un PDF representativo del lote a procesar.</div></div>
+      <div class="flow-step"><div class="n">02</div><div class="t">Definir campos</div><div class="d">Agregar una fila por cada dato que quiera extraer.</div></div>
+      <div class="flow-step"><div class="n">03</div><div class="t">Probar</div><div class="d">Verificar que la extracción funciona sobre el documento de referencia.</div></div>
+      <div class="flow-step"><div class="n">04</div><div class="t">Guardar</div><div class="d">La plantilla queda disponible para usar en Ejecución.</div></div>
+    </div>
+
+    <h3>Paso a paso</h3>
+    <ol>
+      <li>Abra la pantalla <strong>Laboratorio</strong> y presione <strong>Cargar Documento de Referencia</strong>. Elija un PDF (o imagen) representativo del tipo de documento que va a procesar en el lote.</li>
+      <li>Si el documento es escaneado o de baja calidad textual, presione el botón <strong>RECOP</strong> para aplicar OCR y obtener el texto. El visualizador se actualizará con el contenido reconocido.</li>
+      <li>En el panel inferior, complete los campos del editor: <strong>Columna Excel</strong> (nombre del campo en el reporte), <strong>Etiqueta</strong> (texto ancla que precede al dato en el documento), <strong>Estrategia</strong> (cómo buscar) y <strong>Freno</strong> (texto que indica dónde cortar la captura).</li>
+      <li>Presione <strong>Agregar</strong>. El campo se suma a la tabla izquierda.</li>
+      <li>Repita para cada dato que quiera extraer.</li>
+      <li>Use <strong>Probar Extracción</strong> para verificar que los valores son correctos sobre el documento de referencia.</li>
+      <li>Guarde con <strong>Guardar</strong> (sobrescribe la plantilla activa) o <strong>Nueva / Guardar como</strong> (crea una nueva).</li>
+    </ol>
+
+    <h3>Estrategias de extracción</h3>
+    <p>Cada campo se configura con una estrategia que le indica a DEXIAE dónde buscar el dato. Elija la más adecuada según la disposición del texto en el documento.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:28%">Estrategia</th><th>Cuándo usarla</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Texto (Derecha)</strong></td><td>El valor aparece a la derecha de la etiqueta en la misma línea. Es la más común para formularios clásicos: <em>"Expediente: 1234/25"</em>.</td></tr>
+          <tr><td><strong>Texto (Izquierda)</strong></td><td>El valor está a la izquierda de la etiqueta. Útil cuando la etiqueta funciona como sufijo.</td></tr>
+          <tr><td><strong>Texto (Arriba)</strong></td><td>El valor está en la línea anterior a la etiqueta.</td></tr>
+          <tr><td><strong>Texto (Abajo)</strong></td><td>El valor está en la línea siguiente a la etiqueta. Común en formularios donde el nombre del campo precede al contenido en renglón aparte.</td></tr>
+          <tr><td><strong>Texto (Cerca)</strong></td><td>El valor está pegado o muy próximo a la etiqueta, admitiendo signos de puntuación y números con decimales.</td></tr>
+          <tr><td><strong>Texto (Multilínea)</strong></td><td>El valor puede extenderse varias líneas y termina cuando aparece el Freno. Requiere configurar el campo Freno.</td></tr>
+          <tr><td><strong>Entre A y B</strong></td><td>Captura el texto entre la Etiqueta y el Freno, útil cuando hay delimitadores claros a ambos lados.</td></tr>
+          <tr><td><strong>ZONA</strong></td><td>El valor se captura por coordenadas visuales dibujando un recuadro sobre el documento en el Modo Visual. Ideal para formularios cuya estructura no es textual sino posicional.</td></tr>
+          <tr><td><strong>Número</strong></td><td>Busca el primer número cercano a la etiqueta, admitiendo miles y decimales.</td></tr>
+          <tr><td><strong>Moneda ($)</strong></td><td>Captura importes. Admite separadores de miles y decimales.</td></tr>
+          <tr><td><strong>Fecha</strong></td><td>Detecta formatos dd/mm/aaaa, dd-mm-aaaa y variantes cercanas a la etiqueta.</td></tr>
+          <tr><td><strong>CUIT / DNI</strong></td><td>Reconoce el patrón argentino de CUIT y DNI sin necesidad de etiqueta.</td></tr>
+          <tr><td><strong>Email</strong></td><td>Extrae la primera dirección de correo válida del documento.</td></tr>
+          <tr><td><strong>Patrón (Regex)</strong></td><td>Extracción avanzada mediante expresión regular. <strong>Ver aviso abajo.</strong></td></tr>
+          <tr><td><strong>Firma Digital</strong></td><td>Extrae el nombre del firmante vía peritaje. Se explica en la sección Peritaje.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-warn">
+      <div class="callout-title">Patrón (Regex) — asistencia recomendada</div>
+      <p style="margin:0">La estrategia <strong>Patrón (Regex)</strong> requiere escribir una expresión regular específica para el documento. Es una técnica avanzada: una regex mal construida puede devolver valores incorrectos o fallar silenciosamente. <strong>Si necesita usar esta estrategia, contacte a soporte enviando un ejemplo del documento.</strong> Nuestro equipo le arma la expresión exacta y se la envía lista para pegar en el campo.</p>
+    </div>
+
+    <h3>El campo "Freno"</h3>
+    <p>Indica dónde debe cortarse la captura. Es obligatorio en las estrategias <strong>Multilínea</strong> y <strong>Entre A y B</strong>, y opcional (pero recomendado) en <strong>Texto (Derecha)</strong> cuando el valor podría incluir texto extra que no corresponde.</p>
+    <p>Ejemplos de frenos útiles: el nombre del siguiente campo del formulario (<em>"Fecha:"</em>), un salto visual (<em>"Domicilio"</em>), un carácter específico (<em>")"</em> cuando el valor está entre paréntesis).</p>
+
+    <h3>Campo "Obligatorio"</h3>
+    <p>Si marca un campo como <strong>Obligatorio</strong> y la extracción devuelve vacío durante el procesamiento del lote, el archivo se envía a la carpeta <code>_REVISAR_</code> con estado "DATOS FALTANTES". Use esta marca para los campos críticos del reporte, donde un valor vacío invalida el documento.</p>
+
+    <div class="callout c-ok">
+      <div class="callout-title">Buena práctica</div>
+      <p style="margin:0">Antes de procesar un lote grande, cargue dos o tres documentos diferentes del mismo tipo en el Laboratorio y corra <strong>Probar Extracción</strong> sobre cada uno. Si los tres funcionan bien, es muy probable que todo el lote funcione. Si uno falla, ajuste estrategia o freno antes de lanzar.</p>
+    </div>
+  </section>
+
+  <!-- ===== 6. CLAVE, ANCLA, DEDUPLICACIÓN ===== -->
+  <section id="clave-ancla">
+    <h2><span class="num">06</span>Clave Única, Ancla y deduplicación</h2>
+    <p class="lead">Tres conceptos que interactúan entre sí y son clave para lotes limpios y reportes confiables. Vale la pena dedicarles atención específica.</p>
+
+    <h3>Campo Clave Única</h3>
+    <p>Un campo marcado como <strong>Clave</strong> es el identificador que DEXIAE usa para detectar duplicados. Al procesar un lote, el sistema compara el valor de ese campo entre todos los documentos. Si encuentra dos documentos con el mismo valor en la clave, el segundo se marca como duplicado y se envía a la carpeta <code>_DUPLICADOS_</code>.</p>
+
+    <h4>¿Cuándo se comparan los duplicados?</h4>
+    <ul>
+      <li><strong>Dentro del mismo lote:</strong> DEXIAE construye una memoria mientras procesa. El primer documento con un valor clave dado se acepta; los siguientes con el mismo valor van a duplicados.</li>
+      <li><strong>Contra el Excel histórico:</strong> si vinculó un Excel histórico en Ejecución, la memoria se inicializa con todos los valores clave ya presentes en ese archivo. Permite detectar documentos que ya fueron procesados en lotes anteriores.</li>
+      <li><strong>En la herramienta Fusionar Reportes:</strong> también usa el campo clave para consolidar múltiples reportes sin repetir trámites.</li>
+    </ul>
+
+    <h4>¿Uno o varios campos clave?</h4>
+    <p>Una plantilla puede tener varios campos marcados como <strong>Clave</strong>. En la práctica, DEXIAE controla duplicados sobre esos campos y alerta cuando detecta coincidencias. Lo más habitual y recomendado es definir <strong>un único campo clave bien elegido</strong> (por ejemplo, número de expediente o CUIT), porque simplifica el análisis del reporte. Si marca varios, asegúrese de que cada uno tenga sentido como identificador único.</p>
+
+    <div class="callout c-info">
+      <div class="callout-title">Regla automática</div>
+      <p style="margin:0">Todo campo marcado como <strong>Clave</strong> queda automáticamente marcado como <strong>Obligatorio</strong>. No tiene sentido deduplicar sobre un campo que puede venir vacío.</p>
+    </div>
+
+    <h3>Campo Ancla</h3>
+    <p>Un <strong>Ancla</strong> es una etiqueta del documento que DEXIAE verifica en la primera página antes de empezar a extraer. Sirve para confirmar que el documento realmente corresponde a la plantilla elegida.</p>
+
+    <p>Cuando DEXIAE detecta que un documento no tiene las anclas esperadas, lo envía directamente a <code>_REVISAR_</code> sin intentar extraer datos. Esto evita reportes contaminados con valores extraídos de documentos que no correspondían al formulario configurado.</p>
+
+    <div class="callout c-ok">
+      <div class="callout-title">Recomendación firme</div>
+      <p style="margin:0"><strong>Use siempre anclas.</strong> Son el filtro que mantiene el reporte limpio. Sin anclas, si en la carpeta aparece un documento que no corresponde al tipo esperado, DEXIAE igual intentará extraer datos y agregará una fila con información incorrecta o vacía al reporte. Con anclas, los documentos ajenos se separan automáticamente antes de contaminar el proceso.</p>
+    </div>
+
+    <h4>¿Cómo elegir una etiqueta como ancla?</h4>
+    <p>Busque textos fijos que aparezcan siempre en la primera página del formulario y que sean distintivos de ese tipo de documento: títulos ("RESOLUCIÓN N°"), encabezados institucionales ("MUNICIPALIDAD DE..."), nombres de sección únicos ("DATOS DEL TITULAR"). Evite palabras genéricas como "Fecha" o "Firma" que pueden aparecer en cualquier documento.</p>
+
+    <h4>¿Cuántas anclas conviene definir?</h4>
+    <p>Entre una y tres suele ser suficiente. Una sola ancla muy específica ya filtra correctamente la mayoría de casos. Con dos o tres anclas el filtro es más estricto.</p>
+  </section>
+
+  <!-- ===== 7. MODO LISTADO ===== -->
+  <section id="listado">
+    <h2><span class="num">07</span>Modo Listado (documentos tabulares)</h2>
+    <p class="lead">Algunos documentos no se componen de campos sueltos sino de tablas con filas repetitivas: listados de beneficiarios, grillas de pagos, padrones, reportes con columnas. Para estos casos existe el Modo Listado.</p>
+
+    <h3>Diferencia fundamental con Modo Extractor</h3>
+    <p>El <strong>Modo Extractor</strong> extrae una fila por documento con los campos definidos en la plantilla. El <strong>Modo Listado</strong> hace lo opuesto: extrae todas las filas de la tabla encontrada en el documento. Si un PDF contiene una tabla de 50 beneficiarios, el reporte tendrá 50 filas nuevas (una por beneficiario), todas etiquetadas con el nombre del archivo de origen.</p>
+
+    <h3>El Modo Listado no usa plantillas</h3>
+    <p>En Modo Listado <strong>no se crean plantillas</strong>. DEXIAE detecta automáticamente la estructura tabular del documento: reconoce encabezados, identifica columnas y extrae todas las filas de datos. Por eso, al seleccionar Modo Listado en Ejecución, el selector de plantillas queda deshabilitado.</p>
+
+    <h3>Validación automática</h3>
+    <p>Antes de extraer, DEXIAE verifica que el documento realmente tenga estructura tabular (mínimo dos filas y dos columnas). Si el documento no tiene tabla o es texto plano disfrazado de tabla, se envía a <code>_REVISAR_</code> con el mensaje "Sin estructura tabular de doble entrada — descartado". Esto evita contaminar el reporte.</p>
+
+    <h3>Cuándo elegir cada modo</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Tipo de documento</th><th>Modo recomendado</th></tr></thead>
+        <tbody>
+          <tr><td>Expedientes, resoluciones, contratos (campos fijos)</td><td>Extractor</td></tr>
+          <tr><td>Facturas con datos de encabezado</td><td>Extractor</td></tr>
+          <tr><td>Padrones, listados de beneficiarios, grillas</td><td>Listado</td></tr>
+          <tr><td>Reportes con una tabla por página</td><td>Listado</td></tr>
+          <tr><td>Documentos con datos de encabezado y tabla al final</td><td>Extractor (para los datos fijos) o Listado (para la tabla) — no ambos simultáneamente</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout c-info">
+      <div class="callout-title">Peritaje también funciona</div>
+      <p style="margin:0">Modo Listado es compatible con peritaje de firmas digitales (TRIAL, PRO y SENTINEL). Cada fila del reporte incluye el estado de firma del documento de origen, de modo que es posible auditar la integridad del archivo completo aunque los datos extraídos sean tabulares.</p>
+    </div>
+  </section>
+
+  <!-- ===== 8. PROCESAR LOTE ===== -->
+  <section id="procesar">
+    <h2><span class="num">08</span>Procesar un lote paso a paso</h2>
+    <p class="lead">Una vez que tiene la plantilla creada (o si va a usar Modo Listado), procesar un lote es un flujo de seis pasos.</p>
+
+    <ol>
+      <li>Vaya a la pantalla <strong>Ejecución</strong>.</li>
+      <li>Elija el <strong>Modo de Operación</strong>: Extractor o Listado.</li>
+      <li>Si activa el <strong>Peritaje Legal</strong> (solo PRO y SENTINEL), el panel cambia de color y cada documento será auditado criptográficamente.</li>
+      <li>Seleccione la plantilla desde el desplegable (solo en Modo Extractor).</li>
+      <li>Si quiere usar <strong>renombrado automático</strong>, configure el patrón en la caja de texto usando el botón <em>Insertar Variable</em>.</li>
+      <li>Si quiere usar <strong>Excel histórico</strong>, active el checkbox y seleccione el archivo.</li>
+      <li>Presione <strong>INICIAR EXTRACCIÓN</strong>. Se abrirá el diálogo para elegir la carpeta del lote.</li>
+      <li>Se abrirá la ventana de <strong>Pre-vuelo</strong> (ver sección siguiente) para confirmar qué archivos procesar y con qué modalidad.</li>
+      <li>Si configuró renombrado, DEXIAE muestra una <strong>simulación con dos casos reales</strong> para verificar antes de procesar.</li>
+      <li>Confirme y el procesamiento comienza. La bitácora muestra el progreso en vivo.</li>
+      <li>Al finalizar, aparece el <strong>resumen del lote</strong> con contadores, duración y botones para abrir el reporte.</li>
+    </ol>
+
+    <div class="callout c-danger">
+      <div class="callout-title">Atención antes de iniciar</div>
+      <p style="margin:0"><strong>No deje abierto el archivo Excel que va a usar como destino del reporte.</strong> DEXIAE no puede escribir en un archivo bloqueado por Excel. Si detecta el bloqueo, aborta el lote o genera un archivo de rescate con sufijo <code>_RESCATE_</code>.</p>
+    </div>
+
+    <h3>Durante el procesamiento</h3>
+    <p>El botón <strong>INICIAR EXTRACCIÓN</strong> se transforma en <strong>DETENER EXTRACCIÓN</strong>. Puede cancelar en cualquier momento; los archivos ya procesados permanecen en sus carpetas de destino y el Excel se guarda con lo acumulado hasta ese punto.</p>
+    <p>Mientras el lote corre, la navegación entre pantallas y los controles de configuración quedan bloqueados para evitar cambios en caliente. Se desbloquean automáticamente al terminar.</p>
+  </section>
+
+  <!-- ===== 9. PRE-VUELO ===== -->
+  <section id="prevuelo">
+    <h2><span class="num">09</span>Pre-vuelo: Espejo y Ruteo</h2>
+    <p class="lead">Antes de procesar, DEXIAE abre un panel de Pre-vuelo para revisar qué archivos va a tocar y cómo. Tiene dos modos complementarios con comportamientos opuestos.</p>
+
+    <h3>Modo Ruteo</h3>
+    <p>Es el modo por defecto. DEXIAE escanea únicamente la <strong>raíz de la carpeta seleccionada</strong> (no entra a subcarpetas) y, al terminar el procesamiento, <strong>mueve cada archivo</strong> a la carpeta de destino que corresponda según su estado: <code>_PROCESADOS_</code>, <code>_DUPLICADOS_</code>, <code>_REVISAR_</code>, <code>_ALERTA_LEGAL_</code>, <code>_ERRORES_</code>, <code>_BLOQUEADOS_</code> o <code>_CUARENTENA_</code>.</p>
+    <p>Esto deja la carpeta del lote ordenada y clasificada: los archivos OK quedan separados de los que requieren atención. Es el modo ideal cuando el objetivo es limpiar y organizar la carpeta además de extraer datos.</p>
+
+    <h3>Modo Espejo</h3>
+    <p>Navega <strong>toda la estructura de subcarpetas</strong> buscando documentos compatibles y <strong>no mueve ningún archivo</strong>. Genera el reporte Excel y el HTML con una columna adicional <code>RUTA_RELATIVA</code> que indica la ubicación original de cada documento dentro del árbol.</p>
+    <p>Es el modo correcto cuando los archivos no deben reorganizarse (por ejemplo, están en carpetas de una red corporativa con una estructura definida) o cuando se quiere solamente auditar y reportar sin tocar la disposición.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Criterio</th><th>Ruteo</th><th>Espejo</th></tr></thead>
+        <tbody>
+          <tr><td>Archivos analizados</td><td>Solo la raíz de la carpeta</td><td>Todo el árbol de subcarpetas</td></tr>
+          <tr><td>Mueve archivos</td><td>Sí, a carpetas de estado</td><td>No, los deja donde están</td></tr>
+          <tr><td>Columna RUTA_RELATIVA en el reporte</td><td>No</td><td>Sí</td></tr>
+          <tr><td>Renombrado automático</td><td>En carpeta <code>RENOMBRADOS</code></td><td>In-situ (mismo lugar)</td></tr>
+          <tr><td>Caso típico</td><td>Carpeta de bandeja de entrada</td><td>Árbol corporativo existente</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Selección de archivos en el Pre-vuelo</h3>
+    <p>La ventana lista todos los archivos compatibles encontrados. Por defecto vienen todos marcados. Puede desmarcar los que no quiera procesar, o usar los botones <strong>Todos</strong> y <strong>Ninguno</strong>. Para lotes muy grandes, la vista previa muestra los primeros 50 archivos pero procesa todos (se indica en el contador).</p>
+
+    <div class="callout c-info">
+      <div class="callout-title">Archivos en uso</div>
+      <p style="margin:0">DEXIAE detecta automáticamente archivos bloqueados (abiertos en otra aplicación) y los omite del escaneo, sin alertar. Esto evita corrupción durante el movimiento. Si un archivo crítico no aparece en la lista, es posible que esté abierto en otro programa.</p>
+    </div>
+  </section>
+
+  <!-- ===== 10. CARPETAS ===== -->
+  <section id="carpetas">
+    <h2><span class="num">10</span>Resultado del lote: las carpetas</h2>
+    <p class="lead">En Modo Ruteo, al terminar el procesamiento la carpeta del lote queda organizada en subcarpetas según el estado de cada documento. Conocer el significado de cada una permite interpretar rápidamente los resultados.</p>
+
+    <div class="folder-tree">
+<span style="color:var(--muted)">carpeta-del-lote/</span><br>
+├── <span class="f">_PROCESADOS_/</span>        <span class="c">documentos OK, datos extraídos correctamente</span><br>
+├── <span class="f">_DUPLICADOS_/</span>        <span class="c">valor de clave repetido (en el lote o contra histórico)</span><br>
+├── <span class="f">_REVISAR_/</span>           <span class="c">extracción incompleta, ancla no coincide, datos faltantes</span><br>
+├── <span class="f">_ALERTA_LEGAL_/</span>      <span class="c">firma digital alterada o comprometida</span><br>
+├── <span class="f">_ERRORES_/</span>           <span class="c">excepciones técnicas durante el procesamiento</span><br>
+├── <span class="f">_CUARENTENA_/</span>        <span class="c">PDF corrupto o encriptado, no recuperable</span><br>
+├── <span class="f">_BLOQUEADOS_/</span>        <span class="c">archivos que no pudieron moverse (lock del sistema)</span><br>
+├── <span class="f">RENOMBRADOS/</span>         <span class="c">archivos OK movidos acá con el nombre nuevo</span><br>
+└── <span class="f">Reporte_xxx.xlsx</span>     <span class="c">reporte principal de la ejecución</span>
+    </div>
+
+    <h3>Criterio para cada carpeta</h3>
+    <ul>
+      <li><code>_PROCESADOS_</code> — el documento se leyó correctamente, la plantilla coincidió (si había anclas) y se extrajeron los campos sin faltantes obligatorios. <strong>Importante:</strong> esta carpeta solo recibe los OK cuando <em>no</em> hay patrón de renombrado configurado. Si el renombrado está activo, los OK van directamente a <code>RENOMBRADOS</code> y esta carpeta queda vacía.</li>
+      <li><code>_DUPLICADOS_</code> — el valor del campo marcado como <strong>Clave</strong> ya había aparecido antes (en el lote actual o en el Excel histórico). El reporte incluye la columna <code>ID_ORIGINAL</code> con el archivo que tenía el valor original.</li>
+      <li><code>_REVISAR_</code> — tres casos posibles: el documento no coincide con las anclas de la plantilla; todos los campos vinieron vacíos; o faltan campos marcados como obligatorios.</li>
+      <li><code>_ALERTA_LEGAL_</code> — solo cuando el peritaje está activo. El documento tiene una firma digital presente pero alterada, corrupta o inválida criptográficamente.</li>
+      <li><code>_ERRORES_</code> — excepciones durante la lectura: formato no soportado, error inesperado en la extracción de un campo, falla interna.</li>
+      <li><code>_CUARENTENA_</code> — el PDF está corrupto o protegido con contraseña y no puede abrirse. Ningún proceso de recuperación puede rescatarlos sin la contraseña o una reparación externa.</li>
+      <li><code>_BLOQUEADOS_</code> — el archivo pudo leerse pero el sistema operativo lo bloqueó al momento de moverlo (OneDrive sincronizando, antivirus analizando, otro proceso manteniéndolo abierto).</li>
+      <li><code>RENOMBRADOS</code> — si configuró renombrado automático en Modo Ruteo, los archivos con estado OK se mueven acá con el nombre nuevo. El original no queda duplicado en ningún otro lado: <strong>sale de la carpeta del lote y aparece únicamente en <code>RENOMBRADOS</code></strong>. En Modo Espejo el renombrado es in-situ y esta subcarpeta no se crea.</li>
+    </ul>
+
+    <div class="callout c-info">
+      <div class="callout-title">En Modo Espejo</div>
+      <p style="margin:0">No se crean estas carpetas y los archivos permanecen donde estaban originalmente. El estado de cada documento queda reflejado únicamente en la columna <code>ESTADO_PROCESO</code> del reporte Excel.</p>
+    </div>
+  </section>
+
+  <!-- ===== 11. RENOMBRADO ===== -->
+  <section id="renombrado">
+    <h2><span class="num">11</span>Renombrado automático</h2>
+    <p class="lead">DEXIAE puede renombrar cada archivo procesado con un patrón configurable que combina texto fijo y valores extraídos de los campos de la plantilla.</p>
+
+    <h3>Cómo configurar el patrón</h3>
+    <p>En la pantalla Ejecución, en la caja <strong>Renombrar</strong>, escriba el texto fijo que desee y use el botón <strong>Insertar Variable</strong> para agregar valores dinámicos que vienen de la plantilla. Cada variable aparece como un chip azul dentro de la caja de texto.</p>
+
+    <p>Ejemplo de patrón: <code>EXP-{NumeroExpediente}_{Titular}_{Fecha}</code> genera nombres como <code>EXP-1234-25_Juan_Perez_15-03-2026.pdf</code>.</p>
+
+    <h3>Simulación previa obligatoria</h3>
+    <p>Cuando configura un patrón de renombrado, antes de ejecutar el lote completo DEXIAE procesa dos documentos de muestra y le muestra el resultado proyectado. Debe confirmar que los nombres generados son los esperados antes de que se dispare el procesamiento masivo. Si no le convence el resultado, puede cancelar, ajustar el patrón y reintentar.</p>
+
+    <h3>Limpieza automática de nombres</h3>
+    <ul>
+      <li>Se eliminan caracteres ilegales de Windows (<code>\ / * ? : " &lt; &gt; |</code>).</li>
+      <li>Los saltos de línea y espacios múltiples se colapsan.</li>
+      <li>Se respeta un máximo de 150 caracteres.</li>
+      <li>Si un valor viene vacío, se reemplaza por <code>S-D</code> (sin dato) para no dejar el nombre incompleto.</li>
+      <li>Si se detecta un nombre repetido en la carpeta de destino, se agrega un sufijo numérico automático.</li>
+    </ul>
+
+    <h3>Qué archivos se renombran</h3>
+    <p>Solo los documentos con estado <strong>OK</strong> se procesan con el patrón de renombrado. Los archivos con otros estados (duplicado, revisar, alerta legal, error) mantienen su nombre original y se envían a la carpeta de estado correspondiente sin aplicar el patrón.</p>
+
+    <h3>Comportamiento según modo de Pre-vuelo</h3>
+    <p>El modo de Pre-vuelo elegido determina dónde queda cada archivo después del renombrado:</p>
+    <ul>
+      <li><strong>Modo Ruteo:</strong> los archivos OK que coinciden con el patrón se <strong>mueven</strong> a la subcarpeta <code>RENOMBRADOS</code> con el nombre nuevo. El archivo original no queda duplicado: deja de estar en la carpeta del lote y aparece únicamente en <code>RENOMBRADOS</code>. Los archivos con otros estados (duplicado, revisar, alerta, error) van a sus respectivas carpetas de estado con el nombre original.</li>
+      <li><strong>Modo Espejo:</strong> cada archivo OK se renombra <strong>in-situ</strong> (se mantiene exactamente en su ubicación original dentro del árbol de subcarpetas, con el nombre nuevo). Los archivos con otros estados no se tocan.</li>
+    </ul>
+
+    <div class="callout c-info">
+      <div class="callout-title">Dónde queda cada archivo OK</div>
+      <p style="margin:0">Este es el comportamiento por diseño. En Modo Ruteo, <strong>la carpeta <code>_PROCESADOS_</code> queda vacía si el patrón de renombrado está activo</strong>, porque todos los OK se redirigen a <code>RENOMBRADOS</code>. Si no hay patrón configurado, entonces sí los OK van a <code>_PROCESADOS_</code>.</p>
+    </div>
+  </section>
+
+  <!-- ===== 12. EXCEL HISTÓRICO ===== -->
+  <section id="historico">
+    <h2><span class="num">12</span>Excel histórico</h2>
+    <p class="lead">Permite vincular un archivo Excel de lotes procesados anteriormente para que DEXIAE tenga memoria de largo plazo al detectar duplicados.</p>
+
+    <h3>Cuándo usarlo</h3>
+    <p>Si procesa lotes recurrentes (por ejemplo, bandeja mensual de expedientes), vincular un único Excel histórico al que todos los lotes agregan sus filas permite detectar documentos que ya habían sido procesados en meses anteriores. Sin esta vinculación, la deduplicación solo actúa dentro del lote actual.</p>
+
+    <h3>Cómo activarlo</h3>
+    <ol>
+      <li>En la pantalla Ejecución, marque el checkbox <strong>Sincronizar con Excel Histórico</strong>.</li>
+      <li>Seleccione el archivo Excel. Puede ser un reporte previo de DEXIAE o un archivo vacío donde quiera acumular los resultados.</li>
+      <li>Al lanzar el lote, DEXIAE lee la columna correspondiente al campo clave y construye su memoria de duplicados a partir de allí.</li>
+    </ol>
+
+    <div class="callout c-warn">
+      <div class="callout-title">Comportamiento del archivo</div>
+      <p style="margin:0">El Excel vinculado se usa como <strong>destino del reporte</strong>: las filas del lote actual se escriben directamente sobre él (se concatenan al final). Si quiere mantener el histórico limpio, haga respaldos periódicos. El archivo <strong>no debe estar abierto</strong> al momento de lanzar el lote.</p>
+    </div>
+  </section>
+
+  <!-- ===== 13. HERRAMIENTAS PDF ===== -->
+  <section id="herramientas" data-min-ed="core">
+    <h2><span class="num">13</span>Herramientas PDF <span class="edition-badges"><span class="badge b-trial">TRIAL</span> <span class="badge b-core">CORE</span> <span class="badge b-pro">PRO</span> <span class="badge b-sentinel">SENTINEL</span></span></h2>
+    <p class="lead">Cuatro utilidades básicas para preparar documentos antes de procesarlos. Funcionan de forma autónoma, sin requerir plantilla ni lote configurado.</p>
+
+    <h3>Unir PDFs</h3>
+    <p>Combina múltiples archivos PDF en un único documento. El orden del archivo final respeta el orden de selección en el diálogo. Útil para consolidar actuaciones de un expediente que vinieron en archivos separados.</p>
+
+    <h3>Dividir / Extraer páginas</h3>
+    <p>Tres modos de corte:</p>
+    <ul>
+      <li><strong>Rangos:</strong> genera un PDF por cada rango especificado. Ejemplo: <code>1-3, 5-8, 10-15</code> genera tres archivos.</li>
+      <li><strong>Puntual:</strong> extrae páginas específicas como archivos separados. Ejemplo: <code>1, 3, 7, 12</code> genera cuatro archivos de una página cada uno.</li>
+      <li><strong>Todas:</strong> explode completo — una página por archivo generado.</li>
+    </ul>
+    <p>Los archivos resultantes se nombran con el patrón <code>[nombre_original]_p[número].pdf</code> (por ejemplo <code>contrato_p1.pdf</code>, <code>contrato_p2.pdf</code>). Elija la carpeta de salida en la misma ventana.</p>
+
+    <div class="callout c-warn">
+      <div class="callout-title">Aviso sobre plantillas activas</div>
+      <p style="margin:0">Si tiene una plantilla cargada en el Laboratorio con un campo marcado como <strong>Clave Única</strong> al momento de usar esta herramienta, DEXIAE podría intentar nombrar los archivos resultantes usando el valor extraído de ese campo en cada página. Este comportamiento es experimental y depende de que el documento dividido coincida con la plantilla activa. <strong>Si nota que los archivos resultantes tienen nombres inesperados (valores extraídos del contenido en lugar de numeración correlativa), cierre y reabra DEXIAE antes de usar la herramienta</strong>, o contacte a soporte.</p>
+    </div>
+
+    <h3>PDF a Word</h3>
+    <p>Convierte un PDF a formato Microsoft Word (.docx) editable. Preserva el texto, las tablas detectadas y las imágenes. La conversión puede tomar algunos segundos para documentos largos.</p>
+
+    <h3>Imágenes a PDF</h3>
+    <p>Une múltiples imágenes (JPG, PNG) en un único PDF. Útil para consolidar escaneos hechos en partes o fotos de documentación física en un archivo único.</p>
+  </section>
+
+  <!-- ===== 14. OCR ===== -->
+  <section id="ocr" data-min-ed="trial">
+    <h2><span class="num">14</span>OCR por lote <span class="edition-badges"><span class="badge b-trial">TRIAL</span> <span class="badge b-pro">PRO</span> <span class="badge b-sentinel">SENTINEL</span></span></h2>
+    <p class="lead">Convierte PDFs escaneados o imágenes en documentos con texto buscable y extraíble. Procesa múltiples archivos de una sola corrida.</p>
+
+    <h3>Cuándo usarlo</h3>
+    <p>Los documentos escaneados son imágenes dentro de un contenedor PDF: el texto visible no existe como texto sino como pixeles. Sin OCR, DEXIAE no puede extraer campos. La herramienta OCR por lote convierte estos archivos en PDFs buscables que luego pueden procesarse normalmente en el lote.</p>
+
+    <h3>Flujo de uso</h3>
+    <ol>
+      <li>Abra Herramientas → OCR por lote.</li>
+      <li>Presione <strong>Agregar</strong> y seleccione los archivos (PDFs escaneados, JPG, PNG).</li>
+      <li>Puede seguir agregando archivos de diferentes carpetas; aparecen en la lista.</li>
+      <li>Presione <strong>Iniciar OCR</strong>. Los archivos procesados se guardan en una subcarpeta <code>_OCR_DEXIAE_</code> junto al primer archivo seleccionado, con el sufijo <code>_OCR</code> en el nombre.</li>
+    </ol>
+
+    <div class="callout c-info">
+      <div class="callout-title">Motor OCR</div>
+      <p style="margin:0">DEXIAE incluye Tesseract como motor OCR con el paquete de idioma español. No requiere instalación adicional ni envío de datos a servicios externos.</p>
+    </div>
+  </section>
+
+  <!-- ===== 15. PERITAJE ===== -->
+  <section id="peritaje" data-min-ed="trial">
+    <h2><span class="num">15</span>Peritaje de firmas digitales <span class="edition-badges"><span class="badge b-trial">TRIAL</span> <span class="badge b-pro">PRO</span> <span class="badge b-sentinel">SENTINEL</span></span></h2>
+    <p class="lead">DEXIAE realiza verificación criptográfica sobre documentos firmados digitalmente para detectar alteraciones posteriores a la firma y extraer información del firmante.</p>
+
+    <h3>Qué detecta DEXIAE</h3>
+    <ul>
+      <li><strong>Presencia de firma digital</strong> — identifica si el documento tiene firma criptográfica embebida.</li>
+      <li><strong>Integridad del documento</strong> — verifica si el contenido fue alterado después de firmar. Si detecta alteración, el archivo se marca como "FIRMADO PERO ALTERADO" y se envía a <code>_ALERTA_LEGAL_</code>.</li>
+      <li><strong>Nombre del firmante</strong> — extrae el nombre del titular del certificado.</li>
+      <li><strong>Fecha y hora de firma</strong> — extrae el timestamp.</li>
+      <li><strong>Tipo de firma</strong> — PKCS7, CAdES u otros estándares soportados.</li>
+      <li><strong>Firma manuscrita detectada visualmente</strong> — cuando no hay firma digital pero se identifica una imagen con proporción y ubicación compatibles con una firma manuscrita en el documento.</li>
+    </ul>
+
+    <h3>Qué NO detecta DEXIAE</h3>
+    <p>El peritaje de DEXIAE <strong>no valida la cadena de certificación contra autoridades raíz</strong>. Verifica la integridad criptográfica del documento (que nadie lo haya alterado después de firmar) y extrae los metadatos del firmante, pero no confirma que la autoridad emisora del certificado sea una CA confiable u oficial. Para validación contra CA raíz se requieren herramientas jurídicas especializadas adicionales.</p>
+
+    <h3>Cómo activarlo</h3>
+    <p>En la pantalla Ejecución, en el panel superior, marque <strong>🛡️ Peritaje Legal</strong>. Al activarlo, el panel cambia de color (gris a verde) y el badge indica "PERITAJE LEGAL ACTIVO".</p>
+
+    <p>Cuando está activo, cada documento del lote pasa por la verificación. El reporte incluye tres columnas adicionales:</p>
+    <ul>
+      <li><code>AUDIT_FIRMANTE</code> — nombre extraído del certificado.</li>
+      <li><code>AUDIT_FECHA</code> — fecha y hora de firma.</li>
+      <li><code>AUDIT_ESTADO</code> — "DIGITAL VALIDA", "FIRMADO PERO ALTERADO", "FIRMA CORRUPTA", "FIRMA MANUSCRITA" o "NO FIRMADO".</li>
+    </ul>
+
+    <div class="callout c-warn">
+      <div class="callout-title">Interpretación de "DIGITAL (Cert. no verif.)"</div>
+      <p style="margin:0">Este estado aparece cuando la firma es estructuralmente correcta pero el certificado usa un formato que DEXIAE no puede validar completamente (por ejemplo, tokens hardware de certificadores provinciales). En estos casos el documento no se marca como alterado, pero conviene revisarlo si la firma es crítica.</p>
+    </div>
+  </section>
+
+  <!-- ===== 16. CENTINELA ===== -->
+  <section id="centinela" data-min-ed="trial">
+    <h2><span class="num">16</span>Centinela automático <span class="edition-badges"><span class="badge b-trial">TRIAL</span> <span class="badge b-pro">PRO</span> <span class="badge b-sentinel">SENTINEL</span></span></h2>
+    <p class="lead">El Centinela es un modo de vigilancia continua: DEXIAE monitorea una carpeta y procesa automáticamente cada documento nuevo que aparezca.</p>
+
+    <h3>Casos de uso</h3>
+    <ul>
+      <li>Bandeja de entrada compartida donde varios operadores depositan documentos a lo largo del día.</li>
+      <li>Sistema automatizado que genera PDFs y los deposita en una carpeta monitoreada.</li>
+      <li>Auditoría continua de un expediente electrónico durante un período determinado.</li>
+    </ul>
+
+    <h3>Flujo del Centinela</h3>
+    <ol>
+      <li>Cargue la plantilla con la que quiere procesar los documentos entrantes.</li>
+      <li>Active el peritaje si corresponde.</li>
+      <li>Presione <strong>ACTIVAR VIGILANCIA AUTOMÁTICA</strong>.</li>
+      <li>Seleccione la carpeta a vigilar y confirme.</li>
+      <li>DEXIAE comienza a escanear la carpeta cada pocos segundos. Cada archivo nuevo se procesa como un micro-lote (uno o varios documentos).</li>
+      <li>Los archivos procesados se mueven a las carpetas de estado correspondientes exactamente como en un lote manual.</li>
+      <li>El reporte se acumula en un único archivo <code>Reporte_Centinela.xlsx</code> dentro de la carpeta vigilada.</li>
+    </ol>
+
+    <h3>Controles</h3>
+    <ul>
+      <li><strong>PAUSAR VIGILANCIA:</strong> detiene el escaneo sin cerrar el Centinela. Al reanudar, procesa todo lo que se acumuló durante la pausa.</li>
+      <li><strong>DETENER:</strong> cierra el Centinela, genera el reporte HTML de cierre con el resumen de la sesión y desbloquea la interfaz.</li>
+    </ul>
+
+    <h3>Protocolo de seguridad durante la vigilancia</h3>
+    <p>Mientras el Centinela está activo, la interfaz queda parcialmente bloqueada: no se pueden modificar plantillas, cambiar modo de operación ni lanzar lotes manuales. Esto protege la consistencia del proceso continuo. Al detener el Centinela, todos los controles se desbloquean.</p>
+
+    <div class="callout c-info">
+      <div class="callout-title">Protección contra archivos a medio copiar</div>
+      <p style="margin:0">Cuando un archivo está siendo copiado a la carpeta vigilada, DEXIAE espera a que el archivo esté completo antes de intentar procesarlo. También aísla cada archivo en una carpeta <code>_EN_PROCESO_</code> durante el procesamiento para evitar que dos operadores toquen el mismo documento al mismo tiempo.</p>
+    </div>
+  </section>
+
+  <!-- ===== 17. FUSIONAR REPORTES ===== -->
+  <section id="fusionar" data-min-ed="trial">
+    <h2><span class="num">17</span>Fusionar reportes <span class="edition-badges"><span class="badge b-trial">TRIAL</span> <span class="badge b-pro">PRO</span> <span class="badge b-sentinel">SENTINEL</span></span></h2>
+    <p class="lead">Consolida múltiples reportes Excel generados por DEXIAE en un único archivo unificado, con deduplicación inteligente.</p>
+
+    <h3>Cuándo usarlo</h3>
+    <p>Cuando tiene varios reportes del mismo tipo (por ejemplo, lotes mensuales procesados por separado) y necesita analizarlos en conjunto. También cuando distintos operadores procesaron partes del mismo universo documental en diferentes equipos y los reportes deben consolidarse.</p>
+
+    <h3>Flujo de uso</h3>
+    <ol>
+      <li>Abra Herramientas → Fusionar Reportes.</li>
+      <li>Presione <strong>Agregar</strong> y seleccione los archivos Excel a consolidar. Puede agregar de carpetas distintas.</li>
+      <li>Configure las opciones:
+        <ul>
+          <li><strong>Ignorar filas con estado ERROR:</strong> excluye archivos corruptos, bloqueados u omitidos.</li>
+          <li><strong>Ignorar filas con estado REVISAR:</strong> excluye trabajo pendiente que aún debe atenderse manualmente.</li>
+        </ul>
+      </li>
+      <li>Complete el <strong>Campo clave para deduplicación</strong> con el nombre exacto de la columna que identifica un trámite único (por ejemplo <code>EXPEDIENTE</code>, <code>CUIT</code>, <code>Archivo</code>). Si lo deja vacío, no se aplica deduplicación.</li>
+      <li>Presione <strong>Fusionar y guardar</strong>. Elija la ubicación del archivo consolidado.</li>
+    </ol>
+
+    <h3>Qué hace la herramienta</h3>
+    <ul>
+      <li>Lee todos los Excel seleccionados y los combina en un único DataFrame.</li>
+      <li>Agrega una columna <code>REPORTE_ORIGEN</code> con el nombre del archivo de origen, para trazabilidad.</li>
+      <li>Aplica los filtros de estado seleccionados.</li>
+      <li>Si hay campo clave, elimina filas duplicadas conservando la primera aparición.</li>
+      <li>Guarda el Excel consolidado con un nombre por defecto que incluye la fecha.</li>
+      <li>Muestra un resumen: total de filas finales, cuántas fueron filtradas por estado, cuántas duplicadas se eliminaron.</li>
+    </ul>
+  </section>
+
+  <!-- ===== 18. REPORTES ===== -->
+  <section id="reportes">
+    <h2><span class="num">18</span>Interpretar los reportes</h2>
+    <p class="lead">DEXIAE genera hasta tres tipos de reporte por lote, según la edición activa. Cada uno tiene un propósito específico.</p>
+
+    <h3>Reporte Excel <span class="edition-badges"><span class="badge b-all">Todas las ediciones</span></span></h3>
+    <p>Archivo <code>.xlsx</code> con una fila por documento procesado (o una fila por registro tabular en Modo Listado). Columnas:</p>
+    <ul>
+      <li><code>Archivo</code> — nombre del PDF procesado.</li>
+      <li>Una columna por cada campo definido en la plantilla.</li>
+      <li><code>ESTADO_PROCESO</code> — OK, DUPLICADO, REVISAR, ALERTA LEGAL, NO RECONOCIDO, DATOS FALTANTES, etc.</li>
+      <li><code>ID_ORIGINAL</code> — en duplicados, nombre del archivo que tenía el valor original.</li>
+      <li><code>RUTA_RELATIVA</code> — solo en Modo Espejo, ubicación del archivo dentro del árbol.</li>
+      <li><code>AUDIT_FIRMANTE</code>, <code>AUDIT_FECHA</code>, <code>AUDIT_ESTADO</code> — solo si el peritaje estaba activo.</li>
+    </ul>
+    <p>Es el reporte de mayor nivel operativo: permite abrir en Excel, filtrar por estado, consolidar con otros lotes, exportar a otros sistemas.</p>
+
+    <div data-min-ed="trial" style="padding:1rem 1.25rem;border:1px solid var(--border);border-radius:6px;margin:1.5rem 0">
+      <h3 style="margin-top:0">Reporte HTML interactivo <span class="edition-badges"><span class="badge b-trial">TRIAL</span> <span class="badge b-pro">PRO</span> <span class="badge b-sentinel">SENTINEL</span></span></h3>
+      <p>Archivo <code>.html</code> autónomo que se abre en cualquier navegador. Contiene:</p>
+      <ul>
+        <li>Encabezado con el resumen del lote (contadores, duración, plantilla usada, políticas activas).</li>
+        <li>Tabla completa de registros con filtros por estado y búsqueda.</li>
+        <li>Gráficos de distribución (si aplica).</li>
+        <li>Visualización de la red de duplicados (si corresponde).</li>
+        <li>Score de riesgo del lote cuando hay peritaje activo.</li>
+      </ul>
+      <p style="margin-bottom:0">Es el reporte para compartir con otras personas. Se envía por correo como adjunto (pesa poco, es autónomo) o se abre en el browser para análisis interactivo.</p>
+    </div>
+
+    <div data-min-ed="trial" style="padding:1rem 1.25rem;border:1px solid var(--border);border-radius:6px;margin:1.5rem 0">
+      <h3 style="margin-top:0">Reporte PDF de auditoría <span class="edition-badges"><span class="badge b-trial">TRIAL</span> <span class="badge b-pro">PRO</span> <span class="badge b-sentinel">SENTINEL</span></span></h3>
+      <p style="margin-bottom:0">Versión imprimible del HTML, con formato A4 optimizado para archivo digital o presentación oficial. Incluye las mismas métricas y tablas pero en layout estático.</p>
+    </div>
+
+    <h3>Estados posibles en el reporte</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Estado</th><th>Significado</th></tr></thead>
+        <tbody>
+          <tr><td><strong>OK</strong></td><td>Extracción correcta, todos los campos obligatorios completos, sin duplicado ni alerta.</td></tr>
+          <tr><td><strong>DUPLICADO</strong></td><td>Valor de la Clave Única repetido. Columna <code>ID_ORIGINAL</code> indica cuál fue el primero.</td></tr>
+          <tr><td><strong>REVISAR</strong> / <strong>NO RECONOCIDO</strong></td><td>La plantilla no coincidió (ancla fallida) o todos los campos vinieron vacíos.</td></tr>
+          <tr><td><strong>DATOS FALTANTES</strong></td><td>Uno o más campos obligatorios quedaron vacíos.</td></tr>
+          <tr><td><strong>ALERTA LEGAL (Firma)</strong></td><td>Solo con peritaje activo. Firma alterada o corrupta.</td></tr>
+          <tr><td><strong>ERROR - CORRUPTO</strong> / <strong>ERROR - ENCRIPTADO</strong></td><td>El PDF no pudo abrirse. El archivo se envió a <code>_CUARENTENA_</code>.</td></tr>
+          <tr><td><strong>OMITIDO - EN USO</strong></td><td>El archivo estaba bloqueado por otra aplicación al momento del procesamiento.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 19. LOGS ===== -->
+  <section id="logs">
+    <h2><span class="num">19</span>Logs y trazabilidad</h2>
+    <p class="lead">DEXIAE mantiene una bitácora técnica detallada de cada operación. Su función principal es permitir al soporte diagnosticar problemas y dar trazabilidad legal del proceso.</p>
+
+    <h3>Dónde están</h3>
+    <p>Los logs se guardan en la carpeta <code>LOGS_SISTEMA</code>, ubicada <strong>junto al ejecutable de DEXIAE</strong> (en el directorio donde se instaló la aplicación). Dentro de esa carpeta, cada día se genera una subcarpeta con la fecha en formato <code>DD-MM-YYYY</code>.</p>
+
+    <div class="callout c-info">
+      <div class="callout-title">No visibles para el usuario final</div>
+      <p style="margin:0">La carpeta de logs está pensada como registro técnico, no como herramienta de operación diaria. No es necesario consultarla en el uso normal. <strong>Su función es que si detectamos algo raro en un proceso, podamos solicitar esos archivos al cliente para diagnosticar</strong>, y que exista trazabilidad interna del procesamiento.</p>
+    </div>
+
+    <h3>Contenido de los logs</h3>
+    <ul>
+      <li><code>BITACORA_ENVIVO_HH-MM.log</code> — registro en tiempo real de cada archivo procesado, con timestamp y estado.</li>
+      <li><code>DEXIAE_HH-MM.log</code> — resumen final del lote al terminar.</li>
+      <li><code>LOG_CENTINELA.txt</code> — registro acumulado de las sesiones del Centinela.</li>
+    </ul>
+
+    <p>Cada línea incluye fecha, hora, tipo (OK, WARN, ERR, ALERTA), y descripción del evento. Es información puramente técnica: nombres de archivo, estados de procesamiento, errores atrapados.</p>
+
+    <h3>Qué hacer ante un problema</h3>
+    <p>Si ocurre un comportamiento inesperado durante un procesamiento, puede escribir a soporte describiendo el problema. Si lo consideramos necesario, le pediremos que comprima y envíe la carpeta <code>LOGS_SISTEMA</code> del día en que ocurrió el incidente. El resto del tiempo, no hay necesidad de abrirla ni monitorearla.</p>
+  </section>
+
+  <!-- ===== 20. GESTIÓN DE PLANTILLAS ===== -->
+  <section id="gestion">
+    <h2><span class="num">20</span>Gestión de plantillas</h2>
+
+  <div class="callout" style="background:rgba(59,130,246,0.06);border-left:3px solid #3B82F6;padding:1rem 1.25rem;margin:1.25rem 0;border-radius:0 8px 8px 0;">
+    <strong style="color:#3B82F6;">🪄 Asistente de Plantillas (PRO y SENTINEL):</strong>
+    <p style="margin-top:.4rem;font-size:14.5px;line-height:1.6;">
+      Las ediciones PRO y SENTINEL incluyen un <b>Asistente automático</b> que analiza un PDF y sugiere los campos a extraer, reduciendo la configuración de minutos a segundos. También incluyen <b>Autodetección de plantillas</b>: DEXIAE identifica qué plantilla aplicar a cada documento del lote, sin selección manual. Estas funciones requieren diccionarios curados por rubro que enviamos directamente a cada cliente según su industria.
+    </p>
+  </div>
+
+    <p class="lead">Las plantillas son archivos <code>.json</code> guardados en su carpeta de usuario. Desde el Laboratorio se pueden editar, duplicar, renombrar y eliminar.</p>
+
+    <h3>Ubicación de las plantillas</h3>
+    <p>DEXIAE guarda las plantillas en <code>%APPDATA%\DEXIAE\plantillas</code>. Esta ruta es privada para cada usuario del equipo. Si varios operadores usan DEXIAE en la misma máquina con cuentas distintas de Windows, cada uno tiene sus propias plantillas.</p>
+
+    <h3>Editar una plantilla existente</h3>
+    <ol>
+      <li>En el Laboratorio, selecciónela desde el desplegable superior.</li>
+      <li>Los campos aparecen en la tabla central.</li>
+      <li>Para modificar un campo, haga clic sobre él y presione <strong>Editar</strong>. Los datos aparecen en el editor inferior.</li>
+      <li>Haga los cambios y presione <strong>Actualizar</strong>.</li>
+      <li>Presione <strong>Guardar</strong> para persistir los cambios.</li>
+    </ol>
+
+    <h3>Renombrar</h3>
+    <p>Con la plantilla activa, use el botón <strong>✏️</strong> del panel superior e ingrese el nuevo nombre. El archivo <code>.json</code> se renombra inmediatamente.</p>
+
+    <h3>Eliminar</h3>
+    <p>Use el botón <strong>🗑️</strong>. DEXIAE pide confirmación porque la eliminación borra el archivo del disco de forma definitiva.</p>
+
+    <h3>Crear una plantilla nueva a partir de otra</h3>
+    <p>Abra la plantilla de base, modifíquela según necesidad y use <strong>Nueva / Guardar como</strong> para guardarla con nombre nuevo sin sobrescribir la original.</p>
+
+    <h3>Límites por edición</h3>
+    <ul>
+      <li>TRIAL y CORE — hasta 3 plantillas simultáneas.</li>
+      <li>PRO y SENTINEL — plantillas ilimitadas.</li>
+    </ul>
+    <p>En TRIAL y CORE, si intenta crear una cuarta plantilla, la aplicación avisa del límite. Debe eliminar una existente o actualizar a PRO para continuar.</p>
+  </section>
+
+  <!-- ===== 21. EDICIONES ===== -->
+  <section id="ediciones">
+    <h2><span class="num">21</span>Tabla comparativa de ediciones</h2>
+    <p class="lead">Resumen funcional de lo que incluye cada edición. Para precios actualizados y condiciones comerciales, consulte dexiae.pages.dev.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:34%">Funcionalidad</th>
+            <th style="text-align:center">TRIAL</th>
+            <th style="text-align:center">CORE</th>
+            <th style="text-align:center">PRO</th>
+            <th style="text-align:center">SENTINEL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="cat" colspan="5">Límites</td></tr>
+          <tr><td>Documentos</td><td style="text-align:center">100 total</td><td style="text-align:center">100/mes</td><td style="text-align:center">350/mes</td><td style="text-align:center">Ilimitado</td></tr>
+          <tr><td>Plantillas</td><td style="text-align:center">3</td><td style="text-align:center">3</td><td style="text-align:center">Ilimitadas</td><td style="text-align:center">Ilimitadas</td></tr>
+          <tr><td>Equipos</td><td style="text-align:center">1</td><td style="text-align:center">1</td><td style="text-align:center">1</td><td style="text-align:center">Múltiples</td></tr>
+
+          <tr><td class="cat" colspan="5">Extracción y clasificación</td></tr>
+          <tr><td>Modo Extractor</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Modo Listado (tablas)</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Clasificación en carpetas</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Detección de duplicados</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Renombrado automático</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Pre-vuelo Espejo y Ruteo</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Reporte Excel</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+
+          <tr><td class="cat" colspan="5">Herramientas PDF</td></tr>
+          <tr><td>Unir PDFs</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Dividir / extraer páginas</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>PDF a Word</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Imágenes a PDF</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>OCR por lote</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Fusionar reportes</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+
+          <tr><td class="cat" colspan="5">Auditoría avanzada</td></tr>
+          <tr><td>Peritaje de firmas digitales</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Detección de firma manuscrita</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Reporte HTML interactivo</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Reporte PDF de auditoría</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Score de riesgo del lote</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Gaps de numeración</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>Centinela automático</td><td class="check">✓</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td class="cat" colspan="5">Automatización inteligente</td></tr>
+          <tr><td>🪄 Asistente de Plantillas</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+          <tr><td>⚡ Autodetección de plantilla del catálogo</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td><td class="check">✓</td></tr>
+
+          <tr><td class="cat" colspan="5">Organizacional (SENTINEL)</td></tr>
+          <tr><td>Caps configurables por contrato</td><td class="cross">✕</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+          <tr><td>Múltiples equipos</td><td class="cross">✕</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+          <tr><td>Soporte prioritario directo</td><td class="cross">✕</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+          <tr><td>Onboarding personal incluido</td><td class="cross">✕</td><td class="cross">✕</td><td class="cross">✕</td><td class="check">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== 22. FAQ ===== -->
+  <section id="faq">
+    <h2><span class="num">22</span>FAQ y troubleshooting</h2>
+    <p class="lead">Situaciones frecuentes y cómo resolverlas. Si su caso no está listado, contacte a soporte.</p>
+
+    <h3>El Excel no se puede guardar ("archivo bloqueado")</h3>
+    <p>Significa que el archivo de destino está abierto en Excel o en otro programa. DEXIAE detecta el bloqueo y genera automáticamente un archivo de rescate con sufijo <code>_RESCATE_[timestamp].xlsx</code>. Cierre el Excel original y mueva manualmente las filas nuevas si necesita consolidar, o use el archivo de rescate directamente.</p>
+
+    <h3>Algunos archivos no se procesaron y quedaron en la carpeta</h3>
+    <p>Si la carpeta <code>_BLOQUEADOS_</code> tiene archivos, esos documentos estaban abiertos en otro programa o bloqueados por el sistema al momento del movimiento. Cierre las aplicaciones que puedan tenerlos abiertos y vuelva a lanzar el lote sobre la carpeta de bloqueados.</p>
+
+    <h3>El OCR no detecta texto o lo hace muy mal</h3>
+    <p>La calidad del OCR depende directamente de la calidad del escaneo. Recomendaciones: resolución mínima 300 DPI, imagen en blanco y negro o escala de grises, sin rotación, sin manchas. Para documentos con escaneo pobre, re-escanee antes de procesar.</p>
+
+    <h3>La firma digital aparece como "CORRUPTA" pero el documento se ve bien</h3>
+    <p>Esto es exactamente lo que el peritaje está diseñado para detectar: el documento se ve normal, pero su hash criptográfico no coincide con el firmado. Usualmente significa que alguien lo modificó después de firmar (aunque fuera mínimamente). Es información legalmente relevante.</p>
+
+    <h3>El HWID cambió y no puedo activar la licencia</h3>
+    <p>Ocurre cuando se reemplazan componentes principales del equipo. Envíe a soporte el HWID actual y la clave original. Emitimos una clave nueva vinculada al HWID nuevo.</p>
+
+    <h3>Puedo usar DEXIAE en dos equipos con la misma licencia</h3>
+    <p>No. Cada clave está vinculada a un único HWID. Las ediciones TRIAL, CORE y PRO son mono-equipo por diseño. Si necesita uso en múltiples equipos simultáneamente, la edición SENTINEL lo permite bajo contrato.</p>
+
+    <h3>Un documento va a REVISAR y no entiendo por qué</h3>
+    <p>Tres causas posibles ordenadas por probabilidad: (1) las anclas de la plantilla no aparecen en el documento; (2) todos los campos extraídos vinieron vacíos; (3) un campo marcado como obligatorio vino vacío. Abra el documento en el Laboratorio y use <strong>Probar Extracción</strong> para ver cuál campo está fallando.</p>
+
+    <h3>El Centinela no detecta archivos que deposito en la carpeta</h3>
+    <p>Verifique: que los archivos no estén todavía siendo copiados (DEXIAE espera a que terminen); que la extensión sea compatible (.pdf, .doc, .docx, .jpg, .jpeg, .png); que no esté en estado "Pausado"; que no sea un nombre de archivo idéntico a uno ya existente en la carpeta de destino.</p>
+
+    <h3>Se me colgó DEXIAE durante un lote grande</h3>
+    <p>La aplicación tiene candados internos para evitarlo, pero puede ocurrir por memoria insuficiente en lotes de miles de archivos. El Excel con lo procesado hasta ese momento queda guardado. Envíenos la carpeta <code>LOGS_SISTEMA</code> del día para diagnosticar.</p>
+
+    <h3>Necesito usar la estrategia Patrón (Regex) y no sé escribir regex</h3>
+    <p>Normal. La regex es una técnica avanzada que requiere precisión sobre el formato específico del documento. Envíenos por correo un documento de muestra del tipo que quiere procesar, indicando qué campo quiere extraer y cómo debería verse el resultado. Le armamos la expresión exacta y se la enviamos lista para pegar.</p>
+  </section>
+
+  <!-- ===== 23. SOPORTE ===== -->
+  <section id="soporte">
+    <h2><span class="num">23</span>Soporte</h2>
+    <p class="lead">Tres canales para resolver dudas, reportar problemas o solicitar ajustes específicos.</p>
+
+    <h3>Correo</h3>
+    <p><strong>dexiaesoporte@gmail.com</strong> — canal principal para todas las consultas técnicas, comerciales y de licenciamiento. Respondemos dentro de las 24 horas hábiles en CORE y PRO. Los clientes SENTINEL tienen soporte prioritario con respuesta acelerada.</p>
+
+    <h3>Sitio web</h3>
+    <p><strong>dexiae.pages.dev</strong> — información comercial, consultas, activación de TRIAL, documentación pública y actualizaciones.</p>
+
+    <h3>Qué incluir al reportar un problema</h3>
+    <ul>
+      <li>Descripción breve de lo que estaba haciendo cuando ocurrió el problema.</li>
+      <li>Edición de DEXIAE activa y versión (visible en "Acerca de DEXIAE").</li>
+      <li>Si corresponde, la plantilla usada (archivo <code>.json</code>).</li>
+      <li>Si el soporte lo solicita, la carpeta <code>LOGS_SISTEMA</code> del día en que ocurrió.</li>
+      <li>En problemas con un documento específico, si puede, un ejemplo del archivo (o uno anonimizado equivalente).</li>
+    </ul>
+
+    <div class="callout c-support">
+      <div class="callout-title">Compromiso</div>
+      <p style="margin:0">DEXIAE es una aplicación en evolución activa. Cada reporte de uso, sugerencia de mejora o caso complejo es insumo para versiones futuras. Si encuentra algo que podría funcionar mejor o falta una capacidad en su flujo de trabajo, escribanos: muchas funciones actuales nacieron de pedidos concretos de clientes.</p>
+    </div>
+  </section>
+
+</main>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// EDITION FILTER
+// ═══════════════════════════════════════════════════════════
+const editionSelect = document.getElementById('editionSelect');
+const fbEditionName = document.getElementById('fbEditionName');
+
+function updateBanner() {
+  const ed = document.body.dataset.ed;
+  if (ed && ed !== 'all' && fbEditionName) {
+    fbEditionName.textContent = ed.toUpperCase();
+  }
+  // Sync the select element with the body dataset (for the "reset" link)
+  if (editionSelect && editionSelect.value !== document.body.dataset.ed) {
+    editionSelect.value = document.body.dataset.ed;
+  }
+}
+
+editionSelect.addEventListener('change', (e) => {
+  document.body.dataset.ed = e.target.value;
+  updateBanner();
+});
+
+// ═══════════════════════════════════════════════════════════
+// SEARCH
+// ═══════════════════════════════════════════════════════════
+const searchInput = document.getElementById('searchInput');
+const sections = document.querySelectorAll('main section');
+
+function normalize(s) {
+  return (s || '').toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+function clearHighlights() {
+  document.querySelectorAll('.search-hit').forEach(el => {
+    const parent = el.parentNode;
+    parent.replaceChild(document.createTextNode(el.textContent), el);
+    parent.normalize();
+  });
+}
+
+function highlightInNode(node, query) {
+  if (node.nodeType === 3) {
+    const text = node.textContent;
+    const normText = normalize(text);
+    const idx = normText.indexOf(query);
+    if (idx >= 0) {
+      const before = text.slice(0, idx);
+      const match = text.slice(idx, idx + query.length);
+      const after = text.slice(idx + query.length);
+      const span = document.createElement('span');
+      span.className = 'search-hit';
+      span.textContent = match;
+      const frag = document.createDocumentFragment();
+      if (before) frag.appendChild(document.createTextNode(before));
+      frag.appendChild(span);
+      if (after) frag.appendChild(document.createTextNode(after));
+      node.parentNode.replaceChild(frag, node);
+      return true;
+    }
+    return false;
+  } else if (node.nodeType === 1 && !['SCRIPT', 'STYLE'].includes(node.tagName) && !node.classList.contains('search-hit')) {
+    let found = false;
+    // clone list because children will change
+    Array.from(node.childNodes).forEach(child => {
+      if (highlightInNode(child, query)) found = true;
+    });
+    return found;
+  }
+  return false;
+}
+
+searchInput.addEventListener('input', (e) => {
+  const q = normalize(e.target.value.trim());
+  clearHighlights();
+  if (!q || q.length < 2) {
+    sections.forEach(s => s.classList.remove('search-hidden'));
+    return;
+  }
+  sections.forEach(section => {
+    const text = normalize(section.textContent);
+    if (text.includes(q)) {
+      section.classList.remove('search-hidden');
+      highlightInNode(section, q);
+    } else {
+      section.classList.add('search-hidden');
+    }
+  });
+});
+
+// ═══════════════════════════════════════════════════════════
+// NAV ACTIVE SECTION
+// ═══════════════════════════════════════════════════════════
+const navLinks = document.querySelectorAll('#navList a');
+const sectionMap = {};
+navLinks.forEach(link => {
+  const id = link.getAttribute('href').slice(1);
+  const sec = document.getElementById(id);
+  if (sec) sectionMap[id] = { link, sec };
+});
+
+function updateActiveSection() {
+  let current = null;
+  let currentTop = -Infinity;
+  for (const id in sectionMap) {
+    const { sec } = sectionMap[id];
+    const rect = sec.getBoundingClientRect();
+    if (rect.top <= 120 && rect.top > currentTop) {
+      currentTop = rect.top;
+      current = id;
+    }
+  }
+  navLinks.forEach(l => l.classList.remove('active'));
+  if (current && sectionMap[current]) {
+    sectionMap[current].link.classList.add('active');
+  }
+}
+
+window.addEventListener('scroll', updateActiveSection, { passive: true });
+window.addEventListener('load', updateActiveSection);
+</script>
+
+</body>
+</html>

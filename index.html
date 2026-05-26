@@ -1017,10 +1017,17 @@ nav.top.scrolled{
 .sw-title{position:absolute;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:12px;color:rgba(237,233,222,0.6)}
 
 .screens-canvas{
-  position:relative;background:#0F1115;aspect-ratio:1440/860;overflow:hidden;
+  position:relative;background:#0F1115;overflow:hidden;
 }
-.screens-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transition:opacity .35s ease}
-.screens-img.active{opacity:1}
+.screens-img{
+  width:100%;height:auto;display:block;
+  position:absolute;top:0;left:0;right:0;
+  opacity:0;transition:opacity .35s ease;
+}
+.screens-img.active{
+  opacity:1;
+  position:relative; /* la imagen activa define la altura del contenedor */
+}
 /* Placeholder when image missing */
 .screens-placeholder{
   position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;

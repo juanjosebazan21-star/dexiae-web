@@ -1,11 +1,4 @@
-# DEXIAE — robots.txt
-# https://dexiae.pages.dev/
-
 User-agent: *
 Allow: /
 
-# Bloquear assets innecesarios para indexación (si los hubiera)
-Disallow: /cdn-cgi/
-
-# Sitemap principal
-Sitemap: https://dexiae.pages.dev/sitemap.xml
+Sitemap: https://getdexiae.com/sitemap.xml

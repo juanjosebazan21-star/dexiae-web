@@ -703,8 +703,24 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
     </div>
     <div class="field"><label>Email</label><input name="email" type="email" required placeholder="vos@ejemplo.com" autocomplete="email"></div>
     <div class="field"><label>WhatsApp <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+54 9 351 555 1234"></div>
-    <div class="field"><label>¿Cuántos PDFs procesás por mes?</label>
-     <select name="volume"><option>Menos de 100</option><option>100 a 500</option><option>500 a 2000</option><option>+2000</option></select>
+    <div class="f-row">
+     <div class="field"><label>¿Cuántos PDFs procesás por mes?</label>
+      <select name="volume"><option>Menos de 100</option><option>100 a 500</option><option>500 a 2000</option><option>+2000</option></select>
+     </div>
+     <div class="field"><label>Provincia</label>
+      <select name="provincia">
+       <option value="">Elegí tu provincia…</option>
+       <option>Buenos Aires</option><option>CABA</option><option>Catamarca</option>
+       <option>Chaco</option><option>Chubut</option><option>Córdoba</option>
+       <option>Corrientes</option><option>Entre Ríos</option><option>Formosa</option>
+       <option>Jujuy</option><option>La Pampa</option><option>La Rioja</option>
+       <option>Mendoza</option><option>Misiones</option><option>Neuquén</option>
+       <option>Río Negro</option><option>Salta</option><option>San Juan</option>
+       <option>San Luis</option><option>Santa Cruz</option><option>Santa Fe</option>
+       <option>Santiago del Estero</option><option>Tierra del Fuego</option>
+       <option>Tucumán</option><option>Fuera de Argentina</option>
+      </select>
+     </div>
     </div>
     <div class="field"><label>¿Con qué banco trabajás? <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional — lo sumamos al conversor de extractos)</span></label><input name="banco" type="text" placeholder="Galicia, Credicoop, Santander…"></div>
     <button type="submit" class="lm-submit" id="m-submit">Descargar instalador y empezar</button>

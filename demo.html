@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Demo online — DEXIAE · La interfaz real, sin instalar nada</title>
+<meta name="description" content="Usá la interfaz real de DEXIAE en tu navegador: procesá un lote de facturas ficticias, convertí un extracto bancario y descargá el Excel real que genera el sistema. Sin instalar nada.">
+<link rel="canonical" href="https://getdexiae.com/demo.html">
+<meta name="robots" content="index,follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Demo online de DEXIAE — la interfaz real, en tu navegador">
+<meta property="og:description" content="Simulación interactiva con datos ficticios sobre la interfaz real: extracción por lote, duplicados, extracto bancario con saldos verificados. Descargá el Excel de ejemplo.">
+<meta property="og:url" content="https://getdexiae.com/demo.html">
+<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+ --azul:#0056B3;--azul-d:#00408a;--azul-dim:rgba(0,86,179,.14);
+ --r:10px;--r-sm:7px;
+ --font:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+ --mono:'Cascadia Code','Consolas',monospace;
+}
+/* ===== TEMA OSCURO (default) — igual a la app ===== */
+[data-theme="dark"]{
+ --azul-l:#5b9bef;
+ --sb:#10151d;--sb2:#161d27;--bg:#0f141b;--bg2:#141b24;--card:#1a212c;
+ --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
+ --txt:#e4e8ef;--txt2:#9aa6b6;--txt3:#5f6b7a;
+ --input-bg:rgba(255,255,255,.04);--shadow:0 2px 12px rgba(0,0,0,.34);
+ --ok-fg:#3fb582;--ok-bg:rgba(47,158,111,.13);--ok-bd:rgba(47,158,111,.32);
+ --dup-fg:#41b5cf;--dup-bg:rgba(42,157,181,.12);--dup-bd:rgba(42,157,181,.30);
+ --rev-fg:#dcae4c;--rev-bg:rgba(199,150,51,.12);--rev-bd:rgba(199,150,51,.30);
+ --sbtxt:#8b97a8;--sbhover:rgba(255,255,255,.03);
+}
+/* ===== TEMA CLARO — premium corporativo: sidebar oscuro de marca ===== */
+[data-theme="light"]{
+ --azul-l:#0056B3;
+ --sb:#2b3138;--sb2:#343A40;--bg:#F5F7F9;--bg2:#eceff3;--card:#ffffff;
+ --border:rgba(20,32,54,.09);--border2:rgba(20,32,54,.16);
+ --txt:#212529;--txt2:#5b6670;--txt3:#9aa3ad;
+ --input-bg:#f6f8fa;--shadow:0 1px 8px rgba(16,32,64,.06);
+ --ok-fg:#1d7a4d;--ok-bg:rgba(29,122,77,.10);--ok-bd:rgba(29,122,77,.28);
+ --dup-fg:#1c7a8c;--dup-bg:rgba(28,122,140,.10);--dup-bd:rgba(28,122,140,.26);
+ --rev-fg:#9a6f12;--rev-bg:rgba(154,111,18,.10);--rev-bd:rgba(154,111,18,.26);
+ --sbtxt:#9aa5b1;--sbhover:rgba(255,255,255,.05);
+}
+html,body{height:100%}
+body{font-family:var(--font);background:var(--bg);color:var(--txt);font-size:13px;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;transition:background .2s}
+a{color:var(--azul-l);text-decoration:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-weight:700;border:none;cursor:pointer;font-family:var(--font);border-radius:var(--r-sm);transition:all .15s;line-height:1.1}
+.btn-p{background:var(--azul);color:#fff;padding:10px 18px;font-size:13px}
+.btn-p:hover{background:var(--azul-d)}
+.btn-big{padding:14px 24px;font-size:15px;border-radius:var(--r)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+
+/* ===== banner demo (arriba de todo) ===== */
+.dbar{background:var(--rev-bg);border-bottom:1px solid var(--rev-bd);color:var(--rev-fg);font-size:12px;font-weight:600;padding:7px 14px;text-align:center}
+.dbar b{font-weight:800}
+.dbar a{color:inherit;text-decoration:underline}
+
+/* ===== shell de la app ===== */
+.app{flex:1;display:flex;min-height:0}
+.sb{width:212px;background:var(--sb);display:flex;flex-direction:column;flex-shrink:0;border-right:1px solid var(--border)}
+.sb-head{padding:16px 14px 10px}
+.sb-brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;color:#fff}
+.sb-icon{width:32px;height:32px;border-radius:8px;background:var(--azul);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.sb-badges{display:flex;gap:5px;margin-top:10px}
+.sb-badge{font-size:9.5px;font-weight:800;letter-spacing:.05em;padding:3px 8px;border-radius:5px}
+.sb-badge.demo{background:var(--rev-bg);color:var(--rev-fg);border:1px solid var(--rev-bd)}
+.sb-badge.ver{background:rgba(255,255,255,.07);color:#9aa5b1}
+.sb-client{display:flex;align-items:center;gap:7px;margin-top:10px;font-size:11px;color:#9aa5b1}
+.sb-dot{width:5px;height:5px;border-radius:50%;background:#3fb582;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.sb-health{display:flex;gap:10px;padding:9px 14px;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06)}
+.h-item{display:flex;align-items:center;gap:5px;font-size:10px;color:#8b97a8}
+.h-dot{width:4px;height:4px;border-radius:50%;background:#3fb582}
+.sb-nav{padding:8px 0;flex:1;overflow-y:auto}
+.sb-item{display:flex;align-items:center;gap:9px;padding:10px 14px;cursor:pointer;color:var(--sbtxt);font-size:13px;font-weight:500;transition:all .13s;border-left:2px solid transparent}
+.sb-item svg{width:16px;height:16px;flex-shrink:0;opacity:.65}
+.sb-item:hover{background:var(--sbhover);color:#cbd5e1}
+.sb-item.active{background:var(--azul-dim);color:#fff;border-left-color:var(--azul)}
+.sb-item.active svg{opacity:1;stroke:var(--azul-l)}
+.sb-item .lock{margin-left:auto;font-size:11px;opacity:.55}
+.sb-robot{padding:12px 14px;border-top:1px solid rgba(255,255,255,.06);text-align:center}
+.robot-status{font-size:11px;font-weight:700;color:#cbd5e1}
+.robot-sub{font-size:10px;color:#8b97a8;margin-top:2px}
+.sb-foot{padding:12px 14px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px}
+.sb-avatar{width:26px;height:26px;border-radius:50%;background:var(--azul-d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+.sb-uname{font-size:11.5px;font-weight:700;color:#cbd5e1}
+.sb-ued{font-size:10px;color:#8b97a8}
+
+/* ===== main ===== */
+.main{flex:1;display:flex;flex-direction:column;min-width:0}
+.topbar{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border);background:var(--bg)}
+.tb-title{font-size:15px;font-weight:800}
+.tb-sub{font-size:12px;color:var(--txt3)}
+.tb-right{margin-left:auto;display:flex;gap:9px;align-items:center}
+.theme-btn{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border2);color:var(--txt2);border-radius:999px;padding:7px 13px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font)}
+.theme-btn:hover{border-color:var(--azul-l);color:var(--azul-l)}
+.content{flex:1;overflow-y:auto;padding:20px}
+.view{display:none;max-width:980px;margin:0 auto}
+.view.on{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+.card-title{font-size:13.5px;font-weight:800;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.card-title .ic{color:var(--azul-l)}
+
+/* archivos */
+.files{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:8px;margin-bottom:14px}
+.file{display:flex;align-items:center;gap:8px;background:var(--bg2);border:1px solid var(--border);border-radius:var(--r-sm);padding:8px 11px;font-size:11.5px;color:var(--txt2);font-family:var(--mono);overflow:hidden}
+.file span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.action{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.prog{flex:1;min-width:170px;height:8px;border-radius:99px;background:var(--bg2);border:1px solid var(--border);overflow:hidden;opacity:0;transition:opacity .3s}
+.prog.on{opacity:1}
+.prog i{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--azul),var(--azul-l));transition:width .18s}
+.ptxt{font-size:12px;color:var(--txt2);font-family:var(--mono);min-width:44px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.stat{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;border:1px solid var(--border);background:var(--bg2);color:var(--txt2)}
+.stat b{font-family:var(--mono)}
+.stat.ok{color:var(--ok-fg);border-color:var(--ok-bd);background:var(--ok-bg)}
+.stat.dup{color:var(--dup-fg);border-color:var(--dup-bd);background:var(--dup-bg)}
+.stat.rev{color:var(--rev-fg);border-color:var(--rev-bd);background:var(--rev-bg)}
+.tblwrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--bg2)}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:620px}
+th{text-align:left;padding:8px 12px;color:var(--txt3);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border-bottom:1px solid var(--border2);white-space:nowrap}
+td{padding:7px 12px;border-bottom:1px solid var(--border);color:var(--txt2);white-space:nowrap}
+td.mono{font-family:var(--mono);font-size:11.5px}
+td.num{text-align:right;font-family:var(--mono)}
+th.num{text-align:right}
+tr.new{animation:pop .3s ease}
+@keyframes pop{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.chip{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.04em;padding:2px 8px;border-radius:6px}
+.chip.ok{background:var(--ok-bg);color:var(--ok-fg);border:1px solid var(--ok-bd)}
+.chip.dup{background:var(--dup-bg);color:var(--dup-fg);border:1px solid var(--dup-bd)}
+.chip.rev{background:var(--rev-bg);color:var(--rev-fg);border:1px solid var(--rev-bd)}
+.vok{color:var(--ok-fg);font-weight:800}
+.result{display:none;margin-top:16px;padding:16px;border-radius:var(--r);background:var(--ok-bg);border:1px solid var(--ok-bd)}
+.result.on{display:block}
+.result h3{font-size:14.5px;color:var(--ok-fg);margin-bottom:4px}
+.result p{font-size:12.5px;color:var(--txt2);margin-bottom:12px;line-height:1.5}
+.result .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.hintx{font-size:11.5px;color:var(--txt3)}
+.pro-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.08em;background:var(--azul);color:#fff;border-radius:5px;padding:2px 7px;margin-left:5px;vertical-align:1px}
+.band{display:none;margin:4px 0 10px;padding:20px;border-radius:12px;background:linear-gradient(135deg,rgba(0,86,179,.16),rgba(0,86,179,.05));border:1px solid var(--azul-dim);text-align:center}
+.band.on{display:block}
+.band h2{font-size:clamp(17px,2.6vw,22px);margin-bottom:5px}
+.band p{color:var(--txt2);font-size:13px;max-width:520px;margin:0 auto 14px}
+.band .sub{font-size:11.5px;color:var(--txt3);margin-top:9px}
+.foot-note{text-align:center;font-size:11px;color:var(--txt3);padding:6px 0 16px}
+
+/* ===== modales ===== */
+.modal{position:fixed;inset:0;background:rgba(8,12,18,.72);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:90;padding:18px}
+.modal.open{display:flex}
+.mbox{width:100%;max-width:430px;background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:24px;color:var(--txt)}
+.mbox .pill{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--azul-l);background:var(--azul-dim);border-radius:999px;padding:4px 11px;display:inline-block;margin-bottom:11px}
+.mbox h3{font-size:18px;margin-bottom:6px}
+.mbox p{font-size:13px;color:var(--txt2);margin-bottom:8px;line-height:1.55}
+.mbox label{display:block;font-size:11.5px;font-weight:700;color:var(--txt2);margin:11px 0 5px}
+.mbox input{width:100%;background:var(--input-bg);border:1px solid var(--border2);border-radius:var(--r-sm);padding:10px 12px;font-size:13.5px;color:var(--txt);outline:none;font-family:var(--font)}
+.mbox input:focus{border-color:var(--azul-l)}
+.mbox .btn{width:100%;margin-top:16px}
+.mbox .mx{float:right;background:none;border:none;color:var(--txt3);font-size:20px;cursor:pointer;line-height:1}
+.mbox .priv{font-size:11px;color:var(--txt3);margin-top:9px;text-align:center}
+.mbox ul{margin:8px 0 4px 18px;color:var(--txt2);font-size:12.5px;line-height:1.7}
+
+/* ===== responsive ===== */
+@media(max-width:760px){
+ .app{flex-direction:column}
+ .sb{width:100%;flex-direction:column;border-right:none;border-bottom:1px solid var(--border)}
+ .sb-health,.sb-robot,.sb-foot{display:none}
+ .sb-head{padding:12px 14px 8px}
+ .sb-nav{display:flex;overflow-x:auto;padding:0 8px 10px;flex:none}
+ .sb-item{border-left:none;border-bottom:2px solid transparent;padding:8px 12px;white-space:nowrap}
+ .sb-item.active{border-bottom-color:var(--azul);background:transparent}
+ .content{padding:14px}
+ .tb-sub{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="dbar">▲ <b>DEMO ONLINE</b> con datos ficticios — esta es la interfaz real de DEXIAE. Para usarla con tus archivos: <a href="index.html#planes">trial gratis 14 días</a></div>
+
+<div class="app">
+ <!-- ===== SIDEBAR (réplica de la app) ===== -->
+ <aside class="sb">
+  <div class="sb-head">
+   <div class="sb-brand"><span class="sb-icon">DX</span> DEXIAE</div>
+   <div class="sb-badges"><span class="sb-badge demo">DEMO ONLINE</span><span class="sb-badge ver">v2.0</span></div>
+   <div class="sb-client"><span class="sb-dot"></span>Estudio de ejemplo</div>
+  </div>
+  <div class="sb-health">
+   <div class="h-item"><div class="h-dot"></div>Motor</div>
+   <div class="h-item"><div class="h-dot"></div>OCR</div>
+   <div class="h-item"><div class="h-dot"></div>DB</div>
+   <div class="h-item"><div class="h-dot"></div>Lic.</div>
+  </div>
+  <nav class="sb-nav">
+   <div class="sb-item active" id="nav-run" onclick="nav('run')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 4v16l13-8z"/></svg> Ejecución</div>
+   <div class="sb-item" id="nav-hist" onclick="bloqueado('Historial')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20h18M6 16v-6M12 16V6M18 16v-9"/></svg> Historial <span class="lock">🔒</span></div>
+   <div class="sb-item" id="nav-lab" onclick="bloqueado('Laboratorio')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.4 2h12.2a1.5 1.5 0 0 0 1.4-2L14 9V3"/></svg> Laboratorio <span class="lock">🔒</span></div>
+   <div class="sb-item" id="nav-val" onclick="bloqueado('Validación')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6h11M9 12h11M9 18h11M4 6l1 1 2-2M4 12l1 1 2-2M4 18l1 1 2-2"/></svg> Validación <span class="lock">🔒</span></div>
+   <div class="sb-item" id="nav-tools" onclick="nav('tools')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 7l3 3M5 19l4-1 10-10-3-3L6 15l-1 4zM14.7 6.3a2.1 2.1 0 0 1 3 3"/></svg> Herramientas</div>
+  </nav>
+  <div class="sb-robot">
+   <div class="robot-status" id="robot-status">En espera</div>
+   <div class="robot-sub" id="robot-sub">Motor listo</div>
+  </div>
+  <div class="sb-foot">
+   <div class="sb-avatar">DX</div>
+   <div><div class="sb-uname">DEXIAE</div><div class="sb-ued">Demo online · datos ficticios</div></div>
+  </div>
+ </aside>
+
+ <!-- ===== MAIN ===== -->
+ <div class="main">
+  <div class="topbar">
+   <div>
+    <div class="tb-title" id="tb-title">Ejecución</div>
+    <div class="tb-sub" id="tb-sub">Procesamiento de lotes por plantilla</div>
+   </div>
+   <div class="tb-right">
+    <button class="theme-btn" onclick="toggleTema()" id="theme-btn">☀ Modo claro</button>
+    <a class="btn btn-p" href="index.html#planes">Probar gratis</a>
+   </div>
+  </div>
+  <div class="content">
+
+   <!-- ===== VISTA: EJECUCIÓN ===== -->
+   <div class="view on" id="view-run">
+    <div class="card">
+     <div class="card-title"><span class="ic">▶</span> Lote de prueba — lote_facturas_junio (12 archivos)</div>
+     <div class="files" id="fac-files"></div>
+     <div class="action">
+      <button class="btn btn-p btn-big" id="fac-go" onclick="procesarFacturas()">▶ &nbsp;Procesar lote de prueba</button>
+      <div class="prog" id="fac-prog"><i></i></div>
+      <span class="ptxt" id="fac-ptxt"></span>
+     </div>
+     <div class="stats">
+      <span class="stat">Procesados <b id="c-tot">0/12</b></span>
+      <span class="stat ok">OK <b id="c-ok">0</b></span>
+      <span class="stat dup">Duplicados <b id="c-dup">0</b></span>
+      <span class="stat rev">A revisar <b id="c-rev">0</b></span>
+     </div>
+     <div class="tblwrap"><table>
+      <thead><tr><th>Archivo</th><th>CUIT</th><th>Fecha</th><th>Comprobante</th><th class="num">Total</th><th>Estado</th></tr></thead>
+      <tbody id="fac-rows"></tbody>
+     </table></div>
+     <div class="result" id="fac-result">
+      <h3>✓ Lote procesado — 12 archivos, 2 duplicados cazados, 1 a revisar</h3>
+      <p>Cada fila salió del PDF sin que nadie tipeara. Este mismo resultado se exporta a Excel:</p>
+      <div class="row">
+       <button class="btn btn-p" onclick="descargar('facturas')">⇩ &nbsp;Descargar el Excel de resultado</button>
+       <span class="hintx">.xlsx real · hojas: Extracción, Duplicados, Resumen</span>
+      </div>
+     </div>
+    </div>
+    <div class="band" id="band-run">
+     <h2>Esto fue una simulación. Con tus PDFs reales es igual.</h2>
+     <p>DEXIAE se instala en tu PC y procesa <b>100% offline</b>: ni un documento sale de tu equipo.</p>
+     <a class="btn btn-p btn-big" href="index.html#planes">Probar gratis 14 días — sin tarjeta</a>
+     <div class="sub">Windows 10/11 · Todas las funciones desbloqueadas · 100 documentos de prueba</div>
+    </div>
+   </div>
+
+   <!-- ===== VISTA: HERRAMIENTAS ===== -->
+   <div class="view" id="view-tools">
+    <div class="card">
+     <div class="card-title"><span class="ic">🏦</span> Extracto bancario → Excel · saldos verificados</div>
+     <div class="files"><div class="file"><span>📄 BANCO_EJEMPLO_CTA_CTE_202606.pdf</span></div></div>
+     <div class="action">
+      <button class="btn btn-p btn-big" id="ext-go" onclick="procesarExtracto()">▶ &nbsp;Convertir a Excel</button>
+      <div class="prog" id="ext-prog"><i></i></div>
+      <span class="ptxt" id="ext-ptxt"></span>
+     </div>
+     <div class="stats">
+      <span class="stat">Movimientos <b id="e-tot">0/10</b></span>
+      <span class="stat ok">Saldos verificados <b id="e-ver">0</b></span>
+      <span class="stat">Desfases <b id="e-des">0</b></span>
+     </div>
+     <div class="tblwrap"><table>
+      <thead><tr><th>Fecha</th><th>Detalle</th><th class="num">Importe</th><th class="num">Saldo</th><th>Verif.</th></tr></thead>
+      <tbody id="ext-rows"></tbody>
+     </table></div>
+     <div class="result" id="ext-result">
+      <h3>✓ Cadena de saldos verificada: 10/10 · 0 desfases</h3>
+      <p>Cada saldo se recalculó fila por fila contra el que imprime el banco. Si faltara una hoja del resumen, acá lo verías marcado. El Excel incluye además el <b>borrador de asientos</b><span class="pro-tag">PRO</span> — dos líneas por asiento, con la punta del banco resuelta.</p>
+      <div class="row">
+       <button class="btn btn-p" onclick="descargar('extracto')">⇩ &nbsp;Descargar el Excel (con asientos)</button>
+       <span class="hintx">.xlsx real · hojas: Banco, Resumen, Asientos (borrador)</span>
+      </div>
+     </div>
+    </div>
+    <div class="band" id="band-tools">
+     <h2>Esto fue una simulación. Con tus extractos reales es igual.</h2>
+     <p>DEXIAE se instala en tu PC y procesa <b>100% offline</b>. Extractos ilimitados en todos los planes.</p>
+     <a class="btn btn-p btn-big" href="index.html#planes">Probar gratis 14 días — sin tarjeta</a>
+     <div class="sub">7 bancos calibrados · una hoja por extracto · cadena de saldos verificada</div>
+    </div>
+   </div>
+
+   <div class="foot-note">© 2026 DEXIAE · Demo con datos 100% ficticios — ningún dato real fue usado · <a href="index.html">getdexiae.com</a> · <a href="privacidad.html">Privacidad</a></div>
+  </div>
+ </div>
+</div>
+
+<!-- ===== MODAL: módulo bloqueado ===== -->
+<div class="modal" id="lockmodal">
+ <div class="mbox">
+  <button class="mx" onclick="cerrarLock()">×</button>
+  <span class="pill">SOLO EN LA APP</span>
+  <h3 id="lock-title">Este módulo no está en la demo</h3>
+  <p>En la demo online mostramos dos flujos completos: <b>Ejecución</b> (lote de facturas) y <b>Herramientas</b> (extracto bancario). El resto no lo podemos simular acá — necesita el motor real corriendo en tu PC:</p>
+  <ul>
+   <li><b>Historial</b> — analítica de todos tus lotes</li>
+   <li><b>Laboratorio</b> — armá plantillas sobre tus PDFs</li>
+   <li><b>Validación</b> — reglas de negocio sobre lo extraído</li>
+  </ul>
+  <p style="margin-top:8px">Lo ves todo funcionando con el trial: <b>14 días gratis, sin tarjeta, 100% offline</b>. Y vamos sumando más demos online, de a poco.</p>
+  <a class="btn btn-p btn-big" href="index.html#planes" style="width:100%">Descargar el trial</a>
+ </div>
+</div>
+
+<!-- ===== MODAL: gate de descarga ===== -->
+<div class="modal" id="gate">
+ <div class="mbox">
+  <button class="mx" onclick="cerrarGate()">×</button>
+  <span class="pill">EXCEL DE EJEMPLO</span>
+  <h3>Llevate el Excel</h3>
+  <p>Decinos a quién se lo mandamos y la descarga arranca al instante. Es el archivo real que genera DEXIAE (con datos ficticios).</p>
+  <form id="gate-form" onsubmit="enviarGate(event)">
+   <label>Tu nombre</label>
+   <input name="nombre" required placeholder="Nombre y apellido">
+   <label>Estudio / empresa</label>
+   <input name="empresa" required placeholder="Estudio contable, empresa u organismo">
+   <label>Email</label>
+   <input name="email" type="email" required placeholder="tu@email.com">
+   <button class="btn btn-p btn-big" id="gate-btn" type="submit">Descargar el Excel</button>
+   <div class="priv">Sin spam. Solo te escribimos para ayudarte a probar DEXIAE.</div>
+  </form>
+ </div>
+</div>
+
+<script>
+/* ===== datos (espejo exacto de los .xlsx descargables) ===== */
+const FACS=[
+ ["FC_A_0003-00045871_INSUMOS_EJEMPLO_SA.pdf","30-11111111-9","02/06/2026","0003-00045871","148.500,00","ok"],
+ ["FC_B_0012-00003214_SERVICIOS_DEMO_SRL.pdf","30-22222222-8","03/06/2026","0012-00003214","86.200,50","ok"],
+ ["FC_A_0001-00012045_LOGISTICA_MODELO_SA.pdf","30-33333333-7","05/06/2026","0001-00012045","512.300,00","ok"],
+ ["FC_C_0007-00000981_FERRETERIA_TIPO_SRL.pdf","30-44444444-6","09/06/2026","0007-00000981","23.890,75","ok"],
+ ["FC_A_0003-00045871_copia_recibida_mail.pdf","30-11111111-9","02/06/2026","0003-00045871","148.500,00","dup"],
+ ["FC_B_0002-00007733_LIMPIEZA_GENERICA_SA.pdf","30-55555555-5","11/06/2026","0002-00007733","67.400,00","ok"],
+ ["FC_A_0009-00001102_TECNO_EJEMPLO_SAS.pdf","30-66666666-4","12/06/2026","0009-00001102","934.610,20","ok"],
+ ["FC_B_0012-00003214_reenvio_proveedor.pdf","30-22222222-8","03/06/2026","0012-00003214","86.200,50","dup"],
+ ["FC_A_0004-00021458_PAPELERA_MUESTRA_SA.pdf","30-77777777-3","16/06/2026","0004-00021458","45.120,00","ok"],
+ ["FC_C_0001-00000456_CATERING_FICTICIO_SRL.pdf","30-88888888-2","18/06/2026","0001-00000456","128.900,00","ok"],
+ ["FC_A_0011-00009087_SEGURIDAD_PATRON_SA.pdf","30-99999999-1","23/06/2026","0011-00009087","210.475,30","ok"],
+ ["FC_B_0005-00014550_escaneada_borrosa.pdf","30-10101010-0","25/06/2026","0005-00014550","—","rev"]
+];
+const MOVS=[
+ ["01/06/2026","Transferencia recibida - CLIENTE DEMO SA","+480.000,00","1.730.000,00"],
+ ["02/06/2026","Impuesto Ley 25413 - débito","-2.880,00","1.727.120,00"],
+ ["03/06/2026","Pago proveedor - INSUMOS EJEMPLO SA","-148.500,00","1.578.620,00"],
+ ["05/06/2026","Comisión mantenimiento cuenta","-8.900,00","1.569.720,00"],
+ ["09/06/2026","Acreditación POS - liquidación tarjetas","+312.450,00","1.882.170,00"],
+ ["11/06/2026","SIRCREB - retención ingresos brutos","-5.730,00","1.876.440,00"],
+ ["13/06/2026","Débito automático - seguro integral","-32.100,00","1.844.340,00"],
+ ["18/06/2026","Depósito e-cheq - CLIENTE MODELO SRL","+265.000,00","2.109.340,00"],
+ ["24/06/2026","Transferencia enviada - honorarios estudio","-95.000,00","2.014.340,00"],
+ ["30/06/2026","Intereses ganados saldo en cuenta","+1.240,00","2.015.580,00"]
+];
+const CHIP={ok:'<span class="chip ok">OK</span>',dup:'<span class="chip dup">DUP</span>',rev:'<span class="chip rev">REVISAR</span>'};
+const FORMSPREE='https://formspree.io/f/xyklkprd';
+const FILES={facturas:'demo-files/DEXIAE_demo_facturas.xlsx',extracto:'demo-files/DEXIAE_demo_extracto.xlsx'};
+
+const ff=document.getElementById('fac-files');
+FACS.forEach(f=>{ff.insertAdjacentHTML('beforeend','<div class="file"><span>📄 '+f[0]+'</span></div>')});
+
+/* ===== navegación del shell ===== */
+const TITULOS={run:['Ejecución','Procesamiento de lotes por plantilla'],tools:['Herramientas','Extracto bancario → Excel']};
+function nav(x){
+ document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+ document.getElementById('view-'+x).classList.add('on');
+ document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+ document.getElementById('nav-'+x).classList.add('active');
+ document.getElementById('tb-title').textContent=TITULOS[x][0];
+ document.getElementById('tb-sub').textContent=TITULOS[x][1];
+}
+function bloqueado(nombre){
+ document.getElementById('lock-title').textContent=nombre+' no está en la demo (todavía)';
+ document.getElementById('lockmodal').classList.add('open');
+}
+function cerrarLock(){document.getElementById('lockmodal').classList.remove('open')}
+document.getElementById('lockmodal').addEventListener('click',e=>{if(e.target.id==='lockmodal')cerrarLock()});
+
+/* ===== tema ===== */
+function toggleTema(){
+ const h=document.documentElement;
+ const claro=h.getAttribute('data-theme')==='light';
+ h.setAttribute('data-theme',claro?'dark':'light');
+ document.getElementById('theme-btn').textContent=claro?'☀ Modo claro':'☾ Modo oscuro';
+}
+
+/* ===== robot ===== */
+function robot(estado,sub){
+ document.getElementById('robot-status').textContent=estado;
+ document.getElementById('robot-sub').textContent=sub;
+}
+
+/* ===== escena facturas ===== */
+let facDone=false;
+function procesarFacturas(){
+ if(facDone)return;
+ const btn=document.getElementById('fac-go'),rows=document.getElementById('fac-rows'),
+  prog=document.getElementById('fac-prog'),bar=prog.querySelector('i'),ptxt=document.getElementById('fac-ptxt');
+ btn.disabled=true;btn.textContent='Procesando…';prog.classList.add('on');
+ robot('Procesando','lote_facturas_junio');
+ let i=0,ok=0,dup=0,rev=0;
+ const t=setInterval(()=>{
+  const f=FACS[i];
+  rows.insertAdjacentHTML('beforeend','<tr class="new"><td class="mono">'+f[0]+'</td><td class="mono">'+f[1]+'</td><td>'+f[2]+'</td><td class="mono">'+f[3]+'</td><td class="num">'+f[4]+'</td><td>'+CHIP[f[5]]+'</td></tr>');
+  if(f[5]==='ok')ok++;else if(f[5]==='dup')dup++;else rev++;
+  i++;
+  document.getElementById('c-tot').textContent=i+'/12';
+  document.getElementById('c-ok').textContent=ok;
+  document.getElementById('c-dup').textContent=dup;
+  document.getElementById('c-rev').textContent=rev;
+  bar.style.width=Math.round(i/FACS.length*100)+'%';
+  ptxt.textContent=Math.round(i/FACS.length*100)+'%';
+  if(i>=FACS.length){
+   clearInterval(t);facDone=true;
+   btn.textContent='✓ Lote procesado';
+   robot('En espera','Lote completado ✓');
+   document.getElementById('fac-result').classList.add('on');
+   document.getElementById('band-run').classList.add('on');
+  }
+ },150);
+}
+
+/* ===== escena extracto ===== */
+let extDone=false;
+function procesarExtracto(){
+ if(extDone)return;
+ const btn=document.getElementById('ext-go'),rows=document.getElementById('ext-rows'),
+  prog=document.getElementById('ext-prog'),bar=prog.querySelector('i'),ptxt=document.getElementById('ext-ptxt');
+ btn.disabled=true;btn.textContent='Convirtiendo…';prog.classList.add('on');
+ robot('Procesando','Extracto bancario');
+ let i=0;
+ const t=setInterval(()=>{
+  const m=MOVS[i];
+  const neg=m[2].startsWith('-');
+  rows.insertAdjacentHTML('beforeend','<tr class="new"><td>'+m[0]+'</td><td>'+m[1]+'</td><td class="num" style="color:'+(neg?'var(--rev-fg)':'var(--ok-fg)')+'">'+m[2]+'</td><td class="num">'+m[3]+'</td><td class="vok">✓</td></tr>');
+  i++;
+  document.getElementById('e-tot').textContent=i+'/10';
+  document.getElementById('e-ver').textContent=i;
+  bar.style.width=Math.round(i/MOVS.length*100)+'%';
+  ptxt.textContent=Math.round(i/MOVS.length*100)+'%';
+  if(i>=MOVS.length){
+   clearInterval(t);extDone=true;
+   btn.textContent='✓ Convertido';
+   robot('En espera','Cadena verificada ✓');
+   document.getElementById('ext-result').classList.add('on');
+   document.getElementById('band-tools').classList.add('on');
+  }
+ },170);
+}
+
+/* ===== gate de descarga ===== */
+let pendiente=null;
+function yaEsLead(){try{return localStorage.getItem('dxDemoLead')==='1'}catch(_){return false}}
+function descargar(which){
+ if(yaEsLead()){bajar(which);return}
+ pendiente=which;
+ document.getElementById('gate').classList.add('open');
+}
+function cerrarGate(){document.getElementById('gate').classList.remove('open')}
+document.getElementById('gate').addEventListener('click',e=>{if(e.target.id==='gate')cerrarGate()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){cerrarGate();cerrarLock()}});
+async function enviarGate(e){
+ e.preventDefault();
+ const btn=document.getElementById('gate-btn');
+ btn.textContent='Un segundo…';btn.disabled=true;
+ try{
+  const fd=new FormData(document.getElementById('gate-form'));
+  fd.append('_plan','DEMO-WEB');
+  fd.append('_subject','Lead DEMO ONLINE — descargó Excel '+(pendiente||''));
+  await fetch(FORMSPREE,{method:'POST',body:fd,headers:{'Accept':'application/json'}});
+ }catch(_){/* no bloquear la descarga */}
+ try{localStorage.setItem('dxDemoLead','1')}catch(_){}
+ btn.textContent='Descargar el Excel';btn.disabled=false;
+ cerrarGate();
+ if(pendiente)bajar(pendiente);
+}
+function bajar(which){
+ const a=document.createElement('a');
+ a.href=FILES[which];a.download='';
+ document.body.appendChild(a);a.click();a.remove();
+}
+</script>
+</body>
+</html>

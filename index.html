@@ -537,8 +537,8 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
   <div class="price-card">
    <div class="price-name">CORE</div>
    <div class="price-tag">Uso personal o profesional</div>
-   <div class="price-amt"><span class="cur">US$</span><span class="p-m">29</span><span class="p-a" style="display:none">278</span><span class="per p-pm">/ mes</span><span class="per p-pa" style="display:none">/ año</span></div>
-   <div class="price-ars"><span class="p-m">≈ AR$ 44.500 / mes</span><span class="p-a" style="display:none">≈ AR$ 425.000 / año</span></div>
+   <div class="price-amt"><span class="cur">AR$</span><span class="p-m">44.500</span><span class="p-a" style="display:none">425.000</span><span class="per p-pm">/ mes</span><span class="per p-pa" style="display:none">/ año</span></div>
+   <div class="price-ars"><span class="p-m">≈ US$ 29 / mes</span><span class="p-a" style="display:none">≈ US$ 278 / año</span></div>
    <div class="price-div"></div>
    <ul class="price-feats">
     <li>500 docs/mes · 3 plantillas</li>
@@ -554,8 +554,8 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    <div class="price-badge pop">Más elegido</div>
    <div class="price-name">PRO</div>
    <div class="price-tag">Auditoría completa</div>
-   <div class="price-amt"><span class="cur">US$</span><span class="p-m">89</span><span class="p-a" style="display:none">854</span><span class="per p-pm">/ mes</span><span class="per p-pa" style="display:none">/ año</span></div>
-   <div class="price-ars"><span class="p-m">≈ AR$ 135.000 / mes</span><span class="p-a" style="display:none">≈ AR$ 1.295.000 / año</span></div>
+   <div class="price-amt"><span class="cur">AR$</span><span class="p-m">135.000</span><span class="p-a" style="display:none">1.295.000</span><span class="per p-pm">/ mes</span><span class="per p-pa" style="display:none">/ año</span></div>
+   <div class="price-ars"><span class="p-m">≈ US$ 89 / mes</span><span class="p-a" style="display:none">≈ US$ 854 / año</span></div>
    <div class="price-div"></div>
    <div class="price-hl">
     <div class="price-hl-l">Exclusivo PRO</div>
@@ -696,19 +696,19 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    <button class="lm-close" onclick="closeLead()" aria-label="Cerrar">×</button>
   </div>
   <div class="lm-body" id="m-form-wrap">
-   <form id="lead-form" onsubmit="submitLead(event)" novalidate>
+   <form id="lead-form" onsubmit="submitLead(event)">
     <div class="f-row">
      <div class="field"><label>Nombre</label><input name="name" type="text" required placeholder="Tu nombre" autocomplete="name"></div>
-     <div class="field"><label>Empresa / Estudio</label><input name="company" type="text" placeholder="Opcional" autocomplete="organization"></div>
+     <div class="field"><label>Empresa / Estudio <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label><input name="company" type="text" placeholder="Opcional" autocomplete="organization"></div>
     </div>
     <div class="field"><label>Email</label><input name="email" type="email" required placeholder="vos@ejemplo.com" autocomplete="email"></div>
     <div class="field"><label>WhatsApp <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+54 9 351 555 1234"></div>
     <div class="f-row">
      <div class="field"><label>¿Cuántos PDFs procesás por mes?</label>
-      <select name="volume"><option>Menos de 100</option><option>100 a 500</option><option>500 a 2000</option><option>+2000</option></select>
+      <select name="volume" required><option value="">Elegí un rango…</option><option>Menos de 100</option><option>100 a 500</option><option>500 a 2000</option><option>+2000</option></select>
      </div>
      <div class="field"><label>Provincia</label>
-      <select name="provincia">
+      <select name="provincia" required>
        <option value="">Elegí tu provincia…</option>
        <option>Buenos Aires</option><option>CABA</option><option>Catamarca</option>
        <option>Chaco</option><option>Chubut</option><option>Córdoba</option>
@@ -844,7 +844,8 @@ function openLead(plan){
  document.getElementById('m-pill').textContent=c.pill;
  document.getElementById('m-title').textContent=c.title;
  document.getElementById('m-sub').textContent=c.sub;
- document.getElementById('m-submit').textContent=c.submitBtn;
+ const mBtn=document.getElementById('m-submit');
+ mBtn.textContent=c.submitBtn; mBtn.disabled=false;
  document.getElementById('m-foot').textContent=c.footNote;
  document.getElementById('m-form-wrap').style.display='';
  document.getElementById('m-success').style.display='none';
@@ -862,11 +863,14 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLead()});
 
 async function submitLead(e){
  e.preventDefault();
+ const form=document.getElementById('lead-form');
+ // GATE REAL: sin datos válidos no se entrega nada. (Antes el form tenía
+ // 'novalidate': se podía enviar vacío → lead en blanco + descarga igual.)
+ if(form && !form.checkValidity()){ form.reportValidity(); return; }
  const c=planConfig[currentPlan]||planConfig.TRIAL;
  const btn=document.getElementById('m-submit');
  btn.textContent='Procesando...';btn.disabled=true;
  try{
-  const form=document.getElementById('lead-form');
   const fd=new FormData(form);
   fd.append('_plan',currentPlan);
   fd.append('_billing',currentBilling);

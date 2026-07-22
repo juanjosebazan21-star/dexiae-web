@@ -144,6 +144,9 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 /* ── "Resuelve" por función ── */
 .solves{display:flex;flex-direction:column;gap:3px;margin:0 0 16px;padding:12px 14px;background:var(--ac-bg);border-left:3px solid var(--ac);border-radius:0 10px 10px 0;font-size:14.5px;color:var(--ink);line-height:1.5}
 .solves b{font-size:11px;letter-spacing:.1em;color:var(--ac-deep);text-transform:uppercase}
+/* Reveals al scroll (la clase .rv la agrega JS ⇒ sin JS todo queda visible) */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.84,.24,1),transform .7s cubic-bezier(.16,.84,.24,1)}
+.rv.in{opacity:1;transform:none}
 .hero .lead{font-size:17.5px;line-height:1.55;color:var(--md);max-width:500px;margin-bottom:30px}
 .hero .lead b{color:var(--hi);font-weight:600}
 .cta{display:flex;gap:13px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
@@ -377,6 +380,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 <nav><div class="nav-in">
  <a class="logo" href="#"><span class="m">D</span>Dexiae</a>
  <span class="nav-l">
+  <a href="casos-de-uso.html">Casos de uso</a>
   <a href="#capturas">La interfaz</a>
   <a href="#demo">Demo</a>
   <a href="#precios">Precios</a>
@@ -388,9 +392,9 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 <!-- ===== HERO ===== -->
 <section class="hero"><div class="wrap"><div class="hero-in">
  <div>
-  <span class="eyebrow"><span class="d"></span>Auditoría documental · 100% offline</span>
-  <h1>Extraé datos de PDF a Excel y auditá en lote, <span>100% offline.</span></h1>
-  <p class="lead">Para estudios contables, jurídicos y áreas administrativas del sector público y privado. <b>Detectá duplicados, peritá firmas digitales y generá reportes de auditoría</b> — todo en tu equipo, sin que un solo documento salga de tu PC.</p>
+  <span class="eyebrow"><span class="d"></span>Automatización documental · 100% offline</span>
+  <h1><span>Automatizá</span> en minutos el trabajo que hoy te lleva horas.</h1>
+  <p class="lead">DEXIAE automatiza lo que hoy hacés a mano: <b>extraé datos de PDF a Excel en lote, detectá duplicados, peritá firmas y generá reportes de auditoría</b> — 100% en tu equipo. Ni un documento sale de tu organización.</p>
   <div class="cta">
    <button class="btn btn-p btn-lg" onclick="openLead('TRIAL')">Probar gratis 14 días</button>
    <a href="app/" class="btn btn-o btn-lg">▶ Probá la demo online</a>
@@ -479,7 +483,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  <div class="sh">
   <div class="k">La interfaz, en acción</div>
   <h2>De la carpeta desordenada al reporte auditado</h2>
-  <p>Capturas reales de DEXIAE. Ejecutás, auditás y obtenés tus reportes — sin que un documento salga de tu equipo.</p>
+  <p>Capturas reales de DEXIAE. Automatizás la ejecución, la auditoría y los reportes — sin que un documento salga de tu equipo.</p>
  </div>
 
  <div class="feat">
@@ -487,7 +491,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    <div class="k">Centro de ejecución</div>
    <h3>Un botón. Todo el lote bajo control.</h3>
    <p>La pantalla principal de DEXIAE: elegís plantilla y políticas, confirmás el Pre-Vuelo y seguís la bitácora en vivo, con contadores de OK, duplicados y a revisar.</p>
-   <div class="solves"><b>Resuelve · operación diaria</b><span>Ejecutar sin sorpresas: ves qué entra antes de procesar, y qué pasó con cada archivo cuando termina.</span></div>
+   <div class="solves"><b>Para administración</b><span>Ejecutar sin sorpresas: ves qué entra antes de procesar, y qué pasó con cada archivo cuando termina.</span></div>
    <ul>
     <li><span class="ck">✓</span> Pre-Vuelo: confirmás el lote antes de procesar</li>
     <li><span class="ck">✓</span> Modo espejo: tus originales no se mueven</li>
@@ -503,7 +507,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    <div class="k">Laboratorio de plantillas</div>
    <h3>Configurás la plantilla una sola vez</h3>
    <p>Definís los campos a extraer (CUIT, fecha, monto, CAE…) con anclas de texto o zonas visuales. Después, cada lote sale solo.</p>
-   <div class="solves"><b>Resuelve · contadores</b><span>Se configura una sola vez, de forma visual e intuitiva — y a partir de ahí, cada lote nuevo sale solo, sin volver a tipear.</span></div>
+   <div class="solves"><b>Para estudios contables</b><span>Se configura una sola vez, de forma visual e intuitiva — y a partir de ahí, cada lote nuevo sale solo, sin volver a tipear.</span></div>
    <ul>
     <li><span class="ck">✓</span> Editor visual con documento de referencia</li>
     <li><span class="ck">✓</span> Asistente que sugiere los campos (PRO)</li>
@@ -517,7 +521,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    <div class="k">Reportes auditables</div>
    <h3>Excel, HTML y PDF pericial por cada lote</h3>
    <p>Cada ejecución genera reportes con estado por documento, detección de duplicados y peritaje de firmas — con score de integridad y hash SHA-256.</p>
-   <div class="solves"><b>Resuelve · área legal</b><span>Responder una auditoría o un oficio meses después con evidencia concreta: qué se procesó, cuándo, y con qué firma e integridad.</span></div>
+   <div class="solves"><b>Para estudios jurídicos</b><span>Responder una auditoría o un oficio meses después con evidencia concreta: qué se procesó, cuándo, y con qué firma e integridad.</span></div>
    <ul>
     <li><span class="ck">✓</span> Trazabilidad legal por lote</li>
     <li><span class="ck">✓</span> Centinela: vigila carpetas y procesa solo</li>
@@ -533,7 +537,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    <div class="k">Visión analítica</div>
    <h3>Cuánto tiempo te ahorra, con números</h3>
    <p>Cada lote queda registrado. DEXIAE te muestra el tiempo manual ahorrado, el volumen por semana, los duplicados detectados y la distribución de resultados.</p>
-   <div class="solves"><b>Resuelve · para el estudio</b><span>Poner números al trabajo invisible: cada lote queda registrado y podés mostrar cuánto insume la carga manual — y cuánto recupera tu equipo.</span></div>
+   <div class="solves"><b>Para empresas</b><span>Poner números al trabajo invisible: cada lote queda registrado y podés mostrar cuánto insume la carga manual — y cuánto recupera tu equipo.</span></div>
    <ul>
     <li><span class="ck">✓</span> Tiempo ahorrado estimado por documento</li>
     <li><span class="ck">✓</span> Volumen, plantillas y modo de ejecución</li>
@@ -547,7 +551,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    <div class="k">Caja de herramientas</div>
    <h3>9 herramientas PDF, dentro de la misma app</h3>
    <p>Unir, dividir, organizar, PDF a Word, imágenes a PDF, OCR por lote, fusionar reportes, extracto bancario y comprimir. Todo offline, sin salir de DEXIAE.</p>
-   <div class="solves"><b>Resuelve · área administrativa</b><span>Todo el trabajo con PDFs en un solo lugar y 100% en tu equipo — de la preparación del documento al Excel final, sin pasos intermedios afuera.</span></div>
+   <div class="solves"><b>Para organismos públicos</b><span>Todo el trabajo con PDFs en un solo lugar y 100% en tu equipo — de la preparación del documento al Excel final, sin pasos intermedios afuera.</span></div>
    <ul>
     <li><span class="ck">✓</span> Preparás los documentos antes de procesarlos</li>
     <li><span class="ck">✓</span> Extracto bancario → Excel</li>
@@ -739,7 +743,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
 <!-- ===== FINAL CTA ===== -->
 <section class="final"><div class="wrap">
- <h2>Probá DEXIAE 14 días gratis</h2>
+ <h2>Automatizá tu trabajo documental — 14 días gratis</h2>
  <p>Sin tarjeta, sin compromiso, sin enviar un solo documento a la nube.</p>
  <div class="cta">
   <button class="btn btn-p btn-lg" onclick="openLead('TRIAL')">Empezar ahora</button>
@@ -752,6 +756,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  <div class="foot-in">
   <span class="logo" style="font-size:16px"><span class="m" style="width:24px;height:24px;font-size:12px">D</span>Dexiae</span>
   <div class="foot-links">
+   <a href="casos-de-uso.html">Casos de uso</a>
    <a href="#capturas">La interfaz</a>
    <a href="#precios">Precios</a>
    <a href="#faq">FAQ</a>
@@ -1068,6 +1073,18 @@ function toggleCent(){
    (n.tag?'<span class="nov-tag">'+n.tag+'</span>':'')+'</a>').join('');
   sec.style.display='';
  }).catch(()=>{});
+})();
+</script>
+<script>
+/* Reveals al scroll — respeta reduced-motion y no oculta nada sin JS */
+(function(){
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+ if(!('IntersectionObserver' in window)) return;
+ var els=document.querySelectorAll('.problem .p-card,.sh,.feat,.price-card,.faq-item');
+ var io=new IntersectionObserver(function(en){
+  en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
+ },{threshold:.12,rootMargin:'0px 0px -50px 0px'});
+ els.forEach(function(e,i){ e.classList.add('rv'); e.style.transitionDelay=((i%3)*80)+'ms'; io.observe(e); });
 })();
 </script>
 </body></html>

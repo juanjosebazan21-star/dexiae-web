@@ -156,13 +156,13 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .hero-shot{transform:perspective(1600px) rotateY(-4deg);transform-origin:left center}
 
 /* ===== PROOF BAND ===== */
-.proof{background:var(--navy2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--hi)}
-.proof-in{max-width:1300px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:repeat(4,1fr)}
-.proof .c{padding:30px 20px;text-align:center;border-right:1px solid var(--line)}
-.proof .c:last-child{border-right:none}
-.proof .n{font-size:34px;font-weight:700;letter-spacing:-.03em}
-.proof .n em{color:var(--ac);font-style:normal}
-.proof .l{font-size:12.5px;color:var(--md);margin-top:6px}
+/* Métricas integradas al hero: una línea editorial, sin tiles ni bordes */
+.proof{background:var(--navy);color:var(--md);padding:2px 0 66px}
+.proof-in{max-width:1300px;margin:0 auto;padding:0 32px;display:flex;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:14px 26px;font-size:15px}
+.proof .pi b{color:var(--hi);font-weight:650;font-size:17px;letter-spacing:-.01em}
+.proof .pd{width:4px;height:4px;border-radius:50%;background:var(--ac);opacity:.65;align-self:center}
+/* Flujo entre secciones: cada bloque se curva sobre el anterior, sin líneas */
+.problem,.cent,.pricing,.final{border-radius:36px 36px 0 0;margin-top:-36px;position:relative;z-index:2}
 
 /* ===== SHOWCASE ===== */
 .show{background:var(--paper);padding:84px 0 60px}
@@ -184,7 +184,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .shotL .top span:nth-child(1){background:#ED6A5E}.shotL .top span:nth-child(2){background:#F4BF4F}.shotL .top span:nth-child(3){background:#62C554}
 
 /* ===== PROBLEM ===== */
-.problem{background:var(--paper2);border-bottom:1px solid var(--pline);padding:76px 0}
+.problem{background:var(--paper2);padding:76px 0}
 .problem-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
 .p-card{background:#fff;border:1px solid var(--pline);border-radius:14px;padding:26px;box-shadow:0 2px 4px rgba(24,20,12,.03)}
 .p-card .pn{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;color:#C0392B;margin-bottom:14px}
@@ -237,7 +237,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .trial-note .tn-t{color:var(--ink);font-weight:700}
 
 /* ===== PRICING ===== */
-.pricing{background:var(--paper2);border-top:1px solid var(--pline);padding:84px 0}
+.pricing{background:var(--paper2);padding:84px 0}
 .bill-toggle{display:flex;gap:4px;background:#fff;border:1px solid var(--pline2);border-radius:100px;padding:4px;width:max-content;margin:26px auto 40px}
 .bill-opt{padding:8px 18px;border-radius:100px;font-size:13.5px;font-weight:600;color:var(--ink2);transition:all .18s}
 .bill-opt.active{background:var(--ac);color:#fff}
@@ -439,11 +439,14 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 </section>
 
 <!-- ===== PROOF ===== -->
-<section class="proof"><div class="proof-in">
- <div class="c"><div class="n">&lt;<em>1</em>s</div><div class="l">por documento procesado</div></div>
- <div class="c"><div class="n"><em>100</em>%</div><div class="l">offline · sin nube</div></div>
- <div class="c"><div class="n"><em>14</em> días</div><div class="l">gratis sin tarjeta</div></div>
- <div class="c"><div class="n"><em>9</em></div><div class="l">herramientas PDF integradas</div></div>
+<section class="proof" aria-label="Datos clave"><div class="proof-in">
+ <span class="pi"><b>&lt;1&nbsp;s</b> por documento procesado</span>
+ <span class="pd"></span>
+ <span class="pi"><b>100%</b> offline — nada sale de tu PC</span>
+ <span class="pd"></span>
+ <span class="pi"><b>14&nbsp;días</b> de prueba, sin tarjeta</span>
+ <span class="pd"></span>
+ <span class="pi"><b>9</b> herramientas PDF integradas</span>
 </div></section>
 
 <!-- ===== PROBLEM ===== -->
@@ -537,6 +540,21 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
     <li><span class="ck">✓</span> Probás la extracción antes de ejecutar</li>
    </ul>
   </div>
+ </div>
+
+ <div class="feat">
+  <div class="txt">
+   <div class="k">Centro de ejecución</div>
+   <h3>Un botón. Todo el lote bajo control.</h3>
+   <p>La pantalla principal de DEXIAE: elegís plantilla y políticas, confirmás el Pre-Vuelo y seguís la bitácora en vivo, con contadores de OK, duplicados y a revisar.</p>
+   <div class="solves"><b>Resuelve · operación diaria</b><span>Ejecutar sin sorpresas: ves qué entra antes de procesar, y qué pasó con cada archivo cuando termina.</span></div>
+   <ul>
+    <li><span class="ck">✓</span> Pre-Vuelo: confirmás el lote antes de procesar</li>
+    <li><span class="ck">✓</span> Modo espejo: tus originales no se mueven</li>
+    <li><span class="ck">✓</span> Bitácora y contadores en tiempo real</li>
+   </ul>
+  </div>
+  <div class="shotL"><div class="top"><span></span><span></span><span></span></div><img src="ejecucion.png" width="1920" height="1000" alt="DEXIAE · pantalla de Ejecución procesando un lote de PDFs" loading="lazy"></div>
  </div>
 </div></section>
 

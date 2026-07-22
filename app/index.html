@@ -1855,27 +1855,37 @@ const DEMO = {
   previsualizar_renombrado: (sel,patron) => ({ok:true,muestras:[{original:'FC_DEMO_001.pdf',propuesto:'30-11111111-9_2026-06-25_0001.pdf'},{original:'FC_DEMO_002.pdf',propuesto:'30-11111111-9_2026-06-25_0002.pdf'},{original:'FC_DEMO_003.pdf',propuesto:'30-22222222-8_2026-06-25_0003.pdf'}]}),
   ejecutar_lote: () => { _simDemo(); return {ok:true}; },
   toggle_centinela: () => {
-    if(!STATE.centActivo) return {ok:true,centinela_activo:true};
+    // primera activación → arranca la simulación de archivos cayendo en la
+    // carpeta (setTimeout: corre DESPUÉS de que onCentinela ponga centActivo)
+    if(!STATE.centActivo){ setTimeout(_simCent, 60); return {ok:true,centinela_activo:true}; }
     STATE.centPausado=!STATE.centPausado;
     return {ok:true,centinela_activo:true,pausado:STATE.centPausado};
   },
-  detener_centinela: () => { UI.mostrarResumen({ok:0,dup:0,rev:0,err:0,total:0,dur:'0m 0s',reportes:'Excel (demo)',titulo:'Centinela detenido'}); return {ok:true}; },
+  detener_centinela: () => {
+    const t=STATE.centTally||{ok:0,dup:0,rev:0};
+    const total=t.ok+t.dup+t.rev;
+    try{ clearInterval(_cInt); }catch(e){}
+    const dur=STATE.t0?((Date.now()-STATE.t0)/1000).toFixed(0)+'s':'—';
+    UI.mostrarResumen({ok:t.ok,dup:t.dup,rev:t.rev,err:0,total,dur,
+      reportes:'Excel · HTML (demo)',titulo:'Vigilancia detenida'});
+    return {ok:true};
+  },
   detener: () => ({ok:true}),
   reprocesar_revisar: () => { UI.appendLog({hora:_now(),tipo:'INFO',msg:'Reprocesando _REVISAR_...'}); return {ok:true}; },
   contar_revisar: () => ({ok:true,count:3}),
   limpiar_consola: () => ({ok:true}),
   abrir_excel: () => ({ok:true}), abrir_html: () => ({ok:true}), abrir_pdf: () => ({ok:true}), abrir_path: () => ({ok:true}), resumen_cerrado: () => ({ok:true}),
-  historial_datos: (f) => { const _l=Array.from({length:6},(_,i)=>({id:i+1,fecha_inicio:`2026-06-2${i+1}T10:0${i}:00`,fecha_fin:`2026-06-2${i+1}T10:0${i+2}:1${i}`,plantilla:'Memorandum.json',nombre_lote:i===0?'Cierre junio':'',tiempo_str:`${2+i}m ${10+i}s`,modo_intervencion:i%2?'centinela':'manual',cnt_total:14,cnt_ok:13,cnt_duplicados:0,cnt_review:1,audit_on:i%2,ruta_excel:'(demo)/lote.xlsx',ruta_html:i%2?'(demo)/lote.html':'',ruta_pdf:'',validacion_estado:i%2?'OK':'CON_HALLAZGOS',validacion_hallazgos:i%2?0:3,validacion_set:'Memos SUAC'}));
+  historial_datos: (f) => { const _l=Array.from({length:6},(_,i)=>({id:i+1,fecha_inicio:`2026-06-2${i+1}T10:0${i}:00`,fecha_fin:`2026-06-2${i+1}T10:0${i+2}:1${i}`,plantilla:'Facturas_AR.json',nombre_lote:i===0?'Cierre junio':'',tiempo_str:`${2+i}m ${10+i}s`,modo_intervencion:i%2?'centinela':'manual',cnt_total:14,cnt_ok:13,cnt_duplicados:0,cnt_review:1,audit_on:i%2,ruta_excel:'(demo)/lote.xlsx',ruta_html:i%2?'(demo)/lote.html':'',ruta_pdf:'',validacion_estado:i%2?'OK':'CON_HALLAZGOS',validacion_hallazgos:i%2?0:3,validacion_set:'Comprobantes AFIP'}));
     const lotes=(f&&f.solo_con_hallazgos)?_l.filter(x=>(x.validacion_hallazgos||0)>0):_l;
-    return {ok:true,metricas:{docs:128,lotes:9,tasa_ok:0.94,dups:3},plantillas:['Memorandum.json','Facturas_AR.json'],
+    return {ok:true,metricas:{docs:128,lotes:9,tasa_ok:0.94,dups:3},plantillas:['Facturas_AR.json','Recibos.json'],
     analitica:{por_semana:[{semana:'2026-W20',total:12},{semana:'2026-W21',total:28},{semana:'2026-W22',total:19},{semana:'2026-W23',total:34},{semana:'2026-W24',total:22},{semana:'2026-W25',total:13}],
-      por_plantilla:[{plantilla:'Memorandum.json',total:78},{plantilla:'Facturas_AR.json',total:50}],por_modo:[{modo:'manual',total:90},{modo:'centinela',total:38}],
+      por_plantilla:[{plantilla:'Facturas_AR.json',total:78},{plantilla:'Recibos.json',total:50}],por_modo:[{modo:'manual',total:90},{modo:'centinela',total:38}],
       resultados:{ok:118,dup:3,rev:6,err:1},peritaje:{docs:40,digital:31,manuscrita:7,alerta:2},tiempo_ahorrado_min:192},
     lotes}; },
   historial_eliminar_lote: () => ({ok:true}),
   historial_renombrar_lote: (id,n) => ({ok:true,nombre:n}),
-  historial_detalle: () => ({ok:true,documentos:[{nombre_archivo:'FC_DEMO_001.pdf',estado_proceso:'OK',score_asig:0.92,plantilla_asig:'Memorandum.json',validacion:'OK',validacion_nivel:'OK',validacion_detalle:''},{nombre_archivo:'FC_DEMO_002.pdf',estado_proceso:'OK',score_asig:0.88,plantilla_asig:'Memorandum.json',validacion:'1 hallazgo(s)',validacion_nivel:'ALTA',validacion_detalle:'[ALTA] CUIT con dígito verificador inválido'},{nombre_archivo:'FC_DEMO_003.pdf',estado_proceso:'OK',score_asig:0.75,plantilla_asig:'Memorandum.json',validacion:'1 hallazgo(s)',validacion_nivel:'MEDIA',validacion_detalle:'Sticker SUAC ausente'}]}),
-  lab_estado: () => ({ok:true,plantillas:['Memorandum.json','Facturas_AR.json'],estrategias:['Texto (Derecha)','Texto (Izquierda)','Texto (Cerca)','Entre A y B','ZONA','Número','Moneda ($)','Fecha','CUIT / DNI','Email','Patrón (Regex)']}),
+  historial_detalle: () => ({ok:true,documentos:[{nombre_archivo:'FC_DEMO_001.pdf',estado_proceso:'OK',score_asig:0.92,plantilla_asig:'Facturas_AR.json',validacion:'OK',validacion_nivel:'OK',validacion_detalle:''},{nombre_archivo:'FC_DEMO_002.pdf',estado_proceso:'OK',score_asig:0.88,plantilla_asig:'Facturas_AR.json',validacion:'1 hallazgo(s)',validacion_nivel:'ALTA',validacion_detalle:'[ALTA] CUIT con dígito verificador inválido'},{nombre_archivo:'FC_DEMO_003.pdf',estado_proceso:'OK',score_asig:0.75,plantilla_asig:'Facturas_AR.json',validacion:'1 hallazgo(s)',validacion_nivel:'MEDIA',validacion_detalle:'CAE ausente o inválido'}]}),
+  lab_estado: () => ({ok:true,plantillas:['Facturas_AR.json','Recibos.json'],estrategias:['Texto (Derecha)','Texto (Izquierda)','Texto (Cerca)','Entre A y B','ZONA','Número','Moneda ($)','Fecha','CUIT / DNI','Email','Patrón (Regex)']}),
   lab_cargar_plantilla: (n) => ({ok:true,nombre:n,datos:{campos:[{columna:'CUIT',etiqueta:'CUIT del emisor',estrategia:'CUIT / DNI',ancla:true},{columna:'FECHA',etiqueta:'Fecha',estrategia:'Fecha'},{columna:'MONTO',etiqueta:'Monto',estrategia:'Moneda ($)'}],auditar_firmas:false,buscar_anclas_en_todo_documento:false,ocr_todas_paginas:false}}),
   lab_guardar: (n) => ({ok:true,nombre:n}), lab_renombrar:(v,n)=>({ok:true,nombre:n}), lab_eliminar: () => ({ok:true}),
   lab_cargar_doc: () => ({ok:true,nombre:'Factura_ejemplo.pdf',paginas:1,texto:'FACTURA B  N° 0001-00001234\nCUIT 30-11111111-9\nFecha 25/06/2026\nCliente: CONSUMIDOR EJEMPLO\nSubtotal: $ 152.500,00\nIVA 21%: $ 32.025,00\nTOTAL: $ 184.525,00'}),
@@ -1887,11 +1897,11 @@ const DEMO = {
   herr_comprimir: (nivel) => ({ok:true,mensaje:'1 PDF comprimido · 38% menos (2.4 MB → 1.5 MB) (demo'+(nivel==='maxima'?' · máxima':'')+')',ruta:'(demo)/factura_COMPRIMIDO.pdf',archivos:1,antes:'2.4 MB',despues:'1.5 MB',pct:38}),
   set_validacion: () => ({ok:true}),
   val_estado: () => ({ok:true,locked:false,activo:true,set_global:'Estandar AR',
-    sets:[{nombre:'Estandar AR',descripcion:'Controles estándar para comprobantes argentinos',n_reglas:4},{nombre:'Memos SUAC',descripcion:'Control de memos con sticker',n_reglas:6}],
-    plantillas:[{nombre:'Memorandum1.json',reglas_set:'Memos SUAC',columnas:['MEMORANDUM Nro','Nro. de Trámite:','Nro. de Sticker Suac','Beneficiario','CUIL','PRODUCTO','MONTO']},{nombre:'Facturas_AR.json',reglas_set:'',columnas:['CUIT','FECHA','TOTAL','ENVASES']}],
+    sets:[{nombre:'Estandar AR',descripcion:'Controles estándar para comprobantes argentinos',n_reglas:4},{nombre:'Comprobantes AFIP',descripcion:'Control de facturas con CAE',n_reglas:6}],
+    plantillas:[{nombre:'Comprobantes.json',reglas_set:'Comprobantes AFIP',columnas:['Nro. Comprobante','Punto de Venta','CAE','Razón Social','CUIT','CONCEPTO','TOTAL']},{nombre:'Facturas_AR.json',reglas_set:'',columnas:['CUIT','FECHA','TOTAL','ENVASES']}],
     tipos:['requerido','formato','cuit','suma','rango','fecha_rango','comparar_fechas','unico','lista']}),
-  val_cargar: (n) => ({ok:true,set:{nombre:n,descripcion:n==='Memos SUAC'?'Control de memos con sticker':'Controles estándar para comprobantes argentinos',reglas:n==='Memos SUAC'
-    ?[{tipo:'requerido',columna:'Nro. de Sticker Suac',mensaje:'Sticker SUAC ausente',severidad:'alta'},{tipo:'formato',columna:'CUIL',regex:'^\\d{2}-?\\d{8}-?\\d$'},{tipo:'lista',columna:'PRODUCTO',valores:['Subsidio','Beca']},{tipo:'rango',columna:'MONTO',min:0,max:1000000},{tipo:'unico',columnas:['CUIL','MEMORANDUM Nro']}]
+  val_cargar: (n) => ({ok:true,set:{nombre:n,descripcion:n==='Comprobantes AFIP'?'Control de facturas con CAE':'Controles estándar para comprobantes argentinos',reglas:n==='Comprobantes AFIP'
+    ?[{tipo:'requerido',columna:'CAE',mensaje:'CAE ausente o inválido',severidad:'alta'},{tipo:'formato',columna:'CUIT',regex:'^\\d{2}-?\\d{8}-?\\d$'},{tipo:'lista',columna:'CONCEPTO',valores:['Productos','Servicios']},{tipo:'rango',columna:'TOTAL',min:0,max:1000000},{tipo:'unico',columnas:['CUIT','Nro. Comprobante']}]
     :[{tipo:'cuit'},{tipo:'suma',tolerancia:1},{tipo:'fecha_rango',max_anios:10},{tipo:'unico'}]}}),
   val_guardar: () => ({ok:true}), val_eliminar: () => ({ok:true}), val_set_global: () => ({ok:true}), val_asociar: () => ({ok:true}), val_renombrar: (v,n) => ({ok:true,nombre:n}),
   val_probar: (n) => ({ok:true,mensaje:'['+n+'] 3 hallazgo(s) en 2 de 38 documento(s) (demo)',ruta:'(demo)/lote_VALIDADO.xlsx',hallazgos:3}),
@@ -1909,7 +1919,7 @@ const DEMO = {
   herr_organizar_abrir: () => ({ok:true,nombre:'contrato_escaneado.pdf',ruta:'(demo)',src:0,total:4,paginas:[0,1,2,3].map(i=>({src:0,idx:i,thumb:''}))}),
   herr_organizar_agregar: () => ({ok:true,src:1,nombre:'anexo.pdf',total:2,paginas:[0,1].map(i=>({src:1,idx:i,thumb:''}))}),
   herr_organizar_preview: () => ({ok:true,demo:true,img:''}),
-  herr_dividir_abrir: () => ({ok:true,nombre:'informe.pdf',ruta:'(demo)',total:12,plantillas:['Memorandum1.json','Facturas_AR.json']}),
+  herr_dividir_abrir: () => ({ok:true,nombre:'informe.pdf',ruta:'(demo)',total:12,plantillas:['Comprobantes.json','Facturas_AR.json']}),
   herr_dividir_campos: () => ({ok:true,campos:[{columna:'CUIT',etiqueta:'CUIT:',clave:true},{columna:'NUMERO',etiqueta:'Nro:',clave:false}]}),
   herr_dividir_extraer: (rango,explode,pl,campo) => ({ok:true,ruta:'(demo)/informe_DIVIDIDO',paginas:3,explode:!!explode,renombrado:!!(pl&&campo)}),
   herr_extracto_seleccionar: () => ({ok:true,archivos:[{ruta:'(demo)/resumen_banco_ejemplo.pdf',nombre:'resumen banco ejemplo 202406.pdf',banco:'ejemplo',soportado:true}]}),
@@ -2355,7 +2365,7 @@ const UI = {
 
   appendLog(data) {
     const w=document.getElementById('log-wrap');
-    const cls={INFO:'lb-info',OK:'lb-ok',WARN:'lb-warn',ERR:'lb-err'}[data.tipo]||'lb-info';
+    const cls={INFO:'lb-info',OK:'lb-ok',WARN:'lb-warn',ERR:'lb-err',DUP:'lb-info'}[data.tipo]||'lb-info';
     const r=document.createElement('div');r.className='log-row';
     let sc='';
     if(data.score!==undefined && data.score!==null){
@@ -4137,16 +4147,22 @@ async function asisGuardar(){
 const LDEMO=[
   {tipo:'INFO',msg:'Escaneando carpeta...'},
   {tipo:'INFO',msg:'10 archivos detectados'},
-  {tipo:'OK',  msg:'FC_DEMO_001.pdf → EJEMPLO_A', score:.91},
-  {tipo:'OK',  msg:'FC_DEMO_002.pdf → EJEMPLO_B', score:.88},
-  {tipo:'WARN',msg:'FC_DEMO_003.pdf → AMBIGUO',   score:.55},
-  {tipo:'OK',  msg:'FC_DEMO_004.pdf → EJEMPLO_C', score:.85},
-  {tipo:'OK',  msg:'FC_DEMO_005.pdf → EJEMPLO_A', score:.93},
+  {tipo:'OK',  msg:'FC_DEMO_001.pdf → EJEMPLO_A', score:.94},
+  {tipo:'OK',  msg:'FC_DEMO_002.pdf → EJEMPLO_B', score:.91},
+  {tipo:'OK',  msg:'FC_DEMO_003.pdf → EJEMPLO_A', score:.89},
+  {tipo:'DUP', msg:'FC_DEMO_004.pdf → duplicado de FC_DEMO_001'},
+  {tipo:'OK',  msg:'FC_DEMO_005.pdf → EJEMPLO_C', score:.90},
+  {tipo:'OK',  msg:'FC_DEMO_006.pdf → EJEMPLO_B', score:.93},
+  {tipo:'WARN',msg:'FC_DEMO_007.pdf → AMBIGUO',   score:.55},
+  {tipo:'OK',  msg:'FC_DEMO_008.pdf → EJEMPLO_A', score:.92},
+  {tipo:'OK',  msg:'FC_DEMO_009.pdf → EJEMPLO_C', score:.88},
+  {tipo:'OK',  msg:'FC_DEMO_010.pdf → EJEMPLO_B', score:.95},
 ];
 let _proc=null;
 function _simDemo(){
   if(_proc)return;
-  let i=0,ok=0,rev=0;
+  let i=0,ok=0,dup=0,rev=0;
+  const NF=LDEMO.filter(l=>l.tipo==='OK'||l.tipo==='DUP'||l.tipo==='WARN').length;
   STATE.t0=Date.now();
   UI.actualizarEstadoProceso({estado:'running',progreso:0});
   UI.appendLog({hora:_now(),tipo:'INFO',msg:'Iniciando demo...'});
@@ -4155,25 +4171,63 @@ function _simDemo(){
       clearInterval(_proc);_proc=null;
       const dur=((Date.now()-(STATE.t0||Date.now()))/1000).toFixed(1)+'s';
       UI.actualizarEstadoProceso({estado:'idle',progreso:1.0});
-      UI.mostrarResumen({ok,dup:0,rev,err:0,total:ok+rev,dur,reportes:'Excel · HTML (demo)'});
+      UI.mostrarResumen({ok,dup,rev,err:0,total:ok+dup+rev,dur,reportes:'Excel · HTML (demo)'});
       return;
     }
     const L=LDEMO[i];
     UI.appendLog({hora:_now(),tipo:L.tipo,msg:L.msg,score:L.score});
     if(L.tipo==='OK'){ok++;UI.setC('c-ok',ok);}
+    if(L.tipo==='DUP'){dup++;UI.setC('c-dup',dup);}
     if(L.tipo==='WARN'){rev++;UI.setC('c-rev',rev);}
     i++;
-    UI.actualizarEstadoProceso({estado:'running',progreso:i/LDEMO.length});
-    document.getElementById('p-arch').textContent=`${i} / ${LDEMO.length}`;
+    const done=ok+dup+rev;
+    UI.actualizarEstadoProceso({estado:'running',progreso:NF?done/NF:i/LDEMO.length});
+    document.getElementById('p-arch').textContent=`${done} / ${NF}`;
   },420);
 }
 let _cInt=null;
+// Cola de archivos que "caen" en la carpeta vigilada (datos ficticios).
+// 8 OK + 1 duplicado + 1 revisión = 10 → el resumen final da EXACTAMENTE 10.
+const CENT_COLA=[
+  ['OK', 'FC_DEMO_001.pdf','extraído'],
+  ['OK', 'FC_DEMO_002.pdf','extraído'],
+  ['OK', 'FC_DEMO_003.pdf','extraído'],
+  ['DUP','FC_DEMO_004.pdf','duplicado de FC_DEMO_001'],
+  ['OK', 'FC_DEMO_005.pdf','extraído'],
+  ['OK', 'FC_DEMO_006.pdf','extraído'],
+  ['WARN','FC_DEMO_007.pdf','requiere revisión'],
+  ['OK', 'FC_DEMO_008.pdf','extraído'],
+  ['OK', 'FC_DEMO_009.pdf','extraído'],
+  ['OK', 'FC_DEMO_010.pdf','extraído'],
+];
 function _simCent(){
-  if(STATE.centActivo){
-    UI.actualizarEstadoProceso({estado:'centinela',progreso:0});
-    UI.appendLog({hora:_now(),tipo:'INFO',msg:'Centinela activo · vigilando carpeta'});
-    _cInt=setInterval(()=>{ if(!STATE.centActivo){clearInterval(_cInt);return;} UI.appendLog({hora:_now(),tipo:'INFO',msg:'Sin archivos nuevos...'}); },4000);
-  } else { clearInterval(_cInt); UI.actualizarEstadoProceso({estado:'idle',progreso:0}); }
+  if(!STATE.centActivo){ clearInterval(_cInt); UI.actualizarEstadoProceso({estado:'idle',progreso:0}); return; }
+  clearInterval(_cInt);
+  // arranque limpio: contadores y tally en cero
+  STATE.centTally={ok:0,dup:0,rev:0};
+  ['c-ok','c-dup','c-rev','c-err'].forEach(id=>UI.setC(id,0));
+  UI.actualizarEstadoProceso({estado:'centinela',progreso:0});
+  UI.appendLog({hora:_now(),tipo:'INFO',msg:'Centinela activo · vigilando carpeta'});
+  let i=0, idle=0;
+  _cInt=setInterval(()=>{
+    if(!STATE.centActivo){ clearInterval(_cInt); return; }
+    if(STATE.centPausado) return;
+    if(i>=CENT_COLA.length){
+      // ya cayeron todos: latido lento (~cada 30s) para no inundar la bitácora
+      // si el usuario deja el Centinela activo y no pone Detener.
+      idle++;
+      if(idle===1 || idle % 27 === 0)
+        UI.appendLog({hora:_now(),tipo:'INFO',msg:'Sin archivos nuevos · vigilando…'});
+      return;
+    }
+    const [tipo,arch,det]=CENT_COLA[i]; i++;
+    UI.appendLog({hora:_now(),tipo:'INFO',msg:'Nuevo archivo en la carpeta: '+arch});
+    UI.appendLog({hora:_now(),tipo:tipo,msg:arch+' → '+det});
+    const t=STATE.centTally;
+    if(tipo==='OK'){  t.ok++;  UI.setC('c-ok', t.ok); }
+    if(tipo==='DUP'){ t.dup++; UI.setC('c-dup',t.dup); }
+    if(tipo==='WARN'){t.rev++; UI.setC('c-rev',t.rev); }
+  },1100);
 }
 
 function _now(){ return new Date().toTimeString().slice(0,8); }

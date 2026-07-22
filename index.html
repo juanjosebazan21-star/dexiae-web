@@ -102,45 +102,41 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .eyebrow .d{width:6px;height:6px;border-radius:50%;background:var(--ok)}
 .hero h1{font-size:clamp(40px,4.7vw,61px);font-weight:700;line-height:1.04;letter-spacing:-.038em;margin-bottom:20px;color:var(--hi)}
 .hero h1 span{color:var(--ac)}
-/* ── Hero viz · documento → datos (animación autocontenida) ──
-   Estados por defecto = escena final ⇒ con prefers-reduced-motion
+/* ── Hero viz · flujo PDFs → DEXIAE → resultados (autocontenida) ──
+   Estados por defecto = escena final (todo visible) ⇒ con reduced-motion
    (animation:none global) queda una composición estática correcta. */
-.hviz{position:relative;width:100%;max-width:640px;height:440px;justify-self:end}
-.hviz::before{content:"";position:absolute;inset:-70px -50px;background:radial-gradient(58% 55% at 52% 46%,rgba(79,134,247,.20),transparent 70%);pointer-events:none}
-.hviz-stage{--cy:9.5s;position:absolute;left:0;top:0;width:620px;height:440px;transform-origin:top left}
-.hv-doc{position:absolute;left:0;top:44px;width:252px;height:330px;background:linear-gradient(180deg,#FDFCF9,#EFECE3);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.45);padding:18px 16px;animation:hvFloat 7s ease-in-out infinite}
-.hv-doc-head{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:#3A3F4C;margin-bottom:12px}
-.hv-pdf{background:#E5484D;color:#fff;font-size:10px;font-weight:800;border-radius:5px;padding:3px 6px}
-.hv-l{display:block;height:9px;border-radius:5px;background:#DCD8CC;margin:11px 0}
-.hv-zone{margin-top:16px;border:1.5px dashed rgba(46,107,224,.6);background:rgba(79,134,247,.10);border-radius:8px;padding:8px 10px;font-family:var(--mono);font-size:10.5px;color:#2456BE}
-.hv-beam{position:absolute;left:5%;right:5%;top:16%;height:3px;border-radius:3px;background:linear-gradient(90deg,transparent,var(--ok) 20%,var(--ok) 80%,transparent);box-shadow:0 0 14px rgba(57,192,124,.85);animation:hvScan 3.4s ease-in-out infinite}
-@keyframes hvScan{0%,100%{top:13%}50%{top:88%}}
-@keyframes hvFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
-.hv-xl{position:absolute;right:0;top:96px;width:330px;background:var(--card);border:1px solid var(--line2);border-radius:14px;box-shadow:0 28px 70px rgba(0,0,0,.5);overflow:hidden;animation:hvFloat 7s ease-in-out -3.5s infinite}
-.hv-xl-bar{display:flex;align-items:center;gap:6px;background:rgba(150,180,235,.08);padding:9px 12px;border-bottom:1px solid var(--line)}
-.hv-xl-bar span{width:9px;height:9px;border-radius:50%;background:rgba(150,180,235,.25)}
-.hv-xl-bar b{margin-left:6px;font-family:var(--mono);font-size:10.5px;color:var(--md);font-weight:500}
-.hv-row{display:grid;grid-template-columns:1.25fr 1fr 1.05fr;border-bottom:1px solid var(--line)}
-.hv-row div{padding:9px 10px;font-family:var(--mono);font-size:10.5px;color:var(--hi);white-space:nowrap;overflow:hidden}
-.hv-h div{color:var(--lo);font-size:9.5px;letter-spacing:.08em}
-.hv-r1 .v1{animation:hvV1 var(--cy) infinite}
-.hv-r1 .v2{animation:hvV2 var(--cy) infinite}
-.hv-r1 .v3{animation:hvV3 var(--cy) infinite}
-.hv-r0{animation:hvR0 var(--cy) infinite}
-.hv-stamp{display:inline-flex;align-items:center;gap:7px;margin:11px 12px 13px;background:rgba(57,192,124,.13);color:var(--ok);border:1px solid rgba(57,192,124,.35);border-radius:100px;padding:6px 12px;font-size:11px;font-weight:600;animation:hvStamp var(--cy) infinite}
-.hv-chip{position:absolute;z-index:5;background:#0F1B33;border:1px solid rgba(79,134,247,.6);color:#CDE0FF;font-family:var(--mono);font-size:10.5px;padding:6px 11px;border-radius:100px;box-shadow:0 10px 26px rgba(0,0,0,.5),0 0 18px rgba(79,134,247,.25);opacity:0;will-change:transform,opacity}
-.hv-c1{left:24px;top:168px;animation:hvC1 var(--cy) cubic-bezier(.55,.08,.3,1) infinite}
-.hv-c2{left:32px;top:218px;animation:hvC2 var(--cy) cubic-bezier(.55,.08,.3,1) infinite}
-.hv-c3{left:20px;top:266px;animation:hvC3 var(--cy) cubic-bezier(.55,.08,.3,1) infinite}
-@keyframes hvC1{0%,6%{opacity:0;transform:none}9%{opacity:1}15%{transform:none}23%{opacity:1;transform:translate(261px,26px)}26%,100%{opacity:0;transform:translate(261px,26px)}}
-@keyframes hvC2{0%,19%{opacity:0;transform:none}22%{opacity:1}28%{transform:none}36%{opacity:1;transform:translate(370px,-24px)}39%,100%{opacity:0;transform:translate(370px,-24px)}}
-@keyframes hvC3{0%,32%{opacity:0;transform:none}35%{opacity:1}41%{transform:none}49%{opacity:1;transform:translate(479px,-72px)}52%,100%{opacity:0;transform:translate(479px,-72px)}}
-@keyframes hvV1{0%,22%{opacity:0}25%,88%{opacity:1}94%,100%{opacity:0}}
-@keyframes hvV2{0%,35%{opacity:0}38%,88%{opacity:1}94%,100%{opacity:0}}
-@keyframes hvV3{0%,48%{opacity:0}51%,88%{opacity:1}94%,100%{opacity:0}}
-@keyframes hvR0{0%,54%{opacity:0;transform:translateY(6px)}58%,88%{opacity:1;transform:none}94%,100%{opacity:0}}
-@keyframes hvStamp{0%,58%{opacity:0;transform:scale(.85)}62%{opacity:1;transform:scale(1.06)}66%,88%{opacity:1;transform:scale(1)}94%,100%{opacity:0}}
-@media (max-width:1080px){.hviz{justify-self:center}}
+.hviz{position:relative;width:100%;max-width:460px;justify-self:end}
+.hviz::before{content:"";position:absolute;inset:-56px -40px;background:radial-gradient(56% 52% at 50% 44%,rgba(79,134,247,.20),transparent 70%);pointer-events:none}
+.hviz-stage{--cy:7.5s;position:absolute;left:0;top:0;width:440px;height:520px;transform-origin:top left}
+.hf-cap{position:absolute;left:50%;top:0;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--lo);white-space:nowrap}
+.hf-pdfs{position:absolute;left:50%;top:26px;transform:translateX(-50%);width:180px;height:104px}
+.hf-card{position:absolute;left:50%;top:4px;width:134px;height:96px;margin-left:-67px;border-radius:11px;background:linear-gradient(180deg,#FDFCF9,#ECE9E0);box-shadow:0 14px 32px rgba(0,0,0,.4);border:1px solid rgba(0,0,0,.06);animation:hfFloat 6s ease-in-out infinite}
+.hf-card.c1{transform:translateX(-11px) rotate(-9deg);opacity:.85}
+.hf-card.c2{transform:translateX(11px) rotate(7deg);opacity:.92}
+.hf-card.c3{padding:12px}
+.hf-card.c3 b{display:inline-block;background:#E5484D;color:#fff;font-size:8.5px;font-weight:800;border-radius:4px;padding:2px 5px}
+.hf-card.c3 i{display:block;height:7px;border-radius:4px;background:#DAD6CA;margin:8px 0}
+.hf-spine{position:absolute;left:50%;top:134px;width:2px;height:198px;margin-left:-1px;background:linear-gradient(var(--line2),rgba(79,134,247,.55),var(--line2));border-radius:2px}
+.hf-dot{position:absolute;left:50%;top:130px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--ok);box-shadow:0 0 16px rgba(57,192,124,.9);opacity:0;animation:hfDot var(--cy) ease-in-out infinite}
+.hf-engine{position:absolute;left:50%;top:214px;transform:translateX(-50%);width:224px;height:66px;border-radius:15px;background:linear-gradient(180deg,#182640,#111a2e);border:1px solid var(--line2);box-shadow:0 20px 46px rgba(0,0,0,.55);display:flex;align-items:center;gap:12px;padding:0 18px;overflow:hidden;animation:hfEngine var(--cy) ease-in-out infinite}
+.hf-engine .b{width:36px;height:36px;flex:none;border-radius:10px;background:var(--ac);color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(79,134,247,.5)}
+.hf-engine .t{display:flex;flex-direction:column;line-height:1.2}
+.hf-engine .t b{font-size:16px;font-weight:700;color:var(--hi);letter-spacing:.02em}
+.hf-engine .t em{font-family:var(--mono);font-style:normal;font-size:10.5px;color:var(--ac)}
+.hf-glow{position:absolute;top:0;bottom:0;width:42%;left:-46%;background:linear-gradient(90deg,transparent,rgba(79,134,247,.28),transparent);animation:hfSweep var(--cy) linear infinite}
+.hf-out{position:absolute;left:50%;top:338px;transform:translateX(-50%);width:310px;background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:7px;box-shadow:0 26px 60px rgba(0,0,0,.5)}
+.hf-r{display:flex;align-items:center;gap:11px;padding:9px 10px;font-size:14px;color:var(--hi);font-weight:500}
+.hf-r .ck{width:23px;height:23px;flex:none;border-radius:50%;background:rgba(57,192,124,.16);border:1px solid rgba(57,192,124,.42);color:var(--ok);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
+.hf-r.r1{animation:hfRow var(--cy) infinite}
+.hf-r.r2{animation:hfRow var(--cy) infinite;animation-delay:calc(var(--cy) * .06)}
+.hf-r.r3{animation:hfRow var(--cy) infinite;animation-delay:calc(var(--cy) * .12)}
+.hf-r.r4{animation:hfRow var(--cy) infinite;animation-delay:calc(var(--cy) * .18)}
+@keyframes hfFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
+@keyframes hfDot{0%,4%{top:130px;opacity:0}9%{opacity:1}20%{top:208px;opacity:1}25%{top:208px;opacity:0}36%{top:262px;opacity:0}40%{top:262px;opacity:1}52%{top:330px;opacity:1}56%,100%{top:330px;opacity:0}}
+@keyframes hfEngine{0%,18%{box-shadow:0 20px 46px rgba(0,0,0,.55),0 0 0 0 rgba(79,134,247,0)}26%{box-shadow:0 20px 46px rgba(0,0,0,.55),0 0 46px 0 rgba(79,134,247,.5)}44%,100%{box-shadow:0 20px 46px rgba(0,0,0,.55),0 0 0 0 rgba(79,134,247,0)}}
+@keyframes hfSweep{0%,14%{left:-46%}42%{left:104%}42.01%,100%{left:104%}}
+@keyframes hfRow{0%,46%{opacity:.16;transform:translateY(5px)}53%{opacity:1;transform:none}90%{opacity:1}96%,100%{opacity:.16;transform:translateY(5px)}}
+@media (max-width:1080px){.hviz{justify-self:center;margin:0 auto}}
 /* ── "Resuelve" por función ── */
 .solves{display:flex;flex-direction:column;gap:3px;margin:0 0 16px;padding:12px 14px;background:var(--ac-bg);border-left:3px solid var(--ac);border-radius:0 10px 10px 0;font-size:14.5px;color:var(--ink);line-height:1.5}
 .solves b{font-size:11px;letter-spacing:.1em;color:var(--ac-deep);text-transform:uppercase}
@@ -408,25 +404,20 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  </div>
  <div class="hviz" aria-hidden="true">
   <div class="hviz-stage" id="hvizStage">
-   <div class="hv-doc">
-    <div class="hv-doc-head"><span class="hv-pdf">PDF</span> FACTURA B · 0001-00001234</div>
-    <i class="hv-l" style="width:78%"></i>
-    <i class="hv-l" style="width:60%"></i>
-    <i class="hv-l" style="width:84%"></i>
-    <i class="hv-l" style="width:52%"></i>
-    <i class="hv-l" style="width:70%"></i>
-    <div class="hv-zone">ZONA · TOTAL</div>
-    <div class="hv-beam"></div>
+   <div class="hf-cap">Tu carpeta de PDFs</div>
+   <div class="hf-pdfs">
+    <span class="hf-card c1"></span>
+    <span class="hf-card c2"></span>
+    <span class="hf-card c3"><b>PDF</b><i style="width:72%"></i><i style="width:54%"></i><i style="width:66%"></i></span>
    </div>
-   <span class="hv-chip hv-c1">CUIT 30-11111111-9</span>
-   <span class="hv-chip hv-c2">FECHA 25/06/2026</span>
-   <span class="hv-chip hv-c3">TOTAL $ 184.525,00</span>
-   <div class="hv-xl">
-    <div class="hv-xl-bar"><span></span><span></span><span></span><b>lote_junio.xlsx</b></div>
-    <div class="hv-row hv-h"><div>CUIT</div><div>FECHA</div><div>TOTAL</div></div>
-    <div class="hv-row hv-r1"><div class="v1">30-11111111-9</div><div class="v2">25/06/2026</div><div class="v3">$ 184.525,00</div></div>
-    <div class="hv-row hv-r0"><div>30-22222222-8</div><div>25/06/2026</div><div>$ 96.200,00</div></div>
-    <div class="hv-stamp">✓ Verificado · sin duplicados · SHA-256</div>
+   <div class="hf-spine"></div>
+   <div class="hf-dot"></div>
+   <div class="hf-engine"><span class="b">D</span><span class="t"><b>DEXIAE</b><em>automatizando…</em></span><span class="hf-glow"></span></div>
+   <div class="hf-out">
+    <div class="hf-r r1"><span class="ck">✓</span> Excel generado</div>
+    <div class="hf-r r2"><span class="ck">✓</span> Duplicados encontrados</div>
+    <div class="hf-r r3"><span class="ck">✓</span> Firmas verificadas</div>
+    <div class="hf-r r4"><span class="ck">✓</span> Reportes listos</div>
    </div>
   </div>
  </div>
@@ -435,8 +426,8 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 (function(){
  var s=document.getElementById('hvizStage'); if(!s) return;
  var w=s.parentElement;
- function fit(){ var k=Math.min(1, w.clientWidth/620);
-  s.style.transform='scale('+k+')'; w.style.height=(440*k)+'px'; }
+ function fit(){ var k=Math.min(1, w.clientWidth/440);
+  s.style.transform='scale('+k+')'; w.style.height=(520*k)+'px'; }
  addEventListener('resize', fit); fit();
 })();
 </script>

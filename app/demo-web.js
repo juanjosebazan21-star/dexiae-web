@@ -20,7 +20,7 @@
     extracto:   { file: 'ejemplos/DEXIAE_ejemplo_extracto.xlsx',   label: 'del extracto bancario' }
   };
   var TRIAL = '../index.html#planes';
-  var ZONA_TOTAL = [545, 905, 812, 968]; // px sobre assets/demo_doc.png (scale=1)
+  var ZONA_TOTAL = [372, 528, 752, 578]; // px sobre assets/demo_doc.png (scale=1)
 
   /* ---------- estilos ---------- */
   var css = document.createElement('style');
@@ -140,13 +140,21 @@
     // entrada limpia: sin onboarding
     DEMO.lic_estado = function () { return { ok: true, primera_vez: false, edicion: 'DEMO', dias: 14, valida: true, modo_trial: true, vencido: false, motivo: '', hw_id: 'DEMO' }; };
     // Laboratorio: doc anónimo + página renderizable + plantilla con ZONA sobre el TOTAL
-    DEMO.lab_render_pagina = function () { return { ok: true, img: 'assets/demo_doc.png', w: 857, h: 1109, scale: 1 }; };
+    DEMO.lab_render_pagina = function () { return { ok: true, img: 'assets/demo_doc.png', w: 800, h: 620, scale: 1 }; };
     DEMO.lab_cargar_plantilla = function (n) {
       return { ok: true, nombre: n, datos: { campos: [
         { columna: 'CUIT', etiqueta: 'CUIT:', estrategia: 'CUIT / DNI', ancla: true },
         { columna: 'FECHA', etiqueta: 'Fecha de emisión:', estrategia: 'Fecha' },
         { columna: 'TOTAL', etiqueta: 'Total', estrategia: 'ZONA', coords: ZONA_TOTAL.slice() }
       ], auditar_firmas: false, buscar_anclas_en_todo_documento: false, ocr_todas_paginas: false } };
+    };
+    // Probar: devuelve el valor real por columna (coherente con los campos que
+    // tenga la plantilla en ese momento — sirve al armado en vivo del video y
+    // a la demo online). Antes devolvía filas fijas con columnas que no matcheaban.
+    DEMO.lab_probar = function (campos) {
+      var MAP = { CUIT: '30-11111111-9', FECHA: '25/06/2026', TOTAL: '$ 184.525,00', MONTO: '$ 184.525,00' };
+      var cs = (campos && campos.length) ? campos : ((typeof LAB !== 'undefined' && LAB.campos) || []);
+      return { ok: true, filas: cs.map(function (c) { return { columna: c.columna, etiqueta: c.etiqueta, valor: MAP[c.columna] || '' }; }) };
     };
     // Extracto: ruta SIN 'demo' para que dispare el "¿Abrir Excel?"
     DEMO.herr_extracto_procesar = function () {
@@ -268,4 +276,115 @@
       setTimeout(function () { if (typeof labTab === 'function') labTab('visual'); }, 230);
     } catch (e) { /* noop */ }
   }
+
+  /* ---------- Director de video (demo-only): armar una plantilla en vivo ----------
+     Lo usa redes/video-sistema/grabar.py (flujo "plantilla"). No afecta la demo
+     online: solo expone window.dxwLabDemo, que el grabador llama paso a paso. */
+  function _labSet(id, v) { var e = document.getElementById(id); if (e) e.value = v; }
+  window.dxwLabDemo = {
+    // arranca el Lab "armando": documento cargado, plantilla VACÍA, Modo Visual
+    reset: function () {
+      function prep() {
+        try {
+          if (typeof labCargarPlantilla === 'function') labCargarPlantilla('');
+          if (typeof labTab === 'function') labTab('visual');
+          if (typeof labRenderVisual === 'function') labRenderVisual();
+        } catch (e) {}
+      }
+      try { if (typeof labCargarDoc === 'function') labCargarDoc(); } catch (e) {}
+      setTimeout(prep, 120);
+      setTimeout(prep, 440); // re-vacía por si labSetup alcanzó a cargar Facturas_AR
+    },
+    // lleva el visor arriba (encabezado: CUIT y Fecha viven ahí)
+    scrollTop: function () {
+      var s = document.getElementById('lab-vis-scroll'); if (s) s.scrollTop = 0;
+    },
+    // re-asegura que la ZONA del total quede a la vista (evita el race de layout:
+    // si el img/scroll no asentó al dibujar, la caja queda clippeada y la cámara
+    // encuadra mal)
+    scrollToZona: function () {
+      var s = document.getElementById('lab-vis-scroll');
+      if (s) s.scrollTop = Math.max(0, ZONA_TOTAL[1] - 150);
+    },
+    // dibuja (animada) la ZONA sobre el TOTAL y deja el editor listo para "Agregar"
+    drawZona: function () {
+      try {
+        var ov = document.getElementById('lab-vis-overlay'); if (!ov) return;
+        var sc = (typeof LAB !== 'undefined' && LAB.visScale) || 1, z = ZONA_TOTAL;
+        var x = Math.min(z[0], z[2]) * sc, y = Math.min(z[1], z[3]) * sc,
+            w = Math.abs(z[2] - z[0]) * sc, h = Math.abs(z[3] - z[1]) * sc;
+        // el TOTAL está en la parte baja de la factura: scrolleamos el visor
+        // para que la zona (y su dibujo) queden a la vista.
+        var scroll = document.getElementById('lab-vis-scroll');
+        if (scroll) scroll.scrollTop = Math.max(0, y - 170);
+        var d = document.createElement('div'); d.className = 'lab-zona-draw';
+        d.style.cssText = 'left:' + x + 'px;top:' + y + 'px;width:0;height:0';
+        ov.appendChild(d);
+        var t0 = performance.now(), DUR = 680;
+        (function anim(t) {
+          var k = Math.min(1, (t - t0) / DUR), e = 1 - Math.pow(1 - k, 3);
+          d.style.width = (w * e) + 'px'; d.style.height = (h * e) + 'px';
+          if (k < 1) { requestAnimationFrame(anim); return; }
+          d.remove();
+          if (typeof LAB !== 'undefined') LAB._formCoords = [z[0], z[1], z[2], z[3]];
+          _labSet('lab-col', 'TOTAL'); _labSet('lab-tag', 'Total');
+          var st = document.getElementById('lab-strat'); if (st) st.value = 'ZONA';
+          if (typeof labRenderZonas === 'function') labRenderZonas();
+        })(t0);
+      } catch (e) {}
+    },
+    // completa el editor para un campo por estrategia (CUIT, Fecha...): el
+    // grabador luego clickea "Agregar" (para el sonido/cursor del botón real)
+    fillCampo: function (col, tag, strat) {
+      try {
+        if (typeof LAB !== 'undefined') LAB._formCoords = null;
+        _labSet('lab-col', col); _labSet('lab-tag', tag || '');
+        var s = document.getElementById('lab-strat'); if (s) s.value = strat;
+      } catch (e) {}
+    },
+    // solo columna + etiqueta (la estrategia se elige aparte, con el panel)
+    fillCol: function (col, tag) {
+      try {
+        if (typeof LAB !== 'undefined') LAB._formCoords = null;
+        _labSet('lab-col', col); _labSet('lab-tag', tag || '');
+      } catch (e) {}
+    },
+    // despliega un panel con la LISTA REAL de estrategias, con una resaltada.
+    // (el desplegable nativo del <select> no se captura en el screencast, así
+    // que lo simulamos con el mismo contenido, estilizado como la app.)
+    showEstrategias: function (pick) {
+      try {
+        this.hideEstrategias();
+        var ESTR = ['Texto (Derecha)', 'Texto (Izquierda)', 'Texto (Cerca)',
+          'Entre A y B', 'ZONA', 'Número', 'Moneda ($)', 'Fecha', 'CUIT / DNI',
+          'Email', 'Patrón (Regex)'];
+        var sel = document.getElementById('lab-strat'); if (!sel) return;
+        var r = sel.getBoundingClientRect();
+        var rowH = 34, padY = 8, h = ESTR.length * rowH + padY * 2;
+        var box = document.createElement('div'); box.id = 'dxw-estr';
+        box.style.cssText = 'position:fixed;left:' + r.left + 'px;top:' +
+          (r.top - h - 6) + 'px;width:' + Math.max(230, r.width) +
+          'px;background:#0e1622;border:1px solid #2b425c;border-radius:10px;' +
+          'box-shadow:0 24px 60px rgba(0,0,0,.65);z-index:2147483000;padding:' +
+          padY + 'px;font-family:Inter,Segoe UI,sans-serif';
+        box.innerHTML = ESTR.map(function (e) {
+          var on = e === pick;
+          return '<div style="height:' + rowH + 'px;display:flex;align-items:center;' +
+            'padding:0 12px;border-radius:6px;font-size:14.5px;font-weight:' +
+            (on ? '600' : '400') + ';color:' + (on ? '#04121a' : '#9db1c9') +
+            ';background:' + (on ? '#3dd9b6' : 'transparent') + '">' + e + '</div>';
+        }).join('');
+        document.body.appendChild(box);
+      } catch (e) {}
+    },
+    pickEstrategia: function (strat) {
+      try {
+        var sel = document.getElementById('lab-strat'); if (sel) sel.value = strat;
+        this.hideEstrategias();
+      } catch (e) {}
+    },
+    hideEstrategias: function () {
+      var b = document.getElementById('dxw-estr'); if (b) b.remove();
+    }
+  };
 })();

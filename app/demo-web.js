@@ -200,6 +200,7 @@
     hist: ['Historial y Analítica', 'Cada lote queda registrado con métricas: documentos procesados, duplicados, tasa de acierto, tiempo ahorrado y gráficos por semana, plantilla y tipo de intervención.'],
     val: ['Validación de datos', 'Definís reglas de negocio (CUIT válido, sumas que cierran, campos obligatorios, valores en lista, fechas en rango) y DEXIAE marca cada documento que no las cumple.'],
     listado: ['Modo Listado', 'Extrae las <b>tablas</b> de cada PDF a Excel <b>sin usar plantilla</b> — ideal para listados y reportes tabulares. En la demo mostramos el modo Extractor por plantilla.'],
+    modo_organizar: ['Modo Organizar', 'Ordena una carpeta mezclada en subcarpetas por <b>tipo de documento</b> (Facturas, Remitos…) más <b>Desconocidos</b>, comparando cada PDF contra tus plantillas. Necesita acceso real a tus carpetas, así que solo funciona en la versión instalada.'],
     auto: ['Autodetección de plantillas', 'DEXIAE compara cada documento contra las <b>anclas</b> de todas tus plantillas y aplica la de mayor coincidencia, sola. Procesás lotes mezclados sin elegir plantilla a mano.'],
     unir_pdfs: ['Unir PDFs', 'Combina varios PDF en un único documento, en el orden que elijas.'],
     dividir: ['Dividir / Extraer', 'Separá un PDF o extraé un rango de páginas a un archivo nuevo.'],
@@ -233,11 +234,17 @@
       if (s === 'lab' && !labDone) { labDone = true; setTimeout(labSetup, 140); }
     };
 
-    // modo Listado + Autodetección
+    // modo Listado + modo Organizar + Autodetección
     var bl = document.querySelector('#seg-modo [data-m="listado"]'); if (bl) badge(bl);
+    var bo = document.querySelector('#seg-modo [data-m="organizar"]'); if (bo) badge(bo);
     var ba = document.getElementById('seg-fuente-auto'); if (ba) badge(ba);
     var modoOrig = window.onModoChange, fuenteOrig = window.onFuenteChange;
-    window.onModoChange = function (m) { if (m === 'listado') return lockModal(L.listado[0], L.listado[1]); return modoOrig.apply(this, arguments); };
+    window.onModoChange = function (m) {
+      if (m === 'listado') return lockModal(L.listado[0], L.listado[1]);
+      // Organizar mueve archivos de una carpeta real: no existe en el navegador.
+      if (m === 'organizar') return lockModal(L.modo_organizar[0], L.modo_organizar[1]);
+      return modoOrig.apply(this, arguments);
+    };
     window.onFuenteChange = function (f) { if (f === 'auto') return lockModal(L.auto[0], L.auto[1]); return fuenteOrig.apply(this, arguments); };
 
     // herramientas: todas menos Extracto (tc-star) y el placeholder (tc-ghost)

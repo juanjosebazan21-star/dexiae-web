@@ -315,12 +315,21 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 .autodet-note{display:flex;gap:8px;align-items:flex-start;font-size:11px;color:var(--txt2);line-height:1.5;padding:9px 10px;background:var(--teal-dim);border:1px solid var(--ok-bd);border-radius:var(--r-sm);margin-top:10px}
 .autodet-note i{color:var(--teal-l);font-size:16px;flex-shrink:0;margin-top:1px}
 .autodet-note strong{color:var(--teal-l)}
+.autodet-note code{background:var(--bg2,var(--border));padding:1px 5px;border-radius:4px;font-size:10px}
+/* Modo Organizar · chips de tipo + hint del destino */
+.org-tipos{display:flex;flex-wrap:wrap;gap:6px}
+.org-chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:12px;background:var(--teal-dim);color:var(--teal-l);border:1px solid var(--ok-bd)}
+.org-chip.desc{background:var(--border);color:var(--txt3);border-color:var(--border)}
+#destino-hint code,#org-modo-hint code{background:var(--bg2,var(--border));padding:1px 5px;border-radius:4px;font-size:11px}
+#seg-destino .seg-btn i,#seg-orgmodo .seg-btn i{font-size:13px;margin-right:4px;vertical-align:-1px}
+#seg-destino .seg-btn:disabled{opacity:.4;cursor:not-allowed}
 
 .opts-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;margin-top:6px}
 
 /* Botones de acción con presencia */
 .actions{display:flex;flex-direction:column;gap:9px}
-.actions-row{display:grid;grid-template-columns:1fr auto;gap:9px}
+.actions-row{display:flex;gap:9px}
+.actions-row .btn-action{flex:1}
 .btn-action{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-size:14px;font-weight:700;
   padding:15px 16px;border-radius:var(--r-lg);cursor:pointer;border:none;font-family:var(--font);
   letter-spacing:.3px;transition:all .14s;line-height:1}
@@ -475,6 +484,20 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 /* ===== HISTORIAL ===== */
 #screen-hist.active{flex:1;min-height:0}
 .hist-filtros{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+/* Historial · rastrear un documento en todo el histórico */
+.hist-rastreo{margin-top:12px}
+.hist-rastreo .hr-head{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:9px}
+.hist-rastreo .hr-head > i{color:var(--teal-l,#2563eb);font-size:16px}
+.hist-rastreo .hr-t{font-weight:700;font-size:13px;color:var(--txt1)}
+.hist-rastreo .hr-form{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.hr-res-t{font-size:11px;color:var(--txt3);margin-bottom:7px}
+.hr-hit{display:flex;align-items:center;gap:10px;padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg2,var(--card));margin-bottom:6px;flex-wrap:wrap}
+.hr-hit .hh-arch{font-weight:600;font-size:12.5px;color:var(--txt1);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+.hr-hit .hh-meta{font-size:11px;color:var(--txt3);display:flex;gap:10px;flex-wrap:wrap;flex:1;min-width:140px}
+.hr-hit .hh-meta b{color:var(--txt2);font-weight:600}
+.hr-hit .hh-clave{font-family:var(--mono);font-size:10.5px;padding:1px 7px;border-radius:9px;background:var(--teal-dim);color:var(--teal-l)}
+.hr-hit .hh-acts{display:flex;gap:6px;margin-left:auto;flex:0 0 auto}
+.hr-vacio{font-size:12px;color:var(--txt3);padding:10px;border:1px dashed var(--border);border-radius:8px}
 .hf-item{display:flex;flex-direction:column;gap:4px}
 .hf-item .form-label{min-width:auto}
 .hist-met{flex-shrink:0}
@@ -732,9 +755,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
           <div class="seg seg-lg" id="seg-modo">
             <button class="seg-btn active" data-m="extractor" onclick="onModoChange('extractor')">Extractor</button>
             <button class="seg-btn" data-m="listado" onclick="onModoChange('listado')">Listado</button>
+            <button class="seg-btn" data-m="organizar" onclick="onModoChange('organizar')">Organizar</button>
           </div>
         </div>
-        <div class="cfg-seg-row">
+        <div class="cfg-seg-row" id="row-fuente">
           <span class="form-label">Plantilla</span>
           <div class="seg seg-lg seg-fuente" id="seg-fuente">
             <button class="seg-btn active" data-f="fija" onclick="onFuenteChange('fija')"><i class="ti ti-file-text"></i> Fija</button>
@@ -758,6 +782,30 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
           <i class="ti ti-table"></i>
           <div><strong>Modo Listado.</strong> Extrae las <em>tablas</em> de cada documento a Excel <strong>sin usar plantilla</strong>. No hay selección de plantilla, autodetección ni renombrado.</div>
         </div>
+        <div id="organizar-note" class="autodet-note" style="display:none">
+          <i class="ti ti-folders"></i>
+          <div><strong>Modo Organizar.</strong> Ordena una carpeta mezclada en subcarpetas por <strong>tipo de documento</strong> (según tus plantillas), más <code>Desconocidos</code> para lo que no coincide. <strong>No extrae datos ni genera Excel</strong>: solo acomoda los archivos. Vas a ver el plan antes de aplicar.</div>
+        </div>
+
+        <!-- Panel de Organizar (catálogo + Mover/Copiar). Solo en modo Organizar. -->
+        <div id="organizar-panel" style="display:none">
+          <div class="opt-sec">
+            <div class="opt-sec-t">Tipos del catálogo</div>
+            <div class="org-tipos" id="org-tipos"><span class="opt-hint">Cargando plantillas…</span></div>
+          </div>
+          <div class="opt-sec">
+            <div class="opt-sec-t">Alcance</div>
+            <label class="chk-row"><input type="checkbox" id="chk-org-recursivo" checked> 📁 Incluir subcarpetas <span class="opt-hint">(ordena también lo que está dentro de carpetas)</span></label>
+          </div>
+          <div class="opt-sec">
+            <div class="opt-sec-t">Qué hacer con los originales</div>
+            <div class="seg seg-lg" id="seg-orgmodo">
+              <button class="seg-btn active" data-o="mover" onclick="onOrgModo('mover')"><i class="ti ti-arrows-move"></i> Mover</button>
+              <button class="seg-btn" data-o="copiar" onclick="onOrgModo('copiar')"><i class="ti ti-copy"></i> Copiar</button>
+            </div>
+            <div class="opt-hint" id="org-modo-hint" style="margin-top:7px;line-height:1.45"></div>
+          </div>
+        </div>
 
         <div id="row-rename" style="margin-top:12px">
           <div class="opt-sec-t" style="display:flex;align-items:center;gap:8px;margin:0 0 6px">
@@ -768,21 +816,35 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
           <div class="form-input rename-tokens" id="inp-rename" contenteditable="true" data-ph="Escribí texto y tocá un campo ↓" onkeydown="if(event.key==='Enter')event.preventDefault()" onkeyup="UI.saveRenameCaret()" onmouseup="UI.saveRenameCaret()" onfocus="UI.saveRenameCaret()" oninput="UI.renderRenameEjemplo()"></div>
           <div class="rename-vars" id="rename-vars"></div>
         </div>
+        <div id="rename-off-note" class="autodet-note" style="display:none">
+          <i class="ti ti-forbid-2"></i>
+          <div><strong>Renombrado no disponible con Autodetección.</strong> Para renombrar, usá una <strong>plantilla fija</strong>.</div>
+        </div>
 
+        <!-- Destino de los originales (unificado; antes vivía en el Pre-Vuelo) -->
+        <div class="opt-sec" id="sec-destino">
+          <div class="opt-sec-t">Destino de los originales</div>
+          <div class="seg seg-lg" id="seg-destino">
+            <button class="seg-btn active" data-d="espejo" onclick="onDestinoChange('espejo')"><i class="ti ti-lock"></i> No mover</button>
+            <button class="seg-btn" data-d="ruteo" onclick="onDestinoChange('ruteo')"><i class="ti ti-folder-cog"></i> Por resultado</button>
+            <button class="seg-btn" data-d="tipo" id="seg-destino-tipo" onclick="onDestinoChange('tipo')"><i class="ti ti-folders"></i> Por tipo</button>
+          </div>
+          <div class="opt-hint" id="destino-hint" style="margin-top:7px;line-height:1.45"></div>
+        </div>
         <!-- Políticas -->
-        <div class="opt-sec">
+        <div class="opt-sec" id="sec-politicas">
           <div class="opt-sec-t">Políticas</div>
           <label class="chk-row"><input type="checkbox" id="chk-peritaje" onchange="onPeritajeChange()"> 🛡️ Peritaje legal <span class="opt-hint">(audita firmas e integridad)</span></label>
           <label class="chk-row"><input type="checkbox" id="chk-subcarpetas"> 📁 Incluir subcarpetas <span class="opt-hint">(lee también lo que está dentro de carpetas)</span></label>
           <label class="chk-row"><input type="checkbox" id="chk-validacion" checked onchange="onValidacionChange()"> 🧮 Validación de datos <span class="opt-hint" id="val-hint-run" onclick="event.preventDefault();UI.nav('val')" style="cursor:pointer" title="Configurar en el módulo Validación"></span></label>
         </div>
         <!-- Histórico -->
-        <div class="opt-sec">
+        <div class="opt-sec" id="sec-historico">
           <div class="opt-sec-t">Histórico</div>
           <label class="chk-row"><input type="checkbox" id="chk-historico" onchange="onHistoricoChange()"> 🔗 Sincronizar con Excel histórico <span class="opt-hint" id="lbl-historico"></span></label>
         </div>
         <!-- Reportes -->
-        <div class="opt-sec">
+        <div class="opt-sec" id="sec-reportes">
           <div class="opt-sec-t">Reportes de salida</div>
           <div class="opt-reps">
             <span class="opt-fixed">✓ Excel</span>
@@ -796,14 +858,14 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
       <!-- Acciones (presencia y lógica, como el original) -->
       <div class="actions">
         <button class="btn-action btn-primary" id="btn-iniciar" onclick="onIniciar()">
-          <i class="ti ti-player-play-filled"></i> INICIAR EXTRACCIÓN
+          <i class="ti ti-player-play-filled" id="btn-iniciar-ico"></i> <span id="btn-iniciar-lbl">INICIAR EXTRACCIÓN</span>
         </button>
         <button class="btn-action btn-stop" id="btn-detener" style="display:none" onclick="onDetener()">
           <i class="ti ti-player-stop-filled"></i> DETENER
         </button>
 
-        <div class="actions-sep"><span>Vigilancia automática · Centinela</span></div>
-        <div class="actions-row">
+        <div class="actions-sep" id="cent-sep"><span>Vigilancia automática · Centinela</span></div>
+        <div class="actions-row" id="cent-row">
           <button class="btn-action btn-watch" id="btn-cent" onclick="onCentinela()">
             <i class="ti ti-radar-2"></i> Activar vigilancia
           </button>
@@ -871,6 +933,24 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
       <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--txt);height:32px;cursor:pointer;white-space:nowrap"><input type="checkbox" id="h-hallazgos" style="width:16px;height:16px;flex:none" onchange="cargarHistorial()"> Solo con hallazgos</label>
     </div>
     <button class="btn btn-primary" onclick="cargarHistorial()"><i class="ti ti-search"></i> Buscar</button>
+  </div>
+
+  <!-- Rastrear un documento en TODO el histórico (responde "¿de qué lote salió
+       este duplicado?": el Excel marca DUPLICADO + ID_ORIGINAL, y acá se ubica). -->
+  <div class="card card-sm hist-rastreo">
+    <div class="hr-head">
+      <i class="ti ti-radar"></i>
+      <span class="hr-t">Rastrear documento</span>
+      <span class="opt-hint">buscá por nombre de archivo o por valor de clave (CUIT, nº de comprobante…) en todos los lotes</span>
+    </div>
+    <div class="hr-form">
+      <input class="form-input" id="h-rastreo" style="flex:1;min-width:200px"
+             placeholder="Ej: FC_000123.pdf   ·   30-11111111-9"
+             onkeydown="if(event.key==='Enter')histRastrear()">
+      <button class="btn btn-primary" onclick="histRastrear()"><i class="ti ti-radar-2"></i> Rastrear</button>
+      <button class="btn btn-ghost" onclick="histRastreoLimpiar()">Limpiar</button>
+    </div>
+    <div id="h-rastreo-res" style="display:none;margin-top:10px"></div>
   </div>
 
   <!-- Métricas -->
@@ -1241,25 +1321,21 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
       <div id="pv-clasif" style="display:none;margin-bottom:12px;padding:8px 10px;border-radius:6px;background:var(--teal-dim);border:1px solid var(--ok-bd);font-size:11px;color:var(--teal-l)"></div>
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
         <span style="font-size:11px;color:var(--txt3)" id="pv-count">0 archivos</span>
-        <div class="btn-row">
+        <div class="btn-row" id="pv-sel-btns">
           <button class="btn btn-ghost sm" onclick="UI.pvSelectAll(true)">Todos</button>
           <button class="btn btn-ghost sm" onclick="UI.pvSelectAll(false)">Ninguno</button>
         </div>
       </div>
+      <!-- Plan de ordenado por tipo (solo en modo Organizar) -->
+      <div id="pv-plan" style="display:none;margin-bottom:10px"></div>
       <div id="pv-list" style="max-height:240px;overflow:auto;border:1px solid var(--border);border-radius:6px"></div>
       <div class="sep" style="margin:12px 0 8px"></div>
-      <div class="pv-ruteo">
-        <label class="pv-toggle">
-          <input type="checkbox" id="pv-ruteo" onchange="pvRuteoToggle()">
-          <span class="pv-sw"></span>
-          <span class="pv-tt"><i class="ti ti-folder-cog"></i> Ordenar archivos por resultado (mueve los originales)</span>
-        </label>
-        <div class="opt-hint" id="pv-ruteo-text" style="margin-top:6px;line-height:1.45"></div>
-      </div>
+      <!-- Destino elegido en Ejecución — SOLO LECTURA (la config vive en la receta) -->
+      <div class="pv-destino" id="pv-destino"></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="UI.closePrevuelo()">Cancelar</button>
-      <button class="btn btn-primary" onclick="onProcesarLote()">
+      <button class="btn btn-primary" id="pv-confirmar" onclick="onProcesarLote()">
         <i class="ti ti-player-play"></i> Procesar lote
       </button>
     </div>
@@ -1360,15 +1436,22 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 .btn.rep-pdf:hover{background:#DC2626}
 .btn.rep-off{background:var(--border)!important;color:var(--txt3)!important;border-color:var(--border)!important;opacity:.7;cursor:not-allowed}
 .btn.rep-off:hover{background:var(--border)!important}
-/* Pre-Vuelo · toggle de ruteo */
-.pv-ruteo .pv-toggle{display:inline-flex;align-items:center;gap:10px;cursor:pointer;user-select:none;font-size:13px;font-weight:600;color:var(--txt1)}
-.pv-ruteo .pv-toggle input{display:none}
-.pv-ruteo .pv-sw{position:relative;width:40px;height:22px;border-radius:12px;background:var(--border);transition:background .15s;flex:0 0 auto}
-.pv-ruteo .pv-sw::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.3)}
-.pv-ruteo .pv-toggle input:checked + .pv-sw{background:var(--teal-l,#2563eb)}
-.pv-ruteo .pv-toggle input:checked + .pv-sw::after{left:20px}
-.pv-ruteo .pv-tt i{margin-right:4px;color:var(--teal-l,#2563eb)}
-.pv-ruteo code{background:var(--bg2,var(--border));padding:1px 5px;border-radius:4px;font-size:11px}
+/* Pre-Vuelo · destino elegido (solo lectura) + plan de ordenado */
+.pv-destino{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:1.45;color:var(--txt2)}
+.pv-destino i{font-size:15px;flex-shrink:0;margin-top:1px}
+.pv-destino b{color:var(--txt1)}
+.pv-destino code{background:var(--bg2,var(--border));padding:1px 5px;border-radius:4px;font-size:11px}
+.pv-destino.mueve i{color:var(--rev-fg,#E0A95A)}
+.pv-destino.espejo i{color:var(--teal-l,#2563eb)}
+.pv-plan-t{font-size:11px;color:var(--txt3);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.pv-plan-t i{color:var(--teal-l,#2563eb)}
+.pv-plan-rows{display:flex;flex-direction:column;gap:4px;max-height:170px;overflow:auto}
+.pv-plan-row{display:flex;align-items:center;gap:8px;font-size:12px;padding:5px 9px;border:1px solid var(--border);border-radius:6px;background:var(--bg2,var(--card))}
+.pv-plan-row .pp-arrow{color:var(--txt3);font-size:13px;flex:0 0 auto}
+.pv-plan-row .pp-tipo{font-weight:600;color:var(--txt1);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pv-plan-row.desc .pp-tipo{color:var(--txt3)}
+.pv-plan-row .pp-n{font-weight:700;color:var(--teal-l,#2563eb);background:var(--teal-dim);padding:1px 8px;border-radius:10px;font-size:11px}
+.pv-plan-row.desc .pp-n{color:var(--txt3);background:var(--border)}
 .reproc-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;margin-left:4px;border-radius:9px;background:var(--rev-fg);color:#fff;font-size:11px;font-weight:700}
 .reproc-badge:empty{display:none}
 /* Onboarding / panel de bienvenida */
@@ -1882,6 +1965,16 @@ const DEMO = {
       por_plantilla:[{plantilla:'Facturas_AR.json',total:78},{plantilla:'Recibos.json',total:50}],por_modo:[{modo:'manual',total:90},{modo:'centinela',total:38}],
       resultados:{ok:118,dup:3,rev:6,err:1},peritaje:{docs:40,digital:31,manuscrita:7,alerta:2},tiempo_ahorrado_min:192},
     lotes}; },
+  historial_buscar: (q) => ({ok:true,q,total:3,resultados:[
+    {tipo:'clave',valor:'30-11111111-9',archivo:'FC_EJEMPLO_007.pdf',lote_id:3,lote:'Cierre junio',
+     fecha:'2026-06-24 10:03:11',carpeta:'(demo)/facturas junio',ruta_excel:'(demo)/lote_junio.xlsx',
+     plantilla:'Facturas_AR.json',estado:''},
+    {tipo:'documento',valor:'',archivo:'FC_EJEMPLO_007.pdf',lote_id:3,lote:'Cierre junio',
+     fecha:'2026-06-24 10:03:11',carpeta:'(demo)/facturas junio',ruta_excel:'(demo)/lote_junio.xlsx',
+     plantilla:'Facturas_AR.json',estado:'OK'},
+    {tipo:'documento',valor:'',archivo:'FC_EJEMPLO_007.pdf',lote_id:7,lote:'',
+     fecha:'2026-07-21 16:40:02',carpeta:'(demo)/reproceso julio',ruta_excel:'(demo)/lote_julio.xlsx',
+     plantilla:'Facturas_AR.json',estado:'DUPLICADO'}]}),
   historial_eliminar_lote: () => ({ok:true}),
   historial_renombrar_lote: (id,n) => ({ok:true,nombre:n}),
   historial_detalle: () => ({ok:true,documentos:[{nombre_archivo:'FC_DEMO_001.pdf',estado_proceso:'OK',score_asig:0.92,plantilla_asig:'Facturas_AR.json',validacion:'OK',validacion_nivel:'OK',validacion_detalle:''},{nombre_archivo:'FC_DEMO_002.pdf',estado_proceso:'OK',score_asig:0.88,plantilla_asig:'Facturas_AR.json',validacion:'1 hallazgo(s)',validacion_nivel:'ALTA',validacion_detalle:'[ALTA] CUIT con dígito verificador inválido'},{nombre_archivo:'FC_DEMO_003.pdf',estado_proceso:'OK',score_asig:0.75,plantilla_asig:'Facturas_AR.json',validacion:'1 hallazgo(s)',validacion_nivel:'MEDIA',validacion_detalle:'CAE ausente o inválido'}]}),
@@ -1910,6 +2003,19 @@ const DEMO = {
   config_elegir_app: (t) => ({ok:true,ruta:'C:/demo/'+t+'-app.exe',nombre:t+'-app.exe'}),
   exportar_soporte: () => ({ok:true,archivos:14,mensaje:'Diagnóstico exportado (demo) · 14 archivos'}),
   set_drop_files: (r) => ({ok:true,archivos:(r||[]).length}), clear_drop_files: () => ({ok:true}), arm_drop: () => ({ok:true}),
+  organizar_estado: () => ({ok:true,n:3,plantillas:['Facturas_AR','Remitos','Contratos']}),
+  organizar_clasificar: () => { const d=[];
+    for(let i=1;i<=8;i++) d.push({nombre:`FC_EJEMPLO_${String(i).padStart(3,'0')}.pdf`,tipo:'Facturas_AR',score:.94,decision:'asignada'});
+    d.push({nombre:'REM_0041.pdf',tipo:'Remitos',score:.88,decision:'asignada'});
+    d.push({nombre:'REM_0042.pdf',tipo:'Remitos',score:.85,decision:'asignada'});
+    d.push({nombre:'escaneo_sin_texto.pdf',tipo:'Desconocidos',score:0,decision:'sin_match'});
+    d.push({nombre:'nota_manuscrita.pdf',tipo:'Desconocidos',score:.21,decision:'sin_match'});
+    return {ok:true,folder:'(demo) Carpeta mezclada',total:d.length,plan:d,
+            por_tipo:{'Facturas_AR':8,'Remitos':2,'Desconocidos':2},
+            catalogo:['Facturas_AR','Remitos','Contratos']}; },
+  organizar_aplicar: (mover) => ({ok:true,hechos:12,mover:!!mover,
+    destino:'(demo) Carpeta mezclada'+(mover?'':' - ordenada'),
+    por_tipo:{'Facturas_AR':8,'Remitos':2,'Desconocidos':2},errores:[]}),
   imput_estado: () => ({ok:true,cap:true,clientes:['Estudio Demo SRL']}),
   imput_cliente_cargar: (n) => ({ok:true,cliente:{nombre:n,ejercicio:'2026',asiento_inicial:1,cuenta_banco:{codigo:'1.1.01.003.00',descripcion:'BANCO DEMO CTA.CTE.'},default_debito:{codigo:'2.1.01.001.00',descripcion:'PROVEEDORES'},default_credito:{codigo:'1.1.02.001.00',descripcion:'DEUDORES POR VENTAS'}},cuits:[{cuit:'30111111119',codigo:'2.1.01.005.00',descripcion:'PROV DEMO SA'}]}),
   imput_cliente_guardar: () => ({ok:true,clientes:['Estudio Demo SRL']}),
@@ -1943,7 +2049,10 @@ const DEMO = {
       faltantes:[{nombre:'CUIT',obligatorio:true,add:{columna:'CUIT',etiqueta:'CUIT:',estrategia:'CUIT / DNI',ancla:true,usar_para_matching:true,usar_como_columna:true,_pendiente_configurar:true,_desactivado:false,_prioritario:true}}]}]}),
 };
 
-const STATE = { centActivo:false, centPausado:false, busy:false, t0:null, timer:null, prevuelo:[] };
+const STATE = { centActivo:false, centPausado:false, busy:false, t0:null, timer:null, prevuelo:[],
+                destino:'espejo',   // destino de los originales (Ejecución): espejo|ruteo|tipo
+                orgModo:'mover',    // modo Organizar: mover (in situ) | copiar (carpeta hermana)
+                pvKind:'lote' };    // qué Pre-Vuelo está abierto: lote|organizar
 
 const UI = {
   nav(s) {
@@ -2212,13 +2321,15 @@ const UI = {
       if(it.getAttribute('data-s')!=='run') it.classList.toggle('locked', busy);
     });
     ['sel-plantilla','chk-auto','chk-peritaje','chk-historico',
-     'chk-html','chk-pdf','chk-consolidar','chk-subcarpetas','chk-validacion'].forEach(id=>{
+     'chk-html','chk-pdf','chk-consolidar','chk-subcarpetas','chk-validacion',
+     'chk-org-recursivo'].forEach(id=>{
       const el=document.getElementById(id); if(el) el.disabled=busy;
     });
     // La caja de renombrado es contenteditable: se bloquea distinto.
     const rn=document.getElementById('inp-rename');
     if(rn){ rn.contentEditable=busy?'false':'true'; rn.style.opacity=busy?'.5':''; rn.style.pointerEvents=busy?'none':''; }
-    document.querySelectorAll('#seg-modo .seg-btn, #seg-fuente .seg-btn, .rvar, #btn-rename-clear').forEach(b=>{
+    document.querySelectorAll('#seg-modo .seg-btn, #seg-fuente .seg-btn, #seg-destino .seg-btn, '+
+                              '#seg-orgmodo .seg-btn, .rvar, #btn-rename-clear').forEach(b=>{
       b.style.pointerEvents = busy?'none':''; b.style.opacity = busy?'.5':'';
     });
     const cfg=document.getElementById('card-config');
@@ -2381,7 +2492,10 @@ const UI = {
   limpiarLog() { document.getElementById('log-wrap').innerHTML=''; },
 
   // ---- PRE-VUELO ----
+  // Kind 'lote' (extractor/listado) o 'organizar'. El Pre-Vuelo NO configura:
+  // solo muestra archivos + el destino/plan y confirma (la config vive en Ejecución).
   openPrevuelo(data) {
+    STATE.pvKind='lote';
     STATE.prevuelo=data.archivos||[];
     const cl=document.getElementById('pv-clasif');
     if(data.clasificacion){
@@ -2389,16 +2503,75 @@ const UI = {
       cl.style.display='block';
       cl.innerHTML=`<i class="ti ti-robot"></i> Autodetección: <strong>${c.asignadas}</strong> asignadas · <strong>${c.ambiguas}</strong> ambiguas · <strong>${c.sin_match}</strong> sin match`;
     } else cl.style.display='none';
+    document.getElementById('pv-plan').style.display='none';
     const list=document.getElementById('pv-list');
     list.innerHTML='';
     STATE.prevuelo.forEach((f,i)=>{
       const row=document.createElement('label');row.className='pv-row';
-      row.innerHTML=`<input type="checkbox" checked data-f="${encodeURIComponent(f)}"><span>${f}</span>`;
+      row.innerHTML=`<input type="checkbox" checked data-f="${encodeURIComponent(f)}"><span>${_he(f)}</span>`;
       list.appendChild(row);
     });
     document.getElementById('pv-count').textContent=`${STATE.prevuelo.length} archivos`;
-    pvRuteoText();
+    document.getElementById('pv-sel-btns').style.display='';
+    this.pvDestinoText();
+    this.pvBoton('<i class="ti ti-player-play"></i> Procesar lote','onProcesarLote()');
     document.getElementById('modal-prevuelo').classList.add('show');
+  },
+  // Muestra (solo lectura) el destino elegido en Ejecución.
+  pvDestinoText(){
+    const el=document.getElementById('pv-destino'); if(!el)return;
+    const d=STATE.destino||'espejo';
+    if(d==='espejo'){
+      el.className='pv-destino espejo';
+      el.innerHTML='<i class="ti ti-lock"></i><div>Destino de los originales: <b>No mover</b> — quedan donde están (modo espejo). Cambialo en Ejecución.</div>';
+    } else if(d==='ruteo'){
+      el.className='pv-destino mueve';
+      el.innerHTML='<i class="ti ti-folder-cog"></i><div>Destino de los originales: <b>Por resultado</b> — al terminar se mueven a <code>_PROCESADOS_</code>, <code>_REVISAR_</code>, <code>_DUPLICADOS_</code>…</div>';
+    } else {
+      el.className='pv-destino mueve';
+      el.innerHTML='<i class="ti ti-folders"></i><div>Destino de los originales: <b>Por tipo</b> — al terminar se ordenan en subcarpetas por tipo de documento + <code>Desconocidos</code>.</div>';
+    }
+  },
+  // Pre-Vuelo del modo Organizar: muestra el PLAN (X→Facturas / Y→Remitos / …).
+  openPrevueloOrganizar(data){
+    STATE.pvKind='organizar';
+    STATE.prevuelo=(data.plan||[]).map(p=>p.nombre);
+    document.getElementById('pv-clasif').style.display='none';
+    // Plan por tipo
+    const pt=data.por_tipo||{};
+    const claves=Object.keys(pt).sort((a,b)=> a==='Desconocidos'?1 : b==='Desconocidos'?-1 : pt[b]-pt[a]);
+    const rows=claves.map(k=>{
+      const desc=(k==='Desconocidos');
+      return `<div class="pv-plan-row${desc?' desc':''}"><i class="ti ti-folder"></i><i class="ti ti-arrow-right pp-arrow"></i><span class="pp-tipo">${_he(k)}</span><span class="pp-n">${pt[k]}</span></div>`;
+    }).join('');
+    const plan=document.getElementById('pv-plan');
+    plan.style.display='block';
+    plan.innerHTML=`<div class="pv-plan-t"><i class="ti ti-wand"></i> Plan de ordenado · ${data.total} archivos en ${claves.length} carpeta(s)</div><div class="pv-plan-rows">${rows}</div>`;
+    // Lista de archivos (con su tipo). No se pueden deseleccionar: el plan es del lote entero.
+    const list=document.getElementById('pv-list');
+    list.innerHTML='';
+    (data.plan||[]).forEach(p=>{
+      const row=document.createElement('div');row.className='pv-row';
+      row.style.cssText='display:flex;justify-content:space-between;gap:10px';
+      row.innerHTML=`<span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${_he(p.nombre)}</span><span style="color:var(--txt3);flex:0 0 auto">${_he(p.tipo)}</span>`;
+      list.appendChild(row);
+    });
+    document.getElementById('pv-count').textContent=`${data.total} archivos · carpeta: ${data.folder||''}`;
+    // El plan es del lote entero: no hay selección parcial que ofrecer.
+    document.getElementById('pv-sel-btns').style.display='none';
+    // Destino: Mover in situ / Copiar a hermana
+    const el=document.getElementById('pv-destino');
+    const mover=(STATE.orgModo||'mover')==='mover';
+    el.className='pv-destino '+(mover?'mueve':'espejo');
+    el.innerHTML = mover
+      ? '<i class="ti ti-arrows-move"></i><div><b>Mover</b> — la carpeta queda ordenada in situ (los originales se acomodan en subcarpetas por tipo).</div>'
+      : '<i class="ti ti-copy"></i><div><b>Copiar</b> — el original queda intacto; la copia ordenada va a <code>«&lt;carpeta&gt; - ordenada»</code>.</div>';
+    this.pvBoton('<i class="ti ti-folders"></i> Organizar carpeta','onOrganizarAplicar()');
+    document.getElementById('modal-prevuelo').classList.add('show');
+  },
+  pvBoton(html,onclick){
+    const b=document.getElementById('pv-confirmar'); if(!b)return;
+    b.innerHTML=html; b.setAttribute('onclick',onclick);
   },
   pvSelectAll(v){ document.querySelectorAll('#pv-list input[type=checkbox]').forEach(c=>c.checked=v); },
   closePrevuelo(){ document.getElementById('modal-prevuelo').classList.remove('show'); },
@@ -2406,7 +2579,7 @@ const UI = {
     return Array.from(document.querySelectorAll('#pv-list input:checked'))
       .map(c=>decodeURIComponent(c.getAttribute('data-f')));
   },
-  pvModo(){ const c=document.getElementById('pv-ruteo'); return (c&&c.checked)?'ruteo':'espejo'; },
+  pvModo(){ return STATE.destino||'espejo'; },
 };
 
 // ---- SONIDO DE ÉXITO (Web Audio, sin archivo externo) ----
@@ -2451,43 +2624,83 @@ function onPlantillaChange(){
     else UI.toast(r.error||'Error','err');
   });
 }
+function currentModo(){ return (document.querySelector('#seg-modo .seg-btn.active')||{}).dataset?.m || 'extractor'; }
 function onModoChange(m){
-  const listado = m==='listado';
+  const listado = m==='listado', organizar = m==='organizar';
+  const extractor = !listado && !organizar;
   document.querySelectorAll('#seg-modo .seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.m===m));
-  // Modo manda: en Listado no hay plantilla / autodetección / renombrado.
+  // Fuente (plantilla): solo Extractor. En Listado se ve deshabilitada; en Organizar se oculta.
   const segF=document.getElementById('seg-fuente');
-  segF.querySelectorAll('.seg-btn').forEach(b=>{ b.disabled=listado; });
-  segF.style.opacity = listado?'.45':'1';
-  segF.style.pointerEvents = listado?'none':'';
-  if(listado){
-    // forzar fuente a Fija y apagar autodetección (no aplica en Listado)
+  segF.querySelectorAll('.seg-btn').forEach(b=>{ b.disabled=!extractor; });
+  segF.style.opacity = extractor?'1':'.45';
+  segF.style.pointerEvents = extractor?'':'none';
+  if(!extractor){
+    // forzar fuente a Fija y apagar autodetección (no aplica fuera de Extractor)
     const chk=document.getElementById('chk-auto');
     if(chk.checked){ chk.checked=false; onAutoDetChange(); }
     document.querySelectorAll('#seg-fuente .seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.f==='fija'));
     document.getElementById('autodet-note').style.display='none';
   }
+  const _sh=(id,on,disp)=>{ const e=document.getElementById(id); if(e) e.style.display=on?(disp||''):'none'; };
   const autoOn=document.getElementById('chk-auto').checked;
-  document.getElementById('row-plantilla').style.display = (listado||autoOn)?'none':'';
-  document.getElementById('listado-note').style.display = listado?'flex':'none';
-  const rr=document.getElementById('row-rename'); const rv=document.getElementById('rename-vars');
-  rr.style.opacity = listado?'.45':'1'; rr.style.pointerEvents = listado?'none':'';
-  if(rv){ rv.style.opacity = listado?'.45':'1'; rv.style.pointerEvents = listado?'none':''; }
-  PY.call('set_modo_operacion',m);
+  // Filas de configuración de extracción
+  _sh('row-fuente', !organizar, 'flex');
+  document.getElementById('row-plantilla').style.display = (extractor && !autoOn)?'':'none';
+  _sh('listado-note', listado, 'flex');
+  _sh('organizar-note', organizar, 'flex');
+  _sh('organizar-panel', organizar);
+  // Renombrado: se OCULTA en Organizar (no aplica) y se DEJA ATENUADO en Listado
+  // (comportamiento previo: se ve que existe, pero no se puede usar).
+  _sh('row-rename', !organizar);
+  // Secciones que solo aplican al procesar (Organizar solo ordena → se ocultan)
+  _sh('sec-destino', !organizar);
+  _sh('sec-politicas', !organizar);
+  _sh('sec-historico', !organizar);
+  _sh('sec-reportes', !organizar);
+  _sh('cent-sep', !organizar, 'flex');
+  _sh('cent-row', !organizar, 'flex');
+  syncRenombrado();
+  // Botón de acción: en Organizar cambia a "ORGANIZAR CARPETA"
+  const ico=document.getElementById('btn-iniciar-ico'), lbl=document.getElementById('btn-iniciar-lbl');
+  if(ico) ico.className = organizar?'ti ti-folders':'ti ti-player-play-filled';
+  if(lbl) lbl.textContent = organizar?'ORGANIZAR CARPETA':'INICIAR EXTRACCIÓN';
+  if(organizar) cargarTiposOrganizar();
+  // set_modo_operacion solo distingue extractor/listado en el motor; Organizar es UI.
+  if(!organizar) PY.call('set_modo_operacion',m);
 }
 function onFuenteChange(f){ // 'fija' | 'auto'  (solo aplica en Extractor)
   const auto = f==='auto';
   // La autodetección solo existe en Extractor: forzar Extractor si hace falta.
-  if(auto){
-    const me=document.querySelector('#seg-modo .seg-btn.active');
-    if(me && me.dataset.m==='listado'){ onModoChange('extractor'); }
-  }
+  if(auto && currentModo()!=='extractor'){ onModoChange('extractor'); }
   document.querySelectorAll('#seg-fuente .seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.f===f));
   document.getElementById('row-plantilla').style.display = auto?'none':'';
   document.getElementById('autodet-note').style.display = auto?'flex':'none';
   const chk=document.getElementById('chk-auto');
   if(chk.checked!==auto){ chk.checked=auto; onAutoDetChange(); }
 }
-function onAutoDetChange(){ PY.call('set_deteccion_auto',document.getElementById('chk-auto').checked); syncConsolidar(); }
+function onAutoDetChange(){ PY.call('set_deteccion_auto',document.getElementById('chk-auto').checked); syncConsolidar(); syncDestinoTipo(); syncRenombrado(); }
+// ── RENOMBRADO: cuándo NO se puede usar ────────────────────────────────────
+// Listado: no hay campos que interpolar. AUTODETECCIÓN: el nombre se arma con
+// las columnas de la plantilla detectada PARA CADA ARCHIVO, así que un patrón
+// hecho con los chips de una plantilla deja literales los campos que las otras
+// no tienen (salían archivos "..._{NUMERO}.pdf"). Se bloquea hasta que exista
+// un patrón seguro para lotes mezclados (ver ROADMAP).
+function renombradoBloqueado(){
+  const m=currentModo();
+  if(m==='organizar') return true;                 // no extrae: no aplica
+  if(m==='listado')   return true;
+  return !!(document.getElementById('chk-auto')||{}).checked;
+}
+function syncRenombrado(){
+  const off=renombradoBloqueado(), auto=!!(document.getElementById('chk-auto')||{}).checked;
+  const rr=document.getElementById('row-rename'), rv=document.getElementById('rename-vars');
+  if(rr){ rr.style.opacity = off?'.45':'1'; rr.style.pointerEvents = off?'none':''; }
+  if(rv){ rv.style.opacity = off?'.45':'1'; rv.style.pointerEvents = off?'none':''; }
+  const n=document.getElementById('rename-off-note');
+  if(n){
+    n.style.display = (off && auto) ? 'flex' : 'none';   // en Listado ya lo explica su propia nota
+  }
+}
 function syncConsolidar(){
   const auto=document.getElementById('chk-auto').checked;
   const chk=document.getElementById('chk-consolidar');
@@ -2498,6 +2711,99 @@ function syncConsolidar(){
   if(row) row.style.opacity=auto?'1':'.5';
   if(lbl) lbl.textContent= auto ? 'Consolidar hojas' : 'Consolidar hojas (requiere Detección auto.)';
   if(!auto && chk.checked){ chk.checked=false; PY.call('set_consolidar',false); }
+}
+
+// ── DESTINO DE LOS ORIGINALES (unificado en Ejecución) ─────────────────────
+// Reemplaza el viejo toggle de ruteo del Pre-Vuelo. 'espejo' (default, no toca) /
+// 'ruteo' (subcarpetas por resultado) / 'tipo' (subcarpetas por tipo, requiere
+// Autodetección). Los dos que MUEVEN exigen confirmación (regla 14/07).
+function setDestino(d){
+  STATE.destino=d;
+  document.querySelectorAll('#seg-destino .seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.d===d));
+  destinoHint();
+}
+function destinoHint(){
+  const el=document.getElementById('destino-hint'); if(!el)return;
+  const d=STATE.destino||'espejo';
+  el.innerHTML = d==='ruteo'
+    ? '⚠️ Al terminar, DEXIAE <b>mueve cada original</b> a subcarpetas por resultado: <code>_PROCESADOS_</code>, <code>_REVISAR_</code>, <code>_DUPLICADOS_</code>… Dejan de estar en la carpeta original.'
+    : d==='tipo'
+    ? '⚠️ Al terminar, DEXIAE <b>mueve cada original</b> a subcarpetas por <b>tipo de documento</b> (la plantilla detectada) + <code>Desconocidos</code>. Requiere Autodetección.'
+    : 'DEXIAE <b>no toca tus archivos</b>: quedan donde están y solo se genera el reporte (modo espejo, recomendado).';
+}
+function syncDestinoTipo(){
+  // "Por tipo" solo tiene sentido con Autodetección (precedente: Consolidar).
+  const auto=(document.getElementById('chk-auto')||{}).checked;
+  const btn=document.getElementById('seg-destino-tipo'); if(!btn)return;
+  btn.disabled=!auto;
+  btn.title=auto?'':'Requiere Autodetección';
+  if(!auto && STATE.destino==='tipo'){ setDestino('espejo'); UI.toast('«Por tipo» requiere Autodetección — volví a No mover','info'); }
+}
+async function onDestinoChange(d){
+  const prev=STATE.destino||'espejo';
+  if(d===prev){ setDestino(d); return; }
+  if(d==='tipo' && !(document.getElementById('chk-auto')||{}).checked){
+    UI.toast('«Por tipo» requiere Autodetección','warn'); setDestino(prev); return;
+  }
+  if(d==='ruteo' || d==='tipo'){
+    const donde = d==='tipo' ? 'por tipo de documento (Facturas, Remitos… + Desconocidos)'
+                             : 'por resultado (_PROCESADOS_, _REVISAR_, _DUPLICADOS_…)';
+    const ok=await appConfirm('Mover los originales',
+      'Con esta opción DEXIAE MUEVE tus archivos originales a subcarpetas '+donde+
+      '. Ya no van a estar en la carpeta donde los dejaste.\n\nSi preferís que DEXIAE no '+
+      'toque tus archivos y solo genere el reporte, dejá «No mover».\n\n¿Continuar?');
+    if(!ok){ setDestino(prev); return; }
+  }
+  setDestino(d);
+}
+
+// ── MODO ORGANIZAR (standalone: solo ordena la carpeta, no extrae) ──────────
+function onOrgModo(o){
+  STATE.orgModo=o;
+  document.querySelectorAll('#seg-orgmodo .seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.o===o));
+  const el=document.getElementById('org-modo-hint');
+  if(el) el.innerHTML = o==='copiar'
+    ? 'Deja el original <b>intacto</b> y arma una copia ordenada en la carpeta hermana <code>«&lt;carpeta&gt; - ordenada»</code>. Para cautos: revisás y después borrás la cruda.'
+    : 'La carpeta <b>queda ordenada in situ</b>: los originales se acomodan en subcarpetas por tipo, dentro de la misma carpeta (recomendado).';
+}
+function cargarTiposOrganizar(){
+  const cont=document.getElementById('org-tipos'); if(!cont)return;
+  onOrgModo(STATE.orgModo||'mover');
+  PY.call('organizar_estado').then(r=>{
+    if(!r||!r.ok||!(r.plantillas||[]).length){
+      cont.innerHTML='<span class="opt-hint">No hay plantillas en el catálogo. Creá alguna en el Laboratorio para poder ordenar por tipo.</span>';
+      return;
+    }
+    const chips=r.plantillas.map(t=>`<span class="org-chip">${_he(t)}</span>`).join('');
+    cont.innerHTML=chips+'<span class="org-chip desc">Desconocidos</span>';
+  }).catch(()=>{ cont.innerHTML='<span class="opt-hint">No se pudo leer el catálogo.</span>'; });
+}
+function onOrganizarCarpeta(){
+  UI.toast('Seleccioná la carpeta a ordenar…','info');
+  const rec=(document.getElementById('chk-org-recursivo')||{}).checked!==false;
+  PY.call('organizar_clasificar',rec).then(r=>{
+    if(!r||!r.ok){ if(r&&!r.cancelled) UI.toast(r&&r.error||'No se pudo clasificar la carpeta','err'); return; }
+    UI.openPrevueloOrganizar(r);
+  }).catch(e=>{ console.error(e); UI.toast('Error clasificando la carpeta','err'); });
+}
+async function onOrganizarAplicar(){
+  const mover=(STATE.orgModo||'mover')==='mover';
+  UI.closePrevuelo();
+  UI.setBusy(true);
+  let r; try{ r=await PY.call('organizar_aplicar',mover); }catch(e){ r=null; }
+  UI.setBusy(false);
+  if(!r||!r.ok){ UI.toast(r&&r.error||'No se pudo organizar','err'); return; }
+  const pt=r.por_tipo||{};
+  const detalle=Object.keys(pt).map(k=>`  • ${k}: ${pt[k]}`).join('\n')||'  —';
+  UI.appendLog({hora:_now(),tipo:'OK',
+    msg:`🗂️ Organizado: ${r.hechos} archivo(s) ${mover?'movidos':'copiados'} → ${Object.keys(pt).length} carpeta(s)`});
+  const errs=(r.errores||[]).length;
+  if(errs) UI.appendLog({hora:_now(),tipo:'WARN',msg:`${errs} archivo(s) no se pudieron ${mover?'mover':'copiar'}`});
+  const msg=`${r.hechos} archivo(s) ${mover?'movidos':'copiados'}:\n${detalle}\n`+
+            (errs?`\n⚠️ ${errs} con error (mirá la bitácora).\n`:'')+
+            `\nCarpeta: ${r.destino||''}\n¿Abrirla ahora?`;
+  const ok=await appConfirm('Carpeta organizada', msg);
+  if(ok && r.destino && r.destino.indexOf('(demo)')<0) PY.call('abrir_path',r.destino);
 }
 function onPeritajeChange(){ PY.call('set_peritaje',document.getElementById('chk-peritaje').checked); }
 function onValidacionChange(){
@@ -2520,6 +2826,8 @@ function onConsolidarChange(){ PY.call('set_consolidar',document.getElementById(
 function onReportesChange(){ PY.call('set_reportes',document.getElementById('chk-html').checked,document.getElementById('chk-pdf').checked); }
 
 function onIniciar(){
+  // En modo Organizar el botón ordena la carpeta; no prepara un lote de extracción.
+  if(currentModo()==='organizar'){ onOrganizarCarpeta(); return; }
   UI.toast('Seleccioná la carpeta...','info');
   const rec=(document.getElementById('chk-subcarpetas')||{}).checked!==false;
   PY.call('preparar_lote',rec).then(r=>{
@@ -2527,33 +2835,15 @@ function onIniciar(){
     UI.openPrevuelo(r);
   }).catch(e=>{console.error(e);UI.toast('Error preparando lote','err');});
 }
-function pvRuteoText(){
-  const on=(document.getElementById('pv-ruteo')||{}).checked;
-  const el=document.getElementById('pv-ruteo-text'); if(!el)return;
-  el.innerHTML = on
-    ? '⚠️ Al terminar, DEXIAE <b>mueve cada archivo original</b> a subcarpetas según el resultado: <code>_PROCESADOS_</code>, <code>_REVISAR_</code>, <code>_DUPLICADOS_</code>… Los archivos <b>dejan de estar en la carpeta original</b>.'
-    : 'DEXIAE <b>no toca tus archivos</b>: quedan donde están y solo se genera el reporte (modo espejo, recomendado).';
-}
-// Espejo es el DEFAULT (decisión de producto 14/07: nunca mover originales salvo
-// pedido explícito — feedback de usuaria real). Activar Ruteo exige confirmar.
-async function pvRuteoToggle(){
-  const chk=document.getElementById('pv-ruteo');
-  if(chk && chk.checked){
-    const ok=await appConfirm('Ordenar archivos por resultado',
-      'Este modo MUEVE tus archivos originales a subcarpetas de resultado '+
-      '(_PROCESADOS_, _REVISAR_, _DUPLICADOS_…). Ya no van a estar en la carpeta '+
-      'donde los dejaste.\n\nSi preferís que DEXIAE no toque tus archivos y solo '+
-      'genere el reporte, dejá el modo espejo.\n\n¿Activar el ordenado por resultado?');
-    if(!ok) chk.checked=false;
-  }
-  pvRuteoText();
-}
 async function onProcesarLote(){
   const sel=UI.pvSeleccionados();
   if(sel.length===0){UI.toast('No seleccionaste archivos','warn');return;}
-  const modo=UI.pvModo();
-  const patron=UI.getRenamePattern();
-  const modoOp=(document.querySelector('#seg-modo .seg-btn.active')||{}).dataset?.m||'extractor';
+  const modo=STATE.destino||'espejo';
+  // Si el renombrado está bloqueado (Listado / Autodetección) NO se manda el
+  // patrón: deshabilitar la caja no alcanza — el motor renombra con lo que le
+  // llegue, y en autodetección eso produce nombres con campos sin resolver.
+  const patron=renombradoBloqueado()?'':UI.getRenamePattern();
+  const modoOp=currentModo();
   // Vista previa REAL del renombrado (solo si hay patrón y modo Extractor).
   if(patron && modoOp==='extractor'){
     UI.toast('Generando vista previa del renombrado…','info');
@@ -2783,6 +3073,51 @@ function histValCell(l){
   return '<span style="color:var(--txt3);opacity:.45" title="Sin validación aplicada">–</span>';
 }
 function histAbrir(ruta){ if(!ruta)return; PY.call('abrir_path',ruta).then(r=>{ if(r&&!r.ok)UI.toast(r.error||'No se pudo abrir el archivo','warn'); }); }
+// ── RASTREAR UN DOCUMENTO EN TODO EL HISTÓRICO ─────────────────────────────
+// El Excel marca DUPLICADO + ID_ORIGINAL, pero ese nombre suelto no dice de qué
+// lote salió. Acá se busca por archivo o por clave y se ubica el lote, la fecha,
+// la carpeta y el Excel donde quedó.
+function histRastreoLimpiar(){
+  const i=document.getElementById('h-rastreo'); if(i) i.value='';
+  const c=document.getElementById('h-rastreo-res'); if(c){ c.style.display='none'; c.innerHTML=''; }
+}
+function histRastrear(){
+  const q=(document.getElementById('h-rastreo')||{}).value||'';
+  const cont=document.getElementById('h-rastreo-res'); if(!cont)return;
+  if(q.trim().length<2){ UI.toast('Escribí al menos 2 caracteres','warn'); return; }
+  cont.style.display='block';
+  cont.innerHTML='<div class="hr-res-t">Buscando…</div>';
+  PY.call('historial_buscar',q.trim()).then(r=>{
+    if(!r||!r.ok){ cont.innerHTML=`<div class="hr-vacio">${_he((r&&r.error)||'No se pudo buscar')}</div>`; return; }
+    const res=r.resultados||[];
+    if(!res.length){
+      cont.innerHTML=`<div class="hr-vacio">Sin resultados para <b>${_he(r.q)}</b>. `+
+        `Probá con el nombre exacto del archivo o con el valor de la columna clave.</div>`;
+      return;
+    }
+    const filas=res.map(h=>{
+      const lote=h.lote||h.carpeta||('Lote #'+(h.lote_id||'?'));
+      const clave=h.valor?`<span class="hh-clave" title="Valor de clave">${_he(h.valor)}</span>`:'';
+      const est=h.estado?` · <b>${_he(h.estado)}</b>`:'';
+      const xls=h.ruta_excel
+        ? `<button class="btn btn-ghost sm" onclick="histAbrir(decodeURIComponent('${encodeURIComponent(h.ruta_excel)}'))" title="${_he(h.ruta_excel)}"><i class="ti ti-file-spreadsheet"></i> Excel</button>`
+        : '';
+      const carp=h.carpeta
+        ? `<button class="btn btn-ghost sm" onclick="histAbrir(decodeURIComponent('${encodeURIComponent(h.carpeta)}'))" title="${_he(h.carpeta)}"><i class="ti ti-folder"></i> Carpeta</button>`
+        : '';
+      return `<div class="hr-hit">
+        <div style="min-width:0;flex:1 1 220px">
+          <div class="hh-arch" title="${_he(h.archivo)}"><i class="ti ti-file-text" style="font-size:13px;color:var(--txt3)"></i> ${_he(h.archivo)||'—'}</div>
+          <div class="hh-meta"><span>Lote: <b>${_he(lote)}</b></span><span>${_he(h.fecha||'')}</span>${est}</div>
+        </div>
+        ${clave}
+        <div class="hh-acts">${carp}${xls}</div>
+      </div>`;
+    }).join('');
+    cont.innerHTML=`<div class="hr-res-t">${r.total} coincidencia(s) para <b>${_he(r.q)}</b>`+
+      (r.total>res.length?` · mostrando ${res.length}`:'')+`</div>`+filas;
+  }).catch(e=>{ console.error(e); cont.innerHTML='<div class="hr-vacio">Error al buscar en el histórico.</div>'; });
+}
 function _he(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
 function histDurSeg(l){
   try{ if(l&&l.fecha_inicio&&l.fecha_fin){ const a=new Date(l.fecha_inicio), b=new Date(l.fecha_fin); const s=(b-a)/1000; return (isFinite(s)&&s>=0)?s:0; } }catch(e){}
@@ -4264,6 +4599,8 @@ async function _init(){
     UI.setRenamePattern(r.patron||'');
     onModoChange(r.modo||'extractor');
     syncConsolidar();
+    // Destino de originales: espejo por defecto (decisión de producto 14/07).
+    setDestino('espejo'); syncDestinoTipo(); onOrgModo('mover');
     UI.renderRenameVars(r.columnas||[]);
     document.getElementById('sb-version').textContent=`v${r.version||'2.0'}`;
     const ed=r.edicion||'—';

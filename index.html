@@ -48,7 +48,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="ejecucion.png">
 
 <style>
@@ -57,9 +57,13 @@
  --hi:#F3F6FC;--md:#A9B4C9;--lo:#6C7791;
  --ac:#4F86F7;--ac2:#2E6BE0;--ac-deep:#2456BE;--ac-bg:rgba(79,134,247,.14);
  --ok:#39C07C;--ok-deep:#1F9D63;--warn:#E3A33F;
+ /* Color de ACCIÓN (CTA): el TEAL de la campaña "Probala online" (#3DD9B6).
+    Se usa SOLO en el botón de "probar/descargar" para que sea inconfundible. */
+ --cta:#3DD9B6;--cta2:#1D9E75;--cta3:#17805F;--cta-ink:#04211A;
  --paper:#F7F5EF;--paper2:#FBFAF6;--ink:#151721;--ink2:#565C6B;--ink3:#8A8F9C;
  --pline:rgba(24,20,12,.10);--pline2:rgba(24,20,12,.16);
  --sans:'Inter',system-ui,Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+ --serif:'Instrument Serif',Georgia,serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
@@ -72,8 +76,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .wrap{max-width:1300px;margin:0 auto;padding:0 32px}
 .wrap-n{max-width:900px;margin:0 auto;padding:0 32px}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:10px;font-weight:600;font-size:14.5px;transition:all .18s;letter-spacing:-.01em}
-.btn-p{background:var(--ac);color:#fff}.btn-p:hover{background:var(--ac2);transform:translateY(-1px)}
-.btn-o{background:transparent;color:var(--hi);border:1px solid var(--line2)}.btn-o:hover{border-color:var(--ac);background:var(--ac-bg)}
+/* CTA de acción (ámbar): el único botón "lleno" de la página ⇒ imposible perderlo */
+.btn-p{background:linear-gradient(135deg,var(--cta),var(--cta2));color:var(--cta-ink);font-weight:700;
+ box-shadow:0 6px 18px -6px rgba(29,158,117,.5),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-p:hover{background:linear-gradient(135deg,#63E7C9,var(--cta3));transform:translateY(-1px);
+ box-shadow:0 10px 26px -8px rgba(29,158,117,.62),inset 0 1px 0 rgba(255,255,255,.5)}
+/* Secundario "ghost": presente pero claramente en segundo plano */
+.btn-o{background:rgba(243,246,252,.055);color:var(--hi);border:1px solid var(--line2)}
+.btn-o:hover{border-color:var(--ac);background:var(--ac-bg);transform:translateY(-1px)}
 .btn-lg{padding:14px 26px;font-size:15.5px;border-radius:11px}
 
 /* ===== NAV ===== */
@@ -91,61 +101,207 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .logo .m{width:28px;height:28px;border-radius:8px;background:var(--ac);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
 .nav-l{display:flex;align-items:center;gap:24px}
 .nav-l a{font-size:14px;font-weight:500;color:var(--md)}.nav-l a:hover{color:var(--hi)}
+/* "Demo online" del nav: link a la app real (se distingue del ancla #demo = Centinela) */
+.nav-demo{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:9px;
+ border:1px solid var(--line2);background:rgba(243,246,252,.05);color:var(--hi)!important}
+.nav-demo:hover{border-color:var(--ac);background:var(--ac-bg)}
+@media(max-width:980px){.nav-demo{display:none}}
 @media(max-width:760px){.nav-l a{display:none}}
 
-/* ===== HERO ===== */
-.hero{background:var(--navy);color:var(--hi);position:relative;overflow:hidden;padding:72px 0 84px}
-.hero::before{content:"";position:absolute;top:-180px;left:-140px;width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(79,134,247,.22),transparent 66%);pointer-events:none}
-.hero::after{content:"";position:absolute;bottom:-220px;right:-120px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(57,192,124,.10),transparent 66%);pointer-events:none}
-.hero-in{position:relative;display:grid;grid-template-columns:1.04fr 1fr;gap:54px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;letter-spacing:.02em;color:var(--md);background:var(--ac-bg);border:1px solid var(--line2);padding:6px 13px;border-radius:100px;margin-bottom:24px}
-.eyebrow .d{width:6px;height:6px;border-radius:50%;background:var(--ok)}
-.hero h1{font-size:clamp(40px,4.7vw,61px);font-weight:700;line-height:1.04;letter-spacing:-.038em;margin-bottom:20px;color:var(--hi)}
-.hero h1 span{color:var(--ac)}
-/* ── Hero viz · flujo PDFs → DEXIAE → resultados (autocontenida) ──
-   Estados por defecto = escena final (todo visible) ⇒ con reduced-motion
-   (animation:none global) queda una composición estática correcta. */
-.hviz{position:relative;width:100%;max-width:460px;justify-self:end}
-.hviz::before{content:"";position:absolute;inset:-56px -40px;background:radial-gradient(56% 52% at 50% 44%,rgba(79,134,247,.20),transparent 70%);pointer-events:none}
-.hviz-stage{--cy:7.5s;position:absolute;left:0;top:0;width:440px;height:520px;transform-origin:top left}
-.hf-cap{position:absolute;left:50%;top:0;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.05em;color:var(--lo);white-space:nowrap}
-.hf-pdfs{position:absolute;left:50%;top:26px;transform:translateX(-50%);width:180px;height:104px}
-.hf-card{position:absolute;left:50%;top:4px;width:134px;height:96px;margin-left:-67px;border-radius:11px;background:linear-gradient(180deg,#FDFCF9,#ECE9E0);box-shadow:0 14px 32px rgba(0,0,0,.4);border:1px solid rgba(0,0,0,.06);animation:hfFloat 6s ease-in-out infinite}
-.hf-card.c1{transform:translateX(-11px) rotate(-9deg);opacity:.85}
-.hf-card.c2{transform:translateX(11px) rotate(7deg);opacity:.92}
-.hf-card.c3{padding:12px}
-.hf-card.c3 b{display:inline-block;background:#E5484D;color:#fff;font-size:8.5px;font-weight:800;border-radius:4px;padding:2px 5px}
-.hf-card.c3 i{display:block;height:7px;border-radius:4px;background:#DAD6CA;margin:8px 0}
-.hf-spine{position:absolute;left:50%;top:134px;width:2px;height:198px;margin-left:-1px;background:linear-gradient(var(--line2),rgba(79,134,247,.55),var(--line2));border-radius:2px}
-.hf-dot{position:absolute;left:50%;top:130px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--ok);box-shadow:0 0 16px rgba(57,192,124,.9);opacity:0;animation:hfDot var(--cy) ease-in-out infinite}
-.hf-engine{position:absolute;left:50%;top:214px;transform:translateX(-50%);width:224px;height:66px;border-radius:15px;background:linear-gradient(180deg,#182640,#111a2e);border:1px solid var(--line2);box-shadow:0 20px 46px rgba(0,0,0,.55);display:flex;align-items:center;gap:12px;padding:0 18px;overflow:hidden;animation:hfEngine var(--cy) ease-in-out infinite}
-.hf-engine .b{width:36px;height:36px;flex:none;border-radius:10px;background:var(--ac);color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 18px rgba(79,134,247,.5)}
-.hf-engine .t{display:flex;flex-direction:column;line-height:1.2}
-.hf-engine .t b{font-size:16px;font-weight:700;color:var(--hi);letter-spacing:.02em}
-.hf-engine .t em{font-family:var(--mono);font-style:normal;font-size:10.5px;color:var(--ac)}
-.hf-glow{position:absolute;top:0;bottom:0;width:42%;left:-46%;background:linear-gradient(90deg,transparent,rgba(79,134,247,.28),transparent);animation:hfSweep var(--cy) linear infinite}
-.hf-out{position:absolute;left:50%;top:338px;transform:translateX(-50%);width:310px;background:var(--card);border:1px solid var(--line2);border-radius:14px;padding:7px;box-shadow:0 26px 60px rgba(0,0,0,.5)}
-.hf-r{display:flex;align-items:center;gap:11px;padding:9px 10px;font-size:14px;color:var(--hi);font-weight:500}
-.hf-r .ck{width:23px;height:23px;flex:none;border-radius:50%;background:rgba(57,192,124,.16);border:1px solid rgba(57,192,124,.42);color:var(--ok);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800}
-.hf-r.r1{animation:hfRow var(--cy) infinite}
-.hf-r.r2{animation:hfRow var(--cy) infinite;animation-delay:calc(var(--cy) * .06)}
-.hf-r.r3{animation:hfRow var(--cy) infinite;animation-delay:calc(var(--cy) * .12)}
-.hf-r.r4{animation:hfRow var(--cy) infinite;animation-delay:calc(var(--cy) * .18)}
-@keyframes hfFloat{0%,100%{translate:0 0}50%{translate:0 -5px}}
-@keyframes hfDot{0%,4%{top:130px;opacity:0}9%{opacity:1}20%{top:208px;opacity:1}25%{top:208px;opacity:0}36%{top:262px;opacity:0}40%{top:262px;opacity:1}52%{top:330px;opacity:1}56%,100%{top:330px;opacity:0}}
-@keyframes hfEngine{0%,18%{box-shadow:0 20px 46px rgba(0,0,0,.55),0 0 0 0 rgba(79,134,247,0)}26%{box-shadow:0 20px 46px rgba(0,0,0,.55),0 0 46px 0 rgba(79,134,247,.5)}44%,100%{box-shadow:0 20px 46px rgba(0,0,0,.55),0 0 0 0 rgba(79,134,247,0)}}
-@keyframes hfSweep{0%,14%{left:-46%}42%{left:104%}42.01%,100%{left:104%}}
-@keyframes hfRow{0%,46%{opacity:.16;transform:translateY(5px)}53%{opacity:1;transform:none}90%{opacity:1}96%,100%{opacity:.16;transform:translateY(5px)}}
-@media (max-width:1080px){.hviz{justify-self:center;margin:0 auto}}
+/* ===== HERO =================================================================
+   Fondo en capas (luz cenital + mesh de marca + grano + viñeta) y, a la
+   derecha, "la línea de lectura": un PDF del lote se lee y escribe SU fila.
+   Sin cuadrícula: la textura la da el grano. */
+.hero{color:var(--hi);position:relative;overflow:hidden;padding:78px 0 88px;isolation:isolate;
+ background:linear-gradient(180deg,#0C1425 0%,#0A101F 60%,#0B1120 100%)}
+/* remate inferior: línea de horizonte hacia la banda de datos */
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;pointer-events:none;
+ background:linear-gradient(90deg,transparent,rgba(150,180,235,.20) 22%,rgba(61,217,182,.28) 50%,rgba(150,180,235,.20) 78%,transparent)}
+.hbg{position:absolute;inset:0;z-index:-1;pointer-events:none}
+.hbg::before{content:"";position:absolute;inset:0;background:radial-gradient(56% 42% at 30% -8%,rgba(120,166,255,.20),transparent 70%)}
+.mesh{position:absolute;inset:-26%;filter:blur(94px)}
+.mesh i{position:absolute;display:block;border-radius:50%}
+.mesh .m1{width:50%;aspect-ratio:1;left:-6%;top:-6%;background:radial-gradient(circle,rgba(46,109,219,.55),transparent 62%);animation:mA 40s ease-in-out infinite}
+.mesh .m2{width:46%;aspect-ratio:1;right:-2%;top:-4%;background:radial-gradient(circle,rgba(79,134,247,.32),transparent 64%);animation:mB 48s ease-in-out infinite}
+.mesh .m3{width:34%;aspect-ratio:1;left:10%;bottom:-24%;background:radial-gradient(circle,rgba(61,217,182,.14),transparent 66%);animation:mA 56s ease-in-out infinite reverse}
+@keyframes mA{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(6%,4%,0) scale(1.12)}}
+@keyframes mB{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(-7%,6%,0) scale(1.09)}}
+.hnoise{position:absolute;inset:0;opacity:.05;mix-blend-mode:overlay;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.hvig{position:absolute;inset:0;background:radial-gradient(118% 88% at 50% 10%,transparent 48%,rgba(5,9,18,.6) 100%)}
+
+.hero-in{position:relative;display:grid;grid-template-columns:1.02fr .98fr;gap:56px;align-items:center}
+.hero-in>*{min-width:0}   /* sin esto, la ventana del lote estira la grilla */
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;letter-spacing:.03em;color:var(--md);
+ background:linear-gradient(180deg,rgba(150,180,235,.10),rgba(150,180,235,.04));border:1px solid var(--line2);
+ padding:7px 15px 7px 12px;border-radius:100px;margin-bottom:26px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
+.eyebrow .d{position:relative;width:6px;height:6px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 3px rgba(79,134,247,.18)}
+.eyebrow .d::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px solid rgba(79,134,247,.55);animation:ping 2.6s ease-out infinite}
+@keyframes ping{0%{transform:scale(.7);opacity:.9}70%,100%{transform:scale(2.1);opacity:0}}
+.hero h1{font-size:clamp(38px,4.4vw,58px);font-weight:600;line-height:1.03;letter-spacing:-.042em;margin-bottom:0;color:var(--hi);text-wrap:balance}
+/* el énfasis en serif itálica: el contraste entre el sistema y el oficio */
+.hero h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.008em;color:var(--ac);padding-right:.04em}
+
+/* ── La pieza: ventana del lote en 3D ─────────────────────────────────────── */
+.hviz{position:relative;width:100%;justify-self:end;perspective:1600px;perspective-origin:62% 42%}
+.hviz::before{content:"";position:absolute;inset:-14% -9%;pointer-events:none;
+ background:radial-gradient(50% 44% at 46% 46%,rgba(79,134,247,.22),transparent 72%);filter:blur(26px)}
+.deck3d{position:relative;transform-style:preserve-3d;transform:rotateY(-9deg) rotateX(2.4deg);
+ transition:transform .45s cubic-bezier(.2,.7,.3,1);animation:land 1.15s cubic-bezier(.16,.84,.24,1) backwards}
+@keyframes land{0%{opacity:0;transform:rotateY(-17deg) rotateX(7deg) translateY(26px) scale(.955)}60%,100%{opacity:1}}
+.floor{position:absolute;left:6%;right:6%;bottom:-54px;height:92px;pointer-events:none;
+ transform:translateZ(-70px);filter:blur(26px);
+ background:radial-gradient(58% 100% at 52% 0,rgba(79,134,247,.34),transparent 72%)}
+.win{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line2);
+ background:linear-gradient(180deg,#141F35,#0B1120);
+ box-shadow:-38px 54px 110px -40px rgba(0,0,0,.95),-10px 18px 40px -22px rgba(0,0,0,.8),
+            inset 0 1px 0 rgba(255,255,255,.07),inset -1px 0 0 rgba(255,255,255,.06)}
+
+/* pestañas del lote */
+.tabs{display:flex;background:rgba(6,10,19,.55);border-bottom:1px solid var(--line);overflow:hidden}
+.tab{display:flex;align-items:center;gap:7px;padding:10px 12px;font-family:var(--mono);font-size:9.5px;color:var(--lo);
+ border-right:1px solid var(--line);white-space:nowrap;min-width:0;overflow:hidden;text-overflow:ellipsis;
+ transition:color .25s,background .25s,box-shadow .25s}
+.tab .pdf{font-size:7px;font-weight:800;background:#E5484D;color:#fff;padding:2px 4px;border-radius:3px;opacity:.55;transition:opacity .25s}
+.tab.on{color:var(--hi);background:linear-gradient(180deg,rgba(79,134,247,.16),transparent);box-shadow:inset 0 -2px 0 var(--ac)}
+.tab.on .pdf{opacity:1}
+.tab.done{color:var(--md)}
+.tab.done::after{content:"✓";color:var(--cta);font-size:9px}
+.tabs .more{margin-left:auto;padding:10px 13px;font-family:var(--mono);font-size:9.5px;color:var(--lo);transition:color .25s}
+.tabs .more.hot{color:var(--ac)}
+
+/* escenario: documento | planilla */
+.stage{display:grid;grid-template-columns:.8fr 1.2fr;min-height:330px}
+.pane-doc{position:relative;padding:16px;border-right:1px solid var(--line);background:rgba(6,10,19,.35);overflow:hidden}
+.page{position:relative;height:100%;background:linear-gradient(180deg,#FBFBF9,#F0F0EC);border-radius:2px;padding:15px 14px 13px;
+ display:flex;flex-direction:column;color:#1B1A18;box-shadow:0 16px 30px -16px rgba(0,0,0,.9);transition:opacity .18s}
+.page.swap{opacity:.25}
+.pg-h{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px solid rgba(27,26,24,.26);padding-bottom:8px}
+.pg-h b{font-size:11.5px;font-weight:700}
+.pg-h em{font-family:var(--mono);font-style:normal;font-size:8px;color:#6E6B63;text-align:right;line-height:1.5}
+.pg-rows{display:flex;flex-direction:column;gap:7px;margin-top:11px}
+.pg-rows .d{height:5px;background:rgba(27,26,24,.13);border-radius:1px}
+.pg-cuit{font-family:var(--mono);font-size:8px;color:#6E6B63;margin-top:9px}
+.pg-tot{margin-top:auto;padding-top:9px;border-top:1.5px solid rgba(27,26,24,.26);display:flex;justify-content:space-between;align-items:baseline}
+.pg-tot span{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;color:#6E6B63}
+.pg-tot b{font-family:var(--mono);font-size:14px}
+/* la línea de lectura: el mismo gesto del logo */
+.scan{position:absolute;left:16px;right:16px;top:16px;height:2px;opacity:0;z-index:2;
+ background:linear-gradient(90deg,transparent,#EAF2FF,transparent);
+ box-shadow:0 0 18px 4px rgba(79,134,247,.9),0 0 40px 10px rgba(79,134,247,.4)}
+.scan::after{content:"";position:absolute;left:0;right:0;top:0;height:64px;
+ background:linear-gradient(180deg,rgba(79,134,247,.30),transparent)}
+.pane-doc.reading .scan{animation:scanDown 1.15s cubic-bezier(.5,0,.5,1) forwards}
+@keyframes scanDown{0%{opacity:0;transform:translateY(0)}8%{opacity:1}88%{opacity:1}100%{opacity:0;transform:translateY(var(--h,268px))}}
+.doc-cap{position:absolute;left:16px;bottom:18px;font-family:var(--mono);font-size:8.5px;color:var(--ac);
+ background:rgba(11,17,32,.82);padding:3px 7px;border-radius:3px;opacity:0;transition:opacity .2s;z-index:3}
+.pane-doc.reading .doc-cap{opacity:1}
+
+/* planilla: una fila por documento leído */
+.pane-xls{display:flex;flex-direction:column;background:#0D1523}
+.xls-h{display:flex;align-items:center;gap:9px;padding:10px 13px;border-bottom:1px solid var(--line);background:rgba(61,217,182,.07)}
+.xls-h .xi{width:16px;height:16px;border-radius:4px;background:var(--cta);color:var(--cta-ink);font-size:8.5px;font-weight:800;
+ display:flex;align-items:center;justify-content:center}
+.xls-h b{font-family:var(--mono);font-size:10px;color:var(--hi);font-weight:500}
+.xls-h span{margin-left:auto;font-family:var(--mono);font-size:9px;color:var(--lo)}
+.cols,.rowx{display:grid;grid-template-columns:22px 1.35fr .72fr 1fr 56px}
+.cols{background:rgba(150,180,235,.07);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:8px;
+ letter-spacing:.1em;color:var(--lo)}
+.cols span{padding:6px 8px;border-right:1px solid rgba(150,180,235,.08)}
+.rowx{border-bottom:1px solid rgba(150,180,235,.055);font-family:var(--mono);font-size:9.5px;color:var(--md);align-items:center;
+ opacity:0;transform:translateX(-7px);transition:opacity .3s ease-out,transform .3s ease-out,background .5s}
+.rowx.in{opacity:1;transform:none}
+.rowx.flash{background:rgba(79,134,247,.16)}
+.rowx>span{padding:7px 8px;border-right:1px solid rgba(150,180,235,.055);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rowx .rn{color:var(--lo);font-size:8.5px;text-align:center;background:rgba(150,180,235,.05)}
+.rowx .num{color:var(--hi);font-variant-numeric:tabular-nums;text-align:right}
+.rowx .st{border-right:0;display:flex;justify-content:center;padding:5px}
+.chip{font-size:7.5px;font-weight:800;letter-spacing:.04em;padding:3px 6px;border-radius:100px;width:100%;text-align:center}
+.chip.ok{background:rgba(61,217,182,.15);color:#6FE6C8;border:1px solid rgba(61,217,182,.34)}
+.chip.dup{background:rgba(79,134,247,.16);color:#93B8FF;border:1px solid rgba(79,134,247,.36)}
+.chip.rev{background:rgba(227,163,63,.15);color:#F0C177;border:1px solid rgba(227,163,63,.34)}
+.xls-f{margin-top:auto;display:flex;align-items:center;gap:12px;padding:10px 13px;border-top:1px solid var(--line);
+ font-family:var(--mono);font-size:9px;color:var(--lo);opacity:0;transition:opacity .45s}
+.xls-f.in{opacity:1}
+.xls-f b{color:var(--cta)}.xls-f .d2{color:var(--ac)}.xls-f .d3{color:var(--warn)}
+.xls-f .ml{margin-left:auto}
+
+/* barra de estado del lote */
+.stat{display:flex;align-items:center;gap:10px;padding:10px 13px;border-top:1px solid var(--line);
+ background:rgba(6,10,19,.5);font-family:var(--mono);font-size:9.5px;color:var(--lo)}
+.stat .dot{width:5px;height:5px;border-radius:50%;background:var(--ac);box-shadow:0 0 8px var(--ac)}
+.stat .dot.done{background:var(--cta);box-shadow:0 0 8px var(--cta)}
+.stat .cnt{color:var(--hi)}
+.stat .bar{flex:1;height:2px;border-radius:2px;background:rgba(150,180,235,.14);overflow:hidden;max-width:120px}
+.stat .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--cta));transition:width .4s ease-out}
+.stat .ml{margin-left:auto}
+
+/* aviso que sale del plano: hace legible la profundidad y muestra que no solo convierte */
+.toast{position:absolute;left:-42px;bottom:76px;z-index:6;display:flex;align-items:center;gap:11px;
+ padding:11px 15px;border-radius:13px;opacity:0;pointer-events:none;transform:translate3d(0,10px,90px) scale(.97);
+ background:linear-gradient(180deg,rgba(28,41,68,.98),rgba(13,21,37,.99));border:1px solid rgba(79,134,247,.36);
+ box-shadow:-26px 30px 60px -18px rgba(0,0,0,.92),0 0 34px -6px rgba(79,134,247,.35),inset 0 1px 0 rgba(255,255,255,.07);
+ transition:opacity .3s ease-out,transform .5s cubic-bezier(.16,.84,.24,1)}
+.toast.in{opacity:1;transform:translate3d(0,0,90px) scale(1)}
+.toast .t-ic{width:28px;height:28px;flex:none;border-radius:8px;display:flex;align-items:center;justify-content:center;
+ background:rgba(79,134,247,.16);border:1px solid rgba(79,134,247,.34);color:#93B8FF;font-size:13px}
+.toast .t-tx b{display:block;font-size:12px;color:var(--hi);font-weight:600;line-height:1.25}
+.toast .t-tx em{display:block;font-family:var(--mono);font-style:normal;font-size:9px;color:var(--lo)}
+
+/* rótulos exteriores */
+.mark{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--lo)}
+.mark::before{content:"";position:absolute;top:50%;width:22px;height:1px;background:currentColor;opacity:.5}
+.mk-a{left:2px;top:-26px}.mk-a::before{right:-30px}
+.mk-b{right:2px;bottom:-26px;color:var(--cta)}.mk-b::before{left:-30px}
+.deck3d,.win,.stage,.pane-xls,.pane-doc{min-width:0}
+@media (max-width:1080px){.hviz{justify-self:center;margin:26px auto 0;max-width:560px}}
+@media (max-width:620px){
+ .stage{grid-template-columns:1fr}
+ .pane-doc{border-right:0;border-bottom:1px solid var(--line);height:206px}
+ .tab{padding:9px 9px;font-size:8.5px;gap:5px}
+ .tab:nth-child(3){display:none}      /* con dos pestañas alcanza para leer "lote" */
+ .toast{left:0;right:0;bottom:-20px;transform:translate3d(0,10px,60px) scale(.97)}
+ .toast.in{transform:translate3d(0,0,60px) scale(1)}
+ .deck3d{transform:none}
+ .mark{display:none}
+}
+/* ── Chip de velocidad de configuración (curva de aprendizaje cero) ── */
+.speed{display:inline-flex;align-items:flex-start;gap:9px;margin:0 0 16px;padding:10px 15px;border:1px solid rgba(31,157,99,.32);background:rgba(57,192,124,.09);border-radius:12px;font-size:13.5px;line-height:1.4;color:var(--ink);font-weight:500}
+.speed .sp-ic{font-size:15px;line-height:1.3}
+.speed b{font-weight:700}
 /* ── "Resuelve" por función ── */
 .solves{display:flex;flex-direction:column;gap:3px;margin:0 0 16px;padding:12px 14px;background:var(--ac-bg);border-left:3px solid var(--ac);border-radius:0 10px 10px 0;font-size:14.5px;color:var(--ink);line-height:1.5}
 .solves b{font-size:11px;letter-spacing:.1em;color:var(--ac-deep);text-transform:uppercase}
 /* Reveals al scroll (la clase .rv la agrega JS ⇒ sin JS todo queda visible) */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.84,.24,1),transform .7s cubic-bezier(.16,.84,.24,1)}
 .rv.in{opacity:1;transform:none}
-.hero .lead{font-size:17.5px;line-height:1.55;color:var(--md);max-width:500px;margin-bottom:30px}
+.hero .lead{font-size:17px;line-height:1.55;color:var(--md);max-width:50ch;margin:20px 0 30px}
 .hero .lead b{color:var(--hi);font-weight:600}
-.cta{display:flex;gap:13px;align-items:center;flex-wrap:wrap;margin-bottom:22px}
+.cta{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:22px}
+/* Cada CTA = botón + micro-copy de "cero riesgo" debajo */
+.cta-item{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.cta-item .btn{white-space:nowrap}
+.cta .btn-lg{padding:14px 20px}
+.cta-note{font-size:12.5px;line-height:1.45;color:var(--md);padding-left:2px;max-width:280px}
+.cta-note b{color:var(--hi);font-weight:600}
+/* Jerarquía del hero: el primario es más grande y "respira" (halo pulsante) */
+.cta .btn-hero{padding:16px 24px;font-size:16.5px;border-radius:12px;animation:ctaGlow 3.6s ease-in-out infinite}
+.cta .btn-hero:hover{animation:none}
+.btn-hero .bi{font-size:17px;line-height:1;margin-right:-1px}
+@keyframes ctaGlow{
+ 0%,100%{box-shadow:0 6px 18px -6px rgba(29,158,117,.45),0 0 0 0 rgba(61,217,182,0),inset 0 1px 0 rgba(255,255,255,.5)}
+ 50%{box-shadow:0 14px 34px -10px rgba(29,158,117,.75),0 0 0 7px rgba(61,217,182,.09),inset 0 1px 0 rgba(255,255,255,.5)}
+}
+/* Play en círculo del secundario (lee "video/interactivo" sin gritar) */
+.btn .pl{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:50%;
+ background:var(--ac);color:#fff;font-size:8.5px;padding-left:2px;flex:none}
+.btn-o:hover .pl{background:var(--hi);color:var(--navy)}
+/* Ficha técnica bajo los CTA: lee como producto versionado, no como promesa */
+.creds{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:28px;padding-top:20px;
+ border-top:1px solid var(--line);font-size:12.5px;color:var(--lo)}
+.creds i{width:3px;height:3px;border-radius:50%;background:rgba(150,180,235,.3);display:block}
+.creds b{color:var(--md);font-weight:600}
+@media(max-width:520px){.creds i{display:none}.creds{gap:6px 14px}}
 .trust{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--md)}
 .trust .it{display:inline-flex;align-items:center;gap:7px}.trust .ck{color:var(--ok);font-weight:700}
 .shot{border-radius:13px;overflow:hidden;border:1px solid var(--line2);background:var(--navy2);box-shadow:0 44px 90px -34px rgba(0,0,0,.75),0 12px 30px -14px rgba(0,0,0,.5)}
@@ -190,12 +346,16 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .p-card h3{font-size:20px;font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1.2;margin-bottom:8px}
 .p-card p{color:var(--ink2);font-size:14.5px;line-height:1.55}
 .p-card p strong{color:var(--ink)}
+.p-card .p-cost{margin-top:14px;padding-top:14px;border-top:1px dashed var(--pline)}
 @media(max-width:920px){.problem-grid{grid-template-columns:1fr}}
 
 /* ===== CENTINELA DEMO ===== */
 .cent{background:var(--navy);color:var(--hi);padding:84px 0;position:relative;overflow:hidden}
 .cent::before{content:"";position:absolute;top:-160px;right:-120px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(79,134,247,.16),transparent 66%);pointer-events:none}
 .cent .sh h2{color:var(--hi)}
+.cent-nota{font-size:14px!important;color:var(--lo)!important;margin-top:10px!important}
+.cent-nota b{color:var(--md);font-weight:600}
+.cent-nota a{color:var(--ac);font-weight:600;white-space:nowrap}.cent-nota a:hover{text-decoration:underline}
 .cent .sh p{color:var(--md)}
 .cent .sh .k{color:var(--ac)}
 .cent-ui{position:relative;background:var(--navy2);border:1px solid var(--line2);border-radius:14px;overflow:hidden;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
@@ -247,7 +407,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .price-card.popular{border:2px solid var(--ac);box-shadow:0 18px 44px -18px rgba(46,109,219,.28)}
 .price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:100px;white-space:nowrap}
 .price-badge.pop{background:var(--ac);color:#fff}
-.price-badge.tri{background:var(--ok-deep);color:#fff}
+.price-badge.tri{background:linear-gradient(135deg,var(--cta),var(--cta2));color:var(--cta-ink)}
 .price-name{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--ink);margin-bottom:2px}
 .price-tag{font-size:12.5px;color:var(--ink3);margin-bottom:14px}
 .price-amt{font-size:38px;font-weight:700;letter-spacing:-.03em;color:var(--ink);line-height:1}
@@ -270,7 +430,10 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .price-hl li::before{content:"★";color:var(--ac);font-size:11px}
 .price-cta{width:100%;padding:12px;border-radius:10px;font-weight:600;font-size:14px;background:var(--ac);color:#fff;transition:all .18s}
 .price-cta:hover{background:var(--ac2)}
-.price-cta.tri{background:var(--ok-deep)}.price-cta.tri:hover{filter:brightness(1.08)}
+/* El TRIAL usa el mismo ámbar que el CTA del hero: "ámbar = empezar la prueba" */
+.price-cta.tri{background:linear-gradient(135deg,var(--cta),var(--cta2));color:var(--cta-ink);font-weight:700;
+ box-shadow:0 5px 14px -6px rgba(29,158,117,.55)}
+.price-cta.tri:hover{background:linear-gradient(135deg,#63E7C9,var(--cta3))}
 .price-cta.ghost{background:transparent;border:1px solid var(--pline2);color:var(--ink)}
 .price-cta.ghost:hover{border-color:var(--ac);color:var(--ac-deep)}
 
@@ -347,6 +510,11 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  .price-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
+ .cta{gap:16px}
+ .cta-item{width:100%}
+ .cta-item .btn{width:100%;justify-content:center;white-space:normal;text-align:center}
+ .cta .btn-hero{font-size:15px;padding:15px 16px}   /* que el label entre en 1 línea */
+ .cta-note{max-width:none}
  .proof-in{grid-template-columns:1fr 1fr}
  .proof .c:nth-child(2){border-right:none}
  .price-grid{grid-template-columns:1fr}
@@ -378,57 +546,182 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  <span class="nav-l">
   <a href="casos-de-uso.html">Casos de uso</a>
   <a href="#capturas">La interfaz</a>
-  <a href="#demo">Demo</a>
+  <a href="#demo">Centinela</a>
   <a href="#precios">Precios</a>
   <a href="#faq">FAQ</a>
+  <a href="app/" class="nav-demo"><span class="pl">▶</span> Demo online</a>
   <button class="btn btn-p" onclick="openLead('TRIAL')">Probar gratis</button>
  </span>
 </div></nav>
 
 <!-- ===== HERO ===== -->
-<section class="hero"><div class="wrap"><div class="hero-in">
+<section class="hero">
+ <div class="hbg" aria-hidden="true">
+  <div class="mesh"><i class="m1"></i><i class="m2"></i><i class="m3"></i></div>
+  <div class="hnoise"></div><div class="hvig"></div>
+ </div>
+ <div class="wrap"><div class="hero-in">
  <div>
   <span class="eyebrow"><span class="d"></span>Automatización documental · 100% offline</span>
-  <h1><span>Automatizá</span> en minutos el trabajo que hoy te lleva horas.</h1>
-  <p class="lead">DEXIAE automatiza lo que hoy hacés a mano: <b>extraé datos de PDF a Excel en lote, detectá duplicados, peritá firmas y generá reportes de auditoría</b> — 100% en tu equipo. Ni un documento sale de tu organización.</p>
+  <h1>¿Tu equipo sigue <em>perdiendo horas</em> copiando datos de PDFs a Excel?</h1>
+  <p class="lead">Automatizá la auditoría de <b>comprobantes, facturas y extractos bancarios</b>. Procesá lotes enteros en segundos, de forma <b>100% local</b> y sin que tus datos sensibles suban a internet.</p>
   <div class="cta">
-   <button class="btn btn-p btn-lg" onclick="openLead('TRIAL')">Probar gratis 14 días</button>
-   <a href="app/" class="btn btn-o btn-lg">▶ Probá la demo online</a>
+   <div class="cta-item">
+    <button class="btn btn-p btn-lg btn-hero" onclick="openLead('TRIAL')"><span class="bi">⇩</span> Descargar prueba gratis (14 días)</button>
+    <span class="cta-note">Instalador para Windows · <b>sin tarjeta</b></span>
+   </div>
+   <div class="cta-item">
+    <a href="app/" class="btn btn-o btn-lg"><span class="pl">▶</span> Probar la demo online</a>
+    <span class="cta-note">En tu navegador · <b>no subís nada</b></span>
+   </div>
   </div>
-  <div class="trust">
-   <span class="it"><span class="ck">✓</span> DEXIAE completo</span>
-   <span class="it"><span class="ck">✓</span> 100 documentos</span>
-   <span class="it"><span class="ck">✓</span> Sin tarjeta</span>
-   <span class="it"><span class="ck">✓</span> Windows 10/11</span>
+  <div class="creds">
+   <span><b>v2.0.2</b> estable</span><i></i><span>Windows 10/11</span><i></i>
+   <span>Sin conexión requerida</span><i></i><span>100 documentos de prueba</span>
   </div>
  </div>
- <div class="hviz" aria-hidden="true">
-  <div class="hviz-stage" id="hvizStage">
-   <div class="hf-cap">Tu carpeta de PDFs</div>
-   <div class="hf-pdfs">
-    <span class="hf-card c1"></span>
-    <span class="hf-card c2"></span>
-    <span class="hf-card c3"><b>PDF</b><i style="width:72%"></i><i style="width:54%"></i><i style="width:66%"></i></span>
+
+ <div class="hviz" id="hviz" aria-hidden="true">
+  <span class="mark mk-a">Tu carpeta · 12 PDF</span>
+  <span class="mark mk-b">Un Excel auditado</span>
+  <div class="deck3d" id="deck3d">
+   <span class="floor"></span>
+   <div class="toast" id="hv-toast">
+    <span class="t-ic">⧉</span>
+    <span class="t-tx"><b>Duplicado detectado</b><em>FC_000125 · ya estaba en el lote</em></span>
    </div>
-   <div class="hf-spine"></div>
-   <div class="hf-dot"></div>
-   <div class="hf-engine"><span class="b">D</span><span class="t"><b>DEXIAE</b><em>automatizando…</em></span><span class="hf-glow"></span></div>
-   <div class="hf-out">
-    <div class="hf-r r1"><span class="ck">✓</span> Excel generado</div>
-    <div class="hf-r r2"><span class="ck">✓</span> Duplicados encontrados</div>
-    <div class="hf-r r3"><span class="ck">✓</span> Firmas verificadas</div>
-    <div class="hf-r r4"><span class="ck">✓</span> Reportes listos</div>
+   <div class="win">
+
+    <div class="tabs" id="hv-tabs">
+     <span class="tab"><span class="pdf">PDF</span>FC_000123.pdf</span>
+     <span class="tab"><span class="pdf">PDF</span>FC_000124.pdf</span>
+     <span class="tab"><span class="pdf">PDF</span>FC_000125.pdf</span>
+     <span class="more" id="hv-more">+9</span>
+    </div>
+
+    <div class="stage">
+     <div class="pane-doc" id="hv-pane">
+      <div class="page" id="hv-page">
+       <div class="pg-h"><b>Factura A</b><em id="hv-num">0001-00012345<br>04/06/2026</em></div>
+       <div class="pg-rows">
+        <span class="d" style="width:64%"></span><span class="d"></span>
+        <span class="d" style="width:52%"></span><span class="d" style="width:82%"></span>
+        <span class="d" style="width:44%"></span>
+       </div>
+       <div class="pg-cuit" id="hv-cuit">CUIT 30-11111111-9 · CAE 75112233440017</div>
+       <div class="pg-tot"><span>TOTAL</span><b id="hv-tot">124.500,00</b></div>
+      </div>
+      <span class="scan" id="hv-scan"></span>
+      <span class="doc-cap">leyendo…</span>
+     </div>
+
+     <div class="pane-xls">
+      <div class="xls-h"><span class="xi">X</span><b>lote_2026-06.xlsx</b><span id="hv-n">— filas</span></div>
+      <div class="cols"><span></span><span>CUIT</span><span>FECHA</span><span>TOTAL</span><span>EST.</span></div>
+      <div id="hv-rows">
+       <div class="rowx"><span class="rn">1</span><span>30-11111111-9</span><span>04/06</span><span class="num">124.500,00</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">2</span><span>33-11111111-9</span><span>04/06</span><span class="num">86.200,00</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">3</span><span>30-11111111-9</span><span>05/06</span><span class="num">124.500,00</span><span class="st"><span class="chip dup">DUP</span></span></div>
+       <div class="rowx"><span class="rn">4</span><span>30-22222222-8</span><span>05/06</span><span class="num">51.980,00</span><span class="st"><span class="chip rev">REV</span></span></div>
+       <div class="rowx"><span class="rn">5</span><span>27-33333333-4</span><span>06/06</span><span class="num">9.340,00</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">6</span><span>30-11111111-9</span><span>06/06</span><span class="num">212.744,10</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">7</span><span>33-44444444-5</span><span>07/06</span><span class="num">37.600,00</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">8</span><span>30-22222222-8</span><span>07/06</span><span class="num">51.980,00</span><span class="st"><span class="chip dup">DUP</span></span></div>
+      </div>
+      <div class="xls-f" id="hv-foot">
+       <span><b>9</b> ok</span><span class="d2">2 duplicados</span><span class="d3">1 a revisar</span><span class="ml">0,68 s/doc</span>
+      </div>
+     </div>
+    </div>
+
+    <div class="stat">
+     <span class="dot" id="hv-dot"></span>
+     <span class="cnt" id="hv-cnt">lote listo para procesar</span>
+     <span class="bar"><i id="hv-bar"></i></span>
+     <span class="ml">nada sale de tu equipo</span>
+    </div>
+
    </div>
   </div>
  </div>
 </div></div>
 <script>
+/* Hero · la línea de lectura: un PDF del lote se lee y escribe SU fila.
+   Con "reducir movimiento" se muestra directamente el lote terminado. */
 (function(){
- var s=document.getElementById('hvizStage'); if(!s) return;
- var w=s.parentElement;
- function fit(){ var k=Math.min(1, w.clientWidth/440);
-  s.style.transform='scale('+k+')'; w.style.height=(520*k)+'px'; }
- addEventListener('resize', fit); fit();
+ var viz=document.getElementById('hviz'); if(!viz) return;
+ var tabs=[].slice.call(document.querySelectorAll('#hv-tabs .tab'));
+ var more=document.getElementById('hv-more'), pane=document.getElementById('hv-pane');
+ var page=document.getElementById('hv-page'), scan=document.getElementById('hv-scan');
+ var rowsBox=document.getElementById('hv-rows'), rows=[].slice.call(rowsBox.children);
+ var foot=document.getElementById('hv-foot'), cnt=document.getElementById('hv-cnt');
+ var bar=document.getElementById('hv-bar'), dot=document.getElementById('hv-dot'), xlsn=document.getElementById('hv-n');
+ var num=document.getElementById('hv-num'), cuit=document.getElementById('hv-cuit'), tot=document.getElementById('hv-tot');
+ var toast=document.getElementById('hv-toast'), deck=document.getElementById('deck3d');
+ var DOCS=[
+  {n:'0001-00012345',f:'04/06/2026',c:'30-11111111-9',cae:'75112233440017',t:'124.500,00'},
+  {n:'0001-00012346',f:'04/06/2026',c:'33-11111111-9',cae:'75112233440018',t:'86.200,00'},
+  {n:'0001-00012347',f:'05/06/2026',c:'30-11111111-9',cae:'75112233440019',t:'124.500,00'}
+ ];
+ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+ function pintar(d){ num.innerHTML=d.n+'<br>'+d.f; cuit.textContent='CUIT '+d.c+' · CAE '+d.cae; tot.textContent=d.t; }
+ function final(){
+  rows.forEach(function(r){r.classList.add('in')});
+  foot.classList.add('in'); cnt.textContent='12 de 12 procesados'; bar.style.width='100%';
+  dot.classList.add('done'); xlsn.textContent='12 filas'; tabs.forEach(function(t){t.classList.add('done')});
+ }
+ async function reset(){
+  rowsBox.style.transition='opacity .45s'; rowsBox.style.opacity='0';
+  foot.classList.remove('in'); toast.classList.remove('in'); await sleep(450);
+  rows.forEach(function(r){r.classList.remove('in','flash')});
+  bar.style.width='0'; dot.classList.remove('done'); cnt.textContent='lote listo para procesar';
+  xlsn.textContent='— filas'; more.classList.remove('hot');
+  tabs.forEach(function(t){t.classList.remove('on','done')});
+  rowsBox.style.opacity='1';
+ }
+ async function ciclo(){
+  await reset(); await sleep(650);
+  for(var i=0;i<3;i++){
+   tabs[i].classList.add('on');
+   if(i>0){ page.classList.add('swap'); await sleep(180); pintar(DOCS[i]); page.classList.remove('swap'); await sleep(160); }
+   else { pintar(DOCS[0]); }
+   cnt.textContent='leyendo '+(i+1)+' de 12';
+   scan.style.setProperty('--h',(pane.clientHeight-32)+'px');
+   pane.classList.add('reading'); await sleep(1150); pane.classList.remove('reading');
+   rows[i].classList.add('in','flash');
+   xlsn.textContent=(i+1)+' fila'+(i?'s':''); bar.style.width=((i+1)/12*100)+'%';
+   if(i===2){ toast.classList.add('in'); }
+   await sleep(300); rows[i].classList.remove('flash');
+   tabs[i].classList.remove('on'); tabs[i].classList.add('done');
+   await sleep(320);
+  }
+  more.classList.add('hot');
+  for(var j=3;j<rows.length;j++){
+   rows[j].classList.add('in');
+   cnt.textContent='leyendo '+(j+1)+' de 12';
+   bar.style.width=((j+1)/12*100)+'%'; xlsn.textContent=(j+1)+' filas';
+   await sleep(190);
+  }
+  cnt.textContent='12 de 12 procesados'; bar.style.width='100%';
+  dot.classList.add('done'); xlsn.textContent='12 filas'; foot.classList.add('in');
+  await sleep(4200); ciclo();
+ }
+ if(reduce){ final(); } else { ciclo(); }
+
+ /* el panel gira apenas con el cursor: objeto físico, no truco (±4°) */
+ if(!reduce && deck && matchMedia('(pointer:fine)').matches){
+  var hero=viz.closest('.hero'), raf=0;
+  hero.addEventListener('mousemove',function(e){
+   if(raf) return;
+   raf=requestAnimationFrame(function(){
+    raf=0; var r=hero.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    deck.style.transform='rotateY('+(-9+x*7).toFixed(2)+'deg) rotateX('+(2.4-y*4.5).toFixed(2)+'deg)';
+   });
+  });
+  hero.addEventListener('mouseleave',function(){ deck.style.transform=''; });
+ }
 })();
 </script>
 </section>
@@ -454,7 +747,8 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
   <div class="p-card">
    <div class="pn">01 / TIEMPO</div>
    <h3>Horas perdidas en tareas repetitivas</h3>
-   <p>Abrir cada PDF, copiar datos, pegarlos en Excel, comparar a mano. <strong>Cientos de documentos por semana</strong> que consumen el tiempo de profesionales caros.</p>
+   <p>Abrir cada PDF, copiar datos, pegarlos en Excel, comparar a mano. <strong>Cientos de documentos por semana</strong>, uno por uno.</p>
+   <p class="p-cost">Pagarle el sueldo a un profesional calificado para que pase mañanas enteras tipeando CAEs, CUITs y montos a mano no es ineficiente: <strong>es una pérdida directa de dinero y rentabilidad</strong> para tu estructura.</p>
   </div>
   <div class="p-card">
    <div class="pn">02 / PRIVACIDAD</div>
@@ -497,6 +791,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
   <div class="txt">
    <div class="k">Laboratorio de plantillas</div>
    <h3>Configurás la plantilla una sola vez</h3>
+   <div class="speed"><span class="sp-ic">⏱</span><span>Curva de aprendizaje cero: configurás tu primera plantilla en <b>menos de 3 minutos</b>, 100% visual y sin escribir código.</span></div>
    <p>Definís los campos a extraer (CUIT, fecha, monto, CAE…) con anclas de texto o zonas visuales. Después, cada lote sale solo.</p>
    <div class="solves"><b>Para estudios contables</b><span>Se configura una sola vez, de forma visual e intuitiva — y a partir de ahí, cada lote nuevo sale solo, sin volver a tipear.</span></div>
    <ul>
@@ -556,9 +851,10 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 <!-- ===== CENTINELA DEMO ===== -->
 <section class="cent" id="demo"><div class="wrap">
  <div class="sh">
-  <div class="k">Demo · El Centinela</div>
+  <div class="k">El Centinela</div>
   <h2>Auditoría de PDFs en tiempo real</h2>
   <p>El Centinela monitorea tu carpeta. Cada PDF que llega se detecta, procesa y clasifica automáticamente — sin que toques nada, y sin que el archivo salga de tu equipo.</p>
+  <p class="cent-nota">Lo de abajo es una <b>animación de ejemplo</b> que corre acá mismo, para que veas cómo trabaja el Centinela. Si querés usar la interfaz de verdad, entrá a la <a href="app/">demo online interactiva →</a></p>
  </div>
  <div class="cent-ui">
   <div class="cent-h">
@@ -737,7 +1033,8 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  <h2>Automatizá tu trabajo documental — 14 días gratis</h2>
  <p>Sin tarjeta, sin compromiso, sin enviar un solo documento a la nube.</p>
  <div class="cta">
-  <button class="btn btn-p btn-lg" onclick="openLead('TRIAL')">Empezar ahora</button>
+  <button class="btn btn-p btn-lg btn-hero" onclick="openLead('TRIAL')"><span class="bi">⇩</span> Descargar prueba gratis</button>
+  <a href="app/" class="btn btn-o btn-lg"><span class="pl">▶</span> Probar la demo online</a>
   <a href="#precios" class="btn btn-o btn-lg">Ver planes</a>
  </div>
 </div></section>

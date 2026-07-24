@@ -152,10 +152,41 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .floor{position:absolute;left:6%;right:6%;bottom:-54px;height:92px;pointer-events:none;
  transform:translateZ(-70px);filter:blur(26px);
  background:radial-gradient(58% 100% at 52% 0,rgba(79,134,247,.34),transparent 72%)}
-.win{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line2);
+/* La ventana NO clipea: adentro conviven capas a distinta profundidad.
+   El clip vive en .win-clip, así el documento puede flotar por encima. */
+.win{position:relative;transform-style:preserve-3d}
+.win-clip{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line2);
  background:linear-gradient(180deg,#141F35,#0B1120);
  box-shadow:-38px 54px 110px -40px rgba(0,0,0,.95),-10px 18px 40px -22px rgba(0,0,0,.8),
             inset 0 1px 0 rgba(255,255,255,.07),inset -1px 0 0 rgba(255,255,255,.06)}
+/* canto real: una cara lateral girada 90° ⇒ el panel tiene espesor */
+.edge{position:absolute;top:6px;bottom:6px;right:0;width:18px;border-radius:2px;
+ transform-origin:right center;transform:rotateY(90deg) translateZ(9px);
+ background:linear-gradient(90deg,#0A1220,#060B15 60%,#04070E);
+ box-shadow:inset 1px 0 0 rgba(150,180,235,.10)}
+/* reflejo del vidrio: se desplaza con el parallax */
+.gloss{position:absolute;inset:0;border-radius:14px;pointer-events:none;transform:translateZ(3px);
+ background:linear-gradient(104deg,transparent 34%,rgba(190,215,255,.07) 47%,rgba(190,215,255,.02) 54%,transparent 64%);
+ transition:background-position .3s ease-out;background-size:220% 100%;background-position:var(--gx,40%) 0}
+
+/* ── el documento flotando POR ENCIMA de la app (translateZ real).
+      Sobresale del marco por la izquierda: ahí se lee que está adelante. ── */
+.doc3d{position:absolute;left:-26px;top:44px;bottom:58px;width:calc(42% - 6px);
+ transform:translateZ(52px);overflow:hidden;border-radius:3px;
+ box-shadow:-26px 34px 56px -16px rgba(0,0,0,.95),-8px 12px 24px -10px rgba(0,0,0,.75)}
+/* entra desde arriba y sale hacia la planilla: el movimiento cuenta el flujo */
+.doc3d.out{animation:docOut .40s cubic-bezier(.55,0,.75,.1) forwards}
+.doc3d.enter{animation:docIn .52s cubic-bezier(.16,.84,.24,1) backwards}
+@keyframes docOut{to{transform:translateZ(12px) translate(54px,30px) rotateY(-13deg) scale(.86);opacity:0}}
+@keyframes docIn{from{transform:translateZ(92px) translateY(-40px) scale(1.05);opacity:0}
+ to{transform:translateZ(52px) translateY(0) scale(1);opacity:1}}
+/* sombra de contacto: lo que hace creer que está suspendido */
+.doc-shadow{position:absolute;left:-18px;width:calc(42% - 22px);bottom:50px;height:28px;pointer-events:none;
+ transform:translateZ(8px);filter:blur(13px);border-radius:50%;
+ background:radial-gradient(60% 100% at 50% 50%,rgba(0,0,0,.8),transparent 72%)}
+/* el hueco de donde salió el documento */
+.slot{position:relative;border-right:1px solid var(--line);background:rgba(4,8,16,.5);overflow:hidden}
+.slot::before{content:"";position:absolute;inset:14px;border:1px dashed rgba(150,180,235,.13);border-radius:3px}
 
 /* pestañas del lote */
 .tabs{display:flex;background:rgba(6,10,19,.55);border-bottom:1px solid var(--line);overflow:hidden}
@@ -172,9 +203,9 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
 /* escenario: documento | planilla */
 .stage{display:grid;grid-template-columns:.8fr 1.2fr;min-height:330px}
-.pane-doc{position:relative;padding:16px;border-right:1px solid var(--line);background:rgba(6,10,19,.35);overflow:hidden}
-.page{position:relative;height:100%;background:linear-gradient(180deg,#FBFBF9,#F0F0EC);border-radius:2px;padding:15px 14px 13px;
- display:flex;flex-direction:column;color:#1B1A18;box-shadow:0 16px 30px -16px rgba(0,0,0,.9);transition:opacity .18s}
+.page{position:relative;height:100%;background:linear-gradient(180deg,#FDFDFB,#EFEFEB);border-radius:3px;padding:15px 14px 13px;
+ display:flex;flex-direction:column;color:#1B1A18;transition:opacity .18s;
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 0 0 1px rgba(27,26,24,.06)}
 .page.swap{opacity:.25}
 .pg-h{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:1.5px solid rgba(27,26,24,.26);padding-bottom:8px}
 .pg-h b{font-size:11.5px;font-weight:700}
@@ -186,16 +217,19 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .pg-tot span{font-family:var(--mono);font-size:7.5px;letter-spacing:.12em;color:#6E6B63}
 .pg-tot b{font-family:var(--mono);font-size:14px}
 /* la línea de lectura: el mismo gesto del logo */
-.scan{position:absolute;left:16px;right:16px;top:16px;height:2px;opacity:0;z-index:2;
+/* la línea de lectura recorre el documento suspendido */
+.scan{position:absolute;left:0;right:0;top:0;height:2px;opacity:0;z-index:2;
  background:linear-gradient(90deg,transparent,#EAF2FF,transparent);
  box-shadow:0 0 18px 4px rgba(79,134,247,.9),0 0 40px 10px rgba(79,134,247,.4)}
 .scan::after{content:"";position:absolute;left:0;right:0;top:0;height:64px;
  background:linear-gradient(180deg,rgba(79,134,247,.30),transparent)}
-.pane-doc.reading .scan{animation:scanDown 1.15s cubic-bezier(.5,0,.5,1) forwards}
+.doc3d.reading .scan{animation:scanDown 1.15s cubic-bezier(.5,0,.5,1) forwards}
+.doc3d.reading{box-shadow:-22px 30px 50px -16px rgba(0,0,0,.92),0 0 0 1px rgba(79,134,247,.5),0 0 34px rgba(79,134,247,.35)}
 @keyframes scanDown{0%{opacity:0;transform:translateY(0)}8%{opacity:1}88%{opacity:1}100%{opacity:0;transform:translateY(var(--h,268px))}}
-.doc-cap{position:absolute;left:16px;bottom:18px;font-family:var(--mono);font-size:8.5px;color:var(--ac);
- background:rgba(11,17,32,.82);padding:3px 7px;border-radius:3px;opacity:0;transition:opacity .2s;z-index:3}
-.pane-doc.reading .doc-cap{opacity:1}
+.doc-cap{position:absolute;left:14px;bottom:14px;font-family:var(--mono);font-size:8.5px;color:var(--ac);
+ background:rgba(11,17,32,.9);border:1px solid rgba(79,134,247,.3);padding:3px 7px;border-radius:3px;
+ opacity:0;transition:opacity .2s;z-index:3}
+.slot.reading .doc-cap{opacity:1}
 
 /* planilla: una fila por documento leído */
 .pane-xls{display:flex;flex-direction:column;background:#0D1523}
@@ -257,13 +291,23 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 @media (max-width:1080px){.hviz{justify-self:center;margin:26px auto 0;max-width:560px}}
 @media (max-width:620px){
  .stage{grid-template-columns:1fr}
- .pane-doc{border-right:0;border-bottom:1px solid var(--line);height:206px}
+ .slot{border-right:0;border-bottom:1px solid var(--line);height:214px}
  .tab{padding:9px 9px;font-size:8.5px;gap:5px}
  .tab:nth-child(3){display:none}      /* con dos pestañas alcanza para leer "lote" */
- .toast{left:0;right:0;bottom:-20px;transform:translate3d(0,10px,60px) scale(.97)}
+ .toast{left:0;right:0;bottom:-38px;transform:translate3d(0,10px,60px) scale(.97)}
  .toast.in{transform:translate3d(0,0,60px) scale(1)}
  .deck3d{transform:none}
  .mark{display:none}
+ /* sin 3D: el documento se apoya sobre su hueco, sin salirse de pantalla */
+ .doc3d{left:14px;right:14px;width:auto;top:48px;bottom:auto;height:198px;transform:none;
+  box-shadow:0 18px 30px -14px rgba(0,0,0,.9)}
+ .doc3d.out{animation:docOutM .4s cubic-bezier(.55,0,.75,.1) forwards}
+ .doc3d.enter{animation:docInM .5s cubic-bezier(.16,.84,.24,1) backwards}
+ @keyframes docOutM{to{transform:translateY(24px) scale(.93);opacity:0}}
+ @keyframes docInM{from{transform:translateY(-26px) scale(1.03);opacity:0}to{transform:none;opacity:1}}
+ .doc-shadow{display:none}
+ .page{padding:12px}
+ .pg-rows{gap:5px}
 }
 /* ── Chip de velocidad de configuración (curva de aprendizaje cero) ── */
 .speed{display:inline-flex;align-items:flex-start;gap:9px;margin:0 0 16px;padding:10px 15px;border:1px solid rgba(31,157,99,.32);background:rgba(57,192,124,.09);border-radius:12px;font-size:13.5px;line-height:1.4;color:var(--ink);font-weight:500}
@@ -591,6 +635,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
     <span class="t-tx"><b>Duplicado detectado</b><em>FC_000125 · ya estaba en el lote</em></span>
    </div>
    <div class="win">
+    <div class="win-clip">
 
     <div class="tabs" id="hv-tabs">
      <span class="tab"><span class="pdf">PDF</span>FC_000123.pdf</span>
@@ -600,20 +645,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
     </div>
 
     <div class="stage">
-     <div class="pane-doc" id="hv-pane">
-      <div class="page" id="hv-page">
-       <div class="pg-h"><b>Factura A</b><em id="hv-num">0001-00012345<br>04/06/2026</em></div>
-       <div class="pg-rows">
-        <span class="d" style="width:64%"></span><span class="d"></span>
-        <span class="d" style="width:52%"></span><span class="d" style="width:82%"></span>
-        <span class="d" style="width:44%"></span>
-       </div>
-       <div class="pg-cuit" id="hv-cuit">CUIT 30-11111111-9 · CAE 75112233440017</div>
-       <div class="pg-tot"><span>TOTAL</span><b id="hv-tot">124.500,00</b></div>
-      </div>
-      <span class="scan" id="hv-scan"></span>
-      <span class="doc-cap">leyendo…</span>
-     </div>
+     <div class="slot" id="hv-pane"><span class="doc-cap">leyendo…</span></div>
 
      <div class="pane-xls">
       <div class="xls-h"><span class="xi">X</span><b>lote_2026-06.xlsx</b><span id="hv-n">— filas</span></div>
@@ -641,6 +673,27 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
      <span class="ml">nada sale de tu equipo</span>
     </div>
 
+    </div><!-- /win-clip -->
+
+    <span class="edge"></span>
+    <span class="gloss" id="hv-gloss"></span>
+    <span class="doc-shadow"></span>
+
+    <!-- el documento en lectura, suspendido por delante del panel -->
+    <div class="doc3d" id="hv-doc">
+     <div class="page" id="hv-page">
+      <div class="pg-h"><b>Factura A</b><em id="hv-num">0001-00012345<br>04/06/2026</em></div>
+      <div class="pg-rows">
+       <span class="d" style="width:64%"></span><span class="d"></span>
+       <span class="d" style="width:52%"></span><span class="d" style="width:82%"></span>
+       <span class="d" style="width:44%"></span>
+      </div>
+      <div class="pg-cuit" id="hv-cuit">CUIT 30-11111111-9 · CAE 75112233440017</div>
+      <div class="pg-tot"><span>TOTAL</span><b id="hv-tot">124.500,00</b></div>
+     </div>
+     <span class="scan" id="hv-scan"></span>
+    </div>
+
    </div>
   </div>
  </div>
@@ -652,6 +705,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  var viz=document.getElementById('hviz'); if(!viz) return;
  var tabs=[].slice.call(document.querySelectorAll('#hv-tabs .tab'));
  var more=document.getElementById('hv-more'), pane=document.getElementById('hv-pane');
+ var doc3d=document.getElementById('hv-doc'), gloss=document.getElementById('hv-gloss');
  var page=document.getElementById('hv-page'), scan=document.getElementById('hv-scan');
  var rowsBox=document.getElementById('hv-rows'), rows=[].slice.call(rowsBox.children);
  var foot=document.getElementById('hv-foot'), cnt=document.getElementById('hv-cnt');
@@ -684,11 +738,18 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
   await reset(); await sleep(650);
   for(var i=0;i<3;i++){
    tabs[i].classList.add('on');
-   if(i>0){ page.classList.add('swap'); await sleep(180); pintar(DOCS[i]); page.classList.remove('swap'); await sleep(160); }
-   else { pintar(DOCS[0]); }
+   if(i>0){
+    /* el leído se va hacia la planilla y el siguiente cae desde arriba */
+    doc3d.classList.add('out'); await sleep(400);
+    pintar(DOCS[i]);
+    doc3d.classList.remove('out'); doc3d.classList.add('enter');
+    await sleep(520); doc3d.classList.remove('enter');
+   } else { pintar(DOCS[0]); }
    cnt.textContent='leyendo '+(i+1)+' de 12';
-   scan.style.setProperty('--h',(pane.clientHeight-32)+'px');
-   pane.classList.add('reading'); await sleep(1150); pane.classList.remove('reading');
+   scan.style.setProperty('--h',doc3d.clientHeight+'px');
+   pane.classList.add('reading'); doc3d.classList.add('reading');
+   await sleep(1150);
+   pane.classList.remove('reading'); doc3d.classList.remove('reading');
    rows[i].classList.add('in','flash');
    xlsn.textContent=(i+1)+' fila'+(i?'s':''); bar.style.width=((i+1)/12*100)+'%';
    if(i===2){ toast.classList.add('in'); }
@@ -717,10 +778,13 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    raf=requestAnimationFrame(function(){
     raf=0; var r=hero.getBoundingClientRect();
     var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
-    deck.style.transform='rotateY('+(-9+x*7).toFixed(2)+'deg) rotateX('+(2.4-y*4.5).toFixed(2)+'deg)';
+    deck.style.transform='rotateY('+(-9+x*8).toFixed(2)+'deg) rotateX('+(2.4-y*5).toFixed(2)+'deg)';
+    if(gloss) gloss.style.setProperty('--gx',(18+x*64).toFixed(1)+'%');   /* el reflejo sigue a la luz */
    });
   });
-  hero.addEventListener('mouseleave',function(){ deck.style.transform=''; });
+  hero.addEventListener('mouseleave',function(){
+   deck.style.transform=''; if(gloss) gloss.style.setProperty('--gx','40%');
+  });
  }
 })();
 </script>

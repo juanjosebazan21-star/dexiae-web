@@ -48,7 +48,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="ejecucion.png">
 
 <style>
@@ -63,7 +63,10 @@
  --paper:#F7F5EF;--paper2:#FBFAF6;--ink:#151721;--ink2:#565C6B;--ink3:#8A8F9C;
  --pline:rgba(24,20,12,.10);--pline2:rgba(24,20,12,.16);
  --sans:'Inter',system-ui,Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
- --serif:'Instrument Serif',Georgia,serif;
+ /* Titulares: IBM Plex Sans — tipografía de documentación técnica. Da el tono
+    institucional del rubro y convive con JetBrains Mono de los datos.
+    Inter se queda para el cuerpo y la interfaz. */
+ --disp:'IBM Plex Sans','Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
@@ -138,9 +141,10 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .eyebrow .d{position:relative;width:6px;height:6px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 3px rgba(79,134,247,.18)}
 .eyebrow .d::after{content:"";position:absolute;inset:-3px;border-radius:50%;border:1px solid rgba(79,134,247,.55);animation:ping 2.6s ease-out infinite}
 @keyframes ping{0%{transform:scale(.7);opacity:.9}70%,100%{transform:scale(2.1);opacity:0}}
-.hero h1{font-size:clamp(38px,4.4vw,58px);font-weight:600;line-height:1.03;letter-spacing:-.042em;margin-bottom:0;color:var(--hi);text-wrap:balance}
-/* el énfasis en serif itálica: el contraste entre el sistema y el oficio */
-.hero h1 em{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.008em;color:var(--ac);padding-right:.04em}
+.hero h1{font-family:var(--disp);font-size:clamp(37px,4.3vw,57px);font-weight:600;line-height:1.05;
+ letter-spacing:-.028em;margin-bottom:0;color:var(--hi);text-wrap:balance}
+/* el énfasis va por color, no por otra tipografía */
+.hero h1 em{font-style:normal;font-weight:600;color:var(--ac)}
 
 /* ── La pieza: ventana del lote en 3D ─────────────────────────────────────── */
 .hviz{position:relative;width:100%;justify-self:end;perspective:1600px;perspective-origin:62% 42%}
@@ -573,6 +577,14 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .nov-cta{text-align:center;margin-top:28px}
 .nov-cta a{color:var(--ac);font-weight:600;text-decoration:none;font-size:15px}
 .nov-cta a:hover{text-decoration:underline}
+
+/* ===== SISTEMA TIPOGRÁFICO DE TITULARES ==================================
+   Toda la jerarquía de títulos comparte la display; el cuerpo sigue en Inter.
+   IBM Plex es más ancha que Inter, así que el tracking se afloja. */
+.sh h2,.h2,.final h2,.feat h3,.p-card h3,.price-card h3,.cent-nm{font-family:var(--disp)}
+.sh h2,.h2,.final h2{font-weight:600;letter-spacing:-.024em}
+.feat h3{font-weight:600;letter-spacing:-.02em}
+.p-card h3{font-weight:600;letter-spacing:-.014em}
 </style>
 </head>
 <body>

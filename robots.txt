@@ -1,4 +1,38 @@
+# getdexiae.com — todo abierto a buscadores y a asistentes de IA.
+# La demo embebida (/app/) se puede RASTREAR pero no indexar: eso se resuelve
+# con el header X-Robots-Tag del archivo _headers, no con Disallow. Si la
+# bloquearamos aca, Google nunca leeria ese header y podria indexar la URL igual.
+
 User-agent: *
+Allow: /
+
+# Asistentes de IA / buscadores generativos: explicitos para que quede claro
+# que el contenido se puede usar como fuente y citar.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
 Allow: /
 
 Sitemap: https://getdexiae.com/sitemap.xml

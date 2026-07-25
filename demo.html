@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
+<html lang="es-AR" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Demo online — DEXIAE · La interfaz real, sin instalar nada</title>
 <meta name="description" content="Usá la interfaz real de DEXIAE en tu navegador: procesá un lote de facturas ficticias, convertí un extracto bancario y descargá el Excel real que genera el sistema. Sin instalar nada.">
-<link rel="canonical" href="https://getdexiae.com/demo.html">
+<link rel="canonical" href="https://getdexiae.com/demo">
 <meta name="robots" content="index,follow">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Demo online de DEXIAE — la interfaz real, en tu navegador">
 <meta property="og:description" content="Simulación interactiva con datos ficticios sobre la interfaz real: extracción por lote, duplicados, extracto bancario con saldos verificados. Descargá el Excel de ejemplo.">
-<meta property="og:url" content="https://getdexiae.com/demo.html">
+<meta property="og:url" content="https://getdexiae.com/demo">
 <meta property="og:image" content="https://getdexiae.com/og-image.png">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -175,17 +175,25 @@ tr.new{animation:pop .3s ease}
  .tb-sub{display:none}
 }
 </style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Demo online","item":"https://getdexiae.com/demo"}]}
+</script>
 </head>
 <body>
 
-<div class="dbar">▲ <b>DEMO ONLINE</b> con datos ficticios — esta es la interfaz real de DEXIAE. <a href="app/">Recorré la app completa</a> o probala con tus archivos: <a href="index.html#planes">trial gratis 14 días</a></div>
+<!-- La pagina es un shell de app y no tenia h1: sin el, Google no sabe de que
+     trata. Va oculto visualmente (patron estandar de accesibilidad) para no
+     alterar el layout; el texto describe lo que la pagina realmente hace. -->
+<h1 style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Demo online de DEXIAE: extraé datos de PDF a Excel en lote y convertí extractos bancarios, sin instalar nada</h1>
+
+<div class="dbar">▲ <b>DEMO ONLINE</b> con datos ficticios — esta es la interfaz real de DEXIAE. <a href="app/">Recorré la app completa</a> o probala con tus archivos: <a href="/#planes">trial gratis 14 días</a></div>
 
 <div class="app">
  <!-- ===== SIDEBAR (réplica de la app) ===== -->
  <aside class="sb">
   <div class="sb-head">
    <div class="sb-brand"><span class="sb-icon">DX</span> DEXIAE</div>
-   <div class="sb-badges"><span class="sb-badge demo">DEMO ONLINE</span><span class="sb-badge ver">v2.0</span></div>
+   <div class="sb-badges"><span class="sb-badge demo">DEMO ONLINE</span><span class="sb-badge ver">v2.1</span></div>
    <div class="sb-client"><span class="sb-dot"></span>Estudio de ejemplo</div>
   </div>
   <div class="sb-health">
@@ -225,7 +233,7 @@ tr.new{animation:pop .3s ease}
    </div>
    <div class="tb-right">
     <button class="theme-btn" onclick="toggleTema()" id="theme-btn">☀ Modo claro</button>
-    <a class="btn btn-p" href="index.html#planes">Probar gratis</a>
+    <a class="btn btn-p" href="/#planes">Probar gratis</a>
    </div>
   </div>
   <div class="content">
@@ -262,7 +270,7 @@ tr.new{animation:pop .3s ease}
     <div class="band" id="band-run">
      <h2>Esto fue una simulación. Con tus PDFs reales es igual.</h2>
      <p>DEXIAE se instala en tu PC y procesa <b>100% offline</b>: ni un documento sale de tu equipo.</p>
-     <a class="btn btn-p btn-big" href="index.html#planes">Probar gratis 14 días — sin tarjeta</a>
+     <a class="btn btn-p btn-big" href="/#planes">Probar gratis 14 días — sin tarjeta</a>
      <div class="sub">Windows 10/11 · Todas las funciones desbloqueadas · 100 documentos de prueba · <a href="app/">o seguí recorriendo la app completa →</a></div>
     </div>
    </div>
@@ -298,12 +306,12 @@ tr.new{animation:pop .3s ease}
     <div class="band" id="band-tools">
      <h2>Esto fue una simulación. Con tus extractos reales es igual.</h2>
      <p>DEXIAE se instala en tu PC y procesa <b>100% offline</b>. Extractos ilimitados en todos los planes.</p>
-     <a class="btn btn-p btn-big" href="index.html#planes">Probar gratis 14 días — sin tarjeta</a>
+     <a class="btn btn-p btn-big" href="/#planes">Probar gratis 14 días — sin tarjeta</a>
      <div class="sub">7 bancos calibrados · una hoja por extracto · cadena de saldos verificada · <a href="app/">o seguí recorriendo la app completa →</a></div>
     </div>
    </div>
 
-   <div class="foot-note">© 2026 DEXIAE · Demo con datos 100% ficticios — ningún dato real fue usado · <a href="index.html">getdexiae.com</a> · <a href="privacidad.html">Privacidad</a></div>
+   <div class="foot-note">© 2026 DEXIAE · Demo con datos 100% ficticios — ningún dato real fue usado · <a href="/">getdexiae.com</a> · <a href="/privacidad">Privacidad</a></div>
   </div>
  </div>
 </div>
@@ -321,7 +329,7 @@ tr.new{animation:pop .3s ease}
    <li><b>Validación</b> — reglas de negocio sobre lo extraído</li>
   </ul>
   <p style="margin-top:8px">Lo ves todo funcionando con el trial: <b>14 días gratis, sin tarjeta, 100% offline</b>. Y vamos sumando más demos online, de a poco.</p>
-  <a class="btn btn-p btn-big" href="index.html#planes" style="width:100%">Descargar el trial</a>
+  <a class="btn btn-p btn-big" href="/#planes" style="width:100%">Descargar el trial</a>
  </div>
 </div>
 

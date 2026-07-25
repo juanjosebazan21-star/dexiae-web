@@ -1,0 +1,25 @@
+# Cloudflare Pages — headers por ruta.
+# OJO: este archivo NO se sirve, lo consume el build de Pages.
+
+# La demo es la app real embebida (~320 KB de UI). No debe indexarse: para SEO
+# la puerta es /demo (la demo guiada). Sin esto Google la trata como pagina mas
+# y compite con la home por relevancia.
+/app/*
+  X-Robots-Tag: noindex, follow
+
+# Los Excel de ejemplo tampoco son contenido de busqueda.
+/demo-files/*
+  X-Robots-Tag: noindex
+
+# Capturas y assets: cache largo (no cambian de nombre seguido, pero tampoco
+# rompe nada si se reemplazan: Pages invalida en cada deploy).
+/*.png
+  Cache-Control: public, max-age=86400
+
+/*.jpg
+  Cache-Control: public, max-age=86400
+
+# Endurecimiento basico (no afecta SEO, evita sorpresas).
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin

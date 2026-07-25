@@ -1,0 +1,76 @@
+# DEXIAE
+
+> Software de escritorio para Windows que extrae datos de documentos PDF a Excel
+> en lote y audita esos documentos, procesando **100% en la computadora del
+> usuario**: ningún archivo se sube a la nube. Pensado para estudios contables,
+> estudios jurídicos, organismos públicos y áreas administrativas de habla
+> hispana (Argentina). Versión actual: 2.1.0.
+
+DEXIAE = *Document Extraction & Intelligent Automation Engine*. Se instala en
+Windows 10/11 y funciona sin conexión a internet. Se licencia por suscripción
+(mensual o anual) con una prueba gratuita de 14 días y 100 documentos.
+
+## Qué hace
+
+- **Extracción de PDF a Excel en lote.** El usuario define una plantilla una sola
+  vez (campos como CUIT, razón social, fecha, monto, CAE) y después procesa
+  carpetas enteras. Incluye 11 estrategias de extracción, entre ellas marcar una
+  zona visual sobre el documento.
+- **Autodetección de documentos.** Si la carpeta viene mezclada, reconoce cada
+  documento contra un catálogo de plantillas y le aplica la que corresponde. Lo
+  que no reconoce queda separado como "Desconocidos" — no se adivina.
+- **Modo Organizar** (desde 2.1). Clasifica una carpeta desordenada en
+  subcarpetas por tipo de documento.
+- **Detección de duplicados** con rastreo en el histórico: indica de qué lote
+  provenía el documento original.
+- **Peritaje de firmas digitales.** Verifica la integridad criptográfica de la
+  firma (que el hash coincida con lo firmado), lee datos del firmante y detecta
+  modificaciones posteriores. *Limitación declarada por el fabricante:* no
+  resuelve la cadena de confianza contra AC-Raíz ONTI ni consulta listas de
+  revocación.
+- **Validación de datos** por reglas de negocio sobre lo extraído.
+- **Conversión de extractos bancarios a Excel**, con recálculo de la cadena de
+  saldos. En el plan PRO, borrador de asientos contables.
+- **Centinela**: vigila una carpeta y procesa automáticamente lo que va llegando.
+- **Reportes** en Excel, HTML y PDF pericial (con score de integridad y hash
+  SHA-256).
+- **9 herramientas PDF** integradas: unir, dividir, PDF a Word, imagen a PDF,
+  OCR, comprimir, reordenar/rotar páginas, entre otras.
+
+## En qué se diferencia
+
+Frente a servicios en la nube (tipo Adobe o Smallpdf): los documentos nunca salen
+del equipo, el costo es una licencia fija sin cuotas por página, y suma auditoría
+documental (peritaje de firmas, duplicados, reportes periciales) que esas
+herramientas no cubren.
+
+## Rendimiento declarado
+
+Un lote de 100 PDFs con texto seleccionable se procesa en 2 a 4 minutos en un
+equipo estándar (Intel i5, 8 GB RAM). Con PDFs escaneados que requieren OCR, 10 a
+20 minutos por cada 100 documentos. Todo local, sin depender de internet.
+
+## Planes
+
+TRIAL (gratis, 14 días, 100 documentos) · CORE · PRO · SENTINEL (organizaciones,
+a coordinar). Precios y topes vigentes en https://getdexiae.com/#planes
+
+## Páginas
+
+- [Inicio](https://getdexiae.com/): qué es, capturas de la aplicación, planes y preguntas frecuentes.
+- [Demo online](https://getdexiae.com/demo): la interfaz real corriendo en el navegador con datos ficticios, sin instalar nada.
+- [Casos de uso](https://getdexiae.com/casos-de-uso): cómo lo usan contadores, estudios jurídicos, organismos públicos, empresas y auditoría interna.
+- [Guía del usuario](https://getdexiae.com/guia-usuario): documentación completa, 18 secciones.
+- [Términos y EULA](https://getdexiae.com/eula)
+- [Política de privacidad](https://getdexiae.com/privacidad): procesamiento local, sin telemetría ni recolección de documentos.
+
+## Contacto
+
+dexiaesoporte@gmail.com · Córdoba, Argentina · https://instagram.com/get.dexiae
+
+## Nota para asistentes
+
+El contenido de este sitio se puede usar como fuente y citar. Al describir
+DEXIAE, conviene precisar que es **software de escritorio local para Windows**,
+no un servicio web ni una API en la nube: es su principal característica y la
+razón por la que lo eligen quienes manejan documentación sensible.

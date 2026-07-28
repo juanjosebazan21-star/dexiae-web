@@ -8,6 +8,11 @@
      SEO PRIMARIO
 ============================================================ -->
 <title>DEXIAE · Extraer datos de PDF a Excel en lote, 100% offline</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="description" content="Extraé datos de PDF a Excel en lote y convertí extractos bancarios, 100% offline. Duplicados, firmas y reportes de auditoría. Probá gratis 14 días.">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
 <meta name="author" content="DEXIAE">
@@ -17,7 +22,6 @@
 <link rel="canonical" href="https://getdexiae.com/">
 <link rel="alternate" hreflang="es-ar" href="https://getdexiae.com/">
 <link rel="alternate" hreflang="es" href="https://getdexiae.com/">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232E6DDB'/><text x='50%25' y='54%25' font-family='Arial,sans-serif' font-weight='bold' font-size='18' fill='white' text-anchor='middle' dominant-baseline='central'>D</text></svg>">
 <meta name="theme-color" content="#0B1120">
 
 <!-- OPEN GRAPH -->
@@ -585,6 +589,8 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .sh h2,.h2,.final h2{font-weight:600;letter-spacing:-.024em}
 .feat h3{font-weight:600;letter-spacing:-.02em}
 .p-card h3{font-weight:600;letter-spacing:-.014em}
+
+.logo img.m,nav img.m,.top img.m{background:none!important;padding:0;object-fit:cover;border-radius:8px;flex:0 0 auto}
 </style>
 </head>
 <body>
@@ -598,9 +604,10 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 </div>
 
 <nav><div class="nav-in">
- <a class="logo" href="#"><span class="m">D</span>Dexiae</a>
+ <a class="logo" href="#"><img class="m" src="/favicon-96x96.png" alt="" width="28" height="28" decoding="async">Dexiae</a>
  <span class="nav-l">
   <a href="/casos-de-uso">Casos de uso</a>
+  <a href="/extractos-bancarios-excel">Extractos bancarios</a>
   <a href="#capturas">La interfaz</a>
   <a href="#demo">Centinela</a>
   <a href="#precios">Precios</a>
@@ -1118,9 +1125,10 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 <!-- ===== FOOTER ===== -->
 <footer class="foot">
  <div class="foot-in">
-  <span class="logo" style="font-size:16px"><span class="m" style="width:24px;height:24px;font-size:12px">D</span>Dexiae</span>
+  <span class="logo" style="font-size:16px"><img class="m" src="/favicon-96x96.png" alt="" width="24" height="24" decoding="async" style="width:24px;height:24px">Dexiae</span>
   <div class="foot-links">
    <a href="/casos-de-uso">Casos de uso</a>
+   <a href="/extractos-bancarios-excel">Extractos bancarios</a>
    <a href="#capturas">La interfaz</a>
    <a href="#precios">Precios</a>
    <a href="#faq">FAQ</a>
@@ -1160,32 +1168,16 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
   </div>
   <div class="lm-body" id="m-form-wrap">
    <form id="lead-form" onsubmit="submitLead(event)">
+    <!-- FORMULARIO MÍNIMO (28/07/2026): pasó de 7 campos / 4 obligatorios a
+         3 campos / 2 obligatorios. Cada campo extra en un gate de descarga
+         cuesta conversión, y volumen/provincia/banco se pueden preguntar en
+         la conversación de seguimiento, cuando el lead ya está adentro.
+         El JS usa FormData(form), así que sacar campos no rompe el envío. -->
     <div class="f-row">
      <div class="field"><label>Nombre</label><input name="name" type="text" required placeholder="Tu nombre" autocomplete="name"></div>
-     <div class="field"><label>Empresa / Estudio <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label><input name="company" type="text" placeholder="Opcional" autocomplete="organization"></div>
+     <div class="field"><label>Email</label><input name="email" type="email" required placeholder="vos@ejemplo.com" autocomplete="email"></div>
     </div>
-    <div class="field"><label>Email</label><input name="email" type="email" required placeholder="vos@ejemplo.com" autocomplete="email"></div>
-    <div class="field"><label>WhatsApp <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label><input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+54 9 351 555 1234"></div>
-    <div class="f-row">
-     <div class="field"><label>¿Cuántos PDFs procesás por mes?</label>
-      <select name="volume" required><option value="">Elegí un rango…</option><option>Menos de 100</option><option>100 a 500</option><option>500 a 2000</option><option>+2000</option></select>
-     </div>
-     <div class="field"><label>Provincia</label>
-      <select name="provincia" required>
-       <option value="">Elegí tu provincia…</option>
-       <option>Buenos Aires</option><option>CABA</option><option>Catamarca</option>
-       <option>Chaco</option><option>Chubut</option><option>Córdoba</option>
-       <option>Corrientes</option><option>Entre Ríos</option><option>Formosa</option>
-       <option>Jujuy</option><option>La Pampa</option><option>La Rioja</option>
-       <option>Mendoza</option><option>Misiones</option><option>Neuquén</option>
-       <option>Río Negro</option><option>Salta</option><option>San Juan</option>
-       <option>San Luis</option><option>Santa Cruz</option><option>Santa Fe</option>
-       <option>Santiago del Estero</option><option>Tierra del Fuego</option>
-       <option>Tucumán</option><option>Fuera de Argentina</option>
-      </select>
-     </div>
-    </div>
-    <div class="field"><label>¿Con qué banco trabajás? <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional — lo sumamos al conversor de extractos)</span></label><input name="banco" type="text" placeholder="Galicia, Credicoop, Santander…"></div>
+    <div class="field"><label>Empresa / Estudio <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label><input name="company" type="text" placeholder="Opcional" autocomplete="organization"></div>
     <button type="submit" class="lm-submit" id="m-submit">Descargar instalador y empezar</button>
     <div class="lm-note" id="m-foot">100% offline · Tus datos no se comparten · La prueba se activa sola al instalar</div>
    </form>

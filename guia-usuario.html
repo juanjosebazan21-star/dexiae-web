@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guía del usuario · DEXIAE 2.1</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="description" content="Guía completa de DEXIAE 2.1: extracción de PDF a Excel, extractos bancarios, validación de datos, peritaje de firmas y herramientas PDF. 100% offline.">
 <link rel="canonical" href="https://getdexiae.com/guia-usuario">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
@@ -23,7 +28,7 @@
 body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:15.5px}
 a{color:var(--ac);text-decoration:none}a:hover{text-decoration:underline}
 .top{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px}
-.top .m{width:30px;height:30px;border-radius:8px;background:var(--ok);display:grid;place-items:center;font-weight:800;font-size:13px;color:#06281f}
+.top .m{width:30px;height:30px;border-radius:8px;background:none;object-fit:cover;flex:0 0 auto}
 .top b{font-size:16px}.top a{color:#9fb2d4;margin-left:auto;font-size:13.5px}
 .wrap{max-width:860px;margin:0 auto;padding:40px 24px 80px}
 h1{font-size:34px;letter-spacing:-.02em;margin-bottom:6px}
@@ -61,7 +66,7 @@ td b{color:var(--ink)}
 </script>
 </head>
 <body>
-<div class="top"><span class="m">DX</span><b>DEXIAE · Guía del usuario</b><a href="/">← getdexiae.com</a></div>
+<div class="top"><img class="m" src="/favicon-96x96.png" alt="" width="30" height="30" decoding="async"><b>DEXIAE · Guía del usuario</b><a href="/">← getdexiae.com</a></div>
 <div class="wrap">
 
 <h1>Guía del usuario</h1>
@@ -223,7 +228,7 @@ td b{color:var(--ink)}
 </ul></li>
 </ol>
 <p><b>Verificación de cadena de saldos:</b> DEXIAE comprueba que saldo anterior + importe = saldo nuevo en cada fila. Si todo cierra, te avisa "cadena verificada N/N ✓"; si hay un desfase, te marca en qué fila y de cuánto — así detectás cortes o páginas faltantes del resumen antes de conciliar.</p>
-<p><b>Bancos:</b> el motor se calibra por banco (cada uno arma el PDF distinto). Banco Chubut ya está calibrado y verificado; Galicia, Credicoop, Santander y Francés están en calibración. <b>¿Tu banco no está?</b> Escribinos a <a href="mailto:dexiaesoporte@gmail.com">dexiaesoporte@gmail.com</a> con 1 o 2 extractos de muestra (podés tapar los datos — al motor le sirve la estructura, no los valores) y lo sumamos.</p>
+<p><b>Bancos:</b> el motor se calibra por banco (cada uno arma el PDF distinto). Ya están funcionando ocho: Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC, BBVA Francés y Galicia. <b>¿Tu banco no está?</b> Escribinos a <a href="mailto:dexiaesoporte@gmail.com">dexiaesoporte@gmail.com</a> con 1 o 2 extractos de muestra (podés tapar los datos — al motor le sirve la estructura, no los valores) y lo sumamos.</p>
 <p><b>Esta herramienta es ilimitada en todas las ediciones</b>: no gasta tu cupo mensual de documentos. Convertí los que necesites.</p>
 </div>
 

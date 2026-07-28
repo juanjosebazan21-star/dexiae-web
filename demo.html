@@ -4,6 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Demo online — DEXIAE · La interfaz real, sin instalar nada</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="description" content="Usá la interfaz real de DEXIAE en tu navegador: procesá un lote de facturas ficticias, convertí un extracto bancario y descargá el Excel real que genera el sistema. Sin instalar nada.">
 <link rel="canonical" href="https://getdexiae.com/demo">
 <meta name="robots" content="index,follow">
@@ -343,8 +348,8 @@ tr.new{animation:pop .3s ease}
   <form id="gate-form" onsubmit="enviarGate(event)">
    <label>Tu nombre</label>
    <input name="nombre" required placeholder="Nombre y apellido">
-   <label>Estudio / empresa</label>
-   <input name="empresa" required placeholder="Estudio contable, empresa u organismo">
+   <label>Estudio / empresa <span style="opacity:.55;font-weight:400">(opcional)</span></label>
+   <input name="empresa" placeholder="Estudio contable, empresa u organismo">
    <label>Email</label>
    <input name="email" type="email" required placeholder="tu@email.com">
    <button class="btn btn-p btn-big" id="gate-btn" type="submit">Descargar el Excel</button>

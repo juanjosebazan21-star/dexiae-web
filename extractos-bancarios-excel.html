@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Convertí extractos bancarios de PDF a Excel en segundos, y generá el borrador de asientos. Corre en tu computadora, no necesita internet. 8 bancos argentinos; si falta el tuyo, lo calibramos.">
+<meta name="description" content="Convertí extractos bancarios de PDF a Excel en segundos, y generá el borrador de asientos. Corre en tu computadora, no necesita internet. 7 bancos argentinos; si falta el tuyo, lo calibramos.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="DEXIAE">
 <meta name="language" content="es-AR">
@@ -186,6 +186,11 @@ main{padding:60px 0 20px}
 .bancos span::before{content:"🏦";font-size:19px;line-height:1;flex:none;
  filter:drop-shadow(0 2px 5px rgba(79,134,247,.35))}
 .bancos span::after{content:"✓";margin-left:auto;font-size:13px;font-weight:800;color:var(--cta2)}
+.bancos a{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:600;color:var(--ink2);
+ background:transparent;border:1.5px dashed var(--pline);border-radius:14px;padding:15px 17px;
+ text-decoration:none;transition:border-color .15s,color .15s,transform .15s}
+.bancos a::before{content:"➕";font-size:16px;line-height:1;flex:none}
+.bancos a:hover{border-color:var(--ac);color:var(--ac-deep);transform:translateY(-2px)}
 @media(max-width:900px){.bancos{grid-template-columns:1fr 1fr}}
 @media(max-width:460px){.bancos{grid-template-columns:1fr}}
 .calibra{background:#fff;border:1px solid var(--pline);border-left:4px solid var(--ac);border-radius:16px;padding:26px 28px;
@@ -256,7 +261,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[
 {"@type":"Question","name":"¿Cómo convierto un extracto bancario de PDF a Excel?","acceptedAnswer":{"@type":"Answer","text":"Abrís DEXIAE, elegís el PDF del resumen y el sistema detecta el banco, arma la tabla de movimientos y exporta la planilla. Todo el proceso corre en tu computadora."}},
-{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC, BBVA Francés y Galicia. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos en poco tiempo."}},
+{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos en poco tiempo."}},
 {"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},
 {"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},
 {"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, como función del plan PRO. En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},
@@ -316,13 +321,13 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 
  <section class="sec" id="bancos">
   <h2>Bancos que ya lee</h2>
-  <p class="lead">Cada banco arma el PDF a su manera, así que el motor se calibra por banco. Estos ocho ya
+  <p class="lead">Cada banco arma el PDF a su manera, así que el motor se calibra por banco. Estos siete ya
    están funcionando:</p>
   <div class="bancos">
    <span>Banco del Chubut</span><span>Credicoop</span><span>Santander</span><span>Patagonia</span>
-   <span>Macro</span><span>ICBC</span><span>BBVA Francés</span><span>Galicia</span>
+   <span>Macro</span><span>ICBC</span><span>Galicia</span><a href="#calibra">¿Falta el tuyo?</a>
   </div>
-  <div class="calibra">
+  <div class="calibra" id="calibra">
    <div>
     <h3>¿Tu banco no está en la lista? Lo calibramos.</h3>
     <p>Mandanos uno o dos resúmenes de muestra y sumamos tu banco en poco tiempo. <b>Podés tapar los
@@ -503,7 +508,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     ventana) y obtenés la planilla. Está explicado paso a paso en la
     <a href="/guia-usuario" style="color:var(--ac-deep);font-weight:600">guía del usuario</a>.</p></details>
   <details><summary>¿Qué bancos reconoce?</summary>
-   <p>Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC, BBVA Francés y Galicia. Si el tuyo no
+   <p>Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia. Si el tuyo no
     está, <a href="#bancos" style="color:var(--ac-deep);font-weight:600">lo calibramos</a> con un par de
     resúmenes de muestra.</p></details>
   <details><summary>¿Necesito conexión a internet?</summary>

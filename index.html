@@ -1443,6 +1443,18 @@ function toggleCent(){
 })();
 </script>
 <script>
+/* Abre el formulario directo desde otra página: /?plan=TRIAL
+   Antes los CTA de las páginas internas apuntaban a #precios, así que a alguien
+   que ya había decidido "quiero la prueba gratis" lo dejábamos en la grilla de
+   planes teniendo que elegir de nuevo. Un paso de más justo en la conversión. */
+(function(){
+ var p=(new URLSearchParams(location.search).get('plan')||'').toUpperCase();
+ if(!p || typeof openLead!=='function') return;
+ setTimeout(function(){ openLead(p); }, 120);   // deja que termine de pintar
+ history.replaceState({}, '', location.pathname + location.hash);  // URL limpia
+})();
+</script>
+<script>
 /* Reveals al scroll — respeta reduced-motion y no oculta nada sin JS */
 (function(){
  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;

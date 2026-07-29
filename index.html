@@ -1177,7 +1177,18 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
      <div class="field"><label>Nombre</label><input name="name" type="text" required placeholder="Tu nombre" autocomplete="name"></div>
      <div class="field"><label>Email</label><input name="email" type="email" required placeholder="vos@ejemplo.com" autocomplete="email"></div>
     </div>
-    <div class="field"><label>Empresa / Estudio <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label><input name="company" type="text" placeholder="Opcional" autocomplete="organization"></div>
+    <!-- 3er campo: VOLUMEN, no empresa. El nombre del estudio no dice nada que no
+         se pueda preguntar después; el volumen mensual sí califica el lead y además
+         es la pregunta que le hace pensar en el ahorro justo antes de descargar. -->
+    <div class="field"><label>¿Cuántos documentos procesás por mes? <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label>
+     <select name="volumen" autocomplete="off">
+      <option value="">Elegí una opción</option>
+      <option>Menos de 100</option>
+      <option>Entre 100 y 500</option>
+      <option>Entre 500 y 2.000</option>
+      <option>Más de 2.000</option>
+      <option>No lo tengo medido</option>
+     </select></div>
     <button type="submit" class="lm-submit" id="m-submit">Descargar instalador y empezar</button>
     <div class="lm-note" id="m-foot">100% offline · Tus datos no se comparten · La prueba se activa sola al instalar</div>
    </form>

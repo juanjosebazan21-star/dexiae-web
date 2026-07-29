@@ -1327,6 +1327,22 @@ function closeLead(){
 document.getElementById('lead-modal').addEventListener('click',e=>{if(e.target.id==='lead-modal')closeLead()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLead()});
 
+/* ── ORIGEN DE LA CAMPAÑA (UTM) ─────────────────────────────────────────
+   Espejo de la misma función en lead.js (ver la deuda técnica anotada ahí:
+   la home todavía no migró al módulo compartido → hay que tocar LOS DOS).
+   La web no tiene analítica, así que sin esto un ?utm_source=instagram no
+   lo lee nadie. Se captura al cargar y se guarda en sessionStorage para
+   que sobreviva a la navegación interna. Sin cookies ni terceros: nada
+   sale del navegador y no cambia lo que promete /privacidad. */
+function origenCampana(){
+ const q=(location.search||'').replace(/^\?/,'');
+ try{
+  if(q.indexOf('utm_')>-1) sessionStorage.setItem('dx_utm',q);
+  return sessionStorage.getItem('dx_utm')||'(directo)';
+ }catch(_){ return q.indexOf('utm_')>-1?q:'(directo)'; }
+}
+origenCampana();   /* captura al cargar, no al enviar */
+
 async function submitLead(e){
  e.preventDefault();
  const form=document.getElementById('lead-form');
@@ -1340,6 +1356,8 @@ async function submitLead(e){
   const fd=new FormData(form);
   fd.append('_plan',currentPlan);
   fd.append('_billing',currentBilling);
+  fd.append('_origen',location.pathname);   /* faltaba: lead.js sí lo mandaba, la home no */
+  fd.append('_utm',origenCampana());        /* de qué pieza/campaña vino */
   fd.append('_subject','Nuevo lead DEXIAE — '+currentPlan+(currentPlan==='CORE'||currentPlan==='PRO'?' ('+currentBilling+')':''));
   await fetch(FORMSPREE_URL,{method:'POST',body:fd,headers:{'Accept':'application/json'}});
  }catch(_){/* no-block: igualmente mostramos el success */}

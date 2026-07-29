@@ -28,6 +28,37 @@
   window.__leadListo = true;
 
   var FORMSPREE_URL = 'https://formspree.io/f/xyklkprd';
+
+  /* ── ORIGEN DE LA CAMPAÑA (UTM) ─────────────────────────────
+     Por qué existe: la web NO tiene analítica (ni GA4 ni nada), así que
+     un ?utm_source=instagram en la URL no lo leía nadie. Sin esto no hay
+     forma de saber qué reel/carrusel trajo qué lead.
+
+     Cómo funciona: se captura en el PRIMER pageview que traiga utm_* y se
+     guarda en sessionStorage, así sobrevive a la navegación interna hasta
+     que la persona completa el formulario (puede caer en la home con UTM y
+     enviar el form desde /extractos-bancarios-excel).
+
+     sessionStorage y no cookies a propósito: nada sale del navegador, no
+     hay terceros y no cambia lo que promete /privacidad — o sea que no
+     hace falta banner de consentimiento. El dato viaja solo dentro del
+     mail de Formspree, junto al lead.
+
+     Convención de utm_campaign: snake_case, igual al nombre de la pieza en
+     la planilla de seguimiento (si no coinciden, no se pueden cruzar).  */
+  function origenCampana() {
+    var q = (location.search || '').replace(/^\?/, '');
+    try {
+      if (q.indexOf('utm_') > -1) sessionStorage.setItem('dx_utm', q);
+      return sessionStorage.getItem('dx_utm') || '(directo)';
+    } catch (_) {
+      /* modo restringido: sin persistencia, pero si el UTM está en ESTA
+         URL igual lo reportamos en vez de perderlo. */
+      return q.indexOf('utm_') > -1 ? q : '(directo)';
+    }
+  }
+  origenCampana();   /* captura al cargar, no al enviar */
+
   var DEXIAE_LINKS = {
     installer: 'https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v2.1.0/DEXIAE_Setup_V2.1.0.exe',
     whatsapp: 'https://wa.me/5493516574188?text=Hola!%20Quiero%20activar%20DEXIAE'
@@ -226,6 +257,7 @@
       fd.append('_plan', currentPlan);
       fd.append('_billing', billing());
       fd.append('_origen', location.pathname);   /* de qué página vino el lead */
+      fd.append('_utm', origenCampana());        /* de qué pieza/campaña vino */
       fd.append('_subject', 'Nuevo lead DEXIAE — ' + currentPlan +
         ((currentPlan === 'CORE' || currentPlan === 'PRO') ? ' (' + billing() + ')' : ''));
       await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });

@@ -274,7 +274,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <a href="/#capturas">La interfaz</a>
   <a href="/#precios">Precios</a>
   <a href="app/" class="nav-demo"><span class="pl">▶</span> Demo online</a>
-  <a class="btn btn-p navcta" href="/?plan=TRIAL">Probar gratis</a>
+  <button class="btn btn-p navcta" onclick="openLead('TRIAL')">Probar gratis</button>
  </span>
 </div></nav>
 
@@ -283,7 +283,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <h1>Convertí extractos bancarios de PDF a Excel <span>en segundos</span></h1>
  <p class="sub">Y seguí de largo hasta el borrador de asientos. Sin tipear un movimiento a mano, en tu propia computadora.</p>
  <div class="hero-row">
-  <a class="btn btn-p" href="/?plan=TRIAL">Descargar prueba gratis (14 días)</a>
+  <button class="btn btn-p" onclick="openLead('TRIAL')">Descargar prueba gratis (14 días)</button>
   <a class="btn btn-o" href="app/"><span class="pl">▶</span> Ver la demo online</a>
  </div>
 
@@ -530,7 +530,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <h2>Probalo con tu propio resumen</h2>
  <p>14 días gratis, sin tarjeta. Con tus PDF reales, en tu computadora.</p>
  <div class="row">
-  <a class="btn btn-p" href="/?plan=TRIAL">Descargar prueba gratis</a>
+  <button class="btn btn-p" onclick="openLead('TRIAL')">Descargar prueba gratis</button>
   <a class="btn btn-o" href="/guia-usuario">Ver la guía del usuario</a>
  </div>
 </div></section>
@@ -578,5 +578,6 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  io.observe(document.querySelector('.etapas'));
 })();
 </script>
+<script src="/lead.js" defer></script>
 </body>
 </html>

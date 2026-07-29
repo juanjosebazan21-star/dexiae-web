@@ -113,11 +113,31 @@ main{padding:60px 0 20px}
 .sec>h2{font-size:clamp(24px,3vw,34px);font-weight:700;letter-spacing:-.03em;margin-bottom:10px}
 .sec>.lead{font-size:17px;color:var(--ink2);max-width:740px;margin-bottom:26px}
 .card{background:#fff;border:1px solid var(--pline);border-radius:22px;padding:30px 32px;box-shadow:0 24px 60px -40px rgba(24,20,12,.5)}
-.pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.paso{background:#fff;border:1px solid var(--pline);border-radius:18px;padding:24px}
-.paso .n{width:32px;height:32px;border-radius:9px;background:var(--ac-bg);color:var(--ac-deep);font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.paso h3{font-size:17px;font-weight:700;margin-bottom:6px;letter-spacing:-.02em}
-.paso p{font-size:14.5px;color:var(--ink2)}
+/* ETAPAS: en vertical y a lo ancho. Se probó en 3 columnas y no sirve —
+   las capturas quedan de ~340px y no se lee un solo número, que es
+   justamente lo que da confianza. A lo ancho la planilla se lee. */
+.etapas{list-style:none;margin:0;padding:0}
+.etapa{background:#fff;border:1px solid var(--pline);border-radius:20px;padding:24px 24px 0;
+ box-shadow:0 24px 60px -44px rgba(24,20,12,.6);transition:border-color .35s,box-shadow .35s,transform .35s}
+.etapa.on{border-color:rgba(79,134,247,.55);box-shadow:0 30px 70px -40px rgba(79,134,247,.5);transform:translateY(-3px)}
+.etapa#et3.on{border-color:rgba(61,217,182,.6);box-shadow:0 30px 70px -40px rgba(29,158,117,.5)}
+.et-h{display:flex;gap:16px;align-items:flex-start;margin-bottom:18px}
+.et-n{flex:none;width:38px;height:38px;border-radius:11px;background:var(--ac-bg);color:var(--ac-deep);
+ font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;transition:background .35s,color .35s}
+.etapa.on .et-n{background:var(--ac);color:#fff}
+.etapa#et3.on .et-n{background:var(--cta);color:var(--cta-ink)}
+.et-h h3{font-size:19px;font-weight:700;letter-spacing:-.022em;margin-bottom:4px}
+.et-h p{font-size:14.5px;color:var(--ink2);max-width:660px}
+.etapa figure{margin:0;border-radius:12px 12px 0 0;overflow:hidden;border:1px solid var(--pline);border-bottom:none;
+ background:#f4f6f9}
+.etapa img{display:block;width:100%;height:auto}
+/* la flecha que une una etapa con la siguiente */
+.et-flecha{list-style:none;height:44px;display:flex;align-items:center;justify-content:center}
+.et-flecha span{width:2px;height:100%;background:linear-gradient(180deg,rgba(79,134,247,.15),rgba(79,134,247,.75));
+ position:relative;border-radius:2px}
+.et-flecha span::after{content:"";position:absolute;bottom:-1px;left:50%;transform:translateX(-50%);
+ border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid rgba(79,134,247,.75)}
+@media(max-width:760px){.etapa{padding:20px 16px 0}.et-h{gap:12px}.et-h h3{font-size:17px}}
 /* destacado PRO */
 .destacado{background:linear-gradient(165deg,#12233A,#0B1120);color:var(--hi);border-radius:26px;padding:40px 38px;position:relative;overflow:hidden}
 .destacado::before{content:"";position:absolute;top:-140px;right:-80px;width:420px;height:420px;background:radial-gradient(circle,rgba(61,217,182,.16),transparent 68%);pointer-events:none}
@@ -180,6 +200,14 @@ main{padding:60px 0 20px}
  -webkit-text-fill-color:transparent;white-space:nowrap}
 .ilim h2{color:var(--hi)}
 .ilim p{color:var(--md);font-size:16.5px;max-width:640px}
+.ilim-precio{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;
+ margin-top:20px;padding:16px 20px;border-radius:14px;background:rgba(61,217,182,.07);
+ border:1px solid rgba(61,217,182,.22)}
+.ip-plan{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.09em;color:var(--cta);
+ border:1px solid rgba(61,217,182,.45);padding:3px 9px;border-radius:6px;vertical-align:middle;margin-right:10px}
+.ip-monto{font-size:30px;font-weight:800;letter-spacing:-.03em;color:var(--hi);vertical-align:middle}
+.ip-per{font-size:15px;color:var(--md);margin-left:4px}
+.ip-usd{display:block;font-size:13.5px;color:var(--lo);margin-top:5px}
 .ilim-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .ilim-chips span{font-size:13px;font-weight:600;color:var(--cta);background:rgba(61,217,182,.12);
  border:1px solid rgba(61,217,182,.30);padding:7px 13px;border-radius:100px}
@@ -213,7 +241,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 {"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},
 {"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},
 {"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, como función del plan PRO. En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},
-{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. La conversión de extractos bancarios es ilimitada en todas las ediciones y no descuenta del cupo mensual de documentos. Ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela; los extractos van aparte."}}
+{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. Desde CORE, el plan más básico, la conversión de extractos bancarios es ilimitada y no descuenta del cupo mensual de documentos: ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela. El conversor también está disponible en la prueba gratis de 14 días."}}
 ]}
 </script>
 </head>
@@ -232,7 +260,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 </div></nav>
 
 <header class="cu-hero"><div class="wrap">
- <span class="cu-eyebrow"><span class="d"></span>Conversor de extractos · ilimitado en todas las ediciones</span>
+ <span class="cu-eyebrow"><span class="d"></span>Conversor de extractos · ilimitado desde el plan más básico</span>
  <h1>Convertí extractos bancarios de PDF a Excel <span>en segundos</span></h1>
  <p class="sub">Y seguí de largo hasta el borrador de asientos. Sin tipear un movimiento a mano, en tu propia computadora.</p>
  <div class="hero-row">
@@ -278,35 +306,75 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   </div>
  </section>
 
- <!-- ILIMITADO: el diferencial mas fuerte de esta pagina. Ojo con el alcance:
-      "documentos ilimitados" a secas es SOLO del plan SENTINEL (CORE 500/mes,
-      PRO 2.500/mes). Lo que SI vale para todas las ediciones es que el conversor
-      de extractos no consume el cupo. Ese es el claim que se usa aca. -->
+ <!-- ILIMITADO: el diferencial mas fuerte de esta pagina. OJO CON EL ALCANCE,
+      son dos cosas distintas y es facil mezclarlas:
+      · "documentos ilimitados" a secas = SOLO plan SENTINEL (CORE 500/mes, PRO 2.500/mes).
+      · el CONVERSOR DE EXTRACTOS ilimitado = desde CORE, el plan pago mas basico.
+        El bullet "Extracto bancario -> Excel · ilimitado" esta en la tarjeta CORE
+        y PRO arrastra "todo lo de CORE".
+      El conversor SI esta disponible en el TRIAL (14 dias): tiene que estar para
+      que lo puedan probar. Lo que arranca en CORE es que sea ILIMITADO.
+      Por eso el texto dice "lo probas en el trial, e ilimitado desde el plan mas
+      basico" y NO "ilimitado en todas las ediciones". -->
  <section class="sec ilim">
   <div class="ilim-in">
    <div class="ilim-big">Ilimitado</div>
    <div>
     <h2 style="margin-bottom:8px">Convertí todos los resúmenes que quieras</h2>
-    <p>El conversor de extractos es <b>ilimitado en todas las ediciones</b> y <b>no toca el cupo
-     mensual de tu plan</b>. Ese cupo está para otra cosa: la extracción por plantilla, la
-     autodetección y el Centinela. Los extractos van aparte y no descuentan nada.</p>
+    <p>Lo probás en la <b>prueba gratis de 14 días</b>, y desde <b>CORE —el plan más básico—</b> el
+     conversor es <b>ilimitado</b> y <b>no toca el cupo mensual</b>. Ese cupo está para otra cosa:
+     la extracción por plantilla, la autodetección y el Centinela. Los extractos van aparte y no
+     descuentan nada.</p>
     <p style="margin-top:10px">Tampoco hay contador de páginas ni costo por archivo: un resumen de 4
      páginas y uno de 40 cuestan lo mismo, y reprocesar uno no cuesta nada.</p>
+    <div class="ilim-precio">
+     <div>
+      <span class="ip-plan">CORE</span>
+      <span class="ip-monto">AR$ 44.500</span><span class="ip-per">/ mes</span>
+      <span class="ip-usd">≈ US$ 29 · o AR$ 425.000 al año</span>
+     </div>
+     <a class="btn btn-p" href="/#precios">Ver planes</a>
+    </div>
     <div class="ilim-chips">
-     <span>Ilimitado en todos los planes</span><span>No descuenta del cupo mensual</span><span>Sin cuota por página</span>
+     <span>Ilimitado desde CORE</span><span>No descuenta del cupo mensual</span><span>Sin cuota por página</span>
     </div>
    </div>
   </div>
  </section>
 
  <section class="sec">
-  <h2>Cómo funciona</h2>
-  <p class="lead">Tres pasos. No hay que configurar nada por banco: el formato ya está reconocido.</p>
-  <div class="pasos">
-   <div class="paso"><div class="n">1</div><h3>Elegís el PDF</h3><p>El resumen tal como lo descargaste del homebanking. No hace falta convertirlo ni recortarlo antes.</p></div>
-   <div class="paso"><div class="n">2</div><h3>DEXIAE detecta el banco</h3><p>Reconoce el formato y arma la tabla de movimientos: fecha, detalle, CUIT, importe con signo y saldo.</p></div>
-   <div class="paso"><div class="n">3</div><h3>Sale el Excel</h3><p>Una fila por movimiento, lista para trabajar. Los importes salen como números, no como texto.</p></div>
-  </div>
+  <h2>El mismo resumen, en las tres etapas</h2>
+  <p class="lead">No son maquetas. El PDF de abajo es un archivo real y las dos planillas son la salida
+   que genera DEXIAE — los datos son ficticios, pero los <b>mismos movimientos</b> cruzan las tres
+   imágenes de punta a punta.</p>
+
+  <ol class="etapas">
+   <li class="etapa" id="et1">
+    <div class="et-h"><span class="et-n">1</span>
+     <div><h3>Entra el PDF del banco</h3>
+      <p>Tal como lo bajás del homebanking. Sin recortar ni convertir nada antes.</p></div>
+    </div>
+    <figure><img src="/flujo-pdf.png" alt="Resumen bancario en PDF con los movimientos del mes" loading="lazy" width="1405" height="945"></figure>
+   </li>
+   <li class="et-flecha" aria-hidden="true"><span></span></li>
+   <li class="etapa" id="et2">
+    <div class="et-h"><span class="et-n">2</span>
+     <div><h3>Sale el Excel, con el saldo verificado</h3>
+      <p>Una fila por movimiento, importes como número y la columna que confirma que la cadena de
+       saldos cierra.</p></div>
+    </div>
+    <figure><img src="/flujo-excel.png" alt="Planilla Excel con los movimientos extraídos y la verificación de saldos" loading="lazy" width="1720" height="884"></figure>
+   </li>
+   <li class="et-flecha" aria-hidden="true"><span></span></li>
+   <li class="etapa" id="et3">
+    <div class="et-h"><span class="et-n">3</span>
+     <div><h3>Y el borrador de asientos <span class="pro">PRO</span></h3>
+      <p>Las dos puntas de cada asiento, con cuenta, descripción, DEBE/HABER y el nivel de confianza
+       de la contrapartida propuesta.</p></div>
+    </div>
+    <figure><img src="/flujo-asientos.png" alt="Borrador de asientos contables con cuenta, debe, haber y nivel de confianza" loading="lazy" width="1800" height="1012"></figure>
+   </li>
+  </ol>
  </section>
 
  <section class="sec">
@@ -418,9 +486,10 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de
     confianza Alta, Media o Revisar.</p></details>
   <details><summary>¿Consume mi cupo mensual de documentos?</summary>
-   <p>No. La conversión de extractos es ilimitada en todas las ediciones y <b>no descuenta del cupo
-    mensual</b>. Ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela; los
-    extractos van aparte.</p></details>
+   <p>No. Desde <b>CORE</b>, el plan más básico, la conversión de extractos es <b>ilimitada</b> y
+    <b>no descuenta del cupo mensual</b>: ese cupo cuenta la extracción por plantilla, la
+    autodetección y el Centinela. El conversor también está disponible en la prueba gratis de 14
+    días, para que lo pruebes con tus propios resúmenes antes de decidir.</p></details>
  </section>
 
 </div></main>
@@ -452,6 +521,29 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  var els=document.querySelectorAll('.sec,.cu-cta');
  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.08,rootMargin:'0px 0px -60px 0px'});
  els.forEach(function(e){e.classList.add('rv');io.observe(e);});
+})();
+
+/* Recorrido de las etapas: va encendiendo 1 -> 2 -> 3 para que se lea como un
+   flujo y no como tres capturas sueltas. Solo corre mientras la lista está a
+   la vista; si no, es trabajo tirado y consume batería en el celular. */
+(function(){
+ var etapas=[].slice.call(document.querySelectorAll('.etapa'));
+ if(!etapas.length) return;
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+  etapas.forEach(function(e){e.classList.add('on');}); return;   // sin animar: todas encendidas
+ }
+ var i=0,timer=null;
+ function paso(){
+  etapas.forEach(function(e,k){e.classList.toggle('on',k===i);});
+  i=(i+1)%etapas.length;
+ }
+ function arrancar(){ if(timer) return; paso(); timer=setInterval(paso,2400); }
+ function frenar(){ clearInterval(timer); timer=null; }
+ if(!('IntersectionObserver' in window)){ arrancar(); return; }
+ var io=new IntersectionObserver(function(en){
+  en.forEach(function(x){ x.isIntersecting ? arrancar() : frenar(); });
+ },{threshold:.12});
+ io.observe(document.querySelector('.etapas'));
 })();
 </script>
 </body>

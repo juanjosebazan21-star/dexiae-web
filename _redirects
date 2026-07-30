@@ -1,0 +1,27 @@
+# ═══════════════════════════════════════════════════════════════════════
+# REDIRECCIONES — Cloudflare Pages
+# Formato:  /origen   /destino   <codigo>
+# ═══════════════════════════════════════════════════════════════════════
+#
+# LINKS CORTOS DE CAMPANA
+# -----------------------
+# Por que existen: el link de la bio de Instagram tiene que llevar UTM para
+# poder atribuir los leads (ver origenCampana() en lead.js), pero un URL con
+# "?utm_source=..." a la vista se lee como rastreo — y eso roza justo el
+# argumento de venta de DEXIAE ("nada sale de tu computadora"). El link corto
+# resuelve las dos cosas: se ve limpio y el UTM lo agrega la redireccion.
+#
+# La otra ventaja, la practica: para cambiar a donde apunta la bio se edita
+# ESTA linea y se deploya. No hay que tocar el perfil de Instagram cada vez.
+#
+# 302 (temporal) a proposito: el navegador no lo cachea duro, asi que
+# repuntar el destino tiene efecto enseguida. Con 301 quedaria pegado.
+#
+# ⚠️ El utm_campaign va en snake_case y tiene que ser IDENTICO al nombre de
+#    la pieza en la planilla de seguimiento, o los datos no se pueden cruzar.
+
+/ig    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=perfil    302
+
+# Para agregar un link por campana, copiar el patron:
+# /ig-asientos    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=asientos    302
+# /ig-demo        /demo?utm_source=instagram&utm_medium=bio&utm_campaign=demo                            302

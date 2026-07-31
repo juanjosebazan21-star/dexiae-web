@@ -218,6 +218,10 @@
       setTimeout(function () { openLead(p); }, 120);
       history.replaceState({}, '', location.pathname + location.hash);
     }
+
+    /* drena los leads perdidos que hayan quedado encolados en visitas
+       anteriores (ej. la persona estaba sin conexión cuando falló) */
+    enviarFallosPendientes();
   }
 
   var currentPlan = 'TRIAL';
@@ -244,6 +248,86 @@
     document.body.style.overflow = '';
   };
 
+  /* ── BITÁCORA DE LEADS PERDIDOS ─────────────────────────────────────
+     Espejo de lo mismo en index.html (misma deuda de arriba: tocar LOS DOS).
+
+     La descarga NO se bloquea nunca por un fallo de lead: eso es deliberado
+     y sigue igual. Lo que cambia es que el fallo deja rastro. Antes, un
+     Formspree que rechazaba el POST (cuota, rate limit, spam) o un
+     bloqueador que tumbaba el dominio se veían exactamente igual que un
+     envío exitoso, y quedaban descargas en GitHub sin lead que las explique.
+
+     Se postea a /api/lead-fallo — same-origin, así que ningún bloqueador lo
+     puede tirar abajo — y esa Function lo reenvía desde el edge a un
+     Formspree aparte. El porqué completo está en
+     web/functions/api/lead-fallo.js.
+
+     Si ni eso sale (sin conexión), el intento queda en localStorage y se
+     reintenta en la próxima carga de página. */
+  var FALLOS_URL = '/api/lead-fallo';
+  var FALLOS_KEY = 'dx_leads_fallidos';
+  var FALLOS_MAX = 20;   /* tope duro: la cola no puede crecer sin límite */
+
+  function campoLead(form, n) {
+    var el = form && form.querySelector('[name="' + n + '"]');
+    return el ? String(el.value || '').trim() : '';
+  }
+  function leerFallos() {
+    try {
+      var c = JSON.parse(localStorage.getItem(FALLOS_KEY) || '[]');
+      return Array.isArray(c) ? c : [];
+    } catch (_) { return []; }
+  }
+  function guardarFallos(c) {
+    try { localStorage.setItem(FALLOS_KEY, JSON.stringify(c.slice(-FALLOS_MAX))); } catch (_) {}
+  }
+  function armarFallo(motivo, plan, form) {
+    var ahora = new Date(), email = campoLead(form, 'email');
+    return {
+      evento_id: ahora.getTime() + '-' + Math.random().toString(36).slice(2, 8),
+      _subject: '⚠️ LEAD PERDIDO — ' + plan + ' — ' + motivo,
+      _replyto: email,   /* "Responder" en la notificación escribe directo a la persona */
+      _plan: plan,
+      motivo: motivo,
+      nombre: campoLead(form, 'name'),
+      email: email,
+      volumen: campoLead(form, 'volumen'),
+      timestamp: ahora.toISOString(),
+      /* hour12:false explícito: sin esto algunos navegadores rinden es-AR en
+         12h SIN el AM/PM, y "01:52" no se distingue de las 13:52 al leerlo */
+      hora_ar: ahora.toLocaleString('es-AR', { timeZone: 'America/Argentina/Cordoba', hour12: false }),
+      _utm: origenCampana(),
+      _origen: location.pathname,
+      user_agent: navigator.userAgent
+    };
+  }
+  async function enviarFallosPendientes() {
+    var cola = leerFallos();
+    if (!cola.length) return;
+    var entregados = [];
+    for (var i = 0; i < cola.length; i++) {
+      try {
+        var r = await fetch(FALLOS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(cola[i]),
+          keepalive: true
+        });
+        if (r.ok) entregados.push(cola[i].evento_id);   /* 502 = no se reenvió: queda encolado */
+      } catch (_) { /* sigue en la cola */ }
+    }
+    if (!entregados.length) return;
+    /* releer y filtrar por id en vez de pisar con una foto vieja: puede
+       haberse encolado un fallo nuevo mientras drenábamos */
+    guardarFallos(leerFallos().filter(function (p) {
+      return entregados.indexOf(p.evento_id) === -1;
+    }));
+  }
+  function registrarFallo(motivo, plan, form) {
+    guardarFallos(leerFallos().concat([armarFallo(motivo, plan, form)]));
+    enviarFallosPendientes();   /* sin await: la descarga no espera a esto */
+  }
+
   window.submitLead = async function (e) {
     e.preventDefault();
     var form = document.getElementById('lead-form');
@@ -252,6 +336,9 @@
     var c = planConfig[currentPlan] || planConfig.TRIAL;
     var btn = document.getElementById('m-submit');
     btn.textContent = 'Procesando...'; btn.disabled = true;
+    /* El lead se intenta enviar, pero un fallo NO frena la descarga: sale
+       igual y el intento perdido queda registrado para rescatarlo a mano. */
+    var fallo = null;
     try {
       var fd = new FormData(form);
       fd.append('_plan', currentPlan);
@@ -260,8 +347,13 @@
       fd.append('_utm', origenCampana());        /* de qué pieza/campaña vino */
       fd.append('_subject', 'Nuevo lead DEXIAE — ' + currentPlan +
         ((currentPlan === 'CORE' || currentPlan === 'PRO') ? ' (' + billing() + ')' : ''));
-      await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
-    } catch (_) { /* no bloquea: igual mostramos el éxito */ }
+      var res = await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+      if (!res.ok) fallo = 'HTTP ' + res.status;   /* cuota agotada, rate limit, filtro de spam */
+    } catch (err) {
+      /* el fetch ni salió: bloqueador, DNS corporativo, o sin conexión */
+      fallo = 'network-error: ' + ((err && (err.name || err.message)) || 'desconocido');
+    }
+    if (fallo) registrarFallo(fallo, currentPlan, form);   /* no bloquea: el éxito se muestra igual */
     var url = c.primaryUrl();
     document.getElementById('m-form-wrap').style.display = 'none';
     document.getElementById('m-success').style.display = 'block';

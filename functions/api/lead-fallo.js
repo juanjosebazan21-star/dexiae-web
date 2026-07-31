@@ -84,7 +84,18 @@ export async function onRequestPost(context) {
   try {
     const r = await fetch(FORMSPREE_FALLOS, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        /* Formshield (el filtro ML de Formspree) mandó a spam los dos primeros
+           envíos de prueba, y un fallo en spam no genera notificación — o sea
+           que el aviso no llega y volvemos a estar ciegos. Un POST servidor a
+           servidor llega sin Origin ni Referer, que es exactamente la huella
+           que un clasificador lee como bot. Los dos headers son ciertos: el
+           envío SÍ se originó en una página de getdexiae.com. */
+        Origin: 'https://getdexiae.com',
+        Referer: 'https://getdexiae.com/'
+      },
       body: JSON.stringify(payload),
       /* sin timeout, un Formspree colgado deja la Function esperando y el
          reintento del cliente nunca sabe si mandarlo de nuevo */

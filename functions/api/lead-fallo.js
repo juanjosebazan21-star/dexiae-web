@@ -87,12 +87,17 @@ export async function onRequestPost(context) {
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        /* Formshield (el filtro ML de Formspree) mandó a spam los dos primeros
-           envíos de prueba, y un fallo en spam no genera notificación — o sea
-           que el aviso no llega y volvemos a estar ciegos. Un POST servidor a
-           servidor llega sin Origin ni Referer, que es exactamente la huella
-           que un clasificador lee como bot. Los dos headers son ciertos: el
-           envío SÍ se originó en una página de getdexiae.com. */
+        /* Higiene para un POST servidor a servidor: sin esto el reenvío llega
+           sin Origin ni Referer. Los dos headers son ciertos — el envío SÍ se
+           originó en una página de getdexiae.com.
+
+           ⚠️ NO alcanza para el spam: se probó el 31/07/2026 justamente para
+           eso y Formshield (el filtro ML de Formspree) siguió cuarentenando
+           igual los envíos de prueba. Lo que lo resuelve es apagar Formshield
+           en ESTE formulario (Settings → Spam Protection). Tiene sentido:
+           acá solo escribe nuestra propia Function, y un falso positivo
+           significa un lead perdido del que nunca nos enteramos, que es
+           exactamente lo que este mecanismo venía a evitar. */
         Origin: 'https://getdexiae.com',
         Referer: 'https://getdexiae.com/'
       },

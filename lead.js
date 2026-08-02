@@ -197,6 +197,255 @@
 '  </ol></div>' +
 ' </div>';
 
+  /* ══════════════════════════════════════════════════════════════════
+     PRE-CHAT DE WHATSAPP — un enrutador, no un chatbot
+     ══════════════════════════════════════════════════════════════════
+     Antes el botón flotante mandaba a todos al mismo chat con la misma
+     frase genérica ("Quiero saber más sobre DEXIAE"), y solo existía en
+     la home. Tres problemas:
+
+       · Casi nadie que toca "¿Dudas?" necesita hablar con una persona:
+         tiene UNA pregunta que el trial contesta mejor y al instante.
+         Cada uno de esos es alguien que no descargó.
+       · Un click a WhatsApp no dejaba rastro — sin lead, sin email, sin
+         _utm. El mismo punto ciego que tapamos en las descargas.
+       · Depende de que haya alguien del otro lado. De noche el lead se
+         enfría.
+
+     Ahora el panel contesta la pregunta ahí mismo y lleva a descargar.
+     WhatsApp queda para los dos casos donde un humano sí aporta: calibrar
+     un banco (se adjunta el PDF en el chat) y las organizaciones.
+
+     REGLAS QUE NO SE TOCAN:
+     · La salida directa a WhatsApp está SIEMPRE visible. Un gate en una
+       descarga es una cosa; un gate en soporte es otra — si alguien tiene
+       un problema y lo metemos en un embudo, lo perdemos y encima queda
+       la sensación de que lo manipulamos.
+     · Sin "escribiendo…", sin avatar, sin nombre de vendedora inventada.
+       DEXIAE se vende sobre confianza y le habla a contadores: simular
+       una persona que no existe es el detalle que la quema.
+     · El teal (--cta) es SOLO del botón de descargar. WhatsApp usa su
+       verde pero en jerarquía secundaria.
+
+     Maqueta aprobada: maquetas/prechat-whatsapp.html
+     ══════════════════════════════════════════════════════════════════ */
+  var WA_NUM = '5493516574188';
+
+  /* Cada respuesta sale de algo verificable (FAQ de la home, /privacidad,
+     la lista de bancos calibrados). Nada inventado. */
+  var RAMAS = [
+    { id: 'pdfs', q: '¿Sirve para mis documentos?', k: 'Facturas, recibos, remitos…',
+      t: 'Sí, si tus PDFs se repiten',
+      p: ['Definís la plantilla una vez —CUIT, fecha, número, total— y después procesás la carpeta entera. Hay 11 estrategias de extracción, incluida marcar una zona visual sobre el documento.',
+          'Si la carpeta viene mezclada, la autodetección aplica la plantilla que corresponde a cada uno. Lo que no reconoce queda aparte como «Desconocidos»: <b>no se adivina</b>.'],
+      dest: 'dl' },
+    { id: 'precio', q: '¿Cuánto cuesta?', k: 'Planes y límites',
+      t: 'Probalo antes de decidir',
+      p: ['14 días gratis, 100 documentos, <b>todas las funciones desbloqueadas</b>. Sin tarjeta y sin clave: instalás y los días arrancan solos.',
+          'Si después te sirve, ahí mirás los planes. Salir a comparar precios antes de saber si te resuelve el trabajo es el orden al revés.'],
+      dest: 'dl' },
+    { id: 'privacidad', q: '¿Mis datos están seguros?', k: 'Documentos de clientes',
+      t: 'No hay nada que subir',
+      p: ['Todo el procesamiento ocurre en tu computadora. Los documentos no se suben a ningún servidor, y funciona sin conexión a internet.',
+          'No hay telemetría ni recolección de archivos. Está escrito en la <a class="pc-inl" href="/privacidad">política de privacidad</a> y en el EULA.'],
+      dest: 'dl' },
+    { id: 'banco', q: 'Mi banco no está en la lista', k: 'Extractos bancarios',
+      t: 'Lo calibramos, sin costo',
+      p: ['Mandanos uno o dos resúmenes de muestra y sumamos tu banco en poco tiempo. <b>Podés tapar los datos</b>: al motor le sirve la estructura del PDF, no los valores.',
+          'Es el único caso donde te conviene el chat: adjuntás el PDF ahí mismo.'],
+      dest: 'wa',
+      wa: 'Hola! Mi banco no está en la lista de DEXIAE y quiero que lo calibren. Les paso un resumen de muestra.' },
+    { id: 'org', q: 'Somos un estudio u organismo', k: 'Varios puestos, licencias',
+      t: 'Eso lo armamos a medida',
+      p: ['Para equipos existe SENTINEL: onboarding personal, soporte prioritario y una propuesta según la cantidad de puestos y el volumen.',
+          'Coordinamos una llamada corta para entender el alcance antes de pasarte números.'],
+      dest: 'wa',
+      wa: 'Hola! Somos un estudio/organismo y queremos una propuesta de DEXIAE para varios puestos.' }
+  ];
+  var WA_DIRECTO = 'Hola! Quiero hacerles una consulta sobre DEXIAE.';
+
+  function waUrl(txt) { return 'https://wa.me/' + WA_NUM + '?text=' + encodeURIComponent(txt); }
+
+  var PC_CSS = '' +
+'.wa{position:fixed;right:22px;bottom:22px;z-index:70;display:flex;align-items:center;gap:10px;cursor:pointer;border:none;background:none;padding:0;font-family:var(--sans)}' +
+'.wa-tip{background:#fff;border:1px solid var(--pline2);color:var(--ink);font-size:12.5px;font-weight:500;padding:8px 12px;border-radius:10px;box-shadow:0 8px 24px rgba(20,28,50,.16);opacity:0;transform:translateX(6px);transition:all .2s;pointer-events:none;white-space:nowrap}' +
+'.wa:hover .wa-tip{opacity:1;transform:translateX(0)}' +
+'.wa-bubble{width:52px;height:52px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(37,211,102,.4);flex-shrink:0}' +
+'.wa-bubble svg{width:26px;height:26px;fill:#fff}' +
+'.pc{position:fixed;right:22px;bottom:88px;width:352px;max-width:calc(100vw - 32px);z-index:71;background:#fff;border:1px solid var(--pline2);border-radius:14px;overflow:hidden;box-shadow:0 24px 64px rgba(20,28,50,.22);transform-origin:bottom right;display:none;text-align:left}' +
+'.pc.open{display:block;animation:pcpop .22s cubic-bezier(.2,.9,.3,1.2)}' +
+'@keyframes pcpop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}' +
+'.pc-h{padding:15px 17px;border-bottom:1px solid var(--pline);display:flex;align-items:flex-start;gap:11px}' +
+'.pc-mark{width:32px;height:32px;border-radius:8px;background:var(--ac-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:600;font-size:11.5px;flex-shrink:0}' +
+'.pc-h .t{font-family:var(--disp);font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.01em}' +
+'.pc-h .s{font-size:12px;color:var(--ink3);margin-top:1px}' +
+'.pc-x{margin-left:auto;background:none;border:none;color:var(--ink3);font-size:17px;cursor:pointer;line-height:1;padding:2px 4px}' +
+'.pc-b{padding:15px 17px;max-height:52vh;overflow:auto}' +
+'.pc-q{font-size:13.5px;color:var(--ink2);margin-bottom:11px;line-height:1.5}' +
+'.pc-opt{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--pline);color:var(--ink);font-family:var(--sans);font-size:13.5px;font-weight:500;padding:11px 13px;border-radius:9px;margin-bottom:7px;cursor:pointer;transition:border-color .14s,background .14s}' +
+'.pc-opt:hover{border-color:var(--ac);background:#fff}' +
+'.pc-opt .k{display:block;font-size:11.5px;color:var(--ink3);font-weight:400;margin-top:2px}' +
+'.pc-ans{animation:pcfade .2s ease}' +
+'@keyframes pcfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}' +
+'.pc-back{background:none;border:none;color:var(--ink3);font-size:12px;cursor:pointer;padding:0;margin-bottom:10px;font-family:var(--sans)}' +
+'.pc-back:hover{color:var(--ac-deep)}' +
+'.pc-ans h4{font-family:var(--disp);font-size:14.5px;font-weight:600;color:var(--ink);margin-bottom:7px;letter-spacing:-.01em}' +
+'.pc-ans p{font-size:13.5px;color:var(--ink2);line-height:1.55}' +
+'.pc-ans p+p{margin-top:8px}' +
+'.pc-inl{color:var(--ac-deep);text-decoration:underline;text-underline-offset:2px}' +
+'.pc-cta{margin-top:14px}' +
+'.pc-dl{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:var(--cta);color:var(--cta-ink);font-family:var(--sans);font-weight:600;font-size:14px;padding:12px;border:none;border-radius:10px;cursor:pointer}' +
+'.pc-dl:hover{background:var(--cta2);color:#fff}' +
+'.pc-wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#fff;color:var(--ink);border:1px solid var(--pline2);font-family:var(--sans);font-weight:600;font-size:14px;padding:12px;border-radius:10px;cursor:pointer}' +
+'.pc-wa:hover{border-color:#25D366;color:#128C7E}' +
+'.pc-wa svg{width:16px;height:16px;fill:#25D366}' +
+'.pc-mail{margin-top:11px}' +
+'.pc-mail label{display:block;font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3);margin-bottom:5px}' +
+'.pc-mail input{width:100%;height:38px;padding:0 11px;border:1px solid var(--pline2);border-radius:8px;font-size:13.5px;font-family:var(--sans);color:var(--ink);outline:none}' +
+'.pc-mail input:focus{border-color:var(--ac)}' +
+'.pc-mail .hint{font-size:11.5px;color:var(--ink3);margin-top:5px}' +
+'.pc-f{border-top:1px solid var(--pline);padding:10px 17px;background:var(--paper2)}' +
+'.pc-esc{display:flex;align-items:center;gap:7px;background:none;border:none;color:var(--ink3);font-size:12px;font-family:var(--sans);cursor:pointer;padding:0;width:100%;text-align:left}' +
+'.pc-esc:hover{color:#128C7E}' +
+'.pc-esc svg{width:13px;height:13px;fill:currentColor;opacity:.75;flex-shrink:0}' +
+'@media(max-width:520px){.pc{right:12px;left:12px;width:auto;bottom:84px}.wa{right:16px;bottom:16px}.wa-tip{display:none}}';
+
+  var WA_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
+
+  function pcMenu() {
+    var h = '<div class="pc-q">Contame qué te frena y te llevo al lugar correcto — sin vueltas.</div>';
+    for (var i = 0; i < RAMAS.length; i++) {
+      h += '<button type="button" class="pc-opt" data-rama="' + RAMAS[i].id + '">' +
+           RAMAS[i].q + '<span class="k">' + RAMAS[i].k + '</span></button>';
+    }
+    return h;
+  }
+
+  function pcAns(r) {
+    var cta;
+    if (r.dest === 'dl') {
+      cta = '<div class="pc-cta"><button type="button" class="pc-dl" data-accion="descargar">⇩ &nbsp;Descargar prueba gratis</button></div>';
+    } else {
+      cta = '<div class="pc-cta">' +
+            '<button type="button" class="pc-wa" data-accion="wa" data-rama="' + r.id + '">' + WA_SVG + 'Abrir WhatsApp</button>' +
+            '<div class="pc-mail"><label>Tu email <span style="text-transform:none;letter-spacing:0;font-weight:400">(opcional)</span></label>' +
+            /* name="email" además del id: registrarFallo() lee los campos por
+               name, así que sin esto un fallo se registraría sin el mail y no
+               habría a quién escribirle */
+            '<input type="email" id="pc-email" name="email" placeholder="vos@ejemplo.com" autocomplete="email">' +
+            '<div class="hint">Por si se corta el chat, para poder retomarlo.</div></div></div>';
+    }
+    var ps = '';
+    for (var i = 0; i < r.p.length; i++) ps += '<p>' + r.p[i] + '</p>';
+    return '<div class="pc-ans"><button type="button" class="pc-back" data-accion="volver">← Volver</button>' +
+           '<h4>' + r.t + '</h4>' + ps + cta + '</div>';
+  }
+
+  /* Si dejó el email, el contacto se registra como lead antes de abrir el
+     chat — con _utm, que es la única forma de saber de qué campaña vino
+     (WhatsApp no propaga UTM). Si falla, cae en la misma bitácora que el
+     resto: no se pierde y la persona igual llega al chat. */
+  async function leadDesdeWA(rama, email, form) {
+    var fallo = null;
+    try {
+      var fd = new FormData();
+      fd.append('email', email);
+      fd.append('_plan', 'WHATSAPP-' + rama);
+      fd.append('_origen', location.pathname);
+      fd.append('_utm', origenCampana());
+      fd.append('_subject', 'Consulta por WhatsApp — ' + rama);
+      var res = await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+      if (!res.ok) fallo = 'HTTP ' + res.status;
+    } catch (err) {
+      fallo = 'network-error: ' + ((err && (err.name || err.message)) || 'desconocido');
+    }
+    if (fallo) registrarFallo(fallo, 'WHATSAPP-' + rama, form);
+  }
+
+  function pcRender(html) {
+    var b = document.getElementById('pc-body');
+    if (b) b.innerHTML = html;
+  }
+  window.abrirPrechat = function () {
+    var p = document.getElementById('prechat');
+    if (!p) return;
+    pcRender(pcMenu());
+    p.classList.add('open');
+  };
+  window.cerrarPrechat = function () {
+    var p = document.getElementById('prechat');
+    if (p) p.classList.remove('open');
+  };
+
+  function montarPrechat() {
+    if (document.getElementById('prechat')) return;
+
+    var st = document.createElement('style');
+    st.textContent = PC_CSS;
+    document.head.appendChild(st);
+
+    var fab = document.createElement('button');
+    fab.className = 'wa';
+    fab.type = 'button';
+    fab.id = 'wa-fab';
+    fab.setAttribute('aria-label', 'Abrir ayuda rápida');
+    fab.innerHTML = '<span class="wa-tip">¿Dudas? Te orientamos en 10 segundos</span>' +
+                    '<span class="wa-bubble">' + WA_SVG + '</span>';
+    fab.addEventListener('click', function () {
+      var p = document.getElementById('prechat');
+      if (p && p.classList.contains('open')) cerrarPrechat(); else abrirPrechat();
+    });
+    document.body.appendChild(fab);
+
+    var pc = document.createElement('div');
+    pc.className = 'pc';
+    pc.id = 'prechat';
+    pc.innerHTML =
+      '<div class="pc-h"><span class="pc-mark">DX</span>' +
+      '<div><div class="t">¿Qué necesitás resolver?</div>' +
+      '<div class="s">Elegí una y te llevo al lugar correcto</div></div>' +
+      '<button type="button" class="pc-x" data-accion="cerrar" aria-label="Cerrar">&times;</button></div>' +
+      '<div class="pc-b" id="pc-body"></div>' +
+      '<div class="pc-f"><button type="button" class="pc-esc" data-accion="directo">' +
+      WA_SVG + 'Prefiero escribir directamente</button></div>';
+    document.body.appendChild(pc);
+
+    /* un solo listener delegado: el cuerpo se re-renderiza entero en cada
+       paso, así que enganchar por elemento obligaría a re-enganchar siempre */
+    pc.addEventListener('click', function (e) {
+      var el = e.target.closest ? e.target.closest('[data-accion],[data-rama]') : null;
+      if (!el) return;
+      var acc = el.getAttribute('data-accion');
+      var rama = el.getAttribute('data-rama');
+
+      if (acc === 'cerrar') return cerrarPrechat();
+      if (acc === 'volver') return pcRender(pcMenu());
+      if (acc === 'descargar') { cerrarPrechat(); return openLead('TRIAL'); }
+      if (acc === 'directo') { window.open(waUrl(WA_DIRECTO), '_blank', 'noopener'); return cerrarPrechat(); }
+      if (acc === 'wa') {
+        var r = buscarRama(rama);
+        var inp = document.getElementById('pc-email');
+        var email = inp ? String(inp.value || '').trim() : '';
+        /* la ventana se abre SIEMPRE y primero: si esperáramos al fetch, el
+           navegador lo trataría como popup no pedido por el usuario */
+        window.open(waUrl(r ? r.wa : WA_DIRECTO), '_blank', 'noopener');
+        if (email && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) leadDesdeWA(rama, email, pc);
+        return cerrarPrechat();
+      }
+      if (rama && !acc) {
+        var rr = buscarRama(rama);
+        if (rr) pcRender(pcAns(rr));
+      }
+    });
+
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') cerrarPrechat(); });
+  }
+
+  function buscarRama(id) {
+    for (var i = 0; i < RAMAS.length; i++) if (RAMAS[i].id === id) return RAMAS[i];
+    return null;
+  }
+
   function montar() {
     if (!document.getElementById('lead-modal')) {
       var st = document.createElement('style');
@@ -222,6 +471,8 @@
     /* drena los leads perdidos que hayan quedado encolados en visitas
        anteriores (ej. la persona estaba sin conexión cuando falló) */
     enviarFallosPendientes();
+
+    montarPrechat();
   }
 
   var currentPlan = 'TRIAL';

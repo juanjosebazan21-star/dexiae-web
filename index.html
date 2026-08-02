@@ -1178,13 +1178,12 @@ document.querySelectorAll('.faq-q').forEach(q=>q.addEventListener('click',()=>{
    Los valores salen de EDICIONES (dexiae_license.py), verificados contra el
    código que ejecuta el 02/08/2026. Si cambia una capacidad allá, cambiar acá.
 
-   ⚠️ 'validacion' es el único dato no confirmado: ui/index.html la gatea con
-   caps.validacion, pero esa clave NO existe en EDICIONES — al preguntar por
-   algo que no está se obtiene undefined, y el código solo apaga la casilla
-   ante un false explícito. O sea que hoy funciona en TODOS los planes. Acá se
-   deja como lo dice el resto del sitio (CORE sin validación) para no cambiar
-   el packaging por la ventana: si se decide que CORE la tenga, cambiar esta
-   fila; si se decide que no, agregar "validacion": False a CORE en EDICIONES. */
+   'validacion' NO sale de EDICIONES como el resto: la API la calcula aparte,
+   en _cap_validacion() (dexiae_api.py), con su propia lista de ediciones
+   —PRO, SENTINEL y TRIAL— y desde ahí la manda a la UI. El backend además
+   bloquea en cinco puntos con "Requiere edición PRO o superior". O sea que
+   CORE efectivamente no la tiene, igual que dice esta fila. Verificado el
+   02/08/2026: buscarla solo en EDICIONES lleva a la conclusión opuesta. */
 const CMP = [
  { g:'Lo que SÍ consume la cuota', hint:'lo único que se descuenta', tono:'cobra', filas:[
    { f:'Documentos auditados', v:[['num','100'],['num','500 / mes'],['num','2.500 / mes'],['ilim','ILIMITADO']],

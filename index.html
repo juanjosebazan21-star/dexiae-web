@@ -454,54 +454,27 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .bill-opt.active{background:var(--ac);color:#fff}
 .bill-save{font-size:11px;font-weight:700;color:var(--ok-deep);margin-left:4px}
 .bill-opt.active .bill-save{color:#D6F5E4}
-.price-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
-.price-card{background:#fff;border:1px solid var(--pline);border-radius:16px;padding:26px 24px;display:flex;flex-direction:column;position:relative;box-shadow:0 2px 4px rgba(24,20,12,.03)}
-.price-card.popular{border:2px solid var(--ac);box-shadow:0 18px 44px -18px rgba(46,109,219,.28)}
-.price-badge{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:4px 12px;border-radius:100px;white-space:nowrap}
-.price-badge.pop{background:var(--ac);color:#fff}
-.price-badge.tri{background:linear-gradient(135deg,var(--cta),var(--cta2));color:var(--cta-ink)}
-.price-name{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--ink);margin-bottom:2px}
-.price-tag{font-size:12.5px;color:var(--ink3);margin-bottom:14px}
-.price-amt{font-size:38px;font-weight:700;letter-spacing:-.03em;color:var(--ink);line-height:1}
-.price-amt .cur{font-size:16px;font-weight:600;color:var(--ink2);margin-right:2px}
-.price-amt .per{font-size:13px;font-weight:500;color:var(--ink3);margin-left:4px;letter-spacing:0}
-.price-ars{font-size:12px;color:var(--ink3);margin-top:6px}
-.price-div{height:1px;background:var(--pline);margin:16px 0}
-.price-feats{list-style:none;display:flex;flex-direction:column;gap:8px;flex:1;margin-bottom:18px}
-.price-feats li{font-size:13.5px;color:var(--ink);display:flex;gap:8px;line-height:1.4}
-.price-feats li::before{content:"✓";color:var(--ok-deep);font-weight:700;flex-shrink:0}
-.price-feats li.no{color:var(--ink3)}
-.price-feats li.no::before{content:"—";color:var(--ink3)}
-.price-feats li.soon{color:var(--ink2)}
-.price-feats li.soon::before{content:"◷";color:var(--ac);font-weight:700}
-.soon-b{margin-left:6px;font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:var(--ac-bg);color:var(--ac-deep);border:1px solid rgba(46,109,219,.25);padding:2px 7px;border-radius:100px;white-space:nowrap}
-.price-hl{background:var(--paper);border:1px solid var(--pline);border-radius:10px;padding:12px 14px;margin-bottom:14px}
-.price-hl-l{font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ac-deep);margin-bottom:6px}
-.price-hl ul{list-style:none;display:flex;flex-direction:column;gap:5px}
-.price-hl li{font-size:13px;color:var(--ink);display:flex;gap:7px}
-.price-hl li::before{content:"★";color:var(--ac);font-size:11px}
-.price-cta{width:100%;padding:12px;border-radius:10px;font-weight:600;font-size:14px;background:var(--ac);color:#fff;transition:all .18s}
-.price-cta:hover{background:var(--ac2)}
-/* El TRIAL usa el mismo ámbar que el CTA del hero: "ámbar = empezar la prueba" */
-.price-cta.tri{background:linear-gradient(135deg,var(--cta),var(--cta2));color:var(--cta-ink);font-weight:700;
- box-shadow:0 5px 14px -6px rgba(29,158,117,.55)}
-.price-cta.tri:hover{background:linear-gradient(135deg,#63E7C9,var(--cta3))}
-.price-cta.ghost{background:transparent;border:1px solid var(--pline2);color:var(--ink)}
-.price-cta.ghost:hover{border-color:var(--ac);color:var(--ac-deep)}
 
 /* ===== TABLA COMPARATIVA ===== */
-.cmp-wrap{max-width:1000px;margin:64px auto 0}
+.cmp-wrap{max-width:1060px;margin:12px auto 0}
 .cmp-head{text-align:center;margin-bottom:22px}
 .cmp-head h3{font-family:var(--disp);font-size:26px;font-weight:600;color:var(--ink);letter-spacing:-.025em}
 .cmp-head p{color:var(--ink2);font-size:14.5px;margin-top:8px}
 .cmp-regla{max-width:640px;margin:0 auto 28px;border-left:2px solid var(--cta2);background:rgba(61,217,182,.07);padding:13px 18px;border-radius:0 8px 8px 0}
 .cmp-regla b{font-family:var(--disp);color:var(--ink);font-size:14px;font-weight:600}
 .cmp-regla span{display:block;color:var(--ink2);font-size:13.5px;margin-top:3px}
-.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table.cmp{width:100%;border-collapse:collapse;min-width:720px}
+/* Sin min-width y sin overflow: la tabla entra completa en el ancho
+   disponible y no genera barra horizontal. Abajo de 820px no se comprime,
+   se cambia al selector de un plan por vez (ver la media query). */
+.cmp-scroll{overflow:visible}
+table.cmp{width:100%;border-collapse:collapse;table-layout:fixed}
 table.cmp th,table.cmp td{padding:0;text-align:center;position:relative}
-table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
-.cmp th.f-col,.cmp td.f-col{text-align:left;width:34%;min-width:230px}
+/* cabecera fija: la tabla es larga y sin esto se pierde de qué plan es
+   cada columna apenas empezás a bajar */
+table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:0;z-index:4;background:var(--paper2)}
+.cmp th.f-col,.cmp td.f-col{text-align:left;width:30%}
+.cmp thead th:not(.f-col){width:17.5%}
+.cref{font-size:11px;color:var(--ink3);margin-top:5px;line-height:1.35}
 .cplan{border:1px solid var(--pline);border-radius:11px;padding:14px 12px 15px;background:#fff;transition:transform .18s cubic-bezier(.2,.9,.3,1.1),box-shadow .18s,border-color .18s,opacity .18s}
 .cnm{font-family:var(--disp);font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:.01em}
 .cpr{font-family:var(--mono);font-size:17px;color:var(--ink);margin-top:5px;letter-spacing:-.02em}
@@ -513,12 +486,27 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
 .ctag{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:20px;margin-bottom:7px}
 .cplan.is-trial .ctag{background:rgba(31,157,99,.12);color:var(--ok-deep);border:1px solid rgba(31,157,99,.28)}
 .cplan.is-pop .ctag{background:var(--ac-bg);color:var(--ac-deep);border:1px solid rgba(46,109,219,.25)}
-/* spotlight: la columna apuntada se eleva y el resto se atenúa */
-.cmp.lit tbody td:not(.on):not(.f-col){opacity:.4}
-.cmp.lit thead .cplan:not(.on){opacity:.45}
-.cplan.on{transform:translateY(-4px);border-color:var(--ac);box-shadow:0 14px 34px rgba(36,86,190,.16)}
-.cmp td.on{background:rgba(79,134,247,.06)}
-.cmp td.on::before{content:"";position:absolute;inset:0;border-left:1px solid rgba(79,134,247,.28);border-right:1px solid rgba(79,134,247,.28);pointer-events:none}
+/* ── SPOTLIGHT DE COLUMNA ────────────────────────────────────────────
+   La columna apuntada se levanta y el resto se apaga. Es la única
+   animación de la tabla y existe para leer, no para decorar: comparar
+   cuatro planes de memoria es justo lo que hace que nadie compare.
+   Marcado fuerte a propósito — con un tinte suave se perdía. */
+.cmp.lit tbody td:not(.on):not(.f-col){opacity:.28}
+.cmp.lit thead .cplan:not(.on){opacity:.4}
+.cmp.lit tbody td.f-col{opacity:.75}
+.cplan.on{transform:translateY(-5px);border-color:var(--ac);
+ box-shadow:0 16px 40px rgba(36,86,190,.26),0 0 0 1px var(--ac)}
+.cmp td.on{background:rgba(79,134,247,.13)}
+/* los bordes laterales dibujan la columna entera de arriba abajo */
+.cmp td.on::before{content:"";position:absolute;inset:0;
+ border-left:2px solid rgba(79,134,247,.55);border-right:2px solid rgba(79,134,247,.55);
+ pointer-events:none}
+/* la primera fila cierra la columna arriba y la última abajo, para que se
+   lea como un bloque continuo y no como celdas sueltas apiladas */
+.cmp tbody tr.ft:first-of-type td.on::before{border-top:2px solid rgba(79,134,247,.55)}
+.cmp tbody tr:last-child td.on::before{border-bottom:2px solid rgba(79,134,247,.55)}
+.cmp td.on{font-weight:600;color:var(--ink)}
+.cmp td.on .v-num,.cmp td.on .v-yes,.cmp td.on .v-ilim{filter:saturate(1.15)}
 .cmp tr.rowon{background:rgba(24,20,12,.028)}
 .cmp tr.rowon td.f-col{color:var(--ink)}
 /* grupos: la distinción cuota SÍ / cuota NO es zona, no solo título */
@@ -530,11 +518,13 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
 .cmp tr.grp .g i{flex:1;height:1px;background:var(--pline);font-style:normal;min-width:20px}
 .cmp tr.grp .g .hint{font-family:var(--sans);font-size:11.5px;color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;flex:none;white-space:nowrap}
 @media(max-width:560px){.cmp tr.grp .g .hint{display:none}}
-.cmp tr.grp .g .chip{font-family:var(--mono);font-size:9px;letter-spacing:.09em;padding:3px 8px;border-radius:20px;flex:none}
+/* cmp-chip y no chip: .chip ya existe en la pagina (los chips del mock del
+   hero) y trae width:100%, que estiraba este a 1044px y desbordaba la tabla */
+.cmp tr.grp .g .cmp-chip{font-family:var(--mono);font-size:9px;letter-spacing:.09em;padding:3px 8px;border-radius:20px;flex:none}
 .cmp tr.grp.t-cobra .g b{color:var(--ink)}
-.cmp tr.grp.t-cobra .g .chip{background:rgba(24,20,12,.06);color:var(--ink2);border:1px solid var(--pline2)}
+.cmp tr.grp.t-cobra .g .cmp-chip{background:rgba(24,20,12,.06);color:var(--ink2);border:1px solid var(--pline2)}
 .cmp tr.grp.t-libre .g b{color:var(--cta2)}
-.cmp tr.grp.t-libre .g .chip{background:rgba(61,217,182,.14);color:var(--cta2);border:1px solid rgba(61,217,182,.34)}
+.cmp tr.grp.t-libre .g .cmp-chip{background:rgba(61,217,182,.14);color:var(--cta2);border:1px solid rgba(61,217,182,.34)}
 .cmp tr.grp.t-libre .g i{background:rgba(61,217,182,.3)}
 .cmp tr.grp.t-libre td{background:rgba(61,217,182,.055);box-shadow:inset 3px 0 0 var(--cta2)}
 .cmp tr.z-libre{background:rgba(61,217,182,.055)}
@@ -557,13 +547,14 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
 .cmp-mob button{font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--pline2);background:#fff;color:var(--ink2);cursor:pointer}
 .cmp-mob button.on{background:var(--ac-deep);border-color:var(--ac-deep);color:#fff}
 @media(max-width:820px){
- .cmp-wrap{margin-top:44px}
  .cmp-mob{display:flex}
- table.cmp{min-width:0}
- .cmp-scroll{overflow-x:visible}
  .cmp th.hide-m,.cmp td.hide-m{display:none}
- .cmp th.f-col,.cmp td.f-col{width:auto;min-width:0}
+ /* con una sola columna de plan visible, las proporciones fijas sobran */
+ table.cmp{table-layout:auto}
+ .cmp th.f-col,.cmp td.f-col{width:auto}
+ .cmp thead th:not(.f-col){width:auto}
  .cplan{padding:11px 9px 12px}
+ .cref{display:none}
 }
 
 /* ===== FAQ ===== */
@@ -600,7 +591,6 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
  .hero-shot{transform:none}
  .feat,.feat.rev{grid-template-columns:1fr;gap:26px}
  .feat.rev .txt{order:0}
- .price-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:640px){
  .cta{gap:16px}
@@ -610,7 +600,6 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
  .cta-note{max-width:none}
  .proof-in{grid-template-columns:1fr 1fr}
  .proof .c:nth-child(2){border-right:none}
- .price-grid{grid-template-columns:1fr}
  .f-row{grid-template-columns:1fr}
 }
 .novedades{padding:72px 0;border-top:1px solid var(--line)}
@@ -626,7 +615,7 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
 /* ===== SISTEMA TIPOGRÁFICO DE TITULARES ==================================
    Toda la jerarquía de títulos comparte la display; el cuerpo sigue en Inter.
    IBM Plex es más ancha que Inter, así que el tracking se afloja. */
-.sh h2,.h2,.final h2,.feat h3,.p-card h3,.price-card h3,.cent-nm{font-family:var(--disp)}
+.sh h2,.h2,.final h2,.feat h3,.p-card h3,.cent-nm{font-family:var(--disp)}
 .sh h2,.h2,.final h2{font-weight:600;letter-spacing:-.024em}
 .feat h3{font-weight:600;letter-spacing:-.02em}
 .p-card h3{font-weight:600;letter-spacing:-.014em}
@@ -1025,94 +1014,13 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
   <button class="bill-opt active" data-billing="monthly">Mensual</button>
   <button class="bill-opt" data-billing="annual">Anual <span class="bill-save">-20%</span></button>
  </div>
- <div class="price-grid">
-  <div class="price-card">
-   <div class="price-badge tri">Probalo gratis</div>
-   <div class="price-name" style="color:var(--ok-deep)">TRIAL</div>
-   <div class="price-tag">Prueba completa · 14 días</div>
-   <div class="price-amt"><span class="cur">$</span>0<span class="per">/ 14 días</span></div>
-   <div class="price-ars">Sin tarjeta · sin compromiso</div>
-   <div class="price-div"></div>
-   <ul class="price-feats">
-    <li><b style="color:var(--ok-deep)">100 documentos · 3 plantillas</b></li>
-    <!-- Los extractos NO consumen cuota en NINGUNA edición: herr_extracto_procesar()
-         no la chequea al entrar ni incrementa el contador al salir (verificado en
-         dexiae_api.py, 02/08/2026). Faltaba acá, y como la tarjeta de CORE sí lo
-         anuncia, la web daba a entender que el beneficio arrancaba en el plan pago. -->
-    <li><b>Extracto bancario → Excel · ilimitado</b></li>
-    <li>Validación de datos (reglas de negocio)</li>
-    <li>Peritaje de firmas digitales</li>
-    <li>Centinela automático de carpetas</li>
-    <li>Reportes Excel, HTML y PDF</li>
-    <li>9 herramientas PDF + OCR por lote</li>
-   </ul>
-   <button onclick="openLead('TRIAL')" class="price-cta tri">Empezar gratis</button>
-  </div>
-  <div class="price-card">
-   <div class="price-name">CORE</div>
-   <div class="price-tag">Uso personal o profesional</div>
-   <div class="price-amt"><span class="cur">AR$</span><span class="p-m">44.500</span><span class="p-a" style="display:none">425.000</span><span class="per p-pm">/ mes</span><span class="per p-pa" style="display:none">/ año</span></div>
-   <div class="price-ars"><span class="p-m">≈ US$ 29 / mes</span><span class="p-a" style="display:none">≈ US$ 278 / año</span></div>
-   <div class="price-div"></div>
-   <ul class="price-feats">
-    <li>500 docs/mes · 3 plantillas</li>
-    <li><b>Extracto bancario → Excel · ilimitado</b></li>
-    <li>Extracción a Excel por plantilla manual</li>
-    <li>Detección de duplicados</li>
-    <li>Unir, dividir, PDF a Word, imágenes a PDF</li>
-    <li class="no">Sin peritaje ni Centinela</li>
-   </ul>
-   <button onclick="openLead('CORE')" class="price-cta">Activar CORE</button>
-  </div>
-  <div class="price-card popular">
-   <div class="price-badge pop">Más elegido</div>
-   <div class="price-name">PRO</div>
-   <div class="price-tag">Auditoría completa</div>
-   <div class="price-amt"><span class="cur">AR$</span><span class="p-m">135.000</span><span class="p-a" style="display:none">1.295.000</span><span class="per p-pm">/ mes</span><span class="per p-pa" style="display:none">/ año</span></div>
-   <div class="price-ars"><span class="p-m">≈ US$ 89 / mes</span><span class="p-a" style="display:none">≈ US$ 854 / año</span></div>
-   <div class="price-div"></div>
-   <div class="price-hl">
-    <div class="price-hl-l">Exclusivo PRO</div>
-    <ul>
-     <li><b>Extractos: imputación + borrador de asientos</b></li>
-     <li>Asistente de plantillas automático</li>
-     <li>Autodetección de plantillas por lote</li>
-    </ul>
-   </div>
-   <ul class="price-feats">
-    <li>2.500 docs/mes · plantillas ilimitadas</li>
-    <li>Todo lo de CORE</li>
-    <li>Peritaje de firmas digitales</li>
-    <li>Validación de datos (reglas de negocio)</li>
-    <li>OCR por lote · fusionar reportes</li>
-    <li>Reportes HTML y PDF auditoría</li>
-    <li>Score de riesgo · gaps de numeración</li>
-    <li>Centinela automático</li>
-   </ul>
-   <button onclick="openLead('PRO')" class="price-cta">Quiero PRO</button>
-  </div>
-  <div class="price-card">
-   <div class="price-name">SENTINEL</div>
-   <div class="price-tag">Organizaciones</div>
-   <div class="price-amt"><span class="cur">desde US$</span><span class="p-m">150</span><span class="p-a" style="display:none">1.500</span><span class="per p-pm">/ equipo·mes</span><span class="per p-pa" style="display:none">/ equipo·año</span></div>
-   <div class="price-ars">Cotización por organización</div>
-   <div class="price-div"></div>
-   <ul class="price-feats">
-    <li>Documentos ilimitados</li>
-    <li>Todo lo de PRO</li>
-    <li>Múltiples equipos</li>
-    <li>Caps configurables por contrato</li>
-    <li>Onboarding personal incluido</li>
-    <li>Soporte prioritario directo</li>
-   </ul>
-   <button onclick="openLead('SENTINEL')" class="price-cta ghost">Quiero SENTINEL</button>
-  </div>
- </div>
 
- <!-- ══ TABLA COMPARATIVA ══════════════════════════════════════════════
-      Va DEBAJO de las tarjetas, no en lugar de ellas: las tarjetas llevan
-      el precio, el CTA y el "más elegido", y en celular funcionan mejor.
-      Esto es para el que quiere comparar en detalle.
+ <!-- ══ TABLA COMPARATIVA — EL ÚNICO PANEL DE PRECIOS ══════════════════
+      Primero se probó "4 tarjetas + tabla debajo". Quedaba duplicado: la
+      cabecera de la tabla repite nombre, precio y CTA de cada plan justo
+      abajo de las tarjetas que dicen lo mismo. Se eliminaron las tarjetas
+      (02/08/2026); la tabla las reemplaza y no perdió nada, porque todos
+      sus bullets ya eran filas.
 
       AGRUPADA POR CASO DE USO, no por cantidad de funciones. En una grilla
       plana CORE queda como la columna más vacía justo al lado del trial
@@ -1121,9 +1029,11 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
       en SU bloque: extracción, extractos ilimitados, duplicados y herramientas.
 
       EL TOGGLE MENSUAL/ANUAL NO SE DUPLICA: los precios usan las mismas
-      clases .p-m / .p-a que las tarjetas, así que el listener que ya existe
-      (buscar "Billing toggle") las cambia solas. Si se agregara un segundo
-      toggle, tarjetas y tabla podrían quedar mostrando ciclos distintos.
+      clases .p-m / .p-a de siempre, así que el listener que ya existía
+      (buscar "Billing toggle") los cambia solo. No agregar un segundo toggle.
+
+      SIN SCROLL HORIZONTAL: la tabla entra completa en el ancho disponible.
+      Abajo de 820px no se comprime — se cambia al selector de un plan por vez.
       ═══════════════════════════════════════════════════════════════════ -->
  <div class="cmp-wrap">
   <div class="cmp-head">
@@ -1146,18 +1056,22 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
       <th data-c="0"><div class="cplan is-trial" data-c="0">
        <span class="ctag">Gratis 14 días</span>
        <div class="cnm">TRIAL</div><div class="cpr">$0<span class="cu"> / 14 días</span></div>
+       <div class="cref">Sin tarjeta · sin compromiso</div>
        <button onclick="openLead('TRIAL')" class="ccta">Empezar gratis</button></div></th>
       <th data-c="1"><div class="cplan" data-c="1">
        <div class="cnm">CORE</div>
        <div class="cpr"><span class="p-m">44.500</span><span class="p-a" style="display:none">425.000</span><span class="cu"><span class="p-m"> AR$/mes</span><span class="p-a" style="display:none"> AR$/año</span></span></div>
+       <div class="cref"><span class="p-m">≈ US$ 29 / mes</span><span class="p-a" style="display:none">≈ US$ 278 / año</span></div>
        <button onclick="openLead('CORE')" class="ccta">Activar CORE</button></div></th>
       <th data-c="2"><div class="cplan is-pop" data-c="2">
        <span class="ctag">Más elegido</span>
        <div class="cnm">PRO</div>
        <div class="cpr"><span class="p-m">135.000</span><span class="p-a" style="display:none">1.295.000</span><span class="cu"><span class="p-m"> AR$/mes</span><span class="p-a" style="display:none"> AR$/año</span></span></div>
+       <div class="cref"><span class="p-m">≈ US$ 89 / mes</span><span class="p-a" style="display:none">≈ US$ 854 / año</span></div>
        <button onclick="openLead('PRO')" class="ccta">Quiero PRO</button></div></th>
       <th data-c="3"><div class="cplan" data-c="3">
        <div class="cnm">SENTINEL</div><div class="cpr">desde 150<span class="cu"> US$</span></div>
+       <div class="cref">Cotización por organización</div>
        <button onclick="openLead('SENTINEL')" class="ccta">Cotizar</button></div></th>
      </tr>
     </thead>
@@ -1185,9 +1099,9 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
   <div class="faq-item"><button class="faq-q"><span>¿Cómo activo la licencia después de pagar?</span><span class="ic">+</span></button>
    <div class="faq-a"><p>El instalador se descarga al instante apenas completás el formulario. <strong>El trial no requiere clave</strong>: instalá el .exe, abrí DEXIAE y los 14 días arrancan solos. Para planes pagos (CORE/PRO), la clave de activación llega por email apenas se acredita el pago en Mercado Pago. SENTINEL se activa tras coordinar la propuesta a medida.</p></div></div>
   <div class="faq-item"><button class="faq-q"><span>¿Puedo probar DEXIAE antes de pagar?</span><span class="ic">+</span></button>
-   <div class="faq-a"><p><strong>Sí, siempre.</strong> El plan TRIAL te da 14 días completos de uso con hasta 100 documentos — sin tarjeta de crédito ni datos de pago. Tenés acceso a <strong>todas las funciones</strong> incluyendo peritaje de firmas, Centinela automático, reportes HTML/PDF y herramientas PDF. Configurás plantillas reales, procesás lotes de tus propios documentos y veés los reportes completos para evaluar el potencial total de DEXIAE.</p></div></div>
+   <div class="faq-a"><p><strong>Sí, siempre.</strong> El plan TRIAL te da 14 días completos de uso con hasta 100 documentos — sin tarjeta de crédito ni datos de pago. Tenés <strong>peritaje de firmas, Centinela automático, reportes HTML/PDF, validación de datos y las herramientas PDF</strong> — solo la Autodetección y el Asistente de plantillas quedan reservados para PRO. Configurás plantillas reales, procesás lotes de tus propios documentos y veés los reportes completos para evaluar el potencial total de DEXIAE.</p></div></div>
   <div class="faq-item"><button class="faq-q"><span>¿Qué cuenta para mi límite mensual?</span><span class="ic">+</span></button>
-   <div class="faq-a"><p>El cupo mensual (<strong>500 en CORE, 2.500 en PRO</strong>) cuenta <strong>solo la auditoría por plantilla</strong>: extracción en lote, Modo Centinela y autodetección de plantillas. Las <strong>9 herramientas PDF</strong> y el conversor de <strong>Extracto bancario a Excel son ilimitados</strong> y no consumen tu cupo. Además, en los planes pagos el límite tiene un margen de tolerancia y <strong>nunca corta un lote empezado</strong> — solo pausa el inicio de lotes nuevos cuando superás el margen, hasta que el contador se reinicia el 1 de cada mes.</p></div></div>
+   <div class="faq-a"><p>El cupo mensual (<strong>500 en CORE, 2.500 en PRO</strong>) cuenta <strong>solo la auditoría por plantilla</strong>: extracción en lote, Modo Centinela y autodetección de plantillas. Las <strong>8 herramientas PDF</strong>, el <strong>modo Organizar</strong> y el conversor de <strong>Extracto bancario a Excel son ilimitados</strong> y no consumen tu cupo — en ningún plan, ni siquiera en el trial. Además, en los planes pagos el límite tiene un margen de tolerancia y <strong>nunca corta un lote empezado</strong> — solo pausa el inicio de lotes nuevos cuando superás el margen, hasta que el contador se reinicia el 1 de cada mes.</p></div></div>
   <div class="faq-item"><button class="faq-q"><span>¿Por qué Windows muestra una advertencia al instalar?</span><span class="ic">+</span></button>
    <div class="faq-a"><p>DEXIAE es un software de desarrollador independiente que aún no acumuló las firmas de reputación que requiere Microsoft SmartScreen. La advertencia <em>"Windows protegió tu equipo"</em> es estándar para software nuevo de empresas chicas — <strong>no significa que sea malicioso</strong>. Para continuar la instalación: hacé click en <strong>"Más información"</strong> y luego en <strong>"Ejecutar de todos modos"</strong>. El instalador puede ser inspeccionado con cualquier antivirus o subido a <a href="https://www.virustotal.com/" target="_blank" rel="noopener noreferrer">VirusTotal</a> si querés validación independiente.</p></div></div>
   <div class="faq-item"><button class="faq-q"><span>¿Cuánto tarda DEXIAE en procesar 100 PDFs?</span><span class="ic">+</span></button>
@@ -1280,9 +1194,10 @@ const CMP = [
  { g:'Lo que NO consume la cuota', hint:'ilimitado en los cuatro planes', tono:'libre', filas:[
    { f:'<b>Extracto bancario → Excel</b>', v:[['ilim','ILIMITADO'],['ilim','ILIMITADO'],['ilim','ILIMITADO'],['ilim','ILIMITADO']] },
    { f:'<b>Modo Organizar</b> <span style="color:var(--ink3)">— clasifica la carpeta por tipo</span>', v:[['yes'],['yes'],['yes'],['yes']] },
-   /* 9 = las 8 herramientas PDF + el conversor de extractos. CORE baja a 8:
-      tiene ocr_ilimitado:False y se queda sin OCR por lote. */
-   { f:'Herramientas PDF', v:[['num','9'],['num','8'],['num','9'],['num','9']],
+   /* Son 8, NO 9: el conversor de extractos es la 9ª utilidad de la sección
+      Herramientas, pero acá tiene su propia fila arriba — contarlo también
+      acá lo duplicaba. CORE baja a 7 porque tiene ocr_ilimitado:False. */
+   { f:'Herramientas PDF', v:[['num','8'],['num','7'],['num','8'],['num','8']],
      nota:['','sin OCR por lote','',''] } ]},
  { g:'Extracción y herramientas', hint:'el trabajo de todos los días', filas:[
    { f:'Extracción a Excel por plantilla', v:[['yes'],['yes'],['yes'],['yes']] },
@@ -1312,8 +1227,8 @@ const CMP = [
  let h='';
  CMP.forEach(gr=>{
   const t=gr.tono?' t-'+gr.tono:'', z=gr.tono==='libre'?' z-libre':'';
-  const chip = gr.tono==='cobra' ? '<span class="chip">DESCUENTA</span>'
-             : gr.tono==='libre' ? '<span class="chip">NO DESCUENTA</span>' : '';
+  const chip = gr.tono==='cobra' ? '<span class="cmp-chip">DESCUENTA</span>'
+             : gr.tono==='libre' ? '<span class="cmp-chip">NO DESCUENTA</span>' : '';
   h+='<tr class="grp'+t+'"><td colspan="5"><div class="g"><b>'+gr.g+'</b>'+chip+
      '<span class="hint">'+gr.hint+'</span><i></i></div></td></tr>';
   gr.filas.forEach(f=>{
@@ -1331,15 +1246,28 @@ const CMP = [
   cmp.querySelectorAll('[data-c]').forEach(el=>
    el.classList.toggle('on', c!==null && el.getAttribute('data-c')===String(c)));
  };
+ /* fijado: en touch no hay hover, así que el resalte nunca se dispararía.
+    Tocar la cabecera de un plan lo deja fijo; tocarla de nuevo lo suelta. */
+ let fijo=null;
  cmp.addEventListener('mouseover',e=>{
+  if(fijo!==null) return;
   const t=e.target.closest('[data-c]');
   iluminar(t?t.getAttribute('data-c'):null);
   cmp.querySelectorAll('tr.rowon').forEach(r=>r.classList.remove('rowon'));
   const tr=e.target.closest('tr.ft'); if(tr) tr.classList.add('rowon');
  });
  cmp.addEventListener('mouseleave',()=>{
+  if(fijo!==null) return;
   iluminar(null);
   cmp.querySelectorAll('tr.rowon').forEach(r=>r.classList.remove('rowon'));
+ });
+ cmp.querySelectorAll('thead .cplan').forEach(p=>{
+  p.addEventListener('click',e=>{
+   if(e.target.closest('.ccta')) return;   /* el botón hace lo suyo */
+   const c=p.getAttribute('data-c');
+   fijo = (fijo===c) ? null : c;
+   iluminar(fijo);
+  });
  });
 
  /* celular: un plan por vez. Scroll horizontal esconde la mitad y nadie la descubre. */
@@ -1459,7 +1387,7 @@ function toggleCent(){
 (function(){
  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
  if(!('IntersectionObserver' in window)) return;
- var els=document.querySelectorAll('.problem .p-card,.sh,.feat,.price-card,.faq-item');
+ var els=document.querySelectorAll('.problem .p-card,.sh,.feat,.cmp-wrap,.faq-item');
  var io=new IntersectionObserver(function(en){
   en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
  },{threshold:.12,rootMargin:'0px 0px -50px 0px'});

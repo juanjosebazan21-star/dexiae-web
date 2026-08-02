@@ -446,110 +446,133 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
 /* ===== PRICING ===== */
 .pricing{background:var(--paper2);padding:84px 0}
-.bill-toggle{display:flex;gap:4px;background:#fff;border:1px solid var(--pline2);border-radius:100px;padding:4px;width:max-content;margin:26px auto 40px}
-.bill-opt{padding:8px 18px;border-radius:100px;font-size:13.5px;font-weight:600;color:var(--ink2);transition:all .18s}
+/* ══ TABLA COMPARATIVA — PANEL OSCURO SOBRE SECCIÓN CLARA ══════════════
+   La sección sigue siendo clara A PROPÓSITO. La página alterna con un ritmo
+   deliberado —oscuro, dos claras, oscuro, dos claras, oscuro— y Centinela,
+   que está justo arriba, ya es oscuro. Invertir toda la sección dejaba dos
+   bloques oscuros pegados y encima Final como tercero casi seguido.
+
+   La solución es el panel: la tarjeta flota oscura sobre el fondo claro. Se
+   gana el spotlight sobre oscuro (que en claro había que forzar tiñendo la
+   columna; acá alcanza con apagar el resto), el ritmo queda intacto, y el
+   panel pasa a ser el objeto más distinto de la página — que es justo donde
+   querés que se detenga el ojo.
+   ═══════════════════════════════════════════════════════════════════════ */
+.cmp-wrap{max-width:1060px;margin:34px auto 0;background:var(--navy);border-radius:20px;
+ padding:30px 30px 34px;position:relative;overflow:hidden;
+ box-shadow:0 30px 70px -28px rgba(11,17,32,.55),0 2px 6px rgba(11,17,32,.10)}
+/* luz cenital, no cuadrícula: la textura la da el halo */
+.cmp-wrap::before{content:"";position:absolute;top:-190px;left:50%;transform:translateX(-50%);
+ width:760px;height:400px;background:radial-gradient(circle,rgba(79,134,247,.16),transparent 68%);pointer-events:none}
+.cmp-wrap>*{position:relative}
+
+.bill-toggle{display:flex;gap:4px;background:rgba(150,180,235,.07);border:1px solid var(--line2);
+ border-radius:100px;padding:4px;width:max-content;margin:0 auto 22px}
+.bill-opt{padding:8px 18px;border-radius:100px;font-size:13.5px;font-weight:600;color:var(--md);
+ background:none;border:none;cursor:pointer;font-family:var(--sans);transition:all .18s}
+.bill-opt:hover{color:var(--hi)}
 .bill-opt.active{background:var(--ac);color:#fff}
-.bill-save{font-size:11px;font-weight:700;color:var(--ok-deep);margin-left:4px}
+.bill-save{font-size:11px;font-weight:700;color:var(--cta);margin-left:4px}
 .bill-opt.active .bill-save{color:#D6F5E4}
 
-/* ===== TABLA COMPARATIVA ===== */
-.cmp-wrap{max-width:1060px;margin:12px auto 0}
-.cmp-regla{max-width:640px;margin:0 auto 28px;border-left:2px solid var(--cta2);background:rgba(61,217,182,.07);padding:13px 18px;border-radius:0 8px 8px 0}
-.cmp-regla b{font-family:var(--disp);color:var(--ink);font-size:14px;font-weight:600}
-.cmp-regla span{display:block;color:var(--ink2);font-size:13.5px;margin-top:3px}
-/* Sin min-width y sin overflow: la tabla entra completa en el ancho
-   disponible y no genera barra horizontal. Abajo de 820px no se comprime,
-   se cambia al selector de un plan por vez (ver la media query). */
+.cmp-regla{max-width:660px;margin:0 auto 26px;border-left:2px solid var(--cta);
+ background:rgba(61,217,182,.08);padding:13px 18px;border-radius:0 8px 8px 0}
+.cmp-regla b{font-family:var(--disp);color:var(--hi);font-size:14px;font-weight:600}
+.cmp-regla span{display:block;color:var(--md);font-size:13.5px;margin-top:3px}
+
 .cmp-scroll{overflow:visible}
 table.cmp{width:100%;border-collapse:collapse;table-layout:fixed}
 table.cmp th,table.cmp td{padding:0;text-align:center;position:relative}
-/* cabecera fija: la tabla es larga y sin esto se pierde de qué plan es
-   cada columna apenas empezás a bajar */
-table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:0;z-index:4;background:var(--paper2)}
+/* cabecera fija: la tabla es larga y sin esto se pierde de qué plan es cada columna */
+table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:0;z-index:4;background:var(--navy)}
 .cmp th.f-col,.cmp td.f-col{text-align:left;width:30%}
 .cmp thead th:not(.f-col){width:17.5%}
-.cref{font-size:11px;color:var(--ink3);margin-top:5px;line-height:1.35}
-.cplan{border:1px solid var(--pline);border-radius:11px;padding:14px 12px 15px;background:#fff;transition:transform .18s cubic-bezier(.2,.9,.3,1.1),box-shadow .18s,border-color .18s,opacity .18s}
-.cnm{font-family:var(--disp);font-size:14.5px;font-weight:600;color:var(--ink);letter-spacing:.01em}
-.cpr{font-family:var(--mono);font-size:17px;color:var(--ink);margin-top:5px;letter-spacing:-.02em}
-.cpr .cu{font-size:10.5px;color:var(--ink3);letter-spacing:0}
-.ccta{display:block;width:100%;margin-top:11px;padding:8px;border-radius:8px;border:1px solid var(--pline2);background:#fff;color:var(--ink);font-family:var(--sans);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s}
-.ccta:hover{border-color:var(--ac);color:var(--ac-deep)}
-.cplan.is-trial .ccta{background:var(--cta);border-color:var(--cta);color:var(--cta-ink)}
-.cplan.is-trial .ccta:hover{background:var(--cta2);color:#fff}
-.ctag{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:20px;margin-bottom:7px}
-.cplan.is-trial .ctag{background:rgba(31,157,99,.12);color:var(--ok-deep);border:1px solid rgba(31,157,99,.28)}
-.cplan.is-pop .ctag{background:var(--ac-bg);color:var(--ac-deep);border:1px solid rgba(46,109,219,.25)}
-/* ── SPOTLIGHT DE COLUMNA ────────────────────────────────────────────
-   La columna apuntada se levanta y el resto se apaga. Es la única
-   animación de la tabla y existe para leer, no para decorar: comparar
-   cuatro planes de memoria es justo lo que hace que nadie compare.
-   Marcado fuerte a propósito — con un tinte suave se perdía. */
-.cmp.lit tbody td:not(.on):not(.f-col){opacity:.28}
-.cmp.lit thead .cplan:not(.on){opacity:.4}
-.cmp.lit tbody td.f-col{opacity:.75}
-.cplan.on{transform:translateY(-5px);border-color:var(--ac);
- box-shadow:0 16px 40px rgba(36,86,190,.26),0 0 0 1px var(--ac)}
-.cmp td.on{background:rgba(79,134,247,.13)}
-/* los bordes laterales dibujan la columna entera de arriba abajo */
+
+.cplan{border:1px solid var(--line2);border-radius:11px;padding:14px 12px 15px;background:var(--card);
+ transition:transform .18s cubic-bezier(.2,.9,.3,1.1),box-shadow .18s,border-color .18s,opacity .18s,background .18s}
+.cnm{font-family:var(--disp);font-size:14.5px;font-weight:600;color:var(--hi);letter-spacing:.01em}
+.cpr{font-family:var(--mono);font-size:17px;color:var(--hi);margin-top:5px;letter-spacing:-.02em}
+.cpr .cu{font-size:10.5px;color:var(--lo);letter-spacing:0}
+.cref{font-size:11px;color:var(--lo);margin-top:5px;line-height:1.35}
+.ccta{display:block;width:100%;margin-top:11px;padding:8px;border-radius:8px;border:1px solid var(--line2);
+ background:rgba(243,246,252,.05);color:var(--hi);font-family:var(--sans);font-size:12.5px;font-weight:600;cursor:pointer;transition:all .15s}
+.ccta:hover{border-color:var(--ac);background:var(--ac-bg)}
+.cplan.is-trial .ccta{background:linear-gradient(135deg,var(--cta),var(--cta2));border-color:transparent;color:var(--cta-ink);font-weight:700}
+.cplan.is-trial .ccta:hover{background:linear-gradient(135deg,#63E7C9,var(--cta3))}
+.ctag{display:inline-block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;
+ padding:2px 7px;border-radius:20px;margin-bottom:7px}
+.cplan.is-trial .ctag{background:rgba(61,217,182,.14);color:var(--cta);border:1px solid rgba(61,217,182,.32)}
+.cplan.is-pop{border-color:rgba(79,134,247,.45);background:linear-gradient(180deg,rgba(79,134,247,.10),var(--card))}
+.cplan.is-pop .ctag{background:var(--ac-bg);color:#8FBBFF;border:1px solid rgba(79,134,247,.32)}
+
+/* ── SPOTLIGHT ───────────────────────────────────────────────────────
+   Sobre oscuro alcanza con APAGAR el resto: la columna elegida queda
+   encendida sola, que es literalmente lo que hace un spotlight. En claro
+   había que teñirla para lograr lo mismo, y se leía peor. */
+.cmp.lit tbody td:not(.on):not(.f-col){opacity:.22}
+.cmp.lit thead .cplan:not(.on){opacity:.32}
+.cmp.lit tbody td.f-col{opacity:.7}
+.cplan.on{transform:translateY(-5px);border-color:var(--ac);background:var(--navy2);
+ box-shadow:0 18px 44px rgba(0,0,0,.55),0 0 0 1px var(--ac),0 0 34px rgba(79,134,247,.28)}
+.cmp td.on{background:rgba(79,134,247,.10);color:var(--hi)}
 .cmp td.on::before{content:"";position:absolute;inset:0;
- border-left:2px solid rgba(79,134,247,.55);border-right:2px solid rgba(79,134,247,.55);
- pointer-events:none}
-/* la primera fila cierra la columna arriba y la última abajo, para que se
-   lea como un bloque continuo y no como celdas sueltas apiladas */
-.cmp tbody tr.ft:first-of-type td.on::before{border-top:2px solid rgba(79,134,247,.55)}
-.cmp tbody tr:last-child td.on::before{border-bottom:2px solid rgba(79,134,247,.55)}
-.cmp td.on{font-weight:600;color:var(--ink)}
-.cmp td.on .v-num,.cmp td.on .v-yes,.cmp td.on .v-ilim{filter:saturate(1.15)}
-.cmp tr.rowon{background:rgba(24,20,12,.028)}
-.cmp tr.rowon td.f-col{color:var(--ink)}
+ border-left:1px solid rgba(79,134,247,.45);border-right:1px solid rgba(79,134,247,.45);pointer-events:none}
+.cmp tbody tr.ft:first-of-type td.on::before{border-top:1px solid rgba(79,134,247,.45)}
+.cmp tbody tr:last-child td.on::before{border-bottom:1px solid rgba(79,134,247,.45)}
+
 /* grupos: la distinción cuota SÍ / cuota NO es zona, no solo título */
 .cmp tr.grp td{padding:26px 0 9px;text-align:left}
 .cmp tr.grp .g{display:flex;align-items:center;gap:11px}
-/* flex:none en b y hint: sin esto el <i> (flex:1) los aplasta hasta su ancho
-   mínimo y el título se parte en vertical, una palabra por línea */
-.cmp tr.grp .g b{font-family:var(--disp);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ac-deep);flex:none;white-space:nowrap}
-.cmp tr.grp .g i{flex:1;height:1px;background:var(--pline);font-style:normal;min-width:20px}
-.cmp tr.grp .g .hint{font-family:var(--sans);font-size:11.5px;color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;flex:none;white-space:nowrap}
-@media(max-width:560px){.cmp tr.grp .g .hint{display:none}}
-/* cmp-chip y no chip: .chip ya existe en la pagina (los chips del mock del
-   hero) y trae width:100%, que estiraba este a 1044px y desbordaba la tabla */
+/* flex:none: sin esto el <i> (flex:1) aplasta el título y lo parte en vertical */
+.cmp tr.grp .g b{font-family:var(--disp);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+ color:#8FBBFF;flex:none;white-space:nowrap}
+.cmp tr.grp .g i{flex:1;height:1px;background:var(--line);font-style:normal;min-width:20px}
+.cmp tr.grp .g .hint{font-family:var(--sans);font-size:11.5px;color:var(--lo);text-transform:none;letter-spacing:0;font-weight:400;flex:none;white-space:nowrap}
+/* cmp-chip y no chip: .chip ya existe en la página (mock del hero) con
+   width:100%, y estiraba éste hasta desbordar la tabla entera */
 .cmp tr.grp .g .cmp-chip{font-family:var(--mono);font-size:9px;letter-spacing:.09em;padding:3px 8px;border-radius:20px;flex:none}
-.cmp tr.grp.t-cobra .g b{color:var(--ink)}
-.cmp tr.grp.t-cobra .g .cmp-chip{background:rgba(24,20,12,.06);color:var(--ink2);border:1px solid var(--pline2)}
-.cmp tr.grp.t-libre .g b{color:var(--cta2)}
-.cmp tr.grp.t-libre .g .cmp-chip{background:rgba(61,217,182,.14);color:var(--cta2);border:1px solid rgba(61,217,182,.34)}
-.cmp tr.grp.t-libre .g i{background:rgba(61,217,182,.3)}
-.cmp tr.grp.t-libre td{background:rgba(61,217,182,.055);box-shadow:inset 3px 0 0 var(--cta2)}
-.cmp tr.z-libre{background:rgba(61,217,182,.055)}
-.cmp tr.z-libre td.f-col{box-shadow:inset 3px 0 0 var(--cta2)}
-.cmp tr.z-libre.rowon{background:rgba(61,217,182,.11)}
-.cmp tr.z-end td{height:9px;padding:0;background:rgba(61,217,182,.055)}
-.cmp tr.z-end td.f-col{box-shadow:inset 3px 0 0 var(--cta2)}
-.cmp tbody tr.ft{border-top:1px solid var(--pline)}
-.cmp td.f-col{padding:12px 16px 12px 2px;font-size:13.5px;color:var(--ink2);line-height:1.4}
-.cmp td.f-col b{color:var(--ink);font-weight:600}
-.cmp tbody td:not(.f-col){padding:12px 8px;font-size:13.5px;color:var(--ink2)}
-.v-yes{color:var(--ok-deep);font-weight:700;font-size:15px}
-.v-no{color:var(--ink3);opacity:.6}
-.v-num{font-family:var(--mono);font-size:13px;color:var(--ink);letter-spacing:-.01em}
-.v-ilim{font-family:var(--mono);font-size:11.5px;color:var(--cta2);letter-spacing:.03em;font-weight:500}
-.v-txt{font-size:12.5px;color:var(--ink2)}
-.v-nota{font-size:11px;color:var(--ink3);margin-top:2px}
+.cmp tr.grp.t-cobra .g b{color:var(--md)}
+.cmp tr.grp.t-cobra .g .cmp-chip{background:rgba(150,180,235,.09);color:var(--md);border:1px solid var(--line2)}
+.cmp tr.grp.t-libre .g b{color:var(--cta)}
+.cmp tr.grp.t-libre .g .cmp-chip{background:rgba(61,217,182,.14);color:var(--cta);border:1px solid rgba(61,217,182,.36)}
+.cmp tr.grp.t-libre .g i{background:rgba(61,217,182,.28)}
+/* sobre oscuro el teal brilla en vez de tapar: el bloque de lo ilimitado
+   es lo más luminoso de la tabla */
+.cmp tr.grp.t-libre td{background:rgba(61,217,182,.06);box-shadow:inset 3px 0 0 var(--cta)}
+.cmp tr.z-libre{background:rgba(61,217,182,.06)}
+.cmp tr.z-libre td.f-col{box-shadow:inset 3px 0 0 var(--cta)}
+.cmp tr.z-end td{height:9px;padding:0;background:rgba(61,217,182,.06)}
+.cmp tr.z-end td.f-col{box-shadow:inset 3px 0 0 var(--cta)}
+
+.cmp tbody tr.ft{border-top:1px solid var(--line)}
+.cmp td.f-col{padding:12px 16px 12px 2px;font-size:13.5px;color:var(--md);line-height:1.4}
+.cmp td.f-col b{color:var(--hi);font-weight:600}
+.cmp tbody td:not(.f-col){padding:12px 8px;font-size:13.5px;color:var(--md)}
+.cmp tr.rowon{background:rgba(150,180,235,.045)}
+.cmp tr.rowon td.f-col{color:var(--hi)}
+.v-yes{color:var(--ok);font-weight:700;font-size:15px}
+.v-no{color:var(--lo);opacity:.55}
+.v-num{font-family:var(--mono);font-size:13px;color:var(--hi);letter-spacing:-.01em}
+.v-ilim{font-family:var(--mono);font-size:11.5px;color:var(--cta);letter-spacing:.03em;font-weight:500}
+.v-txt{font-size:12.5px;color:var(--md)}
+.v-nota{font-size:11px;color:var(--lo);margin-top:2px}
+
 /* celular: una tabla de 5 columnas a 360px no se lee → selector de plan */
 .cmp-mob{display:none;gap:7px;margin:0 0 18px;flex-wrap:wrap;justify-content:center}
-.cmp-mob button{font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:20px;border:1px solid var(--pline2);background:#fff;color:var(--ink2);cursor:pointer}
-.cmp-mob button.on{background:var(--ac-deep);border-color:var(--ac-deep);color:#fff}
+.cmp-mob button{font-family:var(--sans);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:20px;
+ border:1px solid var(--line2);background:rgba(243,246,252,.05);color:var(--md);cursor:pointer}
+.cmp-mob button.on{background:var(--ac);border-color:var(--ac);color:#fff}
 @media(max-width:820px){
+ .cmp-wrap{padding:22px 16px 26px;border-radius:16px;margin-top:26px}
  .cmp-mob{display:flex}
  .cmp th.hide-m,.cmp td.hide-m{display:none}
- /* con una sola columna de plan visible, las proporciones fijas sobran */
  table.cmp{table-layout:auto}
  .cmp th.f-col,.cmp td.f-col{width:auto}
  .cmp thead th:not(.f-col){width:auto}
  .cplan{padding:11px 9px 12px}
  .cref{display:none}
 }
+@media(max-width:560px){.cmp tr.grp .g .hint{display:none}}
 
 /* ===== FAQ ===== */
 .faq{background:var(--paper);padding:84px 0}
@@ -1008,10 +1031,6 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:
   <h2>Sin sorpresas. Tu precio queda fijo.</h2>
   <p>Por equipo · procesan 100% en tu computadora · el precio en dólares es referencia.</p>
  </div>
- <div class="bill-toggle">
-  <button class="bill-opt active" data-billing="monthly">Mensual</button>
-  <button class="bill-opt" data-billing="annual">Anual <span class="bill-save">-20%</span></button>
- </div>
 
  <!-- ══ TABLA COMPARATIVA — EL ÚNICO PANEL DE PRECIOS ══════════════════
       Primero se probó "4 tarjetas + tabla debajo". Quedaba duplicado: la
@@ -1034,6 +1053,11 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:
       Abajo de 820px no se comprime — se cambia al selector de un plan por vez.
       ═══════════════════════════════════════════════════════════════════ -->
  <div class="cmp-wrap">
+  <div class="bill-toggle">
+   <button class="bill-opt active" data-billing="monthly">Mensual</button>
+   <button class="bill-opt" data-billing="annual">Anual <span class="bill-save">-20%</span></button>
+  </div>
+
   <div class="cmp-regla">
    <b>La cuota cuenta solo lo que produce un Excel auditado.</b>
    <span>Los extractos bancarios, el modo Organizar y las herramientas PDF no descuentan — en ningún plan.</span>

@@ -265,7 +265,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 {"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},
 {"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},
 {"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, como función del plan PRO. En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},
-{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. Desde CORE, el plan más básico, la conversión de extractos bancarios es ilimitada y no descuenta del cupo mensual de documentos: ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela. El conversor también está disponible en la prueba gratis de 14 días."}}
+{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. La conversión de extractos bancarios es ilimitada en todos los planes, incluida la prueba gratis de 14 días, y no descuenta del cupo de documentos: ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela."}}
 ]}
 </script>
 </head>
@@ -284,7 +284,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 </div></nav>
 
 <header class="cu-hero"><div class="wrap">
- <span class="cu-eyebrow"><span class="d"></span>Conversor de extractos · ilimitado desde el plan más básico</span>
+ <span class="cu-eyebrow"><span class="d"></span>Conversor de extractos · ilimitado en todos los planes</span>
  <h1>Convertí extractos bancarios de PDF a Excel <span>en segundos</span></h1>
  <p class="sub">Y seguí de largo hasta el borrador de asientos. Sin tipear un movimiento a mano, en tu propia computadora.</p>
  <div class="hero-row">
@@ -351,10 +351,10 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
    <div class="ilim-big">Ilimitado</div>
    <div>
     <h2 style="margin-bottom:8px">Convertí todos los resúmenes que quieras</h2>
-    <p>Lo probás en la <b>prueba gratis de 14 días</b>, y desde <b>CORE —el plan más básico—</b> el
-     conversor es <b>ilimitado</b> y <b>no toca el cupo mensual</b>. Ese cupo está para otra cosa:
-     la extracción por plantilla, la autodetección y el Centinela. Los extractos van aparte y no
-     descuentan nada.</p>
+    <p>El conversor es <b>ilimitado en todos los planes</b>, incluida la <b>prueba gratis de 14
+     días</b>, y <b>no toca el cupo de documentos</b>. Ese cupo está para otra cosa: la extracción
+     por plantilla, la autodetección y el Centinela. Los extractos van aparte y no descuentan
+     nada, tengas el plan que tengas.</p>
     <p style="margin-top:10px">Tampoco hay contador de páginas ni costo por archivo: un resumen de 4
      páginas y uno de 40 cuestan lo mismo, y reprocesar uno no cuesta nada.</p>
     <div class="ilim-precio">
@@ -366,7 +366,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
      <a class="btn btn-p" href="/#precios">Ver planes</a>
     </div>
     <div class="ilim-chips">
-     <span>Ilimitado desde CORE</span><span>No descuenta del cupo mensual</span><span>Sin cuota por página</span>
+     <span>Ilimitado en todos los planes</span><span>No descuenta del cupo</span><span>Sin cuota por página</span>
     </div>
    </div>
   </div>
@@ -434,13 +434,21 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <!-- ILIMITADO: el diferencial mas fuerte de esta pagina. OJO CON EL ALCANCE,
       son dos cosas distintas y es facil mezclarlas:
       · "documentos ilimitados" a secas = SOLO plan SENTINEL (CORE 500/mes, PRO 2.500/mes).
-      · el CONVERSOR DE EXTRACTOS ilimitado = desde CORE, el plan pago mas basico.
-        El bullet "Extracto bancario -> Excel · ilimitado" esta en la tarjeta CORE
-        y PRO arrastra "todo lo de CORE".
-      El conversor SI esta disponible en el TRIAL (14 dias): tiene que estar para
-      que lo puedan probar. Lo que arranca en CORE es que sea ILIMITADO.
-      Por eso el texto dice "lo probas en el trial, e ilimitado desde el plan mas
-      basico" y NO "ilimitado en todas las ediciones". -->
+      · el CONVERSOR DE EXTRACTOS es ilimitado en TODAS las ediciones, TRIAL incluido.
+
+      CORREGIDO 02/08/2026. Antes esta pagina decia que lo ilimitado arrancaba en
+      CORE. Se verifico contra el codigo que EJECUTA y no era cierto:
+      herr_extracto_procesar() (dexiae_api.py, 238 lineas) no chequea la cuota al
+      entrar ni incrementa el contador al salir, en ninguna edicion; los dos unicos
+      puntos que incrementan estan en el worker del lote de extraccion. O sea que la
+      web prometia MENOS de lo que el producto hace, y ademas se contradecia con la
+      tabla de ediciones de /guia-usuario, que ya lo daba como ilimitado en las 4.
+
+      Regla unica, valida en todo el sitio: la cuota cuenta solo lo que produce un
+      Excel auditado. Extractos, modo Organizar y herramientas PDF no descuentan.
+
+      Si alguna vez se decide topear los extractos del TRIAL, hay que implementarlo
+      en el codigo ANTES de volver a cambiar este texto. -->
  <section class="sec">
   <h2>La cadena de saldos: cómo sabés que no se perdió nada</h2>
   <p class="lead">Es lo que separa una conversión confiable de una que <em>parece</em> correcta. DEXIAE recalcula el
@@ -523,10 +531,11 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de
     confianza Alta, Media o Revisar.</p></details>
   <details><summary>¿Consume mi cupo mensual de documentos?</summary>
-   <p>No. Desde <b>CORE</b>, el plan más básico, la conversión de extractos es <b>ilimitada</b> y
-    <b>no descuenta del cupo mensual</b>: ese cupo cuenta la extracción por plantilla, la
-    autodetección y el Centinela. El conversor también está disponible en la prueba gratis de 14
-    días, para que lo pruebes con tus propios resúmenes antes de decidir.</p></details>
+   <p>No. La conversión de extractos es <b>ilimitada en todos los planes</b> —incluida la prueba
+    gratis de 14 días— y <b>no descuenta del cupo de documentos</b>: ese cupo cuenta la extracción
+    por plantilla, la autodetección y el Centinela. La regla es simple: <b>el cupo cuenta solo lo
+    que produce un Excel auditado</b>; los extractos, el modo Organizar y las herramientas PDF
+    no descuentan en ningún plan.</p></details>
  </section>
 
 </div></main>

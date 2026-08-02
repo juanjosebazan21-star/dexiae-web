@@ -90,7 +90,11 @@
       title: 'Probá DEXIAE 14 días gratis',
       sub: 'Dejanos tus datos y descargá el instalador en el acto. Los 14 días arrancan solos al instalar — sin claves, sin emails.',
       submitBtn: 'Descargar instalador y empezar',
-      footNote: '100 docs · 3 plantillas · Todas las funciones desbloqueadas · 100% offline',
+      /* Decía "Todas las funciones desbloqueadas" y era falso: según EDICIONES
+         en dexiae_license.py, el TRIAL no tiene deteccion_auto ni imputacion —
+         son el gancho de upgrade a PRO. Se reemplaza por un beneficio que sí es
+         cierto y además no estaba dicho en ningún lado del embudo. */
+      footNote: '100 docs · 3 plantillas · Extractos bancarios ilimitados · 100% offline',
       successTitle: '¡Listo! Tu descarga inició',
       successSub: 'Si la descarga no comienza, hacé click en el botón. Una vez instalado, abrí DEXIAE y los 14 días de prueba arrancan automáticamente.',
       primaryLabel: '⇩ Descargar DEXIAE para Windows',
@@ -241,7 +245,11 @@
       dest: 'dl' },
     { id: 'precio', q: '¿Cuánto cuesta?', k: 'Planes y límites',
       t: 'Probalo antes de decidir',
-      p: ['14 días gratis, 100 documentos, <b>todas las funciones desbloqueadas</b>. Sin tarjeta y sin clave: instalás y los días arrancan solos.',
+      /* "todas las funciones desbloqueadas" era inexacto (falta autodetección e
+         imputación, que son de PRO). Se dice lo que el trial SÍ trae, que ya es
+         mucho, en vez de una generalización que no se sostiene. */
+      p: ['14 días gratis y 100 documentos, con peritaje, Centinela, reportes y las 9 herramientas incluidos. Sin tarjeta y sin clave: instalás y los días arrancan solos.',
+          'Los <b>extractos bancarios no consumen esos 100 documentos</b>: son ilimitados durante la prueba.',
           'Si después te sirve, ahí mirás los planes. Salir a comparar precios antes de saber si te resuelve el trabajo es el orden al revés.'],
       dest: 'dl' },
     { id: 'privacidad', q: '¿Mis datos están seguros?', k: 'Documentos de clientes',

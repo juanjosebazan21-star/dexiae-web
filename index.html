@@ -958,6 +958,11 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    <div class="price-div"></div>
    <ul class="price-feats">
     <li><b style="color:var(--ok-deep)">100 documentos · 3 plantillas</b></li>
+    <!-- Los extractos NO consumen cuota en NINGUNA edición: herr_extracto_procesar()
+         no la chequea al entrar ni incrementa el contador al salir (verificado en
+         dexiae_api.py, 02/08/2026). Faltaba acá, y como la tarjeta de CORE sí lo
+         anuncia, la web daba a entender que el beneficio arrancaba en el plan pago. -->
+    <li><b>Extracto bancario → Excel · ilimitado</b></li>
     <li>Validación de datos (reglas de negocio)</li>
     <li>Peritaje de firmas digitales</li>
     <li>Centinela automático de carpetas</li>

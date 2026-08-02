@@ -524,9 +524,12 @@ table.cmp thead th{padding:0 0 12px;vertical-align:bottom}
 /* grupos: la distinción cuota SÍ / cuota NO es zona, no solo título */
 .cmp tr.grp td{padding:26px 0 9px;text-align:left}
 .cmp tr.grp .g{display:flex;align-items:center;gap:11px}
-.cmp tr.grp .g b{font-family:var(--disp);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ac-deep)}
-.cmp tr.grp .g i{flex:1;height:1px;background:var(--pline);font-style:normal}
-.cmp tr.grp .g .hint{font-family:var(--sans);font-size:11.5px;color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400}
+/* flex:none en b y hint: sin esto el <i> (flex:1) los aplasta hasta su ancho
+   mínimo y el título se parte en vertical, una palabra por línea */
+.cmp tr.grp .g b{font-family:var(--disp);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ac-deep);flex:none;white-space:nowrap}
+.cmp tr.grp .g i{flex:1;height:1px;background:var(--pline);font-style:normal;min-width:20px}
+.cmp tr.grp .g .hint{font-family:var(--sans);font-size:11.5px;color:var(--ink3);text-transform:none;letter-spacing:0;font-weight:400;flex:none;white-space:nowrap}
+@media(max-width:560px){.cmp tr.grp .g .hint{display:none}}
 .cmp tr.grp .g .chip{font-family:var(--mono);font-size:9px;letter-spacing:.09em;padding:3px 8px;border-radius:20px;flex:none}
 .cmp tr.grp.t-cobra .g b{color:var(--ink)}
 .cmp tr.grp.t-cobra .g .chip{background:rgba(24,20,12,.06);color:var(--ink2);border:1px solid var(--pline2)}

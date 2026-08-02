@@ -443,9 +443,6 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 @media(max-width:860px){.cent-b{grid-template-columns:1fr}.cent-fp{border-right:none;border-bottom:1px solid var(--line)}}
 
 /* ===== TRIAL NOTE (dentro de Precios) ===== */
-.trial-note{max-width:780px;margin:24px auto 0;text-align:center;font-size:15px;color:var(--ink2);line-height:1.6}
-.trial-note b{color:var(--ink)}
-.trial-note .tn-t{color:var(--ink);font-weight:700}
 
 /* ===== PRICING ===== */
 .pricing{background:var(--paper2);padding:84px 0}
@@ -457,9 +454,6 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
 /* ===== TABLA COMPARATIVA ===== */
 .cmp-wrap{max-width:1060px;margin:12px auto 0}
-.cmp-head{text-align:center;margin-bottom:22px}
-.cmp-head h3{font-family:var(--disp);font-size:26px;font-weight:600;color:var(--ink);letter-spacing:-.025em}
-.cmp-head p{color:var(--ink2);font-size:14.5px;margin-top:8px}
 .cmp-regla{max-width:640px;margin:0 auto 28px;border-left:2px solid var(--cta2);background:rgba(61,217,182,.07);padding:13px 18px;border-radius:0 8px 8px 0}
 .cmp-regla b{font-family:var(--disp);color:var(--ink);font-size:14px;font-weight:600}
 .cmp-regla span{display:block;color:var(--ink2);font-size:13.5px;margin-top:3px}
@@ -1004,11 +998,15 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:
 
 <!-- ===== PRICING ===== -->
 <section class="pricing" id="precios"><div class="wrap">
+ <!-- Antes acá había DOS encabezados y tres párrafos antes de llegar a la
+      tabla: el de la sección, el de la tabla, y una nota larga que enumeraba
+      lo que trae el trial. Todo eso lo dice la tabla, y mejor: la columna
+      TRIAL llena de ✓ prueba sola que no es una demo recortada. Se dejó un
+      solo encabezado y una línea. -->
  <div class="sh">
   <div class="k">Planes</div>
   <h2>Sin sorpresas. Tu precio queda fijo.</h2>
-  <p>Todos los planes son por equipo. El precio en dólares es la referencia oficial.</p>
-  <p class="trial-note"><span class="tn-t">El trial no es una demo recortada.</span><br>Peritaje, Centinela, reportes, validación de datos y las 9 herramientas, con un límite de <b>100 documentos</b> y <b>3 plantillas</b> durante 14 días. <b>Sin tarjeta de crédito.</b> Solo la Autodetección y el Asistente de plantillas quedan reservados para PRO.</p>
+  <p>Por equipo · procesan 100% en tu computadora · el precio en dólares es referencia.</p>
  </div>
  <div class="bill-toggle">
   <button class="bill-opt active" data-billing="monthly">Mensual</button>
@@ -1036,11 +1034,6 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:
       Abajo de 820px no se comprime — se cambia al selector de un plan por vez.
       ═══════════════════════════════════════════════════════════════════ -->
  <div class="cmp-wrap">
-  <div class="cmp-head">
-   <h3>Qué incluye cada plan</h3>
-   <p>Todos procesan 100% en tu equipo. Ningún documento sale de tu computadora.</p>
-  </div>
-
   <div class="cmp-regla">
    <b>La cuota cuenta solo lo que produce un Excel auditado.</b>
    <span>Los extractos bancarios, el modo Organizar y las herramientas PDF no descuentan — en ningún plan.</span>
@@ -1056,7 +1049,7 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:
       <th data-c="0"><div class="cplan is-trial" data-c="0">
        <span class="ctag">Gratis 14 días</span>
        <div class="cnm">TRIAL</div><div class="cpr">$0<span class="cu"> / 14 días</span></div>
-       <div class="cref">Sin tarjeta · sin compromiso</div>
+       <div class="cref">Sin tarjeta · no es una demo recortada</div>
        <button onclick="openLead('TRIAL')" class="ccta">Empezar gratis</button></div></th>
       <th data-c="1"><div class="cplan" data-c="1">
        <div class="cnm">CORE</div>

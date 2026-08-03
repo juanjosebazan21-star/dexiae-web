@@ -293,6 +293,12 @@
 '.pc-opt{display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--pline);color:var(--ink);font-family:var(--sans);font-size:13.5px;font-weight:500;padding:11px 13px;border-radius:9px;margin-bottom:7px;cursor:pointer;transition:border-color .14s,background .14s}' +
 '.pc-opt:hover{border-color:var(--ac);background:#fff}' +
 '.pc-opt .k{display:block;font-size:11.5px;color:var(--ink3);font-weight:400;margin-top:2px}' +
+/* sexta opción: hablar con una persona. Verde sólido de WhatsApp — NO el teal,
+   que está reservado al botón de descargar y no debe diluirse. */
+'.pc-opt-wa{display:flex;align-items:center;gap:10px;background:#25D366;border-color:#25D366;color:#fff;margin-top:11px}' +
+'.pc-opt-wa:hover{background:#1FBA59;border-color:#1FBA59;color:#fff}' +
+'.pc-opt-wa svg{width:19px;height:19px;fill:#fff;flex-shrink:0}' +
+'.pc-opt-wa .k{color:rgba(255,255,255,.82)}' +
 '.pc-ans{animation:pcfade .2s ease}' +
 '@keyframes pcfade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}' +
 '.pc-back{background:none;border:none;color:var(--ink3);font-size:12px;cursor:pointer;padding:0;margin-bottom:10px;font-family:var(--sans)}' +
@@ -312,10 +318,6 @@
 '.pc-mail input{width:100%;height:38px;padding:0 11px;border:1px solid var(--pline2);border-radius:8px;font-size:13.5px;font-family:var(--sans);color:var(--ink);outline:none}' +
 '.pc-mail input:focus{border-color:var(--ac)}' +
 '.pc-mail .hint{font-size:11.5px;color:var(--ink3);margin-top:5px}' +
-'.pc-f{border-top:1px solid var(--pline);padding:10px 17px;background:var(--paper2)}' +
-'.pc-esc{display:flex;align-items:center;gap:7px;background:none;border:none;color:var(--ink3);font-size:12px;font-family:var(--sans);cursor:pointer;padding:0;width:100%;text-align:left}' +
-'.pc-esc:hover{color:#128C7E}' +
-'.pc-esc svg{width:13px;height:13px;fill:currentColor;opacity:.75;flex-shrink:0}' +
 '@media(max-width:520px){.pc{right:12px;left:12px;width:auto;bottom:84px}.wa{right:16px;bottom:16px}.wa-tip{display:none}}';
 
   var WA_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>';
@@ -326,6 +328,13 @@
       h += '<button type="button" class="pc-opt" data-rama="' + RAMAS[i].id + '">' +
            RAMAS[i].q + '<span class="k">' + RAMAS[i].k + '</span></button>';
     }
+    /* La salida directa es una opción más de la lista, no un link al pie:
+       ahí abajo se leía como letra chica y es justamente el camino que no
+       hay que esconder. Verde sólido para que se lea "acá hablás con una
+       persona" y no se confunda con las cinco de arriba. */
+    h += '<button type="button" class="pc-opt pc-opt-wa" data-accion="directo">' +
+         WA_SVG + '<span>Prefiero escribir directamente' +
+         '<span class="k">Te respondemos por WhatsApp</span></span></button>';
     return h;
   }
 
@@ -413,9 +422,7 @@
       '<div><div class="t">¿Qué necesitás resolver?</div>' +
       '<div class="s">Elegí una y te llevo al lugar correcto</div></div>' +
       '<button type="button" class="pc-x" data-accion="cerrar" aria-label="Cerrar">&times;</button></div>' +
-      '<div class="pc-b" id="pc-body"></div>' +
-      '<div class="pc-f"><button type="button" class="pc-esc" data-accion="directo">' +
-      WA_SVG + 'Prefiero escribir directamente</button></div>';
+      '<div class="pc-b" id="pc-body"></div>';   /* la salida directa vive en el menú */
     document.body.appendChild(pc);
 
     /* un solo listener delegado: el cuerpo se re-renderiza entero en cada

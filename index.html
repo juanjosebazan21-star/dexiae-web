@@ -446,6 +446,37 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
 /* ===== PRICING ===== */
 .pricing{background:var(--paper2);padding:84px 0}
+/* ══ CAPTURAS: REALCE AL PASAR EL MOUSE + AMPLIAR AL CLICK ═════════════
+   Son capturas de UI densas: al tamaño en que entran en la grilla no se
+   alcanzan a leer los detalles que justamente demuestran el producto.
+   Hover levanta e ilumina; el click abre la imagen a pantalla completa. */
+.shot,.shotL{transition:transform .3s cubic-bezier(.2,.9,.3,1.05),box-shadow .3s,border-color .3s;cursor:zoom-in}
+.shot img,.shotL img{display:block;transition:transform .5s cubic-bezier(.2,.9,.3,1),filter .3s}
+.shot:hover,.shotL:hover{transform:translateY(-7px);border-color:rgba(79,134,247,.55)}
+.shot:hover{box-shadow:0 54px 100px -30px rgba(0,0,0,.62),0 0 0 1px rgba(79,134,247,.32)}
+.shotL:hover{box-shadow:0 40px 80px -26px rgba(11,17,32,.5),0 0 0 1px rgba(79,134,247,.32)}
+.shot:hover img,.shotL:hover img{transform:scale(1.035);filter:brightness(1.07) saturate(1.04)}
+/* pista de que se puede ampliar: aparece recién en hover, no ensucia antes */
+.shot::after,.shotL::after{content:"⤢";position:absolute;right:12px;bottom:12px;width:30px;height:30px;
+ display:flex;align-items:center;justify-content:center;border-radius:8px;
+ background:rgba(11,17,32,.72);color:var(--hi);font-size:14px;
+ opacity:0;transform:translateY(5px);transition:all .25s;pointer-events:none;backdrop-filter:blur(4px)}
+.shot:hover::after,.shotL:hover::after{opacity:1;transform:none}
+.shot,.shotL{position:relative}
+@media(hover:none){.shot::after,.shotL::after{display:none}.shot,.shotL{cursor:default}}
+
+/* visor a pantalla completa */
+.lbx{position:fixed;inset:0;z-index:120;background:rgba(6,10,19,.92);backdrop-filter:blur(6px);
+ display:none;align-items:center;justify-content:center;padding:28px;cursor:zoom-out}
+.lbx.open{display:flex;animation:lbxIn .2s ease}
+@keyframes lbxIn{from{opacity:0}to{opacity:1}}
+.lbx img{max-width:100%;max-height:100%;border-radius:10px;border:1px solid var(--line2);
+ box-shadow:0 40px 90px rgba(0,0,0,.6);animation:lbxZ .24s cubic-bezier(.2,.9,.3,1.06)}
+@keyframes lbxZ{from{transform:scale(.96);opacity:.4}to{transform:none;opacity:1}}
+.lbx-x{position:absolute;top:20px;right:24px;width:38px;height:38px;border-radius:10px;border:1px solid var(--line2);
+ background:rgba(243,246,252,.08);color:var(--hi);font-size:20px;cursor:pointer;line-height:1}
+.lbx-x:hover{background:var(--ac-bg);border-color:var(--ac)}
+
 /* ══ TABLA COMPARATIVA — PANEL OSCURO SOBRE SECCIÓN CLARA ══════════════
    La sección sigue siendo clara A PROPÓSITO. La página alterna con un ritmo
    deliberado —oscuro, dos claras, oscuro, dos claras, oscuro— y Centinela,
@@ -458,12 +489,15 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
    panel pasa a ser el objeto más distinto de la página — que es justo donde
    querés que se detenga el ojo.
    ═══════════════════════════════════════════════════════════════════════ */
+/* ⚠️ SIN overflow:hidden. Un ancestro con overflow distinto de visible
+   ANULA position:sticky en sus descendientes, y la cabecera de planes
+   dejaba de fijarse. El halo se resuelve con un gradiente que ya nace
+   contenido (inset:0 + el mismo radio), en vez de recortarlo. */
 .cmp-wrap{max-width:1060px;margin:34px auto 0;background:var(--navy);border-radius:20px;
- padding:30px 30px 34px;position:relative;overflow:hidden;
+ padding:30px 30px 34px;position:relative;
  box-shadow:0 30px 70px -28px rgba(11,17,32,.55),0 2px 6px rgba(11,17,32,.10)}
-/* luz cenital, no cuadrícula: la textura la da el halo */
-.cmp-wrap::before{content:"";position:absolute;top:-190px;left:50%;transform:translateX(-50%);
- width:760px;height:400px;background:radial-gradient(circle,rgba(79,134,247,.16),transparent 68%);pointer-events:none}
+.cmp-wrap::before{content:"";position:absolute;inset:0;border-radius:20px;pointer-events:none;
+ background:radial-gradient(680px 260px at 50% 0%,rgba(79,134,247,.17),transparent 70%)}
 .cmp-wrap>*{position:relative}
 
 .bill-toggle{display:flex;gap:4px;background:rgba(150,180,235,.07);border:1px solid var(--line2);
@@ -483,8 +517,23 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .cmp-scroll{overflow:visible}
 table.cmp{width:100%;border-collapse:collapse;table-layout:fixed}
 table.cmp th,table.cmp td{padding:0;text-align:center;position:relative}
-/* cabecera fija: la tabla es larga y sin esto se pierde de qué plan es cada columna */
-table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:0;z-index:4;background:var(--navy)}
+/* ── CABECERA QUE BAJA CON EL SCROLL ─────────────────────────────────
+   La tabla es larga: a las tres filas ya no sabés de qué plan es cada
+   columna. Se fija JUSTO DEBAJO de la barra de navegación (--nav-h lo
+   mide el JS, así que sigue bien si cambia el alto).
+
+   Y se COMPACTA al fijarse: la tarjeta completa mide 218px y taparía
+   media pantalla. Fijada muestra solo nombre y precio (~56px) — que es
+   lo que necesitás para leer la fila, sin comerse la info. */
+table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
+ top:var(--nav-h,73px);z-index:4;background:var(--navy)}
+.cmp thead th::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--line);opacity:0;transition:opacity .2s}
+.cmp.stuck thead th::after{opacity:1}
+.cmp.stuck .ctag,.cmp.stuck .cref,.cmp.stuck .ccta{display:none}
+.cmp.stuck .cplan{padding:9px 10px;transform:none;box-shadow:none}
+.cmp.stuck .cpr{font-size:14px;margin-top:1px}
+.cmp.stuck .cnm{font-size:13px}
+.cmp.stuck .cplan.on{border-color:var(--ac);background:var(--navy2)}
 .cmp th.f-col,.cmp td.f-col{text-align:left;width:30%}
 .cmp thead th:not(.f-col){width:17.5%}
 
@@ -1159,7 +1208,9 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;top:
 <!-- ===== FOOTER ===== -->
 <footer class="foot">
  <div class="foot-in">
-  <span class="logo" style="font-size:16px"><img class="m" src="/favicon-96x96.png" alt="" width="24" height="24" decoding="async" style="width:24px;height:24px">Dexiae</span>
+  <!-- clickeable como el de la barra: era un <span> y la gente igual le hacía
+       click esperando volver arriba. Mismo href="#" que el de arriba. -->
+  <a class="logo" href="#" aria-label="Volver al inicio" style="font-size:16px"><img class="m" src="/favicon-96x96.png" alt="" width="24" height="24" decoding="async" style="width:24px;height:24px">Dexiae</a>
   <div class="foot-links">
    <a href="/casos-de-uso">Casos de uso</a>
    <a href="/extractos-bancarios-excel">Extractos bancarios</a>
@@ -1190,6 +1241,35 @@ document.querySelectorAll('.faq-q').forEach(q=>q.addEventListener('click',()=>{
  document.querySelectorAll('.faq-item.open').forEach(x=>x.classList.remove('open'));
  if(!open) it.classList.add('open');
 }));
+
+/* === VISOR DE CAPTURAS ================================================
+   Click en cualquier captura y se abre a pantalla completa. Se arma una
+   sola vez y se reusa: nada de un overlay por imagen. */
+(function(){
+ var caps = document.querySelectorAll('.shot,.shotL');
+ if(!caps.length) return;
+ var lbx = document.createElement('div');
+ lbx.className = 'lbx';
+ lbx.innerHTML = '<button class="lbx-x" aria-label="Cerrar">&times;</button><img alt="">';
+ document.body.appendChild(lbx);
+ var img = lbx.querySelector('img');
+ function abrir(src, alt){
+  img.src = src; img.alt = alt || '';
+  lbx.classList.add('open');
+  document.body.style.overflow = 'hidden';
+ }
+ function cerrar(){
+  lbx.classList.remove('open');
+  document.body.style.overflow = '';
+  img.src = '';           /* libera la imagen grande */
+ }
+ lbx.addEventListener('click', cerrar);
+ document.addEventListener('keydown', function(e){ if(e.key === 'Escape') cerrar(); });
+ caps.forEach(function(c){
+  var i = c.querySelector('img'); if(!i) return;
+  c.addEventListener('click', function(){ abrir(i.currentSrc || i.src, i.alt); });
+ });
+})();
 
 /* === TABLA COMPARATIVA ================================================
    Los valores salen de EDICIONES (dexiae_license.py), verificados contra el
@@ -1285,6 +1365,29 @@ const CMP = [
    iluminar(fijo);
   });
  });
+
+ /* ── cabecera fija: medir la barra y compactar al pegarse ───────────
+    El alto de la barra se mide en vez de hardcodearse, así el sticky no
+    se desalinea si cambia (o si en algún ancho la barra crece). */
+ const nav = document.querySelector('nav');
+ const medirNav = () => {
+  if(nav) document.documentElement.style.setProperty('--nav-h', Math.round(nav.getBoundingClientRect().height)+'px');
+ };
+ medirNav();
+ addEventListener('resize', medirNav, {passive:true});
+
+ const tbody = document.getElementById('cmp-tb');
+ let pegada = false;
+ const revisarPegada = () => {
+  const tope = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 73;
+  const t = cmp.getBoundingClientRect(), b = tbody.getBoundingClientRect();
+  /* pegada = la tabla ya pasó la barra Y todavía queda tabla por leer.
+     Lo segundo evita que quede compactada colgando al final. */
+  const ahora = t.top < tope && b.bottom > tope + 70;
+  if(ahora !== pegada){ pegada = ahora; cmp.classList.toggle('stuck', ahora); }
+ };
+ addEventListener('scroll', revisarPegada, {passive:true});
+ revisarPegada();
 
  /* celular: un plan por vez. Scroll horizontal esconde la mitad y nadie la descubre. */
  const ms=document.getElementById('cmp-mob');

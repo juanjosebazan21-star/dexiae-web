@@ -17,7 +17,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@600&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#0B1120;--navy2:#0F1729;--card:#17223A;--cardb:#2C4676;
-      --hi:#F3F6FC;--md:#A9B4C9;--lo:#6C7791;--ac:#4F86F7;--cta:#3DD9B6;--cta-ink:#04211A}
+      --hi:#F3F6FC;--md:#A9B4C9;--lo:#6C7791;--ac:#60A5FA;--cta:#3DD9B6;--cta-ink:#04211A}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--navy);color:var(--hi);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
      min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -38,13 +38,12 @@ nav.more a{color:var(--lo);text-decoration:none;font-size:14.5px}
 nav.more a:hover{color:var(--ac)}
 .brand{position:absolute;top:26px;left:26px;display:flex;align-items:center;gap:10px;
        text-decoration:none;color:var(--hi)}
-.brand span.dx{background:#2456BE;border-radius:8px;width:34px;height:34px;display:grid;
-               place-items:center;font-weight:700;font-size:13px}
+.brand img.dx{width:34px;height:34px;flex-shrink:0;object-fit:contain}
 .brand span.w{font-weight:600;font-size:19px;letter-spacing:.01em}
 </style>
 </head>
 <body>
-<a class="brand" href="/"><span class="dx">DX</span><span class="w">DEXIAE</span></a>
+<a class="brand" href="/"><img class="dx" src="/logo-marca.svg" alt="" width="34" height="34"><span class="w">DEXIAE</span></a>
 
 <div class="code">404</div>
 <h1>Esta página no existe</h1>

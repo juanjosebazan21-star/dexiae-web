@@ -284,7 +284,7 @@
 '.pc.open{display:block;animation:pcpop .22s cubic-bezier(.2,.9,.3,1.2)}' +
 '@keyframes pcpop{from{opacity:0;transform:translateY(10px) scale(.97)}to{opacity:1;transform:none}}' +
 '.pc-h{padding:15px 17px;border-bottom:1px solid var(--pline);display:flex;align-items:flex-start;gap:11px}' +
-'.pc-mark{width:32px;height:32px;border-radius:8px;background:var(--ac-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:600;font-size:11.5px;flex-shrink:0}' +
+'.pc-mark{width:32px;height:32px;flex-shrink:0;object-fit:contain}' +
 '.pc-h .t{font-family:var(--disp);font-size:14px;font-weight:600;color:var(--ink);letter-spacing:-.01em}' +
 '.pc-h .s{font-size:12px;color:var(--ink3);margin-top:1px}' +
 '.pc-x{margin-left:auto;background:none;border:none;color:var(--ink3);font-size:17px;cursor:pointer;line-height:1;padding:2px 4px}' +
@@ -418,7 +418,7 @@
     pc.className = 'pc';
     pc.id = 'prechat';
     pc.innerHTML =
-      '<div class="pc-h"><span class="pc-mark">DX</span>' +
+      '<div class="pc-h"><img class="pc-mark" src="/logo-marca-light.svg" alt="" width="32" height="32">' +
       '<div><div class="t">¿Qué necesitás resolver?</div>' +
       '<div class="s">Elegí una y te llevo al lugar correcto</div></div>' +
       '<button type="button" class="pc-x" data-accion="cerrar" aria-label="Cerrar">&times;</button></div>' +

@@ -21,14 +21,14 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
- --azul:#0056B3;--azul-d:#00408a;--azul-dim:rgba(0,86,179,.14);
+ --azul:#2563EB;--azul-d:#1D4ED8;--azul-dim:rgba(37,99,235,.14);
  --r:10px;--r-sm:7px;
  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
  --mono:'Cascadia Code','Consolas',monospace;
 }
 /* ===== TEMA OSCURO (default) — igual a la app ===== */
 [data-theme="dark"]{
- --azul-l:#5b9bef;
+ --azul-l:#60A5FA;
  --sb:#10151d;--sb2:#161d27;--bg:#0f141b;--bg2:#141b24;--card:#1a212c;
  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.13);
  --txt:#e4e8ef;--txt2:#9aa6b6;--txt3:#5f6b7a;
@@ -40,7 +40,7 @@
 }
 /* ===== TEMA CLARO — premium corporativo: sidebar oscuro de marca ===== */
 [data-theme="light"]{
- --azul-l:#0056B3;
+ --azul-l:#2563EB;
  --sb:#2b3138;--sb2:#343A40;--bg:#F5F7F9;--bg2:#eceff3;--card:#ffffff;
  --border:rgba(20,32,54,.09);--border2:rgba(20,32,54,.16);
  --txt:#212529;--txt2:#5b6670;--txt3:#9aa3ad;
@@ -69,7 +69,7 @@ a{color:var(--azul-l);text-decoration:none}
 .sb{width:212px;background:var(--sb);display:flex;flex-direction:column;flex-shrink:0;border-right:1px solid var(--border)}
 .sb-head{padding:16px 14px 10px}
 .sb-brand{display:flex;align-items:center;gap:9px;font-weight:800;font-size:15px;color:#fff}
-.sb-icon{width:32px;height:32px;border-radius:8px;background:var(--azul);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;color:#fff}
+.sb-icon{width:32px;height:32px;flex-shrink:0;object-fit:contain}
 .sb-badges{display:flex;gap:5px;margin-top:10px}
 .sb-badge{font-size:9.5px;font-weight:800;letter-spacing:.05em;padding:3px 8px;border-radius:5px}
 .sb-badge.demo{background:var(--rev-bg);color:var(--rev-fg);border:1px solid var(--rev-bd)}
@@ -91,7 +91,7 @@ a{color:var(--azul-l);text-decoration:none}
 .robot-status{font-size:11px;font-weight:700;color:#cbd5e1}
 .robot-sub{font-size:10px;color:#8b97a8;margin-top:2px}
 .sb-foot{padding:12px 14px;border-top:1px solid rgba(255,255,255,.06);display:flex;align-items:center;gap:8px}
-.sb-avatar{width:26px;height:26px;border-radius:50%;background:var(--azul-d);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff}
+.sb-avatar{width:26px;height:26px;border-radius:50%;background:var(--azul-dim,rgba(37,99,235,.12));padding:3px;flex-shrink:0;object-fit:contain}
 .sb-uname{font-size:11.5px;font-weight:700;color:#cbd5e1}
 .sb-ued{font-size:10px;color:#8b97a8}
 
@@ -146,7 +146,7 @@ tr.new{animation:pop .3s ease}
 .result .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .hintx{font-size:11.5px;color:var(--txt3)}
 .pro-tag{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.08em;background:var(--azul);color:#fff;border-radius:5px;padding:2px 7px;margin-left:5px;vertical-align:1px}
-.band{display:none;margin:4px 0 10px;padding:20px;border-radius:12px;background:linear-gradient(135deg,rgba(0,86,179,.16),rgba(0,86,179,.05));border:1px solid var(--azul-dim);text-align:center}
+.band{display:none;margin:4px 0 10px;padding:20px;border-radius:12px;background:linear-gradient(135deg,rgba(37,99,235,.16),rgba(37,99,235,.05));border:1px solid var(--azul-dim);text-align:center}
 .band.on{display:block}
 .band h2{font-size:clamp(17px,2.6vw,22px);margin-bottom:5px}
 .band p{color:var(--txt2);font-size:13px;max-width:520px;margin:0 auto 14px}
@@ -198,7 +198,7 @@ tr.new{animation:pop .3s ease}
  <!-- ===== SIDEBAR (réplica de la app) ===== -->
  <aside class="sb">
   <div class="sb-head">
-   <div class="sb-brand"><span class="sb-icon">DX</span> DEXIAE</div>
+   <div class="sb-brand"><img class="sb-icon" src="/app/assets/logo-compact.svg" alt="" width="26" height="26"> DEXIAE</div>
    <div class="sb-badges"><span class="sb-badge demo">DEMO ONLINE</span><span class="sb-badge ver">v2.1</span></div>
    <div class="sb-client"><span class="sb-dot"></span>Estudio de ejemplo</div>
   </div>
@@ -225,7 +225,7 @@ tr.new{animation:pop .3s ease}
    <div class="robot-sub" id="robot-sub">Motor listo</div>
   </div>
   <div class="sb-foot">
-   <div class="sb-avatar">DX</div>
+   <img class="sb-avatar" src="/app/assets/logo-compact.svg" alt="" width="26" height="26">
    <div><div class="sb-uname">DEXIAE</div><div class="sb-ued">Demo online · datos ficticios</div></div>
   </div>
  </aside>

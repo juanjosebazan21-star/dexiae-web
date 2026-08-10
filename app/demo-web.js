@@ -29,11 +29,11 @@
    'background:linear-gradient(90deg,#0b1120,#132a3a);border-bottom:1px solid rgba(61,217,182,.35);' +
    'padding:9px 16px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;flex-shrink:0}' +
    '#dxw-top .b{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:#cfe9df;font-weight:600}' +
-   '#dxw-top .b .tag{background:#0056B3;color:#fff;font-size:11px;font-weight:800;letter-spacing:.05em;padding:3px 9px;border-radius:6px}' +
+   '#dxw-top .b .tag{background:#2563EB;color:#fff;font-size:11px;font-weight:800;letter-spacing:.05em;padding:3px 9px;border-radius:6px}' +
    '#dxw-top .b span.m{color:#8fa3bd;font-weight:500}' +
-   '#dxw-top a.cta{background:#0056B3;color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;' +
+   '#dxw-top a.cta{background:#2563EB;color:#fff;text-decoration:none;font-size:12.5px;font-weight:700;' +
    'padding:8px 16px;border-radius:8px;white-space:nowrap;transition:background .12s}' +
-   '#dxw-top a.cta:hover{background:#00408a}' +
+   '#dxw-top a.cta:hover{background:#1D4ED8}' +
    '@media(max-width:720px){#dxw-top{padding:8px 10px;gap:8px}#dxw-top .b{font-size:12px}}' +
    /* candados */
    '.dxw-lk{position:relative}' +
@@ -54,11 +54,11 @@
    '.dxw-card .bd b{color:#eaf2ff}' +
    '.dxw-card .ft{padding:14px 20px 18px;display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}' +
    '.dxw-btn{font-size:13px;font-weight:700;border-radius:9px;padding:10px 16px;cursor:pointer;border:none;text-decoration:none;display:inline-flex;align-items:center;gap:6px}' +
-   '.dxw-btn.p{background:#0056B3;color:#fff}.dxw-btn.p:hover{background:#00408a}' +
-   '.dxw-btn.g{background:transparent;color:#9fb0c6;border:1px solid #35424f}.dxw-btn.g:hover{border-color:#5b9bef;color:#5b9bef}' +
+   '.dxw-btn.p{background:#2563EB;color:#fff}.dxw-btn.p:hover{background:#1D4ED8}' +
+   '.dxw-btn.g{background:transparent;color:#9fb0c6;border:1px solid #35424f}.dxw-btn.g:hover{border-color:#60A5FA;color:#60A5FA}' +
    '.dxw-inp{width:100%;box-sizing:border-box;height:40px;background:#0f151d;border:1px solid #2a3644;border-radius:9px;' +
    'padding:0 12px;color:#eaf2ff;font-size:13.5px;margin-top:9px;outline:none;font-family:inherit}' +
-   '.dxw-inp:focus{border-color:#0056B3}.dxw-err{color:#e88;font-size:12px;margin-top:8px;min-height:14px}';
+   '.dxw-inp:focus{border-color:#2563EB}.dxw-err{color:#e88;font-size:12px;margin-top:8px;min-height:14px}';
   document.head.appendChild(css);
 
   /* ---------- helpers modal ---------- */

@@ -22,6 +22,11 @@
 
 /ig    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=perfil    302
 
+# Historia del 11/08 sobre las hojas del Excel. Link propio para poder
+# separar el tap de la HISTORIA del tap de la BIO: los dos caen en la misma
+# pagina, y sin esto el `_utm` del lead dice "perfil" en los dos casos.
+/ig-hojas    /extractos-bancarios-excel?utm_source=instagram&utm_medium=historia&utm_campaign=historia_hojas    302
+
 # Para agregar un link por campana, copiar el patron:
 # /ig-asientos    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=asientos    302
 # /ig-demo        /demo?utm_source=instagram&utm_medium=bio&utm_campaign=demo                            302

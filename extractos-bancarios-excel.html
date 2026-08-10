@@ -116,6 +116,28 @@ main{padding:60px 0 20px}
 .card{background:#fff;border:1px solid var(--pline);border-radius:22px;padding:30px 32px;box-shadow:0 24px 60px -40px rgba(24,20,12,.5)}
 /* bloque PRO: lista vertical sobre fondo oscuro */
 .linea-pro{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+/* Hojas del Excel. Se agregan en 08/2026: la pagina mostraba el flujo en
+   imagenes pero nunca enumeraba las hojas que quedan en el archivo. */
+.hojas{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.hojas li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;
+ padding:16px 18px;border:1px solid var(--pline);border-radius:14px;background:var(--paper2)}
+.hojas .hn{font-weight:700;color:var(--ink);font-size:15px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.hojas .hd{color:var(--ink2);font-size:14.5px;line-height:1.55;margin-top:3px}
+.hojas .ed{font-size:10.5px;font-weight:800;letter-spacing:.06em;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.hojas .ed.todos{background:rgba(29,158,117,.14);color:#17805F}
+.hojas .ed.espro{background:var(--cta);color:var(--cta-ink)}
+.hojas .ico{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+ background:rgba(37,99,235,.10);color:#1D4ED8;font-size:15px;font-weight:700}
+.aviso-ed{margin-top:18px;padding:14px 16px;border-radius:12px;
+ background:rgba(180,120,20,.07);border:1px solid rgba(180,120,20,.24);color:var(--ink2);font-size:14.5px;line-height:1.6}
+.aviso-ed b{color:var(--ink)}
+/* .linea-pro sobre fondo claro (fuera de .destacado) */
+.linea-pro.claro li{border-top-color:var(--pline)}
+.linea-pro.claro b{color:var(--ink)}
+.linea-pro.claro span{color:var(--ink2)}
+.linea-pro.claro .lp-i{color:#1D4ED8}
+.linea-pro.claro code{background:rgba(24,20,12,.06);color:var(--ink);padding:1px 6px;border-radius:5px;font-size:13.5px}
+
 .linea-pro li{display:flex;gap:13px;align-items:flex-start;padding:14px 0;border-top:1px solid rgba(150,180,235,.14)}
 .linea-pro li:first-child{border-top:none}
 .lp-i{color:var(--cta);font-size:11px;line-height:1.9;flex:none}
@@ -430,6 +452,102 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
       <span>Sale cronológico, con cuenta, descripción y las dos puntas en DEBE y HABER.</span></div></li>
    </ul>
   </div>
+ </section>
+
+ <section class="sec">
+  <h2>Qué hojas te quedan en el Excel</h2>
+  <p class="lead">Un archivo, varias hojas. Cada una resuelve un momento distinto: lo que importás,
+   lo que revisás y lo que todavía hay que decidir.</p>
+
+  <ul class="hojas">
+   <li><span class="ico">☰</span>
+    <div><div class="hn">Una hoja por resumen <span class="ed todos">TODAS LAS EDICIONES</span></div>
+     <div class="hd">Un movimiento por fila, importes como número y la columna que confirma que la
+      cadena de saldos cierra. Si procesás varios resúmenes juntos, se agrega una hoja
+      <b>Resumen</b> con el estado de cada archivo.</div></div></li>
+
+   <li><span class="ico">▤</span>
+    <div><div class="hn">Categorías <span class="ed espro">PRO</span></div>
+     <div class="hd">Totales por tipo de movimiento: cuántos, cuánto débito, cuánto crédito y el neto.
+      Es la foto del mes antes de entrar a los asientos.</div></div></li>
+
+   <li><span class="ico">⚲</span>
+    <div><div class="hn">Asientos (borrador) <span class="ed espro">PRO</span></div>
+     <div class="hd">Las dos puntas de cada asiento <b>y por qué se eligió esa cuenta</b>: la categoría
+      detectada, la confianza, el <b>origen de la decisión</b> y el archivo del que salió.
+      Es la hoja para revisar, no para importar.</div></div></li>
+
+   <li><span class="ico">⤓</span>
+    <div><div class="hn">Para importar <span class="ed espro">PRO</span></div>
+     <div class="hd">Las <b>9 columnas</b> que entran al sistema contable, sin las ayudas de revisión.
+      Se copia y se pega.</div></div></li>
+
+   <li><span class="ico">⏸</span>
+    <div><div class="hn">Pendientes <span class="ed espro">PRO</span></div>
+     <div class="hd">Los asientos que quedaron sin cuenta, apartados. Aparece solo si hay alguno.</div></div></li>
+  </ul>
+
+  <div class="aviso-ed"><b>Las hojas de asientos son de PRO y SENTINEL</b>, y salen cuando elegís un
+   cliente configurado. La prueba de 14 días es edición TRIAL: convierte resúmenes
+   <b>sin límite</b>, pero no genera el borrador de asientos. Si querés ver esa parte con un
+   resumen tuyo, escribinos y la vemos juntos.</div>
+ </section>
+
+ <section class="sec">
+  <div class="destacado">
+   <h2>Por qué son dos hojas de asientos y no una<span class="pro">PRO</span></h2>
+   <p class="lead">Porque revisar e importar son dos tareas distintas, y mezclarlas rompe una de las dos.</p>
+   <ul class="linea-pro">
+    <li><span class="lp-i">◆</span>
+     <div><b>La hoja de importar siempre cuadra</b>
+      <span>Un asiento son dos filas. Si a una le falta la cuenta, DEXIAE <b>saca el asiento entero</b>
+       y lo manda a Pendientes — nunca media punta. Por eso en esa hoja <b>DEBE = HABER</b> siempre:
+       no es una promesa, es cómo está armada.</span></div></li>
+    <li><span class="lp-i">◆</span>
+     <div><b>Lo que falta decidir no frena lo que ya está</b>
+      <span>El movimiento sin cuenta se aísla. Importás hoy los que están listos y resolvés los
+       que quedaron cuando puedas, sin que el sistema contable rechace el lote entero.</span></div></li>
+    <li><span class="lp-i">◆</span>
+     <div><b>Sabés por qué eligió cada cuenta</b>
+      <span>Confianza y origen son <b>dos cosas distintas</b>: la confianza es cuánto confiar
+       (<b>Alta</b>, <b>Media</b>, <b>Revisar</b>) y el origen es qué la decidió
+       (<b>Memoria CUIT</b>, <b>Categoría</b>, <b>Default</b>). Lo que marcaste para decidir a mano
+       sale sin cuenta y sin confianza, a propósito: DEXIAE no lo manda en silencio a una cuenta
+       cualquiera.</span></div></li>
+   </ul>
+  </div>
+ </section>
+
+ <section class="sec">
+  <h2>Se configura una vez, por cliente</h2>
+  <p class="lead">La primera vez lleva un rato. Después, todos los meses es abrir, procesar y listo.</p>
+  <ul class="linea-pro claro">
+   <li><span class="lp-i">◆</span>
+    <div><b>Tu plan de cuentas, importado de tu Excel</b>
+     <span>Se lee el archivo que exporta tu sistema y <b>queda guardado con el cliente</b>. Después
+      elegís las cuentas de una lista en vez de tipear códigos, y la descripción se completa sola.</span></div></li>
+   <li><span class="lp-i">◆</span>
+    <div><b>Los CUIT se aprenden</b>
+     <span>Cuando le indicás a qué cuenta va un proveedor habitual, lo recuerda. El mes siguiente
+      ese movimiento sale imputado solo, con confianza <b>Alta</b>.</span></div></li>
+   <li><span class="lp-i">◆</span>
+    <div><b>Cada tipo de movimiento es editable</b>
+     <span>Si tu banco escribe algo que DEXIAE no conoce, agregás el texto tal como figura en tu
+      resumen y de ahí en más lo clasifica solo. No hay que esperar una versión nueva.</span></div></li>
+   <li><span class="lp-i">◆</span>
+    <div><b>La leyenda se arma sola</b>
+     <span>Sale <code>S/ Resumen banco santander mayo 2025</code> sin escribir nada, o el texto que
+      vos definas. El detalle del banco no se pierde: queda completo en la hoja del resumen.</span></div></li>
+   <li><span class="lp-i">◆</span>
+    <div><b>Varios bancos, la cuenta que corresponde</b>
+     <span>Si el cliente opera con más de un banco, cada movimiento va a <b>su</b> cuenta bancaria.
+      Sin esto el asiento cerraría igual, pero contra la cuenta equivocada.</span></div></li>
+   <li><span class="lp-i">◆</span>
+    <div><b>Y se pasa a otro equipo en un archivo</b>
+     <span>Toda la configuración de un cliente —cuentas, categorías, CUITs y el plan— viaja en
+      <b>un solo archivo</b> que se abre con el Bloc de notas. Se arma una vez y se manda; del otro
+      lado se importa y queda funcionando.</span></div></li>
+  </ul>
  </section>
 
  <!-- ILIMITADO: el diferencial mas fuerte de esta pagina. OJO CON EL ALCANCE,

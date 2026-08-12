@@ -58,6 +58,11 @@ td b{color:var(--ink)}
 .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 8px;font-family:var(--mono);font-size:12px;background:#fff}
 .foot{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;color:var(--ink3);font-size:13.5px}
 @media(max-width:640px){.toc ol{columns:1}h1{font-size:27px}}
+
+.tabla-plan{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.tabla-plan th,.tabla-plan td{border:1px solid var(--line,#e6e1d6);padding:7px 10px;text-align:left;vertical-align:top}
+.tabla-plan th{background:rgba(0,0,0,.04);font-weight:700}
+.tabla-plan code{white-space:nowrap}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Guía del usuario","item":"https://getdexiae.com/guia-usuario"}]}
@@ -232,6 +237,78 @@ td b{color:var(--ink)}
 <p><b>Bancos:</b> el motor se calibra por banco (cada uno arma el PDF distinto). Ya están funcionando siete: Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia. <b>¿Tu banco no está?</b> Escribinos a <a href="mailto:dexiaesoporte@gmail.com">dexiaesoporte@gmail.com</a> con 1 o 2 extractos de muestra (podés tapar los datos — al motor le sirve la estructura, no los valores) y lo sumamos.</p>
 <p><b>Esta herramienta es ilimitada en todas las ediciones</b>: no gasta tu cupo mensual de documentos. Convertí los que necesites.</p>
 </div>
+
+
+<h3 id="plan-cuentas">9.1 Importar tu plan de cuentas (PRO)</h3>
+<p>Para que DEXIAE proponga asientos necesita <b>tu</b> plan de cuentas. Se importa
+<b>una sola vez por cliente</b> desde el archivo que ya exporta tu sistema contable, y
+queda guardado: al reabrir la app sigue estando.</p>
+
+<p><b>Formatos que acepta:</b> <code>.xlsx</code>, <code>.csv</code> y <code>.xls</code>.
+Si el <code>.xls</code> te da error de lectura, abrilo en Excel y guardalo como
+<code>.xlsx</code> o <code>.csv</code>: es el mismo contenido y se importa igual.</p>
+
+<h4>Qué columnas tiene que tener</h4>
+<p>DEXIAE <b>no exige un orden ni un formato fijo</b>: busca las columnas por el nombre
+del encabezado, sin distinguir mayúsculas. Alcanza con que el encabezado
+<em>contenga</em> alguna de estas palabras.</p>
+
+<table class="tabla-plan">
+ <thead><tr><th>Columna</th><th>¿Obligatoria?</th><th>Encabezados que reconoce</th></tr></thead>
+ <tbody>
+  <tr><td><b>Código de cuenta</b></td><td><b>Sí</b></td>
+      <td><code>Cuenta</code> · <code>Código</code> · <code>Codigo</code> · <code>Cta</code> ·
+          <code>Nro</code> · <code>Número</code> · <code>Numero</code> · <code>Code</code></td></tr>
+  <tr><td><b>Descripción</b></td><td><b>Sí</b></td>
+      <td><code>Descripción</code> · <code>Descripcion</code> · <code>Nombre</code> ·
+          <code>Detalle</code> · <code>Denominación</code> · <code>Denominacion</code> ·
+          <code>Leyenda</code> · <code>Name</code></td></tr>
+  <tr><td><b>Imputable</b></td><td>No</td>
+      <td><code>Imputable</code> · <code>Imputa</code> · <code>Movimiento</code> ·
+          <code>Permite</code></td></tr>
+ </tbody>
+</table>
+
+<p><b>Si falta el código o la descripción, la importación no se hace</b> — y DEXIAE te
+muestra los encabezados que sí encontró en tu archivo, para que veas cuál renombrar.</p>
+
+<h4>La columna Imputable</h4>
+<p>Sirve para separar las cuentas de movimiento de los rubros de agrupación (los
+títulos que no reciben asientos). Se leen como <b>NO imputable</b> estos valores:
+<code>NO</code>, <code>N</code>, <code>FALSE</code>, <code>0</code> y la celda vacía.
+Cualquier otra cosa cuenta como sí.</p>
+<p><b>Si tu archivo no trae esa columna, DEXIAE toma todas las filas como asignables</b>
+y te lo avisa en pantalla. No es un error: solo significa que los rubros de agrupación
+van a aparecer en la lista junto a las cuentas reales.</p>
+
+<h4>Qué filas se descartan, y por qué te lo dice</h4>
+<ul>
+ <li><b>Sin código de cuenta</b> — típicamente las filas de totales o los separadores.</li>
+ <li><b>Código repetido</b> — se queda la primera y se descarta la segunda.</li>
+</ul>
+<p>Cada fila descartada se informa <b>con su número de fila tal como se ve en Excel</b>,
+así podés ir a buscarla. El panel te muestra el recuento completo: cuántas filas tenía el
+archivo, cuántas cuentas quedaron disponibles, cuántas son de agrupación y cuántas se
+omitieron. <b>Los números cierran</b>: si no suman, algo se leyó mal y conviene revisarlo
+antes de asignar cuentas.</p>
+
+<div class="nota">
+ <b>Ejemplo de archivo válido</b> — tres columnas, encabezado en la primera fila:
+ <table class="tabla-plan">
+  <thead><tr><th>Cuenta</th><th>Descripción</th><th>Imputable</th></tr></thead>
+  <tbody>
+   <tr><td>1.1.01.01</td><td>CAJA</td><td>SI</td></tr>
+   <tr><td>1.1.02.00</td><td>BANCOS</td><td>NO</td></tr>
+   <tr><td>1.1.02.03</td><td>BANCO CTA. CTE. EN PESOS</td><td>SI</td></tr>
+  </tbody>
+ </table>
+ La fila <code>BANCOS</code> es un rubro de agrupación: entra al archivo pero no se
+ ofrece para asignar.
+</div>
+
+<p><b>Se guarda con el cliente y viaja con él.</b> Cuando exportás la configuración de un
+cliente, el plan va adentro del mismo archivo: del otro lado se importa y queda
+funcionando, sin volver a buscar el Excel.</p>
 
 <h2 id="herramientas">10. Las 9 herramientas PDF</h2>
 <p>Todas ilimitadas (no consumen cupo). Según tu edición pueden variar las disponibles — ver <a href="#ediciones">tabla</a>.</p>

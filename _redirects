@@ -30,3 +30,13 @@
 # Para agregar un link por campana, copiar el patron:
 # /ig-asientos    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=asientos    302
 # /ig-demo        /demo?utm_source=instagram&utm_medium=bio&utm_campaign=demo                            302
+
+# ERRATAS DE URL
+# --------------
+# Search Console reporto /casosdeuso (sin guiones) como 404, rastreado el
+# 28/07/2026. No esta enlazado desde ninguna parte del sitio: los 8 enlaces
+# internos usan /casos-de-uso. Viene de afuera — un post, un mensaje, alguien
+# que lo tipeo. Un 404 ahi es correcto pero desperdicia la visita; el 301 la
+# lleva a la pagina y conserva lo que ese enlace valga.
+
+/casosdeuso    /casos-de-uso    301

@@ -35,4 +35,10 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
+# /cdn-cgi/ es de Cloudflare (ofuscacion de mails, challenges). No es contenido
+# del sitio y devuelve 404 al rastrearlo: aparecia en el informe de Search
+# Console como error sin serlo. No afecta a los usuarios.
+User-agent: *
+Disallow: /cdn-cgi/
+
 Sitemap: https://getdexiae.com/sitemap.xml

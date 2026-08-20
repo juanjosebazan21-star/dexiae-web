@@ -645,7 +645,21 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     columnas <b>FECHA · DETALLE · IMPORTE · SALDO</b> con los importes como números, no como texto.</p>
    <p>La diferencia se puede <b>verificar</b>: DEXIAE recalcula la cadena de saldos fila por fila y te dice
     “cadena verificada N/N”. Un conversor genérico no puede hacer eso, porque para comprobar un saldo hay que
-    <b>entender</b> el documento, no copiarlo.</p></details>
+    <b>entender</b> el documento, no copiarlo.</p>
+   <!-- Los dos paneles estan dibujados en el MISMO lienzo y con la MISMA densidad
+        de filas: a distinta escala la comparacion seria tramposa. El de la
+        izquierda es una MAQUETA de lo que devuelve un conversor generico, no la
+        captura de la salida de nadie. El de la derecha sale del xlsx que genera
+        el propio sistema. -->
+   <figure style="margin:16px 0 4px">
+     <img src="/conversor-vs-dexiae.png" width="2006" height="675" loading="lazy"
+          alt="A la izquierda, el mismo extracto pasado por un conversor genérico: la fecha, el detalle y el importe quedan aplastados en una sola celda, los importes entran como texto alineados a la izquierda, una fecha aparece invertida y un movimiento queda partido en dos filas. A la derecha, la salida de DEXIAE: columnas Fecha, Detalle, CUIT, Importe y Saldo separadas, importes como números, y una columna Verif. Saldo con la tilde de cada fila comprobada."
+          style="width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block">
+     <figcaption style="font-size:13px;color:var(--md);margin-top:8px">
+       El mismo extracto, procesado de las dos maneras. La columna
+       <b>Verif. Saldo</b> es la comprobación fila por fila.
+     </figcaption>
+   </figure></details>
   <details><summary>¿Qué bancos reconoce?</summary>
    <p>Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia, más la billetera Mercado Pago. Si el tuyo no
     está, <a href="#bancos" style="color:var(--ac-deep);font-weight:600">lo calibramos</a> con un par de

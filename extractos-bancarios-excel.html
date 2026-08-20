@@ -284,7 +284,8 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[
 {"@type":"Question","name":"¿Cómo convierto un extracto bancario de PDF a Excel?","acceptedAnswer":{"@type":"Answer","text":"Abrís DEXIAE, elegís el PDF del resumen y el sistema detecta el banco, arma la tabla de movimientos y exporta la planilla. Todo el proceso corre en tu computadora."}},
-{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos en poco tiempo."}},
+{"@type":"Question","name":"¿Por qué mi extracto sale mal cuando lo paso con un conversor online?","acceptedAnswer":{"@type":"Answer","text":"Porque un conversor genérico no sabe que ese PDF es un extracto bancario: ve líneas y espacios, y copia formas. De ahí salen las columnas fusionadas, los importes tomados como texto, las fechas dadas vuelta y un movimiento partido en dos filas cuando el detalle es largo. DEXIAE no convierte el PDF: lo lee sabiendo qué es. Reconoce el banco, sabe dónde empieza y termina la tabla de movimientos, descarta la letra chica legal y los anexos de comisiones, y arma las columnas FECHA, DETALLE, IMPORTE y SALDO con los importes como números. La diferencia se puede verificar: DEXIAE recalcula la cadena de saldos fila por fila y avisa «cadena verificada N/N». Un conversor genérico no puede hacerlo, porque para comprobar un saldo hay que entender el documento, no copiarlo."}},
+{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia, más la billetera Mercado Pago. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos en poco tiempo."}},
 {"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},
 {"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},
 {"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, como función del plan PRO. En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},
@@ -635,8 +636,18 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
    <p>Abrís DEXIAE, vas a Herramientas → “Extracto bancario → Excel”, elegís el PDF (o lo arrastrás a la
     ventana) y obtenés la planilla. Está explicado paso a paso en la
     <a href="/guia-usuario" style="color:var(--ac-deep);font-weight:600">guía del usuario</a>.</p></details>
+  <details><summary>¿Por qué mi extracto sale mal cuando lo paso con un conversor online?</summary>
+   <p>Porque un conversor genérico <b>no sabe que ese PDF es un extracto bancario</b>. Ve líneas y espacios,
+    y copia formas. De ahí salen las columnas fusionadas, los importes tomados como texto, las fechas dadas
+    vuelta y un movimiento partido en dos filas cuando el detalle es largo.</p>
+   <p>DEXIAE no convierte el PDF: lo lee <b>sabiendo qué es</b>. Reconoce el banco, sabe dónde empieza y dónde
+    termina la tabla de movimientos, descarta la letra chica legal y los anexos de comisiones, y arma las
+    columnas <b>FECHA · DETALLE · IMPORTE · SALDO</b> con los importes como números, no como texto.</p>
+   <p>La diferencia se puede <b>verificar</b>: DEXIAE recalcula la cadena de saldos fila por fila y te dice
+    “cadena verificada N/N”. Un conversor genérico no puede hacer eso, porque para comprobar un saldo hay que
+    <b>entender</b> el documento, no copiarlo.</p></details>
   <details><summary>¿Qué bancos reconoce?</summary>
-   <p>Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia. Si el tuyo no
+   <p>Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia, más la billetera Mercado Pago. Si el tuyo no
     está, <a href="#bancos" style="color:var(--ac-deep);font-weight:600">lo calibramos</a> con un par de
     resúmenes de muestra.</p></details>
   <details><summary>¿Necesito conexión a internet?</summary>

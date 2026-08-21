@@ -40,3 +40,13 @@
 # lleva a la pagina y conserva lo que ese enlace valga.
 
 /casosdeuso    /casos-de-uso    301
+
+# ── PUENTE CELULAR -> COMPUTADORA ──────────────────────────────────────
+# Un visitante que entra del telefono no puede instalar un .exe. Se lleva
+# esta direccion (corta y facil de recordar) y la abre desde la compu.
+# ⚠️ NO va directo al instalador: el trial se auto-inicia al instalar, asi
+# que una descarga sin dejar rastro es un usuario invisible — no hay
+# telemetria para enterarse despues. Cae en la home con el formulario
+# abierto (reusa el manejo de ?plan= que ya existe en lead.js); el que YA se
+# identifico por WhatsApp recibe de vos el link directo, sin puerta.
+/pc    /?plan=TRIAL    302

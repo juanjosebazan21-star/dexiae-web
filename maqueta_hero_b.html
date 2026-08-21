@@ -7,7 +7,7 @@
 <!-- ============================================================
      SEO PRIMARIO
 ============================================================ -->
-<title>DEXIAE · Extraer datos de PDF a Excel en lote, 100% offline</title>
+<title>[MAQUETA B] DEXIAE · Extraer datos de PDF a Excel en lote, 100% offline</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
@@ -577,11 +577,6 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
 .cmp tr.grp .g b{font-family:var(--disp);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
  color:#93C5FD;flex:none;white-space:nowrap}
 .cmp tr.grp .g i{flex:1;height:1px;background:var(--line);font-style:normal;min-width:20px}
-/* ⚠️ Ese filete decorativo tiene flex:1 con min-width:20px. Cuando la
-   fila ya esta llena no puede encogerse y empuja: son los 12 px de
-   desborde horizontal que hacian rebotar la pagina en un celular.
-   Medido a 390 px: scrollWidth 402 contra clientWidth 390. */
-@media (max-width:560px){ .cmp tr.grp .g i{min-width:0;flex:0 1 auto} }
 .cmp tr.grp .g .hint{font-family:var(--sans);font-size:11.5px;color:var(--lo);text-transform:none;letter-spacing:0;font-weight:400;flex:none;white-space:nowrap}
 /* cmp-chip y no chip: .chip ya existe en la página (mock del hero) con
    width:100%, y estiraba éste hasta desbordar la tabla entera */
@@ -693,208 +688,52 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
 .p-card h3{font-weight:600;letter-spacing:-.014em}
 
 .logo img.m,nav img.m,.top img.m{background:none!important;padding:0;object-fit:cover;border-radius:8px;flex:0 0 auto}
+</style>
+<style>
+/* ══ MAQUETA B · UNA SOLA COLUMNA, EL PRODUCTO ES EL HERO ═══════════════ */
+.hshot{position:absolute;inset:0;background:url(ejecucion.png) center top/cover no-repeat;
+  filter:blur(1.2px) saturate(.85);opacity:.42;transform:scale(1.06);
+  animation:hDrift 46s ease-in-out infinite}
+@keyframes hDrift{0%,100%{transform:scale(1.06) translate3d(0,0,0)}
+  50%{transform:scale(1.11) translate3d(-1.4%,-1%,0)}}
+.hscrim{position:absolute;inset:0;background:
+  radial-gradient(120% 90% at 50% 8%,rgba(9,14,26,.93) 0%,rgba(9,14,26,.86) 45%,rgba(9,14,26,.72) 100%)}
 
-/* ══════════════════════════════════════════════════════════════════════
-   HERO · rediseño 21/08/2026
+/* se va la grilla de dos columnas: ESE era el molde */
+.hero{padding:44px 0 0}
+.hero-in{display:block}
+.hcopy{max-width:820px;margin:0 auto;text-align:center}
+.hcopy .eyebrow{margin-bottom:16px}
+.hero h1{font-size:clamp(32px,3.6vw,47px);line-height:1.08;margin:0 auto;max-width:24ch}
+.hero .lead{margin:15px auto 0;max-width:58ch;font-size:16px;text-align:center}
 
-   Qué se fue y por qué:
-   · `.mesh` — tres círculos desenfocados a 94px. Es LA firma de las
-     landings generadas con IA; están en miles de páginas idénticas.
-   · La pastilla con puntito pulsante. Delataba el molde y encima no
-     decía nada: "automatización documental" no es información.
-   · El halo pulsante del botón (`ctaGlow`). El brillo lo hacía parecer
-     un anuncio, no un producto serio.
-   · El segundo botón con caja. Dos cajas compitiendo no son jerarquía.
+/* LA ANIMACION PASA A SER EL HERO: ancho completo y de frente.
+   Con -9deg de rotacion, a este tamaño se veia torcida en vez de en
+   perspectiva; centrada y grande necesita mucha menos inclinacion. */
+.hviz{width:min(1120px,100%);margin:32px auto 0;justify-self:auto;
+  perspective:2200px;perspective-origin:50% 40%}
+.deck3d{transform:rotateY(-3deg) rotateX(1.6deg)}
+.hviz::before{inset:-10% -6%;
+  background:radial-gradient(52% 46% at 50% 44%,rgba(37,99,235,.26),transparent 70%)}
+/* el piso, mas presente: es lo que apoya la pieza y le da peso */
+.floor{bottom:-62px;height:110px;filter:blur(30px)}
 
-   Qué entró:
-   · Profundidad REAL: la pila retrocede a −47/−95/−144/−196 px con
-     desenfoque creciente, y la planilla vive a −124 px.
-   · Una cámara que se mueve sola (13 s) y además sigue al mouse.
-   · Un pulso que LLEVA EL DATO hasta la fila que lo recibe.
-   ══════════════════════════════════════════════════════════════════════ */
-.hero-marca{position:absolute;left:29%;bottom:-30%;width:560px;height:560px;
-  pointer-events:none;z-index:0;opacity:.14;color:#5E9BF0;
-  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 34%,#000 100%);
-  mask-image:linear-gradient(180deg,transparent 0%,#000 34%,#000 100%)}
-.hero-marca svg{width:100%;height:100%;display:block}
-.hero .wrap{z-index:1}
-.hero-in{grid-template-columns:.94fr 1.06fr;gap:40px}
+/* los CTA DESPUES del producto */
+.hcta{max-width:820px;margin:26px auto 0;text-align:center;padding-bottom:16px}
+.hcta .cta{justify-content:center}
+.hcta .creds{justify-content:center;margin-top:22px}
 
-.hero-spec{display:flex;align-items:center;gap:10px;font-family:var(--mono);
-  font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--lo);
-  white-space:nowrap;flex-wrap:nowrap}
-.hero-spec>span{white-space:nowrap}
-.hero-spec .bar{width:26px;height:1px;background:var(--line2);flex:0 0 26px}
-.hero-spec b{color:var(--cta);font-weight:500}
-.hero-spec .sep{color:#3B4557}
+/* la pieza se apoya sobre el borde inferior de la seccion */
+.hero::after{opacity:.7}
 
-.hero h1{font-size:clamp(34px,3.75vw,50px);line-height:1.10;letter-spacing:-1.1px;
-  margin:22px 0 0;max-width:15ch;text-wrap:balance;color:#FBFCFE}
-.hero h1 em{font-weight:700;color:var(--ac);
-  background:linear-gradient(rgba(96,165,250,.55),rgba(96,165,250,.55)) 0 100%/100% 1.5px no-repeat;
-  padding-bottom:5px}
-
-/* SEGUNDO EJE: el titular solo contra el margen, el apoyo indentado. */
-.hero-apoyo{margin:26px 0 0;padding-left:20px;
-  border-left:1px solid rgba(150,180,235,.34);
-  display:flex;flex-direction:column;gap:14px}
-.hero .lead{font-size:16px;line-height:1.55;color:var(--md);max-width:42ch;margin:0}
-.hero-apoyo .cta{display:flex;align-items:center;column-gap:24px;row-gap:14px;
-  margin-top:4px;flex-wrap:wrap}
-.hero .btn-hero{animation:none;padding:15px 26px;font-size:16px;font-weight:700;
-  border-radius:11px;display:inline-flex;align-items:center;gap:10px;
-  box-shadow:0 12px 28px -12px rgba(61,217,182,.55);transition:transform .18s ease,box-shadow .18s ease}
-.hero .btn-hero:hover{transform:translateY(-1px);box-shadow:0 16px 34px -12px rgba(61,217,182,.7)}
-.hero-b2{display:inline-flex;align-items:center;gap:9px;color:var(--hi);
-  font-size:15.5px;font-weight:500;text-decoration:none;padding:6px 0;
-  border-bottom:1px solid var(--line2);transition:border-color .18s ease}
-.hero-b2:hover{border-bottom-color:var(--ac)}
-.hero-b2 svg{transition:transform .18s ease}
-.hero-b2:hover svg{transform:translateX(3px)}
-.hero-mini{font-family:var(--mono);font-size:11px;color:#5C6679;margin-top:26px;
-  padding-left:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.hero-mini .d{color:#333C4C}
-
-/* ══ ESCENA ══════════════════════════════════════════════════════════ */
-@property --sc{syntax:'<number>';inherits:true;initial-value:1}
-@property --rx{syntax:'<angle>';inherits:true;initial-value:7deg}
-@property --ry{syntax:'<angle>';inherits:true;initial-value:-16deg}
-.hero-esc{position:relative;perspective:1500px;perspective-origin:56% 44%;
-  height:462px;transform:none}
-.hero-esc::before{content:none}
-.hero-stage{position:absolute;inset:0;transform-style:preserve-3d;
-  transform:rotateX(var(--rx,7deg)) rotateY(var(--ry,-16deg)) scale(var(--sc,1));
-  transition:transform .55s cubic-bezier(.2,.7,.3,1);
-  animation:heroCam 13s cubic-bezier(.42,0,.28,1) infinite}
-@keyframes heroCam{
-  0%,6%   {--sc:.92; --rx:9deg; --ry:-20deg}
-  40%,62% {--sc:1.02;--rx:5deg; --ry:-12deg}
-  94%,100%{--sc:.92; --rx:9deg; --ry:-20deg}
+@media (prefers-reduced-motion:reduce){ .hshot{animation:none} }
+@media (max-width:1080px){
+  .hviz{width:100%;margin-top:32px;max-width:none}
+  .deck3d{transform:none}
 }
-.hero-plane{position:absolute;transform-style:preserve-3d;border-radius:12px}
-.hero-surf{background:
-   linear-gradient(150deg,rgba(120,160,235,.15),rgba(120,160,235,0) 44%),
-   linear-gradient(180deg,#16223A,#0C1424);
-  border:1px solid var(--line2);
-  box-shadow:0 44px 96px -32px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.075)}
-.hero-lbl{position:absolute;font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;
-  text-transform:uppercase;color:#59637A;white-space:nowrap}
-
-.hero-sheet{width:198px;height:258px;border-radius:8px;
-  background:linear-gradient(175deg,#FCFCFA,#E7E8E4);
-  box-shadow:0 26px 52px -18px rgba(0,0,0,.92);border:1px solid rgba(0,0,0,.24);
-  padding:15px 14px;display:flex;flex-direction:column;gap:6px}
-.hero-sheet .t{font-size:9.5px;font-weight:700;color:#1D2433;letter-spacing:.2px}
-.hero-sheet .r{height:4px;border-radius:2px;background:#CBCEC8}
-.hero-sheet .cu{font-family:var(--mono);font-size:7.5px;color:#6A6F78;margin-top:2px}
-.hero-sheet .tt{margin-top:auto;display:flex;justify-content:space-between;align-items:baseline;
-  border-top:1px solid #CBCEC8;padding-top:7px;font-family:var(--mono);font-size:9px;color:#1D2433}
-.hero-sheet .tt b{font-size:12.5px}
-
-.hero-deck{left:-3%;top:58px;width:198px;height:258px}
-.hero-deck .hero-sheet{position:absolute;left:0;top:0}
-.hs5{transform:translate3d(58px,-31px,-196px) rotate(-4deg);filter:blur(2.6px);opacity:.40}
-.hs4{transform:translate3d(44px,-23px,-144px) rotate(-2deg);filter:blur(1.6px);opacity:.56}
-.hs3{transform:translate3d(29px,-15px,-95px) rotate(1deg);filter:blur(.8px);opacity:.73}
-.hs2{transform:translate3d(15px,-7px,-47px) rotate(2deg);opacity:.9}
-.hs1{animation:heroLift 13s cubic-bezier(.3,.7,.3,1) infinite}
-@keyframes heroLift{
-  0%,12%{transform:translate3d(0,0,0) rotateY(0)}
-  34%,60%{transform:translate3d(-14px,-15px,84px) rotateY(8deg)}
-  82%,100%{transform:translate3d(0,0,0) rotateY(0)}
+@media (max-width:700px){
+  .hcta .cta{flex-direction:column;align-items:stretch}
 }
-/* el haz va RECORTADO a la hoja: desbordado se leía como un glitch */
-.hero-clip{position:absolute;left:0;top:0;width:198px;height:258px;border-radius:8px;
-  overflow:hidden;transform-style:preserve-3d;pointer-events:none}
-.hero-beam{position:absolute;left:0;width:100%;height:26px;border-radius:4px;top:0;
-  background:linear-gradient(180deg,rgba(96,165,250,0),rgba(96,165,250,.45),rgba(96,165,250,0));
-  box-shadow:0 0 22px rgba(96,165,250,.5);animation:heroBeam 13s ease-in-out infinite}
-@keyframes heroBeam{
-  0%,28%{opacity:0;transform:translateY(-26px)}
-  35%{opacity:1}
-  54%{opacity:1;transform:translateY(258px)}
-  61%,100%{opacity:0;transform:translateY(258px)}
-}
-.hero-pulso{position:absolute;left:176px;top:150px;display:flex;align-items:center;gap:9px;
-  padding:5px 9px;border-radius:5px;font-family:var(--mono);font-size:9.5px;
-  white-space:nowrap;color:#EAF2FF;
-  background:linear-gradient(90deg,rgba(37,99,235,.92),rgba(23,88,180,.92));
-  border:1px solid rgba(140,190,255,.45);
-  box-shadow:0 0 22px rgba(96,165,250,.55),0 8px 18px -6px rgba(0,0,0,.7);
-  opacity:0;animation:heroViaje 13s cubic-bezier(.4,0,.2,1) infinite}
-.hero-pulso .imp{color:#9FE8D4;font-weight:700}
-@keyframes heroViaje{
-  0%,55%{opacity:0;transform:translate3d(0,4px,84px) scale(.72)}
-  60%{opacity:1;transform:translate3d(16px,-6px,66px) scale(1)}
-  73%{opacity:1;transform:translate3d(196px,84px,-116px) scale(.66)}
-  76%,100%{opacity:0;transform:translate3d(206px,88px,-122px) scale(.52)}
-}
-.hero-xls{right:-5%;top:10px;width:404px;transform:translateZ(-124px)}
-.hx-h{display:flex;align-items:center;gap:8px;padding:10px 13px;
-  border-bottom:1px solid var(--line2);font-family:var(--mono);font-size:10px;
-  letter-spacing:.08em;text-transform:uppercase;color:#8494AC}
-.hx-h .x{width:15px;height:15px;border-radius:3px;background:#137547;color:#fff;
-  font-size:9px;display:grid;place-items:center;font-weight:700;font-family:var(--sans)}
-.hx-row{display:grid;grid-template-columns:1fr 78px 32px;gap:9px;align-items:center;
-  padding:6px 13px;font-family:var(--mono);font-size:10.5px;color:#B9C4D6;
-  border-bottom:1px solid rgba(150,180,235,.07);animation:hxIn .5s ease backwards}
-.hx-row .n{text-align:right}
-.hx-row .k{text-align:center;font-weight:700;font-size:9.5px}
-.hx-row .k.ok{color:var(--ok)} .hx-row .k.dup{color:var(--ac)} .hx-row .k.rev{color:var(--warn)}
-@keyframes hxIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:none}}
-/* ⚠️ LA ÚLTIMA FILA NACE VACÍA y se escribe cuando el dato aterriza. Si
-   estuviera escrita de antes, el viaje no explicaría nada. */
-.hx-row.destino{opacity:0;animation:heroEscribe 13s ease-in-out infinite}
-@keyframes heroEscribe{
-  0%,72%{opacity:0;background:transparent;box-shadow:none;transform:translateX(-6px)}
-  76%{opacity:1;background:rgba(96,165,250,.34);box-shadow:inset 3px 0 0 var(--ac);transform:none}
-  84%{opacity:1;background:rgba(96,165,250,.20);box-shadow:inset 3px 0 0 var(--ac);transform:none}
-  95%,100%{opacity:1;background:transparent;box-shadow:none;transform:none}
-}
-.hx-pie{display:flex;align-items:center;gap:12px;padding:9px 13px;
-  font-family:var(--mono);font-size:9.5px;color:#6E7C90;border-top:1px solid var(--line)}
-.hx-pie b{color:var(--ok);font-weight:500}
-
-@media (prefers-reduced-motion:reduce){
-  .hero-stage,.hs1,.hero-beam,.hero-pulso,.hx-row,.hx-row.destino{animation:none!important}
-  .hero-beam,.hero-pulso{opacity:0}
-  .hx-row.destino{opacity:1}
-}
-@media (max-width:980px){
-  .hero-in{grid-template-columns:1fr;gap:30px}
-  .hero-esc{height:350px}
-  .hero-marca{width:380px;height:380px;left:auto;right:-8%;bottom:-14%}
-  /* el nowrap es para que la línea no se parta en escritorio; en un celular
-     no tiene dónde entrar y se cortaba contra el borde. */
-  .hero-spec{flex-wrap:wrap;white-space:normal;row-gap:4px}
-  .hero-spec .bar{display:none}
-}
-
-
-/* ══ CELULAR ═══════════════════════════════════════════════════════════ */
-@media (max-width:820px){
-  /* La demo es una UI de escritorio: en un telefono se ve ilegible y eso
-     daña mas la credibilidad que no mostrarla. */
-  .nav-demo, .hero-b2, .solo-pc{display:none!important}
-  .movil-puente{display:block}
-}
-@media (min-width:821px){ .movil-puente{display:none} }
-
-.movil-puente{margin:18px 0 0;padding-left:20px}
-.mp-tit{font-family:var(--mono);font-size:10px;letter-spacing:.11em;
-  text-transform:uppercase;color:var(--lo);margin-bottom:10px}
-.mp-btns{display:flex;flex-direction:column;gap:9px}
-.mp-b{display:flex;align-items:center;gap:10px;padding:13px 15px;border-radius:11px;
-  font-size:14.5px;font-weight:600;text-decoration:none;border:1px solid var(--line2);
-  color:var(--hi);background:rgba(150,180,235,.05)}
-.mp-b .ic{flex:0 0 18px;display:grid;place-items:center;color:var(--cta)}
-.mp-b em{font-style:normal;display:block;font-size:11.5px;font-weight:400;
-  color:var(--md);margin-top:2px}
-.mp-b.wa{border-color:rgba(61,217,182,.42);background:rgba(61,217,182,.09)}
-.mp-url{margin-top:12px;font-family:var(--mono);font-size:11.5px;color:var(--md);
-  line-height:1.6}
-.mp-url b{color:var(--cta);font-weight:700;letter-spacing:.02em}
-
 </style>
 </head>
 <body>
@@ -924,133 +763,196 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
 <!-- ===== HERO ===== -->
 <section class="hero">
  <div class="hbg" aria-hidden="true">
-  <!-- Los tres círculos desenfocados (.mesh, blur 94px) se fueron: son LA
-       firma de las landings generadas con IA, están en miles de páginas
-       idénticas. Queda el grano —sin él el navy plano hace bandas— y el
-       chevron de la marca, nítido y muy tenue.
-       ⚠️ NO se difumina: un logo borroso se lee como error de renderizado,
-       y es el mismo gesto que los círculos que acabamos de sacar. -->
+  <!-- El fondo es la UI REAL (aprobado en la propuesta A). Los tres circulos
+       desenfocados que habia antes son la firma de las landings de IA. -->
+  <div class="hshot"></div>
+  <div class="hscrim"></div>
   <div class="hnoise"></div><div class="hvig"></div>
-  <div class="hero-marca" aria-hidden="true">
-   <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M40 6 L68 50 L40 94" stroke="currentColor" stroke-width="7"
-          stroke-linecap="round" stroke-linejoin="round"></path>
-   </svg>
-  </div>
  </div>
  <div class="wrap"><div class="hero-in">
- <div>
-  <!-- La pastilla con puntito se fue: era el delator número uno y encima
-       no decía nada. En su lugar, una línea de especificación con datos
-       verificables. -->
-  <div class="hero-spec">
-   <span class="bar"></span>
-   <span>Escritorio Windows</span><span class="sep">·</span>
-   <span><b>8 bancos</b> calibrados</span><span class="sep">·</span>
-   <span>Sin conexión</span>
-  </div>
-
+ <div class="hcopy">
+  <span class="eyebrow"><span class="d"></span>Automatización documental · 100% offline</span>
   <h1>¿Tu equipo sigue <em>perdiendo horas</em> copiando datos de PDFs a Excel?</h1>
-
-  <!-- SEGUNDO EJE. Lo que delataba la columna no eran las palabras: era
-       que todo arrancaba en la misma x con el mismo ritmo. El titular
-       queda solo contra el margen y el apoyo se indenta tras un filete. -->
-  <div class="hero-apoyo">
-   <p class="lead">DEXIAE lee <b>comprobantes, facturas y extractos bancarios</b> por lote
-    y devuelve el Excel auditado. Todo corre en tu máquina.</p>
-   <div class="cta">
-    <button class="btn btn-p btn-lg btn-hero solo-pc" onclick="openLead('TRIAL')">
-     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"></path><path d="m7 12 5 5 5-5"></path><path d="M4 21h16"></path></svg>
-     Probar PRO gratis · 14 días
-    </button>
-    <a href="app/" class="hero-b2">Ver la demo en el navegador
-     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-    </a>
+  <p class="lead">Procesá lotes enteros de <b>comprobantes, facturas y extractos
+   bancarios</b> en segundos. <b>100% local</b>: nada sube a internet.</p>
+ </div>
+ <div class="hviz" id="hviz" aria-hidden="true">
+  <span class="mark mk-a">Tu carpeta · 12 PDF</span>
+  <span class="mark mk-b">Un Excel auditado</span>
+  <div class="deck3d" id="deck3d">
+   <span class="floor"></span>
+   <div class="toast" id="hv-toast">
+    <span class="t-ic">⧉</span>
+    <span class="t-tx"><b>Duplicado detectado</b><em>FC_000125 · ya estaba en el lote</em></span>
    </div>
-  </div>
+   <div class="win">
+    <div class="win-clip">
 
- <div class="movil-puente">
-   <div class="mp-tit">Estás en el celular · DEXIAE se instala en Windows</div>
-   <div class="mp-btns">
-    <a class="mp-b wa" href="https://wa.me/5493516574188?text=Hola!%20Entr%C3%A9%20desde%20el%20celular%20y%20quiero%20probar%20DEXIAE.%20%C2%BFMe%20pas%C3%A1s%20el%20link%20para%20instalarlo%20en%20la%20compu%3F" target="_blank" rel="noopener">
-     <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.1 14.1c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .1-1.6-.1-1.5-.6-3.3-1.7-4.6-3.6-.5-.7-1-1.6-1-2.5s.5-1.4.7-1.6c.2-.2.4-.2.6-.2h.4c.2 0 .4 0 .6.4l.7 1.7c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.5.8 1 1.3 1.7 1.8.3.2.5.2.7 0l.6-.7c.2-.2.3-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .2 0 .7-.1.9Z"></path></svg></span>
-     <span>Que me lo manden por WhatsApp
-      <em>Te llega el link y lo abrís cuando estés en la compu</em></span>
-    </a>
-    <a class="mp-b" href="demo-files/DEXIAE_demo_extracto.xlsx" download>
-     <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg></span>
-     <span>Ver un Excel de ejemplo
-      <em>Se abre en tu teléfono · es la salida real del sistema</em></span>
-    </a>
+    <div class="tabs" id="hv-tabs">
+     <span class="tab"><span class="pdf">PDF</span>FC_000123.pdf</span>
+     <span class="tab"><span class="pdf">PDF</span>FC_000124.pdf</span>
+     <span class="tab"><span class="pdf">PDF</span>FC_000125.pdf</span>
+     <span class="more" id="hv-more">+9</span>
+    </div>
+
+    <div class="stage">
+     <div class="slot" id="hv-pane"><span class="doc-cap">leyendo…</span></div>
+
+     <div class="pane-xls">
+      <div class="xls-h"><span class="xi">X</span><b>lote_2026-06.xlsx</b><span id="hv-n">— filas</span></div>
+      <div class="cols"><span></span><span>CUIT</span><span>FECHA</span><span>TOTAL</span><span>EST.</span></div>
+      <div id="hv-rows">
+       <div class="rowx"><span class="rn">1</span><span>30-11111111-9</span><span>04/06</span><span class="num">124.500,00</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">2</span><span>33-11111111-9</span><span>04/06</span><span class="num">86.200,00</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">3</span><span>30-11111111-9</span><span>05/06</span><span class="num">124.500,00</span><span class="st"><span class="chip dup">DUP</span></span></div>
+       <div class="rowx"><span class="rn">4</span><span>30-22222222-8</span><span>05/06</span><span class="num">51.980,00</span><span class="st"><span class="chip rev">REV</span></span></div>
+       <div class="rowx"><span class="rn">5</span><span>27-33333333-4</span><span>06/06</span><span class="num">9.340,00</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">6</span><span>30-11111111-9</span><span>06/06</span><span class="num">212.744,10</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">7</span><span>33-44444444-5</span><span>07/06</span><span class="num">37.600,00</span><span class="st"><span class="chip ok">OK</span></span></div>
+       <div class="rowx"><span class="rn">8</span><span>30-22222222-8</span><span>07/06</span><span class="num">51.980,00</span><span class="st"><span class="chip dup">DUP</span></span></div>
+      </div>
+      <div class="xls-f" id="hv-foot">
+       <span><b>9</b> ok</span><span class="d2">2 duplicados</span><span class="d3">1 a revisar</span><span class="ml">0,68 s/doc</span>
+      </div>
+     </div>
+    </div>
+
+    <div class="stat">
+     <span class="dot" id="hv-dot"></span>
+     <span class="cnt" id="hv-cnt">lote listo para procesar</span>
+     <span class="bar"><i id="hv-bar"></i></span>
+     <span class="ml">nada sale de tu equipo</span>
+    </div>
+
+    </div><!-- /win-clip -->
+
+    <span class="edge"></span>
+    <span class="gloss" id="hv-gloss"></span>
+    <span class="doc-shadow"></span>
+
+    <!-- el documento en lectura, suspendido por delante del panel -->
+    <div class="doc3d" id="hv-doc">
+     <div class="page" id="hv-page">
+      <div class="pg-h"><b>Factura A</b><em id="hv-num">0001-00012345<br>04/06/2026</em></div>
+      <div class="pg-rows">
+       <span class="d" style="width:64%"></span><span class="d"></span>
+       <span class="d" style="width:52%"></span><span class="d" style="width:82%"></span>
+       <span class="d" style="width:44%"></span>
+      </div>
+      <div class="pg-cuit" id="hv-cuit">CUIT 30-11111111-9 · CAE 75112233440017</div>
+      <div class="pg-tot"><span>TOTAL</span><b id="hv-tot">124.500,00</b></div>
+     </div>
+     <span class="scan" id="hv-scan"></span>
+    </div>
+
    </div>
-   <div class="mp-url">O desde tu computadora entrá a <b>getdexiae.com/pc</b></div>
-  </div>
-  <div class="hero-mini">
-   <span>Sin tarjeta</span><span class="d">·</span>
-   <span>100 documentos de prueba</span><span class="d">·</span>
-   <span>Nada sube a internet</span>
   </div>
  </div>
-
- <div class="hviz hero-esc" aria-hidden="true"><div class="hero-stage">
-  <span class="hero-lbl" style="left:1%;top:24px">Tu carpeta · 12 PDF</span>
-  <div class="hero-plane hero-deck">
-   <div class="hero-sheet hs5"></div><div class="hero-sheet hs4"></div>
-   <div class="hero-sheet hs3"></div><div class="hero-sheet hs2"></div>
-   <div class="hero-sheet hs1">
-    <div class="t">Factura A</div>
-    <div class="r" style="width:76%"></div><div class="r"></div>
-    <div class="r" style="width:56%"></div><div class="r" style="width:84%"></div>
-    <div class="r" style="width:42%"></div>
-    <div class="cu">CUIT 30-22222222-8 · CAE 75112233440017</div>
-    <div class="tt"><span>TOTAL</span><b>51.980,00</b></div>
+ <div class="hcta">
+  <div class="cta">
+   <div class="cta-item">
+    <button class="btn btn-p btn-lg btn-hero" onclick="openLead('TRIAL')"><span class="bi">⇩</span> Probar PRO gratis (14 días)</button>
+    <span class="cta-note">Instalador para Windows · <b>sin tarjeta</b></span>
    </div>
-   <span class="hero-clip"><span class="hero-beam"></span></span>
+   <div class="cta-item">
+    <a href="app/" class="btn btn-o btn-lg"><span class="pl">▶</span> Probar la demo online</a>
+    <span class="cta-note">En tu navegador · <b>no subís nada</b></span>
+   </div>
   </div>
-  <!-- El pulso LLEVA EL DATO: el mismo CUIT y el mismo importe impresos en
-       la factura, que aterrizan en la última fila del Excel. Una barra de
-       color no dice nada; esto muestra qué se está extrayendo. -->
-  <span class="hero-pulso"><span>30-22222222-8</span><span class="imp">51.980,00</span></span>
-  <div class="hero-plane hero-surf hero-xls">
-   <div class="hx-h"><span class="x">X</span>lote_2026-06.xlsx
-    <span style="margin-left:auto;text-transform:none;letter-spacing:0">12 filas</span></div>
-   <div id="hero-rows"></div>
-   <div class="hx-pie"><b>9 ok</b><span>2 duplicados</span><span>1 a revisar</span>
-    <span style="margin-left:auto">0,68 s / doc</span></div>
+  <div class="creds">
+   <span><b>v2.5.1</b> estable</span><i></i><span>Windows 10/11</span><i></i>
+   <span>Sin conexión requerida</span><i></i><span>100 documentos de prueba</span>
   </div>
-  <span class="hero-lbl" style="right:2px;bottom:2px">Un Excel auditado</span>
- </div></div>
- </div></div>
+ </div>
+</div></div>
 <script>
-/* Hero · una fila del lote viaja del documento a la planilla.
-   ⚠️ La ÚLTIMA fila nace vacía y se escribe cuando el dato aterriza: si
-   estuviera escrita de antes, el viaje no explicaría nada — el resultado
-   se vería antes que la causa. */
+/* Hero · la línea de lectura: un PDF del lote se lee y escribe SU fila.
+   Con "reducir movimiento" se muestra directamente el lote terminado. */
 (function(){
- var box=document.getElementById('hero-rows'); if(!box) return;
- var F=[['30-11111111-9','124.500,00','ok','OK'],['33-11111111-9','86.200,00','ok','OK'],
-   ['30-11111111-9','124.500,00','dup','DUP'],['30-22222222-8','51.980,00','rev','REV'],
-   ['27-33333333-4','9.340,00','ok','OK'],['30-11111111-9','212.744,10','ok','OK'],
-   ['33-44444444-5','37.600,00','ok','OK'],['30-22222222-8','51.980,00','dup','DUP']];
- F.forEach(function(f,i){
-   var d=document.createElement('div');
-   d.className='hx-row'+(i===F.length-1?' destino':'');
-   d.style.animationDelay=(.55+i*.17)+'s';
-   d.innerHTML='<span>'+f[0]+'</span><span class="n">'+f[1]+
-               '</span><span class="k '+f[2]+'">'+f[3]+'</span>';
-   box.appendChild(d);
- });
- /* La cámara sigue al mouse ADEMÁS de su recorrido propio: sin punto de
-    vista que se mueva no hay paralaje, y sin paralaje no hay 3D. */
- var sec=document.querySelector('.hero'), st=document.querySelector('.hero-stage');
- if(!st||window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
- sec.addEventListener('pointermove',function(e){
-   var r=sec.getBoundingClientRect();
-   var dx=(e.clientX-r.left)/r.width-.5, dy=(e.clientY-r.top)/r.height-.5;
-   st.style.transform='rotateX(calc(var(--rx) + '+(-dy*7).toFixed(2)+'deg)) '+
-                      'rotateY(calc(var(--ry) + '+(dx*10).toFixed(2)+'deg)) scale(var(--sc))';
- });
- sec.addEventListener('pointerleave',function(){ st.style.transform=''; });
+ var viz=document.getElementById('hviz'); if(!viz) return;
+ var tabs=[].slice.call(document.querySelectorAll('#hv-tabs .tab'));
+ var more=document.getElementById('hv-more'), pane=document.getElementById('hv-pane');
+ var doc3d=document.getElementById('hv-doc'), gloss=document.getElementById('hv-gloss');
+ var page=document.getElementById('hv-page'), scan=document.getElementById('hv-scan');
+ var rowsBox=document.getElementById('hv-rows'), rows=[].slice.call(rowsBox.children);
+ var foot=document.getElementById('hv-foot'), cnt=document.getElementById('hv-cnt');
+ var bar=document.getElementById('hv-bar'), dot=document.getElementById('hv-dot'), xlsn=document.getElementById('hv-n');
+ var num=document.getElementById('hv-num'), cuit=document.getElementById('hv-cuit'), tot=document.getElementById('hv-tot');
+ var toast=document.getElementById('hv-toast'), deck=document.getElementById('deck3d');
+ var DOCS=[
+  {n:'0001-00012345',f:'04/06/2026',c:'30-11111111-9',cae:'75112233440017',t:'124.500,00'},
+  {n:'0001-00012346',f:'04/06/2026',c:'33-11111111-9',cae:'75112233440018',t:'86.200,00'},
+  {n:'0001-00012347',f:'05/06/2026',c:'30-11111111-9',cae:'75112233440019',t:'124.500,00'}
+ ];
+ var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+ function sleep(ms){return new Promise(function(r){setTimeout(r,ms)})}
+ function pintar(d){ num.innerHTML=d.n+'<br>'+d.f; cuit.textContent='CUIT '+d.c+' · CAE '+d.cae; tot.textContent=d.t; }
+ function final(){
+  rows.forEach(function(r){r.classList.add('in')});
+  foot.classList.add('in'); cnt.textContent='12 de 12 procesados'; bar.style.width='100%';
+  dot.classList.add('done'); xlsn.textContent='12 filas'; tabs.forEach(function(t){t.classList.add('done')});
+ }
+ async function reset(){
+  rowsBox.style.transition='opacity .45s'; rowsBox.style.opacity='0';
+  foot.classList.remove('in'); toast.classList.remove('in'); await sleep(450);
+  rows.forEach(function(r){r.classList.remove('in','flash')});
+  bar.style.width='0'; dot.classList.remove('done'); cnt.textContent='lote listo para procesar';
+  xlsn.textContent='— filas'; more.classList.remove('hot');
+  tabs.forEach(function(t){t.classList.remove('on','done')});
+  rowsBox.style.opacity='1';
+ }
+ async function ciclo(){
+  await reset(); await sleep(650);
+  for(var i=0;i<3;i++){
+   tabs[i].classList.add('on');
+   if(i>0){
+    /* el leído se va hacia la planilla y el siguiente cae desde arriba */
+    doc3d.classList.add('out'); await sleep(400);
+    pintar(DOCS[i]);
+    doc3d.classList.remove('out'); doc3d.classList.add('enter');
+    await sleep(520); doc3d.classList.remove('enter');
+   } else { pintar(DOCS[0]); }
+   cnt.textContent='leyendo '+(i+1)+' de 12';
+   scan.style.setProperty('--h',doc3d.clientHeight+'px');
+   pane.classList.add('reading'); doc3d.classList.add('reading');
+   await sleep(1150);
+   pane.classList.remove('reading'); doc3d.classList.remove('reading');
+   rows[i].classList.add('in','flash');
+   xlsn.textContent=(i+1)+' fila'+(i?'s':''); bar.style.width=((i+1)/12*100)+'%';
+   if(i===2){ toast.classList.add('in'); }
+   await sleep(300); rows[i].classList.remove('flash');
+   tabs[i].classList.remove('on'); tabs[i].classList.add('done');
+   await sleep(320);
+  }
+  more.classList.add('hot');
+  for(var j=3;j<rows.length;j++){
+   rows[j].classList.add('in');
+   cnt.textContent='leyendo '+(j+1)+' de 12';
+   bar.style.width=((j+1)/12*100)+'%'; xlsn.textContent=(j+1)+' filas';
+   await sleep(190);
+  }
+  cnt.textContent='12 de 12 procesados'; bar.style.width='100%';
+  dot.classList.add('done'); xlsn.textContent='12 filas'; foot.classList.add('in');
+  await sleep(4200); ciclo();
+ }
+ if(reduce){ final(); } else { ciclo(); }
+
+ /* el panel gira apenas con el cursor: objeto físico, no truco (±4°) */
+ if(!reduce && deck && matchMedia('(pointer:fine)').matches){
+  var hero=viz.closest('.hero'), raf=0;
+  hero.addEventListener('mousemove',function(e){
+   if(raf) return;
+   raf=requestAnimationFrame(function(){
+    raf=0; var r=hero.getBoundingClientRect();
+    var x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    deck.style.transform='rotateY('+(-9+x*8).toFixed(2)+'deg) rotateX('+(2.4-y*5).toFixed(2)+'deg)';
+    if(gloss) gloss.style.setProperty('--gx',(18+x*64).toFixed(1)+'%');   /* el reflejo sigue a la luz */
+   });
+  });
+  hero.addEventListener('mouseleave',function(){
+   deck.style.transform=''; if(gloss) gloss.style.setProperty('--gx','40%');
+  });
+ }
 })();
 </script>
 </section>
@@ -1349,7 +1251,7 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
  <h2>Automatizá tu trabajo documental — 14 días gratis</h2>
  <p>Sin tarjeta, sin compromiso, sin enviar un solo documento a la nube.</p>
  <div class="cta">
-  <button class="btn btn-p btn-lg btn-hero solo-pc" onclick="openLead('TRIAL')"><span class="bi">⇩</span> Probar PRO gratis</button>
+  <button class="btn btn-p btn-lg btn-hero" onclick="openLead('TRIAL')"><span class="bi">⇩</span> Probar PRO gratis</button>
   <a href="app/" class="btn btn-o btn-lg"><span class="pl">▶</span> Probar la demo online</a>
   <a href="#precios" class="btn btn-o btn-lg">Ver planes</a>
  </div>

@@ -60,7 +60,7 @@
   origenCampana();   /* captura al cargar, no al enviar */
 
   var DEXIAE_LINKS = {
-    installer: 'https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v2.5.14/DEXIAE_Setup_V2.5.14.exe',
+    installer: 'https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v2.5.15/DEXIAE_Setup_V2.5.15.exe',
     whatsapp: 'https://wa.me/5493516574188?text=Hola!%20Quiero%20activar%20DEXIAE'
   };
   var MP_LINKS = {

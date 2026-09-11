@@ -3,6 +3,26 @@
 # Formato:  /origen   /destino   <codigo>
 # ═══════════════════════════════════════════════════════════════════════
 #
+# UN SOLO NOMBRE PARA EL SITIO
+# ----------------------------
+# `www.getdexiae.com` servia el MISMO despliegue con 200 en vez de redirigir.
+# Encontrado el 11/09/2026 en Search Console: cuatro paginas figuraban como
+# "rastreada: actualmente sin indexar" y las cuatro eran la version con www.
+#
+# No hacia dano — las canonicas de cada pagina ya apuntan al dominio sin www,
+# asi que Google elegia bien — pero le hacia gastar rastreo en un sitio
+# duplicado entero, y cualquier enlace que alguien arme con www reparte la
+# autoridad en dos nombres.
+#
+# ⚠️ Va PRIMERO a proposito: las reglas se evaluan de arriba hacia abajo y la
+# primera que coincide gana. Con la fuente en URL absoluta, el dominio sin www
+# no se toca.
+# ⚠️ 301 y no 302: esto no vuelve atras, y el 301 es el que transfiere la
+# autoridad del nombre viejo al bueno.
+
+https://www.getdexiae.com/*    https://getdexiae.com/:splat    301
+
+#
 # LINKS CORTOS DE CAMPANA
 # -----------------------
 # Por que existen: el link de la bio de Instagram tiene que llevar UTM para

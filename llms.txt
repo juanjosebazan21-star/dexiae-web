@@ -4,7 +4,7 @@
 > en lote y audita esos documentos, procesando **100% en la computadora del
 > usuario**: ningún archivo se sube a la nube. Pensado para estudios contables,
 > estudios jurídicos, organismos públicos y áreas administrativas de habla
-> hispana (Argentina). Versión actual: 2.5.17.
+> hispana (Argentina). Versión actual: 2.5.18.
 
 DEXIAE = *Document Extraction & Intelligent Automation Engine*. Se instala en
 Windows 10/11 y funciona sin conexión a internet. Se licencia por suscripción

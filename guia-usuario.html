@@ -3,21 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guía del usuario · DEXIAE 2.3</title>
+<title>Guía del usuario · DEXIAE 2.5</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Guía completa de DEXIAE 2.3: extracción de PDF a Excel, extractos bancarios, validación de datos, peritaje de firmas y herramientas PDF. 100% offline.">
+<meta name="description" content="Guía de DEXIAE 2.5: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación y peritaje de firmas. Todo el procesamiento es local.">
 <link rel="canonical" href="https://getdexiae.com/guia-usuario">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://getdexiae.com/guia-usuario">
 <meta property="og:site_name" content="DEXIAE">
-<meta property="og:title" content="Guía del usuario · DEXIAE 2.3">
-<meta property="og:description" content="Cómo extraer datos de PDF a Excel en lote, convertir extractos bancarios, validar datos y auditar firmas con DEXIAE. 100% offline.">
+<meta property="og:title" content="Guía del usuario · DEXIAE 2.5">
+<meta property="og:description" content="Cómo convertir extractos bancarios y facturas por QR a Excel, armar plantillas de extracción, validar datos y auditar firmas con DEXIAE. Todo local.">
 <meta property="og:image" content="https://getdexiae.com/og-image.png">
 <meta property="og:locale" content="es_AR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -59,6 +59,10 @@ td b{color:var(--ink)}
 .foot{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;color:var(--ink3);font-size:13.5px}
 @media(max-width:640px){.toc ol{columns:1}h1{font-size:27px}}
 
+figure{margin:20px 0}
+figure img{width:100%;display:block;border-radius:12px;border:1px solid var(--line)}
+figure.angosta{max-width:640px}
+figcaption{font-size:13px;color:var(--ink3);margin-top:8px;line-height:1.5}
 .tabla-plan{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
 .tabla-plan th,.tabla-plan td{border:1px solid var(--line,#e6e1d6);padding:7px 10px;text-align:left;vertical-align:top}
 .tabla-plan th{background:rgba(0,0,0,.04);font-weight:700}
@@ -68,7 +72,7 @@ td b{color:var(--ink)}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Guía del usuario","item":"https://getdexiae.com/guia-usuario"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía del usuario de DEXIAE 2.3","description":"Documentación completa de DEXIAE 2.3: extracción de PDF a Excel, extractos bancarios, validación de datos, peritaje de firmas y herramientas PDF.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-usuario","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-usuario"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og-image.png"}
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía del usuario de DEXIAE 2.5","description":"Documentación de DEXIAE 2.5: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación de datos y peritaje de firmas.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-usuario","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-usuario"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og-image.png"}
 </script>
 </head>
 <body>
@@ -76,7 +80,7 @@ td b{color:var(--ink)}
 <div class="wrap">
 
 <h1>Guía del usuario</h1>
-<p class="sub">Válida para <b>DEXIAE 2.3</b> · actualizada agosto 2026 · procesamiento 100% local en tu equipo</p>
+<p class="sub">Válida para <b>DEXIAE 2.5.18</b> · actualizada septiembre 2026 · procesamiento 100% local en tu equipo</p>
 
 <div class="toc"><b>Contenido</b>
 <ol>
@@ -89,6 +93,7 @@ td b{color:var(--ink)}
 <li><a href="#prevuelo">Pre-vuelo: Espejo y Ruteo</a></li>
 <li><a href="#plantillas">Laboratorio: plantillas</a></li>
 <li><a href="#extractos">Extracto bancario → Excel ⭐</a></li>
+<li><a href="#qr">Facturas por código QR</a></li>
 <li><a href="#herramientas">Las 9 herramientas PDF</a></li>
 <li><a href="#dragdrop">Arrastrar y soltar</a></li>
 <li><a href="#validacion">Validación de datos</a></li>
@@ -97,7 +102,8 @@ td b{color:var(--ink)}
 <li><a href="#historial">Historial y Analítica</a></li>
 <li><a href="#reportes">Los reportes</a></li>
 <li><a href="#ediciones">Tabla de ediciones</a></li>
-<li><a href="#soporte">Soporte y diagnóstico</a></li>
+<li><a href="#soporte">Si algo no sale como esperabas</a></li>
+<li><a href="#version">El aviso de versión nueva</a></li>
 </ol>
 </div>
 
@@ -113,7 +119,7 @@ td b{color:var(--ink)}
 <h2 id="instalacion">2. Instalación</h2>
 <ol>
 <li>Descargá el instalador desde <a href="https://getdexiae.com">getdexiae.com</a>.</li>
-<li>Ejecutá <code>DEXIAE_Setup_V2.5.17.exe</code> y seguí el asistente.</li>
+<li>Ejecutá <code>DEXIAE_Setup_V2.5.18.exe</code> y seguí el asistente.</li>
 <li>Requisitos: Windows 10/11 de 64 bits. El instalador incluye todo lo necesario.</li>
 </ol>
 <div class="box warn"><b>Si Windows muestra "Windows protegió tu equipo":</b> es el aviso estándar de SmartScreen para software de desarrolladores independientes — no significa que sea malicioso. Hacé clic en <b>"Más información"</b> → <b>"Ejecutar de todos modos"</b>. Podés verificar el instalador con tu antivirus o en VirusTotal.</div>
@@ -150,8 +156,30 @@ td b{color:var(--ink)}
 <tr><td><b>Laboratorio</b></td><td>Crear y editar plantillas de extracción (con Asistente inteligente en PRO).</td></tr>
 <tr><td><b>Validación</b></td><td>Reglas de negocio que se aplican sobre lo extraído (sumas, rangos, CUIT válido…).</td></tr>
 <tr><td><b>Historial</b></td><td>Todos los lotes procesados, sus reportes y el panel de analítica.</td></tr>
-<tr><td><b>Herramientas</b></td><td>Las 9 utilidades PDF, incluido el conversor de extractos bancarios.</td></tr>
+<tr><td><b>Herramientas</b></td><td>Las 9 utilidades PDF y el conversor de extractos bancarios.</td></tr>
 </table>
+
+<h3>Achicar la barra lateral</h3>
+<p>Arriba a la derecha hay un botón que <b>achica la barra lateral</b> a una
+franja de 62 px. No la esconde: adentro siguen el estado del motor, tu cuota del
+mes y el aviso de versión, en versión chica. Sirve cuando ya elegiste el módulo
+y querés la pantalla para el trabajo. <b>La app se acuerda de cómo la dejaste</b>
+y vuelve a abrirse así.</p>
+<figure>
+<img src="/guia/guia_riel.png" alt="La barra lateral de DEXIAE achicada a un riel de 62 px, con el aviso de versión reducido a un punto azul" loading="lazy" width="1440" height="340">
+<figcaption>Con la barra achicada, la pastilla del aviso de versión queda como un
+punto azul: el aviso no se pierde por trabajar así.</figcaption>
+</figure>
+<p>Al lado de ese botón está el <b>interruptor de tema</b> (claro / oscuro), que
+también queda guardado, y el <b>engranaje de Preferencias</b>.</p>
+
+<h3>Abajo de todo: «Reportar un problema»</h3>
+<p>En el pie de la barra lateral hay un acceso a <b>Reportar un problema</b>, para
+cuando algo <b>falla</b>: la ventana se cierra sola, un botón no responde, un
+archivo no se procesa. Está explicado en
+<a href="#soporte">«Si algo no sale como esperabas»</a>, junto con el otro botón
+—«Esto no me cierra»— que es para cuando <b>no falló nada</b> pero el resultado
+no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 
 <h2 id="lote">6. Procesar un lote</h2>
 <ol>
@@ -200,12 +228,60 @@ td b{color:var(--ink)}
 <tr><td><b>Fecha</b></td><td>Una fecha en los formatos habituales.</td></tr>
 <tr><td><b>CUIT / DNI</b></td><td>Identificador fiscal con validación de formato.</td></tr>
 <tr><td><b>Email</b></td><td>Una dirección de correo.</td></tr>
+<tr><td><b>Texto (Arriba)</b> · <b>Texto (Abajo)</b></td><td>El texto que está encima o debajo de la etiqueta — para los datos que van en columna y no en línea.</td></tr>
+<tr><td><b>Texto (Multilínea)</b></td><td>Un valor que ocupa varios renglones (una dirección, un domicilio, un detalle largo).</td></tr>
+<tr><td><b>Fecha (dd/mm/aaaa)</b></td><td>Igual que <b>Fecha</b>, pero fuerza el formato de salida. Útil cuando el destino es un sistema que no tolera otro.</td></tr>
 <tr><td><b>Patrón (Regex)</b></td><td>Expresión regular propia, para casos que ninguna otra estrategia resuelve.</td></tr>
+<tr><td colspan="2" style="background:#f7f4ec"><b>Miran adentro de los archivos adjuntos</b> — ver <a href="#adjuntos">más abajo</a></td></tr>
+<tr><td><b>Columna de tabla</b></td><td>Lee una <b>tabla que viene adentro de un PDF adjunto</b> y saca <b>una fila por renglón</b> de esa tabla. Es la estrategia que convierte un documento en muchas filas.</td></tr>
+<tr><td><b>Texto del adjunto</b></td><td>Trae un dato suelto de adentro de un adjunto.</td></tr>
+<tr><td><b>Fecha del adjunto (dd/mm/aaaa)</b></td><td>Lo mismo, para fechas, con el formato forzado.</td></tr>
+<tr><td><b>Archivo embebido de la tabla</b><br><b>Archivo embebido del texto</b></td><td>No extraen un dato: dicen <b>de cuál de los adjuntos salió</b> lo que extrajeron las otras. Sin esto, las filas de un documento con siete adjuntos dicen todas el nombre del PDF madre y no hay forma de saber de dónde vino cada una.</td></tr>
+<tr><td colspan="2" style="background:#f7f4ec"><b>Lee el código de barras de las facturas</b> — ver <a href="#qr">sección 10</a></td></tr>
+<tr><td><b>Comprobante (QR)</b></td><td>Una fila por factura electrónica que el documento tenga adentro, leída del código QR. La etiqueta no es texto libre: elegís <b>qué campo</b> del comprobante va a esa columna.</td></tr>
 </table>
 <ul>
 <li><b>Modo Extractor</b>: un dato por campo → una fila por documento (facturas, formularios, recibos).</li>
 <li><b>Modo Listado</b>: documentos tabulares → una fila por ítem del PDF.</li>
 </ul>
+<h3 id="adjuntos">Los archivos que vienen adentro del PDF</h3>
+<p>Un PDF puede traer <b>otros archivos adentro</b>. Pasa todo el tiempo y no se
+ve: una resolución con sus anexos, un expediente con los PDF que lo acompañan,
+una factura con su detalle. Windows no los muestra y el visor tampoco.</p>
+<p>DEXIAE los lee. Cuando cargás el documento de referencia en el Laboratorio,
+si trae adjuntos aparece un <b>clip con el número</b> arriba de la mesa: lo
+tocás y ves cómo se llaman y qué tienen adentro. <b>Es el único momento en que
+podés descubrir esos nombres</b>, y por eso está ahí.</p>
+<ul>
+<li>Con <b>Columna de tabla</b>, una tabla que viene en un adjunto se abre en
+<b>una fila por renglón</b>: un documento puede aportar decenas de filas al Excel.
+En el Historial, esos documentos muestran cuántas filas aportaron.</li>
+<li>No hay que declarar <b>en cuál</b> de los adjuntos está la tabla: los
+encabezados que pide la plantilla ya la identifican. El nombre del adjunto cambia
+en cada documento y era la única parte que se podía configurar mal.</li>
+<li>Si el documento tiene varios adjuntos, agregá un campo con
+<b>Archivo embebido de la tabla</b> para que cada fila diga de dónde salió.</li>
+</ul>
+
+<h3 id="firma">Procesar sólo los firmados (o sólo los que no)</h3>
+<p>En la misma fila de arriba de la mesa hay un selector de <b>Firma digital</b>
+con tres opciones, y queda guardado en la plantilla:</p>
+<table>
+<tr><th>Opción</th><th>Qué hace</th></tr>
+<tr><td><b>Procesar todos</b></td><td>La firma no influye: entran todos, como siempre. Es lo de fábrica.</td></tr>
+<tr><td><b>Sólo los firmados</b></td><td>Los que no traen firma digital <b>no se extraen</b>, y el Excel dice por qué en la columna <code>ESTADO_PROCESO</code>.</td></tr>
+<tr><td><b>Sólo los NO firmados</b></td><td>Para aislar lo que todavía falta firmar.</td></tr>
+</table>
+<div class="box note">Esto <b>no es</b> el <a href="#peritaje">peritaje de firmas</a>.
+La condición <b>separa</b> el lote antes de extraer; el peritaje <b>analiza</b> las
+firmas de los que sí entraron. Se pueden usar juntas.</div>
+<div class="box warn"><b>Por qué no se puede resolver con una plantilla normal:</b>
+el texto de un PDF firmado y el del mismo PDF sin firmar son idénticos carácter por
+carácter. No hay ninguna palabra que buscar — hay que preguntarle a la estructura
+del archivo, y eso es lo que hace este selector. Cuando cargás un documento de
+referencia que está firmado, DEXIAE te lo marca con un cartelito, para que sepas
+con cuál de los dos estás trabajando.</div>
+
 <h3>Asistente inteligente (PRO)</h3>
 <p>Le das un PDF de muestra y te <b>sugiere los campos automáticamente</b> — de minutos a segundos. Importante entender cómo funciona: el Asistente reconoce los campos <b>a partir de diccionarios</b> de términos, así que rinde en serio cuando los diccionarios activos se corresponden con tus documentos:</p>
 <ul>
@@ -247,11 +323,27 @@ los pies de página se descartan solos.</p>
 <li><b>Abrí la herramienta.</b> <b>Herramientas</b> → tarjeta <b>«Extracto bancario →
 Excel»</b> → <b>Ejecutar</b>. Elegí uno o varios PDFs (o arrastralos a la ventana).</li>
 
-<li><b>DEXIAE reconoce el banco solo.</b> No elegís el banco de una lista: el motor lee
-el texto y lo identifica. Cada banco arma el PDF distinto, por eso hay un lector
-calibrado para cada uno. Si dos archivos tienen <b>el mismo contenido</b> guardado con
-distinto nombre, se procesa uno solo y te lo avisa — la comparación es por contenido,
-no por nombre de archivo.</li>
+<li><b>DEXIAE reconoce el banco solo.</b> No elegís el banco de una lista. Cada
+banco arma el PDF distinto, por eso hay un lector calibrado para cada uno, y elegir
+el equivocado no da error: <b>da números</b>. Así que el emisor se decide en este
+orden:
+  <ol style="margin-top:8px">
+    <li><b>Por el CBU de la portada.</b> Los tres primeros dígitos de un CBU son el
+    código de entidad del banco. Es el dato más confiable que hay: lo lleva cualquier
+    resumen argentino y no depende de cómo esté diseñado el PDF.</li>
+    <li><b>Por la forma de la tabla de movimientos</b>, para los bancos que no imprimen
+    el CBU en la portada.</li>
+    <li><b>Por el nombre del banco</b>, como último recurso.</li>
+  </ol>
+</li>
+<li><b>Y no se deja engañar por los bancos que aparecen adentro.</b> Un resumen nombra
+al banco de la <b>contraparte</b> en cada transferencia que recibiste: leyendo nombres,
+un resumen tuyo lleno de transferencias de otro banco se puede leer como si fuera de
+ese otro banco. Por eso el nombre es el último criterio y no el primero.</li>
+
+<li><b>Los archivos repetidos se descartan solos.</b> Si dos archivos tienen <b>el
+mismo contenido</b> guardado con distinto nombre, se procesa uno solo y te lo avisa —
+la comparación es por contenido, no por nombre.</li>
 
 <li><b>Extrae los movimientos y verifica la cadena de saldos.</b> Fila por fila
 comprueba que <b>saldo anterior + importe = saldo nuevo</b>. Si todo cierra, te dice
@@ -262,6 +354,35 @@ cruza de un resumen a otro.</li>
 <li><b>Elegís dónde guardar el Excel</b> y listo. Los movimientos nunca se envían a
 ningún servidor: todo ocurre en tu equipo.</li>
 </ol>
+
+<h4>Si los saldos no cierran, ese archivo no entra al Excel</h4>
+<p>La cadena de saldos no es un adorno al pie del informe: es <b>la prueba de que el
+archivo se leyó bien</b>. Un resumen bien leído cierra en todas sus filas — lo medido
+en resúmenes sanos es <b>0% de filas con diferencia</b>. Un resumen leído con el lector
+equivocado no da error: da filas plausibles con los números cambiados, y ahí lo medido
+va del 47% al 100%.</p>
+<p>Por eso, <b>cuando la cadena se derrumba, ese archivo se aparta</b> en vez de entrar
+al Excel. El aviso te dice <b>con qué banco se leyó</b> y <b>en cuántas filas de cuántas</b>
+no cierran los saldos, y te pide que nos mandes ese archivo para ajustarlo.</p>
+<ul>
+<li><b>Se aparta ese archivo, no el lote.</b> Los demás se procesan igual y su Excel
+sale como siempre.</li>
+<li><b>El archivo apartado queda en el <a href="#historial">Historial</a></b> con el
+motivo, así podés mirarlo después.</li>
+<li><b>Un desfase suelto no frena nada.</b> Dos o tres filas que no cierran son casi
+siempre un resumen incompleto y se marcan fila por fila, como siempre. Lo que frena es
+el derrumbe: una cuarta parte o más de las filas evaluadas.</li>
+</ul>
+<div class="box warn"><b>No es una red completa, y conviene saberlo.</b> Un resumen de un
+banco leído con el lector de otro <b>puede</b> dar una cadena casi limpia y pasar. El
+freno ataca el caso grueso; el control final sigue siendo tuyo, mirando que el saldo
+del Excel coincida con el del resumen. Si te pasa uno de estos, mandanos el archivo:
+cada uno nos sirve para calibrar.</div>
+<div class="box note"><b>Si te bloquea algo que necesitás sí o sí</b>, el freno se puede
+ajustar o apagar: el criterio vive en un archivo de configuración
+(<code>extractos.json</code>, en la carpeta de datos de DEXIAE) y no en el programa,
+justamente para que nadie quede trabado sin salida. Escribinos y lo vemos — apagarlo
+devuelve la conducta vieja: el archivo entra con sus filas marcadas.</div>
 
 <h4>Qué hojas salen, según tu edición</h4>
 <p>Este es el punto donde más se confunde la gente, así que va explícito:</p>
@@ -409,7 +530,181 @@ antes de asignar cuentas.</p>
 cliente, el plan va adentro del mismo archivo: del otro lado se importa y queda
 funcionando, sin volver a buscar el Excel.</p>
 
-<h2 id="herramientas">10. Las 9 herramientas PDF</h2>
+<h3 id="cliente-imputacion">9.2 El cliente de imputación (PRO)</h3>
+<p>Las hojas de asientos no salen por tener el plan de cuentas: salen cuando
+<b>elegís un cliente</b> en el desplegable «Asientos para», en la misma ventana del
+conversor. Si dice «— sin asientos —», el Excel sale con los movimientos y nada más.
+Al lado está <b>Configurar clientes</b>, que es la única puerta a todo lo contable.</p>
+
+<h4>Datos y banco</h4>
+<ul>
+<li><b>Ejercicio</b> y <b>número de asiento inicial</b>. El ejercicio se escribe tal
+cual en el Excel: poné lo que use tu sistema, un número (<code>3</code>), el año
+(<code>2026</code>) o un rango (<code>2026/27</code>).</li>
+<li><b>La cuenta del banco</b>, que es la punta fija de cada asiento.</li>
+<li><b>Si el cliente opera con varios bancos</b>, cargá la cuenta de cada uno. Cuando
+proceses varios extractos juntos, cada movimiento se imputa a la cuenta del banco
+<b>de su propio extracto</b>. Sin esto el asiento cerraría igual, pero con la cuenta
+bancaria equivocada.</li>
+<li><b>Las cuentas por defecto</b> para cuando no hay ninguna otra pista: una para
+cuando sale plata y otra para cuando entra.</li>
+<li><b>La leyenda</b>: el detalle original del banco, un texto fijo, o armada con datos
+del movimiento.</li>
+</ul>
+
+<h4>Cómo se arman los asientos</h4>
+<p>Un resumen con muchos movimientos repetidos —veinte liquidaciones de tarjeta el
+mismo día— genera veinte asientos que podrían ser uno. Hay cuatro formas de armarlos:</p>
+<table>
+<tr><th>Opción</th><th>Qué hace</th></tr>
+<tr><td><b>Uno por movimiento</b></td><td>Igual que el resumen del banco, línea por línea.</td></tr>
+<tr><td><b>Agrupar por día y cuenta</b> <span class="si">recomendado</span></td><td>Los movimientos del día que van a la misma cuenta se suman en un solo asiento.</td></tr>
+<tr><td><b>Por día, separando lo que entró de lo que salió</b></td><td>Un asiento para las entradas y otro para las salidas de ese día. La cuenta del banco queda en <b>una sola línea</b> en cada uno.</td></tr>
+<tr><td><b>Un solo asiento por día</b></td><td>Todo el día en un asiento. Los días con entradas y salidas dejan la cuenta del banco en <b>dos líneas</b> del mismo asiento.</td></tr>
+</table>
+<div class="box tip"><b>El total nunca cambia: lo que se agrupa se suma, no se netea.</b>
+Esa es la razón de que exista la opción del medio. Para dejar la cuenta del banco en una
+sola línea por día habría que netear entradas contra salidas, y netear <b>esconde
+importes que sí se movieron</b>: sobre un mes real ya validado, netear tapaba casi 30
+millones de pesos que habían pasado por la cuenta. Separando por signo el banco cierra
+con una línea en cada asiento y no desaparece nada.</div>
+<div class="box warn">Si ya importaste asientos a tu sistema, <b>cambiar esta opción
+renumera</b> los del próximo Excel. Revisá que no se dupliquen.</div>
+
+<h4>Cuentas por categoría, y los CUITs</h4>
+<p>La pestaña <b>Cuentas por categoría</b> es donde decís a qué cuenta va cada tipo de
+movimiento: comisiones, impuestos, transferencias, sueldos. Es el mapeo que explica
+<b>por qué</b> cada movimiento fue a donde fue, y está en la hoja
+<b>Asientos (borrador)</b> junto con la confianza de cada decisión.</p>
+<p>En <b>CUITs</b> cargás los CUIT de los habituales —proveedores, clientes— con su
+cuenta. Cuando el banco imprime el CUIT adentro del detalle de una transferencia,
+DEXIAE lo usa y esa es la pista más fuerte que hay.</p>
+<div class="box tip"><b>Importar / Exportar cliente</b> mueve toda la configuración en
+<b>un solo archivo</b>: cuentas, categorías, CUITs y el plan de cuentas. Se arma una vez
+y se pasa a otro equipo sin volver a cargar nada a mano. Antes de escribir, DEXIAE te
+muestra qué trae el archivo y qué pisa.</div>
+
+<h3 id="prioridad">9.3 Cómo decide DEXIAE a qué cuenta va cada movimiento</h3>
+<p>Hay <b>tres formas</b> de que un movimiento encuentre su cuenta, y no compiten:
+se prueban en orden y gana la primera que acierta. Entender este orden es lo que
+explica por qué un movimiento fue a donde fue.</p>
+
+<table>
+<tr><th>#</th><th>Qué mira</th><th>Confianza</th><th>De dónde sale</th></tr>
+<tr><td><b>1</b></td><td><b>Transferencia entre tus propias cuentas.</b> Confirmada porque aparecen las dos puntas, la salida en un extracto y la entrada en otro.</td><td><b>Alta</b></td><td>Las cuentas bancarias del cliente</td></tr>
+<tr><td><b>2</b></td><td><b>El CUIT</b>, cuando el banco lo imprime en el detalle y está en tu lista.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
+<tr><td><b>3</b></td><td><b>El nombre</b>, cuando alguno de los que cargaste aparece en el detalle.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
+<tr><td><b>4</b></td><td><b>La categoría</b>, si tiene una cuenta asignada.</td><td>Media</td><td>Cuentas por categoría</td></tr>
+<tr><td><b>5</b></td><td><b>La cuenta por defecto</b> según el signo: una si sale plata, otra si entra.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Datos y banco</td></tr>
+</table>
+
+<div class="box note"><b>El nombre le gana a la categoría.</b> Si cargaste «FAECYS»
+en la pestaña de CUITs apuntando a una cuenta, ese movimiento va ahí aunque la
+categoría diga otra cosa. Es a propósito: vos sabés quién es ese proveedor y el
+sistema no.</div>
+
+<h4>Las tres capas, y por qué cada una vive donde vive</h4>
+<table>
+<tr><th>Capa</th><th>Qué dice</th><th>Alcance</th></tr>
+<tr><td><b>Categorías</b></td><td><i>Qué es</i> este movimiento: una comisión, un impuesto, un sueldo.</td><td>Del equipo. Las comparten todos tus clientes y vienen con DEXIAE.</td></tr>
+<tr><td><b>Cuentas por categoría</b></td><td><i>A qué cuenta</i> va ese tipo de movimiento.</td><td>De cada cliente, porque depende de su plan de cuentas.</td></tr>
+<tr><td><b>CUITs y nombres</b></td><td><i>Quién es</i> esta persona o empresa concreta.</td><td>De cada cliente. Lo cargás vos: es información que sólo vos tenés.</td></tr>
+</table>
+<p>«Comisiones bancarias» significa lo mismo para cualquier estudio, pero el número
+de cuenta depende de la empresa, y quién es un proveedor determinado lo sabés sólo
+vos. Por eso cada cosa se guarda en el nivel que le corresponde.</p>
+
+<div class="box tip"><b>Esa misma división decide qué sale de tu equipo.</b> Cuando
+mandás un reporte con <a href="#soporte">«Esto no me cierra»</a>, el diccionario de
+categorías viaja siempre —es nuestro y no dice nada de nadie—, y los <b>CUITs y
+nombres vienen destildados</b>, porque son datos de terceros. Los tildás sólo si la
+duda es justamente sobre eso.</div>
+
+<h4>Cuando un movimiento cae en «Revisar»</h4>
+<p>Significa que no lo reconoció ninguna de las cuatro primeras y quedó en la cuenta
+por defecto. La columna <b>ORIGEN DE LA DECISIÓN</b> de la hoja
+<b>Asientos (borrador)</b> te dice cuál es la categoría a la que le falta cuenta.</p>
+<div class="box warn"><b>Ojo con esto, que es fácil que se escape.</b> Un movimiento
+en la cuenta por defecto <b>igual entra a «Para importar»</b> y ahí se ve como una
+línea más: esa hoja tiene 9 columnas y ninguna es CONFIANZA. Y si agrupás por día,
+el importe queda sumado con otros. <b>La marca «Revisar» sólo se ve en la hoja de
+borrador</b>, así que conviene mirarla antes de importar un mes nuevo.</div>
+
+<h2 id="qr">10. Facturas por código QR</h2>
+<p>Una factura electrónica tiene <b>dos fuentes de datos</b>: lo que está impreso en la
+hoja y lo que el emisor le declaró a ARCA. DEXIAE lee las dos, y sirven para cosas
+distintas.</p>
+<ul>
+<li><b>Por la hoja</b>, con una <a href="#plantillas">plantilla</a>: te trae todo lo
+impreso, el IVA discriminado, el subtotal, el detalle de los ítems.</li>
+<li><b>Por el código</b>: te trae lo que el emisor declaró. <b>No hay nada que
+configurar por proveedor</b> — el código sigue la misma norma en todas las facturas
+aunque el diseño de cada una sea distinto. Funciona con un proveedor que nunca
+procesaste y no le afecta que mañana cambie el diseño.</li>
+</ul>
+<p>Casi siempre se usan <b>juntas</b>: el código da la identidad del comprobante y el
+control, la plantilla da lo que sólo está impreso en la hoja.</p>
+
+<h3>Cómo se activa</h3>
+<p>No es una herramienta aparte: es una <b>estrategia</b> del Laboratorio. En la
+plantilla agregás campos con la estrategia <b>Comprobante (QR)</b>, y ahí la etiqueta no
+es texto libre — elegís de una lista <b>qué campo del comprobante</b> va a esa columna.
+Los campos vienen agrupados por origen, que es lo que hay que entender antes de
+elegir:</p>
+<table>
+<tr><th>Origen</th><th>Qué son</th></tr>
+<tr><td><b>Lo dice el código</b></td><td>El dato de ARCA tal cual viene: CUIT del emisor, tipo de comprobante, punto de venta y número, fecha, importe, moneda, CAE, CUIT del receptor.</td></tr>
+<tr><td><b>Lo calcula DEXIAE</b></td><td>Lo que sale de leer el documento: el importe computado (en negativo si es nota de crédito), en qué páginas está, cuántas veces aparece, el control del importe y el enlace para verificar en ARCA.</td></tr>
+<tr><td><b>Es del documento entero</b></td><td>Cuántas páginas no aportaron comprobante y cuáles hay que mirar a mano. Se repite igual en todas las filas.</td></tr>
+</table>
+
+<h3>Un PDF con muchas facturas adentro</h3>
+<p>Si trabajás con un compilado —una rendición, un lote escaneado— <b>cada comprobante
+sale como una fila</b> y los datos de la carátula se repiten en todas.</p>
+<ul>
+<li><b>La misma factura repetida no se duplica.</b> Cuando el mismo comprobante aparece
+en varias páginas —el original y su copia, o una factura partida— sale <b>una sola
+fila</b>, y una columna te dice en cuántas páginas estaba.</li>
+<li><b>Las páginas sin código no desaparecen.</b> Una columna cuenta cuántas son y otra
+dice cuáles hay que mirar, separando las que son una transferencia o una carátula de las
+que <b>parecen un comprobante</b> y no se pudo leer el código.</li>
+</ul>
+
+<h3>El control del importe</h3>
+<p>Leer el código es la mitad del trabajo. La otra mitad es comprobar que lo que dice el
+código coincida con lo que está impreso en la hoja. Si no coinciden, DEXIAE te dice cuál
+es el bueno y por qué.</p>
+<div class="box tip"><b>Por qué importa:</b> una factura puede no constatar en ARCA
+estando perfecta. Pasa cuando el sistema del emisor genera el código con el importe mal
+escrito, por ejemplo dejando la coma decimal adentro. Con el importe del código ARCA
+rechaza y lista diez causas posibles sin decirte cuál; con el importe impreso en la hoja,
+la misma factura constata bien. No estaba mal la factura: estaba mal el código.</div>
+<p>La columna <b>Verificar en ARCA</b> arma un enlace por comprobante que abre el
+formulario de constatación con los campos ya cargados: sólo ponés el captcha.
+<b>DEXIAE no consulta a ARCA</b> — arma el enlace para que la consulta la hagas vos.
+Ninguna factura tuya sale de tu computadora.</p>
+
+<h3>Ajustar el criterio</h3>
+<p>Cuando la plantilla usa la estrategia del QR aparece el botón <b>Criterio</b> arriba
+de la mesa, y dice en qué estado está. El criterio vive <b>en la plantilla</b>, no en la
+máquina: la tolerancia que sirve para una rendición escaneada no es la de facturas
+nativas, y así una plantilla se lleva su criterio a otro equipo.</p>
+<table>
+<tr><th>Qué se ajusta</th><th>Para qué</th></tr>
+<tr><td><b>Cuánta diferencia se perdona</b></td><td>Para que una diferencia de centavos al leer la hoja no se marque como error. Subilo si tenés avisos de más; bajalo si se te escapan diferencias reales.</td></tr>
+<tr><td><b>Avisar cuando falta la coma decimal</b></td><td>Detecta que el código diga un importe cien veces mayor que el impreso — el caso real que apareció.</td></tr>
+<tr><td><b>Mínimo de texto para no mandarla a mirar</b></td><td>Cuánto texto tiene que tener una hoja sin código para no marcarla como ilegible. Con un valor alto, las carátulas y separadores se mandan a revisar de más.</td></tr>
+<tr><td><b>Qué delata un comprobante sin código</b><br><b>Forma del número de comprobante</b><br><b>Palabra que marca una transferencia</b></td><td>Las tres señales con que se clasifican las hojas que no traen código. La forma del número es la más fuerte: una hoja con algo así es un comprobante aunque no diga la palabra factura.</td></tr>
+</table>
+<div class="box note">El <b>interruptor de control de importes</b> manda: apagado,
+<b>DEXIAE extrae y no opina</b> — la columna de control queda vacía y no se avisa por
+diferencias. Lo que dice el código y la lista de hojas sin comprobante siguen igual.</div>
+<div class="box warn"><b>Qué NO trae el código:</b> el IVA discriminado no está adentro.
+Si lo necesitás, eso sale de la hoja, o sea de una plantilla. Por eso las dos formas se
+usan juntas.</div>
+<p>Más detalle en <a href="/facturas-qr-excel">la página de facturas por QR</a>.</p>
+
+<h2 id="herramientas">11. Las 9 herramientas PDF</h2>
 <p>Todas ilimitadas (no consumen cupo). Según tu edición pueden variar las disponibles — ver <a href="#ediciones">tabla</a>.</p>
 <table>
 <tr><th>Herramienta</th><th>Qué hace</th></tr>
@@ -421,13 +716,34 @@ funcionando, sin volver a buscar el Excel.</p>
 <tr><td><b>Comprimir PDF</b></td><td>Reduce el peso (nivel equilibrado sin pérdida, o máxima). Nunca deja el archivo más grande.</td></tr>
 <tr><td><b>OCR por lote</b></td><td>Vuelve buscables PDFs escaneados completos (TRIAL/PRO/SENTINEL).</td></tr>
 <tr><td><b>Fusionar reportes</b></td><td>Une varios Excel de lotes en uno (TRIAL/PRO/SENTINEL).</td></tr>
-<tr><td><b>Extracto bancario → Excel</b></td><td><a href="#extractos">Ver sección 9</a>.</td></tr>
+<tr><td><b>Buscar en los PDF</b></td><td>Encontrá un dato entre miles de archivos, sin armar plantilla — <a href="#buscar">abajo</a>.</td></tr>
 </table>
+<div class="box note">El <b>conversor de extractos bancarios</b> está en la misma pantalla
+pero <b>no</b> es una de estas nueve: no es una utilidad de PDF, es un camino propio del
+producto y tiene su <a href="#extractos">sección 9</a>.</div>
 
-<h2 id="dragdrop">11. Arrastrar y soltar</h2>
+<h3 id="buscar">11.1 Buscar en los PDF</h3>
+<p>Para cuando necesitás <b>encontrar un dato</b> y no extraer nada: un CUIT, un nombre,
+un número de expediente, entre miles de archivos. No hay que armar ninguna plantilla.
+Elegís la carpeta, escribís qué buscás, y te dice <b>en qué documento y en qué página
+está</b>. No genera ningún archivo.</p>
+<p><b>Busca en dos tandas, y la primera es casi inmediata.</b> Primero recorre los PDF que
+tienen texto y <b>ya te muestra los hallazgos</b> mientras sigue trabajando; después lee
+los escaneados, que es lo lento, y los va sumando a la misma lista. Un aviso en pantalla
+te dice que lo que ves todavía no es todo <b>y que ya lo podés abrir</b>. Sobre una
+carpeta real de más de mil archivos, los primeros resultados aparecen en segundos.</p>
+<ul>
+<li><b>«Leer también los escaneados»</b> viene tildado. Destildado la búsqueda es mucho
+más rápida, pero se pierde lo que sólo está en una imagen.</li>
+<li>Dice «más lento la primera vez» porque el resultado de leer un escaneado
+<b>queda guardado</b>: la segunda búsqueda sobre la misma carpeta no vuelve a pagarlo.</li>
+<li>Hay un botón <b>Detener</b>: lo que ya apareció se queda en la lista.</li>
+</ul>
+
+<h2 id="dragdrop">12. Arrastrar y soltar</h2>
 <p>Arrastrá archivos a cualquier parte de la ventana de DEXIAE: aparece un menú con las herramientas compatibles según el tipo (PDFs → unir, comprimir, extracto bancario…; imágenes → convertir a PDF; Excel → fusionar). Elegís la acción y se ejecuta directo con los archivos que soltaste, sin pasar por el explorador.</p>
 
-<h2 id="validacion">12. Validación de datos</h2>
+<h2 id="validacion">13. Validación de datos</h2>
 <p>Reglas de negocio que la plantilla no puede expresar, aplicadas sobre lo extraído (PRO/SENTINEL/TRIAL):</p>
 <ul>
 <li>Tipos: CUIT válido, Neto+IVA=Total, fechas en rango, comparaciones entre columnas, condicionales SI→ENTONCES, combinación única multi-columna, listas de valores…</li>
@@ -436,15 +752,15 @@ funcionando, sin volver a buscar el Excel.</p>
 <li>También podés validar un Excel ya generado desde el módulo (post-control).</li>
 </ul>
 
-<h2 id="peritaje">13. Peritaje de firmas digitales</h2>
+<h2 id="peritaje">14. Peritaje de firmas digitales</h2>
 <p>DEXIAE verifica la <b>integridad criptográfica</b> de las firmas embebidas en cada PDF: hash, datos del firmante, algoritmo y si el documento fue modificado después de firmar. Los hallazgos van al reporte con su fundamento técnico y alimentan el score de riesgo.</p>
 <div class="box warn"><b>Alcance:</b> es una herramienta de screening masivo. No resuelve la cadena de confianza contra la AC-Raíz ni consulta CRL/OCSP — no sustituye un peritaje judicial formal.</div>
 
-<h2 id="centinela">14. Modo Centinela</h2>
+<h2 id="centinela">15. Modo Centinela</h2>
 <p>Vigilancia automática de una carpeta: cada PDF que cae se procesa solo con la plantilla configurada. Ideal para flujos continuos (mesa de entradas, descargas del sistema contable). Al detenerlo se genera el reporte de cierre y el lote queda en el Historial.</p>
 <div class="box note">El Centinela <b>mueve los archivos por diseño</b> (los clasifica en subcarpetas de resultado): es su forma de marcar qué ya procesó de la carpeta vigilada.</div>
 
-<h2 id="historial">15. Historial y Analítica</h2>
+<h2 id="historial">16. Historial y Analítica</h2>
 <ul>
 <li>Todos los lotes con fecha, plantilla, resultados, tiempo de proceso y sus reportes (Excel/HTML/PDF) para reabrir.</li>
 <li>Filtros por modo (manual/centinela/espejo) y por hallazgos de validación; detalle por documento con su estado.</li>
@@ -452,14 +768,14 @@ funcionando, sin volver a buscar el Excel.</p>
 <li>Podés renombrar o borrar lotes (borrar elimina también sus claves de deduplicación).</li>
 </ul>
 
-<h2 id="reportes">16. Los reportes</h2>
+<h2 id="reportes">17. Los reportes</h2>
 <ul>
 <li><b>Excel</b> (todas las ediciones): una fila por documento, columnas por campo + validación.</li>
 <li><b>HTML interactivo</b> (TRIAL/PRO/SENTINEL): tabla filtrable con score de integridad, bloque de validación y links a los archivos.</li>
 <li><b>PDF pericial</b> (TRIAL/PRO/SENTINEL): informe formal con hash SHA-256 de los entregables, hallazgos de firmas, gaps de numeración correlativa y recomendaciones.</li>
 </ul>
 
-<h2 id="ediciones">17. Tabla de ediciones</h2>
+<h2 id="ediciones">18. Tabla de ediciones</h2>
 <table>
 <tr><th></th><th>TRIAL</th><th>CORE</th><th>PRO</th><th>SENTINEL</th></tr>
 <tr><td><b>Documentos</b></td><td>100 en total (14 días)</td><td><b>500 / mes</b></td><td><b>2.500 / mes</b></td><td>Ilimitado</td></tr>
@@ -482,15 +798,100 @@ funcionando, sin volver a buscar el Excel.</p>
 </table>
 <p>Precios y contratación: <a href="/#precios">getdexiae.com/#precios</a>. Planes en pesos, pago por Mercado Pago.</p>
 
-<h2 id="soporte">18. Soporte y diagnóstico</h2>
-<ul>
-<li><b>Exportar diagnóstico</b> (Preferencias ⚙️): genera un .zip con configuración y logs — sin documentos, sin datos de clientes — listo para adjuntar a un mail de soporte.</li>
-<li>Toda la actividad queda en logs locales con fecha y hash de los reportes: trazabilidad completa de cada lote.</li>
-<li>¿Sin internet? DEXIAE funciona igual: la licencia se verifica una vez al día y se cachea 24 hs. El procesamiento nunca depende de la conexión.</li>
-<li>Contacto: <a href="mailto:dexiaesoporte@gmail.com">dexiaesoporte@gmail.com</a></li>
-</ul>
+<h2 id="soporte">19. Si algo no sale como esperabas</h2>
+<p>Hay <b>dos botones</b> y sirven para cosas distintas. La diferencia importa, porque
+lo que hay que mandarnos en cada caso no es lo mismo.</p>
 
-<div class="foot">DEXIAE 2.3 · Guía del usuario · agosto 2026 · <a href="/">getdexiae.com</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
+<h3>«Reportar un problema» — cuando algo FALLA</h3>
+<p>La ventana se cierra sola, un botón no responde, un archivo no se procesa. Está en
+<b>el pie de la barra lateral</b>, siempre a mano.</p>
+<figure>
+<img src="/guia/guia_reportar_problema.png" alt="El acceso «Reportar un problema» en el pie de la barra lateral de DEXIAE" loading="lazy" width="780" height="520">
+<figcaption>Antes estaba adentro de Preferencias. Se movió acá porque cuando algo falla
+no es momento de buscar en un menú.</figcaption>
+</figure>
+<figure>
+<img src="/guia/guia_reportar_problema_panel.png" alt="El panel de reporte técnico, con la lista de qué se incluye en el archivo" loading="lazy" width="680" height="810">
+<figcaption>Contás qué estabas haciendo y ves <b>exactamente qué va adentro</b> antes de
+generar nada. El identificador de tu equipo viene destildado: se tilda sólo si el
+problema es con la licencia.</figcaption>
+</figure>
+
+<h3>«Esto no me cierra» — cuando NO falló nada</h3>
+<p>El programa terminó bien pero el resultado no es el que esperabas: un movimiento fue
+a la cuenta equivocada, una categoría no detectó lo que tenía que detectar. Vive en el
+<b>detalle de cada lote del Historial</b>, y no en la pantalla de ejecución, por una
+razón: <b>esa duda no aparece mientras procesás, aparece después, mirando el Excel</b>.
+El Historial es lo único que sigue sabiendo qué corrió.</p>
+<figure>
+<img src="/guia/guia_no_me_cierra.png" alt="El botón «Esto no me cierra» en el detalle de un lote del Historial" loading="lazy" width="1210" height="530">
+<figcaption>Se abre el lote en el Historial y el botón está arriba, junto a los demás.</figcaption>
+</figure>
+<figure>
+<img src="/guia/guia_no_me_cierra_panel.png" alt="El panel de «Esto no me cierra» con la lista completa de lo que viaja en el archivo" loading="lazy" width="720" height="870">
+<figcaption>Con una línea alcanza. Abajo está la <b>lista completa</b> de lo que va
+adentro del .zip, con lo que es opcional destildable.</figcaption>
+</figure>
+
+<h3>Lo que los dos tienen en común</h3>
+<ul>
+<li><b>No se manda nada solo.</b> Se arma un <code>.zip</code>, se abre la carpeta donde
+quedó, y lo mandás vos por donde quieras. Un canal automático contradiría el
+«nada sale de tu computadora».</li>
+<li><b>Ves la lista antes de generar</b>, y destildás lo que no quieras que salga.</li>
+<li><b>Nunca viajan tus documentos</b>: ni PDFs, ni los Excel, ni la base de datos.</li>
+<li><b>Te da un número de incidente</b> con la forma <code>DX-260911-K7QM</code>.
+Guardalo: con ese número los dos hablamos del mismo reporte. No identifica tu equipo
+ni a vos — es la fecha y cuatro caracteres al azar, elegidos entre los que no se
+confunden al dictarlos (no hay I, O, S, B ni Z).</li>
+<li><b>El mensaje queda copiado</b> y hay un botón para abrir WhatsApp con el texto
+puesto. ⚠️ <b>El archivo lo arrastrás vos</b>: ni WhatsApp ni el mail pueden adjuntar
+desde un enlace. Por eso el botón dice «Abrir» y no «Enviar».</li>
+</ul>
+<div class="box note">Toda la actividad queda en registros locales con fecha y hash de
+los reportes. <b>¿Sin internet?</b> DEXIAE funciona igual: la licencia se verifica una
+vez por día y se recuerda 24 horas. El procesamiento nunca depende de la conexión.
+Contacto: <a href="mailto:dexiaesoporte@gmail.com">dexiaesoporte@gmail.com</a></div>
+
+<h2 id="version">20. El aviso de versión nueva</h2>
+<p>Hasta la versión 2.5.16 no había forma de enterarse de que existía una versión más
+nueva. Ahora la aplicación lo dice sola, <b>sin interrumpir nada</b>.</p>
+
+<h3>La pastilla de la barra lateral</h3>
+<p>Cuando hay una versión nueva publicada, la pastilla con el número de versión
+<b>se vuelve sólida</b>: azul lleno, texto blanco y un punto. Se puede hacer clic.</p>
+<figure class="angosta">
+<img src="/guia/guia_pastilla_estados.png" alt="La pastilla de versión en sus dos estados: apagada sin novedades, azul llena cuando hay una versión nueva" loading="lazy" width="634" height="172">
+<figcaption>Los dos estados, uno al lado del otro.</figcaption>
+</figure>
+<figure>
+<img src="/guia/guia_aviso_version.png" alt="La pantalla de Ejecución con la pastilla de aviso y la franja ámbar arriba" loading="lazy" width="1440" height="640">
+<figcaption>La <b>franja ámbar</b> de arriba aparece <b>sólo</b> cuando la versión nueva
+corrige resultados, o sea cuando cambia lo que salió en un Excel que ya generaste. Una
+mejora de pantalla no gana ese lugar.</figcaption>
+</figure>
+<figure>
+<img src="/guia/guia_aviso_version_panel.png" alt="El panel que se abre al hacer clic, con el resumen de qué cambió y el botón de descarga" loading="lazy" width="780" height="650">
+<figcaption>Al hacer clic ves qué cambió y el botón para descargar. <b>No descarga
+nada sola</b>: el instalador pesa más de 120 MB y podrías estar con datos móviles.</figcaption>
+</figure>
+
+<h3>Cómo funciona, y qué NO manda</h3>
+<ul>
+<li><b>No abre ninguna ventana sola.</b> La pastilla espera, y no se va hasta que
+actualices, así que tampoco hace falta un «recordámelo después».</li>
+<li><b>No manda ni un dato tuyo.</b> Lee el <b>mismo archivo público</b> que la
+aplicación ya consultaba una vez por día para validar licencias. No agrega ni una
+sola petición.</li>
+<li><b>Sin internet no pasa nada</b>: no avisa y no bloquea.</li>
+<li>Con la barra lateral <a href="#interfaz">achicada</a>, el aviso se encoge a un
+punto azul. No se pierde por trabajar así.</li>
+</ul>
+<div class="box warn"><b>Si estás en una versión anterior a la 2.5.17</b>, este aviso
+todavía no existe en tu equipo o se ve muy poco: esa actualización hay que avisarla a
+mano. De la 2.5.17 en adelante, la app avisa sola.</div>
+
+<div class="foot">DEXIAE 2.5 · Guía del usuario · septiembre 2026 · <a href="/">getdexiae.com</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
 </div>
 <!-- Pre-chat + modal. La guía no tenía ningún punto de contacto: quien llegaba
      acá con una duda no tenía dónde preguntar ni cómo empezar la prueba. -->

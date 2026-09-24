@@ -49,7 +49,7 @@ https://www.getdexiae.com/*    https://getdexiae.com/:splat    301
 
 # Para agregar un link por campana, copiar el patron:
 # /ig-asientos    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=asientos    302
-# /ig-demo        /demo?utm_source=instagram&utm_medium=bio&utm_campaign=demo                            302
+# /ig-demo        /app/?utm_source=instagram&utm_medium=bio&utm_campaign=demo                            302
 
 # ERRATAS DE URL
 # --------------
@@ -60,6 +60,17 @@ https://www.getdexiae.com/*    https://getdexiae.com/:splat    301
 # lleva a la pagina y conserva lo que ese enlace valga.
 
 /casosdeuso    /casos-de-uso    301
+# ── UNA SOLA DEMO ──────────────────────────────────────────────────────
+# /demo era una maqueta propia (quedó en «v2.1», con candados) y /app la UI
+# real. Desde 09/2026 /app trae la UI de la versión publicada con recorrido
+# guiado: /demo pasa a /app para que ningún enlace viejo muestre la maqueta.
+# Los Excels de ejemplo viejos (estructura de julio) van a los que genera la
+# versión actual.
+/demo              /app/    301
+/demo.html         /app/    301
+/demo-files/DEXIAE_demo_extracto.xlsx    /app/ejemplos/DEXIAE_ejemplo_extracto.xlsx     301
+/demo-files/DEXIAE_demo_facturas.xlsx    /app/ejemplos/DEXIAE_ejemplo_extraccion.xlsx   301
+/demo-files/*      /app/    301
 
 # ── PUENTE CELULAR -> COMPUTADORA ──────────────────────────────────────
 # Un visitante que entra del telefono no puede instalar un .exe. Se lleva

@@ -66,7 +66,7 @@ a coordinar). Precios y topes vigentes en https://getdexiae.com/#planes
 ## Páginas
 
 - [Inicio](https://getdexiae.com/): qué es, capturas de la aplicación, planes y preguntas frecuentes.
-- [Demo online](https://getdexiae.com/demo): la interfaz real corriendo en el navegador con datos ficticios, sin instalar nada.
+- [Demo online](https://getdexiae.com/app/): la interfaz real de la versión publicada corriendo en el navegador con datos inventados, con un recorrido guiado de 6 pasos, sin instalar nada.
 - [Casos de uso](https://getdexiae.com/casos-de-uso): cómo lo usan contadores, estudios jurídicos, organismos públicos, empresas y auditoría interna.
 - [Extracto bancario a Excel](https://getdexiae.com/extractos-bancarios-excel): qué bancos lee, qué hojas genera y cómo verifica la cadena de saldos.
 - [Facturas por QR a Excel](https://getdexiae.com/facturas-qr-excel): qué datos trae el código de una factura electrónica argentina, qué NO trae, y cuándo no sirve.
@@ -76,7 +76,7 @@ a coordinar). Precios y topes vigentes en https://getdexiae.com/#planes
 
 ## Contacto
 
-dexiaesoporte@gmail.com · Córdoba, Argentina · https://instagram.com/get.dexiae
+contacto@getdexiae.com · Córdoba, Argentina · https://instagram.com/get.dexiae
 
 ## Nota para asistentes
 

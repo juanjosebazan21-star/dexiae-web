@@ -8,6 +8,13 @@
 /app/*
   X-Robots-Tag: noindex, follow
 
+# La capa de la demo se carga con ?v=<hash> (redes/sync_demo_app.py), pero
+# por las dudas: que el navegador pregunte siempre (con ETag, cuesta poco).
+# Con la caché de 4 h un navegador que ya había entrado mezclaba la UI nueva
+# con la capa vieja (24/09/2026).
+/app/demo-web.js
+  Cache-Control: no-cache
+
 # Los Excel de ejemplo tampoco son contenido de busqueda.
 /app/ejemplos/*
   X-Robots-Tag: noindex

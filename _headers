@@ -24,8 +24,9 @@
 /cupos-fundadores.json
   Cache-Control: no-cache
 
-# Capturas y assets: cache largo (no cambian de nombre seguido, pero tampoco
-# rompe nada si se reemplazan: Pages invalida en cada deploy).
+# Capturas y assets: cache de 1 dia. OJO: el borde de Cloudflare NO las
+# invalida al deployar (01/10/2026: servia las capturas viejas con Age de 21 h).
+# Al reemplazar una imagen, referenciarla con ?v=<huella> en el HTML.
 /*.png
   Cache-Control: public, max-age=86400
 

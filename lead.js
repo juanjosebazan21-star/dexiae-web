@@ -71,12 +71,14 @@
     PRO: {
       monthly: 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=f739212a89904cadb057722ad9f1e49d',
       annual: 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=bf0b764a56dd4059b7059ee3b89be994'
+    },
+    /* CONTABLE (01/10/2026): planes «precio fundador» del usuario, verificados en
+       el checkout: mensual $59.000/mes y anual $565.000/año. Con los cupos
+       agotados (fund-agotado) no hay plan de lista en MP: vuelve a WhatsApp. */
+    CONTABLE: {
+      monthly: 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=3cfa4479d72943d2b907940cf5e77d49',
+      annual: 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=5a76142383cf4f9ba391a33a3af0cae3'
     }
-    /* CONTABLE: todavía SIN suscripción de Mercado Pago (01/10/2026). Hasta
-       que exista, el botón deja el lead y abre WhatsApp, y la licencia se
-       arma a mano con el keygen. Cuando estén los links, agregar acá
-         CONTABLE: { monthly: '…59.000…', annual: '…565.000…' }
-       y en planConfig.CONTABLE pasar primaryUrl a mpUrlFor('CONTABLE'). */
   };
 
   /* WhatsApp con el pedido ya escrito: el mensaje dice qué plan quiere */
@@ -132,15 +134,18 @@
       pillAgotado: 'DEXIAE CONTABLE',
       title: 'Quiero mi cupo fundador',
       titleAgotado: 'Quiero DEXIAE Contable',
-      sub: 'Dejanos tus datos y te escribimos para coordinar el pago y la activación. Precio fundador: 59.000 AR$/mes durante 12 meses, para los primeros 10 estudios.',
+      sub: 'Completá tus datos y te llevamos al pago seguro. Precio fundador: 59.000 AR$/mes durante 12 meses, para los primeros 10 estudios. La clave llega a tu email apenas se acredite.',
       subAgotado: 'Dejanos tus datos y te escribimos para coordinar el pago y la activación.',
-      submitBtn: 'Pedir mi cupo',
+      submitBtn: 'Continuar al pago',
       submitBtnAgotado: 'Enviar',
-      footNote: 'Extractos, clasificación y asientos sin límite · 100% offline',
-      successTitle: 'Recibimos tu pedido',
-      successSub: 'Te escribimos para coordinar el pago y la activación. Si querés acelerar, escribinos por WhatsApp.',
-      primaryLabel: 'Escribir por WhatsApp',
-      primaryUrl: function () { return waContable(); },
+      footNote: 'Pago seguro vía Mercado Pago · Extractos, clasificación y asientos sin límite',
+      successTitle: 'Te llevamos al pago',
+      successTitleAgotado: 'Recibimos tu pedido',
+      successSub: 'Hacé click para completar tu suscripción en Mercado Pago. Apenas se acredite, recibís la clave por email.',
+      successSubAgotado: 'Te escribimos para coordinar el pago y la activación. Si querés acelerar, escribinos por WhatsApp.',
+      primaryLabel: 'Ir a Mercado Pago →',
+      primaryLabelAgotado: 'Escribir por WhatsApp',
+      primaryUrl: function () { return fundAgotado() ? waContable() : mpUrlFor('CONTABLE'); },
       isDownload: false
     },
     PRO: {
@@ -696,10 +701,11 @@
     var url = c.primaryUrl();
     document.getElementById('m-form-wrap').style.display = 'none';
     document.getElementById('m-success').style.display = 'block';
-    document.getElementById('m-success-title').textContent = c.successTitle;
-    document.getElementById('m-success-sub').textContent = c.successSub;
+    var agS = fundAgotado();
+    document.getElementById('m-success-title').textContent = (agS && c.successTitleAgotado) || c.successTitle;
+    document.getElementById('m-success-sub').textContent = (agS && c.successSubAgotado) || c.successSub;
     var primary = document.getElementById('m-action-primary');
-    primary.textContent = c.primaryLabel;
+    primary.textContent = (agS && c.primaryLabelAgotado) || c.primaryLabel;
     if (!url) {
       primary.removeAttribute('href');
       primary.style.opacity = '.55'; primary.style.pointerEvents = 'none';

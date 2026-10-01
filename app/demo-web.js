@@ -15,10 +15,12 @@
 (function () {
   'use strict';
 
-  var VERSION = '2.7.5';
+  var VERSION = '2.8.0';
   var CONTACTO = 'contacto@getdexiae.com';
   var FORMSPREE = 'https://formspree.io/f/xyklkprd';
-  var TRIAL = '../index.html#planes';
+  // ?plan=TRIAL abre el formulario de la prueba al llegar (lead.js). Antes iba a
+  // «#planes», un ancla que no existe: caía arriba de la home y había que buscar.
+  var TRIAL = '/?plan=TRIAL';
   var XLS = {
     extraccion: { file: 'ejemplos/DEXIAE_ejemplo_extraccion.xlsx', label: 'del lote de facturas' },
     extracto:   { file: 'ejemplos/DEXIAE_ejemplo_extracto.xlsx',   label: 'del extracto bancario con asientos' }
@@ -295,13 +297,13 @@
     llamar('onProcesarLote'); await espera(900);
     if (document.querySelector('button[onclick="rpCerrar(true)"]')) llamar('rpCerrar', true);
   }
+  // Desde la 2.8.0 el conversor es la pantalla Extractos (ya no está en Herramientas).
   async function hacerExtracto() {
-    UI.nav('tools'); await espera(300);
-    llamar('extAbrir'); await espera(500);
+    UI.nav('ext'); await espera(400);
     try { await extSeleccionar(); } catch (e) {}
     var s = document.getElementById('ext-cliente');
-    if (s) { s.value = 'Estudio Demo SRL'; s.dispatchEvent(new Event('change')); llamar('extHintCliente'); }
-    var c = document.getElementById('ext-revisar'); if (c) { c.checked = true; llamar('extRevisarCambio'); }
+    if (s) { s.value = 'Estudio Demo SRL'; s.dispatchEvent(new Event('change')); }
+    var c = document.getElementById('ext-revisar'); if (c && !c.checked) { c.checked = true; llamar('extRevisarCambio'); }
     await espera(700);
     llamar('extProcesar');
   }
@@ -313,8 +315,8 @@
   var PASOS = [
     { t: 'Un lote de facturas', x: 'Elegís una carpeta de facturas y una plantilla. Antes de empezar, el <b>Pre-vuelo</b> muestra qué archivos entran y cómo quedarían renombrados. Al terminar ves cuántas salieron bien, cuáles están <b>duplicadas</b> y cuáles hay que <b>revisar</b>.',
       ir: function () { UI.nav('run'); }, foco: '#btn-iniciar', hacer: hacerLote },
-    { t: 'Extracto bancario → revisión → asientos', x: 'Cargás el resumen del banco en PDF y elegís el cliente. Antes de generar el Excel, DEXIAE te muestra lo que no pudo decidir solo (<b>Qué revisar</b>), cómo quedan los asientos (<b>Cómo va a salir</b>) y si el saldo cierra <b>día por día</b>.',
-      ir: function () { UI.nav('tools'); }, foco: '#screen-tools .tc-hero', hacer: hacerExtracto },
+    { t: 'Extractos: del resumen del banco a los asientos', x: 'En <b>Extractos</b> soltás los resúmenes en PDF y elegís el cliente. Antes de generar el Excel, DEXIAE te muestra lo que no pudo decidir solo (<b>Qué revisar</b>), cómo quedan los asientos (<b>Cómo va a salir</b>) y si el saldo cierra <b>día por día</b>. Abajo queda el tablero de todo lo convertido.',
+      ir: function () { UI.nav('ext'); }, foco: '#xt-drop', hacer: hacerExtracto },
     { t: 'Plantillas para resúmenes de muchas páginas', x: 'En el <b>Laboratorio</b> armás la plantilla. «Mostrame» carga la de un resumen de broker: lee la tabla de operaciones aunque <b>siga de una página a la otra</b>, y con <b>También aplicar</b> se usa junto con otra plantilla que lee las posiciones.',
       ir: function () { UI.nav('lab'); }, foco: '#screen-lab', hacer: async function () { await hacerBroker(); await espera(500); foco('#lab-tabla-wrap'); } },
     { t: 'Validación', x: 'Definís reglas sobre los datos (CUIT con dígito verificador, sumas, rangos, valores permitidos, condiciones SI → ENTONCES). Corren al cerrar cada lote y lo que no cumple queda marcado en el Excel.',
@@ -322,7 +324,7 @@
     { t: 'Centinela y bitácora', x: 'El <b>Centinela</b> vigila una carpeta y procesa cada archivo nuevo que llega. La <b>bitácora</b> deja registro de todo lo que pasó.',
       ir: function () { UI.nav('run'); }, foco: '#btn-cent', hacer: async function () { UI.nav('run'); await espera(250); llamar('onCentinela'); } },
     { t: 'Herramientas PDF', x: 'Unir, dividir, comprimir, pasar escaneados a PDF con texto y <b>buscar dentro de los PDF</b> de una carpeta. En la versión instalada todo corre en tu computadora.',
-      ir: function () { UI.nav('tools'); }, foco: '#screen-tools .tool-card:not(.tc-hero):not(.tc-ghost)' }
+      ir: function () { UI.nav('tools'); }, foco: '#screen-tools .tool-card:not(.tc-ghost)' }
   ];
   var Tour = {
     i: 0,

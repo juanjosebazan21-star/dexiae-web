@@ -3,20 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guía del usuario · DEXIAE 2.5</title>
+<title>Guía del usuario · DEXIAE 2.8</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Guía de DEXIAE 2.5: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación y peritaje de firmas. Todo el procesamiento es local.">
+<meta name="description" content="Guía de DEXIAE 2.8: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación y peritaje de firmas. Todo el procesamiento es local.">
 <link rel="canonical" href="https://getdexiae.com/guia-usuario">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://getdexiae.com/guia-usuario">
 <meta property="og:site_name" content="DEXIAE">
-<meta property="og:title" content="Guía del usuario · DEXIAE 2.5">
+<meta property="og:title" content="Guía del usuario · DEXIAE 2.8">
 <meta property="og:description" content="Cómo convertir extractos bancarios y facturas por QR a Excel, armar plantillas de extracción, validar datos y auditar firmas con DEXIAE. Todo local.">
 <meta property="og:image" content="https://getdexiae.com/og-image.png">
 <meta property="og:locale" content="es_AR">
@@ -58,6 +58,10 @@ td b{color:var(--ink)}
 .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 8px;font-family:var(--mono);font-size:12px;background:#fff}
 .foot{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;color:var(--ink3);font-size:13.5px}
 @media(max-width:640px){.toc ol{columns:1}h1{font-size:27px}}
+/* En el celular las tablas anchas (la de ediciones tiene 6 columnas) se
+   desplazan dentro de su cuadro: antes empujaban la página entera de costado
+   (medido 01/10/2026: 90 px en la publicada, 184 con la columna CONTABLE). */
+@media(max-width:640px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
 
 figure{margin:30px 0}
 figure img{width:100%;display:block;border-radius:12px;border:1px solid var(--line)}
@@ -72,7 +76,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Guía del usuario","item":"https://getdexiae.com/guia-usuario"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía del usuario de DEXIAE 2.5","description":"Documentación de DEXIAE 2.5: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación de datos y peritaje de firmas.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-usuario","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-usuario"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og-image.png"}
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía del usuario de DEXIAE 2.8","description":"Documentación de DEXIAE 2.8: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación de datos y peritaje de firmas.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-usuario","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-usuario"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og-image.png"}
 </script>
 </head>
 <body>
@@ -80,7 +84,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <div class="wrap">
 
 <h1>Guía del usuario</h1>
-<p class="sub">Válida para <b>DEXIAE 2.8.0</b> · actualizada septiembre 2026 · procesamiento 100% local en tu equipo</p>
+<p class="sub">Válida para <b>DEXIAE 2.8.0</b> · actualizada octubre 2026 · procesamiento 100% local en tu equipo</p>
 
 <div class="toc"><b>Contenido</b>
 <ol>
@@ -92,7 +96,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <li><a href="#lote">Procesar un lote</a></li>
 <li><a href="#prevuelo">Pre-vuelo: Espejo y Ruteo</a></li>
 <li><a href="#plantillas">Laboratorio: plantillas</a></li>
-<li><a href="#extractos">Extracto bancario → Excel ⭐</a></li>
+<li><a href="#extractos">Extractos bancarios → Excel ⭐</a></li>
 <li><a href="#qr">Facturas por código QR</a></li>
 <li><a href="#herramientas">Las 9 herramientas PDF</a></li>
 <li><a href="#dragdrop">Arrastrar y soltar</a></li>
@@ -128,13 +132,14 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <p>Al abrir DEXIAE por primera vez elegís:</p>
 <ul>
 <li><b>Probar gratis (TRIAL)</b> — <b>es una prueba del plan PRO</b>: 14 días y 100 documentos en total, sin tarjeta. Trae peritaje, Centinela, reportes, validación, las 9 herramientas y el conversor de extractos <b>con clasificación y borrador de asientos</b>. La única función de PRO que no incluye es la Autodetección y el Asistente de plantillas, porque con 3 plantillas no llegan a mostrar para qué sirven.
-<div class="box note" style="margin-top:10px"><b>Al terminar la prueba</b>, si activás <b>CORE</b> vas a notar que algunas de esas funciones dejan de estar: CORE es el plan de extracción por plantilla en volumen, y peritaje, Centinela, reportes HTML/PDF y asientos son de PRO. No es un error: la prueba te dejó ver PRO.</div></li>
+<div class="box note" style="margin-top:10px"><b>Al terminar la prueba</b>, si activás <b>CORE</b> o <b>DEXIAE Contable</b> vas a notar que algunas de esas funciones dejan de estar. CORE es el plan de extracción por plantilla en volumen; Contable, el de los bancos de tus clientes; y peritaje, Centinela, Validación y reportes HTML/PDF son de PRO. No es un error: la prueba te dejó ver PRO.</div></li>
 <li><b>Activar con mi clave</b>: pegás la clave que recibiste al contratar y listo.</li>
 </ul>
+<p><b>DEXIAE Contable</b> (desde la 2.8.0) es el plan para estudios que llevan los bancos de sus clientes: extractos, clasificación y borrador de asientos sin límite, la extracción de documentos para probar (30 por mes) y las herramientas PDF. Con esa licencia la app arranca en <a href="#extractos">Extractos</a>, y lo que el plan no trae aparece con un candado: al tocarlo te dice qué trae tu plan y qué suma PRO. Una licencia Contable necesita la versión 2.8.0 o posterior. La comparación completa está en la <a href="#ediciones">tabla de ediciones</a>.</p>
 <p>Para pedir tu clave (o renovarla) usá el botón <b>"Copiar solicitud"</b> del panel de licencia: copia tu ID de equipo y tus datos en un mensaje listo para enviar a <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>. Cada licencia vale para una PC.</p>
 
 <h2 id="limite">4. Qué consume tu límite</h2>
-<p>El cupo mensual de tu plan (<b>500 documentos en CORE, 2.500 en PRO</b>) cuenta <b>solo la auditoría por plantilla</b>:</p>
+<p>El cupo mensual de tu plan (<b>500 documentos en CORE, 2.500 en PRO</b>; en DEXIAE Contable, 30 por mes para probar la extracción) cuenta <b>solo la auditoría por plantilla</b>:</p>
 <ul>
 <li>Extracción en lote (Ejecución)</li>
 <li>Modo Centinela</li>
@@ -142,8 +147,8 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 </ul>
 <p><b>No consumen cupo — son ilimitados en todas las ediciones:</b></p>
 <ul>
-<li>Las 9 herramientas PDF (unir, dividir, comprimir, PDF a Word, imágenes, organizar…)</li>
-<li>El conversor de <a href="#extractos">Extracto bancario → Excel</a></li>
+<li>Las herramientas PDF de tu plan (unir, dividir, comprimir, PDF a Word, imágenes, organizar, buscar…)</li>
+<li>La conversión de <a href="#extractos">extractos bancarios</a> (pantalla Extractos), con su clasificación y asientos donde el plan los trae</li>
 <li>El OCR usado dentro de la extracción (se cuenta una sola vez, junto con el documento)</li>
 </ul>
 <div class="box tip"><b>Tolerancia en planes pagos:</b> el límite nunca corta un lote en curso. Si te pasás, tenés un margen de ~20% para seguir trabajando (con un aviso); recién al agotarlo se pausa el inicio de lotes nuevos hasta el 1 del mes siguiente. En TRIAL el tope de 100 es estricto.</div>
@@ -153,10 +158,12 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <table>
 <tr><th>Módulo</th><th>Para qué sirve</th></tr>
 <tr><td><b>Ejecución</b></td><td>Procesar lotes: elegís plantilla y carpeta, y DEXIAE extrae, deduplica y reporta.</td></tr>
+<tr><td><b>Extractos</b></td><td>Resúmenes bancarios en PDF → Excel con la cadena de saldos controlada; con un cliente elegido, clasificación y borrador de asientos (Contable y PRO). Abajo, el tablero de todo lo convertido. <a href="#extractos">Sección 9</a>.</td></tr>
+<tr><td><b>Historial</b></td><td>Todos los lotes procesados y sus reportes.</td></tr>
+<tr><td><b>Analítica</b></td><td>Qué se repite y dónde conviene actuar, calculado con tu historial.</td></tr>
 <tr><td><b>Laboratorio</b></td><td>Crear y editar plantillas de extracción (con Asistente inteligente en PRO).</td></tr>
 <tr><td><b>Validación</b></td><td>Reglas de negocio que se aplican sobre lo extraído (sumas, rangos, CUIT válido…).</td></tr>
-<tr><td><b>Historial</b></td><td>Todos los lotes procesados, sus reportes y el panel de analítica.</td></tr>
-<tr><td><b>Herramientas</b></td><td>Las 9 utilidades PDF y el conversor de extractos bancarios.</td></tr>
+<tr><td><b>Herramientas</b></td><td>Las 9 utilidades PDF (unir, dividir, buscar en los PDF, comprimir…).</td></tr>
 </table>
 
 <h3>Achicar la barra lateral</h3>
@@ -190,6 +197,19 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <li>Al terminar: Excel con una fila por documento + reportes según tu edición. Los duplicados se detectan por clave única, incluso contra lotes anteriores.</li>
 </ol>
 <p>Podés minimizar la ventana durante un proceso: el progreso se ve en la barra de tareas de Windows y en una mini-ventana flotante.</p>
+
+<h3 id="revision">Revisar antes de generar el Excel</h3>
+<p>Con la <b>Validación de datos</b> activa (PRO, SENTINEL y la prueba gratis), en Políticas está el tilde <b>«Revisar antes de generar el Excel»</b>. Al cerrar el lote, si hay algo para decidir —un campo obligatorio vacío, una firma rota, un documento que no coincidió con la plantilla o lo que marcaron tus reglas—, se abre la revisión: cada caso con el documento al lado y el dato marcado donde lo leyó el motor.</p>
+<ul>
+<li>Para cada caso elegís qué pasó: <b>Se leyó mal</b> (corregís el dato), <b>El documento está mal</b> o <b>No es un problema</b>, siempre con el motivo.</li>
+<li>Podés aplicar la misma decisión a los casos iguales, y deshacer.</li>
+<li><b>Generar Excel</b> reescribe el Excel del lote con cada celda decidida marcada y anotada, y le suma la hoja <b>Revisión</b> con cada decisión. Si queda algo que bloquea, podés <b>Seguir después</b> o <b>Generar como salió</b>.</li>
+<li>Mientras tanto, el Excel del lote ya sale marcado «sin revisar» en los casos pendientes. La revisión también se abre desde el <a href="#historial">Historial</a> (botón <b>Revisar</b>), con Detección automática y en el Centinela.</li>
+</ul>
+<figure>
+<img src="/revision-lote.png" alt="Revisión del lote en DEXIAE: el caso que bloquea el Excel, el documento con cada dato marcado y las tres decisiones posibles" loading="lazy" width="1600" height="900">
+<figcaption>La revisión de un lote de facturas de ejemplo: un campo obligatorio vacío bloquea el Excel; a la derecha, los datos del documento y de dónde salió cada uno.</figcaption>
+</figure>
 
 <h2 id="prevuelo">7. Pre-vuelo: Espejo y Ruteo</h2>
 <p>Antes de procesar, DEXIAE te muestra el panel de Pre-vuelo. Ahí decidís qué pasa con tus archivos originales:</p>
@@ -291,12 +311,18 @@ con cuál de los dos estás trabajando.</div>
 </ul>
 <div class="box tip"><b>No tenés que armar los diccionarios solo:</b> el equipo de DEXIAE los ajusta con vos — nos mandás 2 o 3 archivos de prueba de tus documentos habituales y te dejamos los diccionarios afinados para tu rubro (<a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>).Es una configuración que se hace una vez — y con los diccionarios bien estructurados, el Asistente brilla.</div>
 <p>Si el Asistente no detecta un campo que necesitás, lo agregás a mano en la misma plantilla — las sugerencias son un punto de partida, no un límite.</p>
+<h3 id="sugerir">Marcá el dato y DEXIAE te sugiere cómo sacarlo</h3>
+<p>En la vista <b>Visual</b> del Laboratorio arrastrás sobre un dato del documento y DEXIAE te sugiere cómo sacarlo: prueba las formas posibles con el motor en el documento de referencia y en una <b>Carpeta de prueba</b> (otros documentos del mismo tipo), y marca con ★ la que saca el dato en más documentos. Una de las formas es <b>ZONA</b>: el dato se lee siempre en ese lugar de la página (en un escaneado, con OCR).</p>
+<figure>
+<img src="/laboratorio.png" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy" width="1600" height="900">
+<figcaption>El Laboratorio en la vista Visual, con una factura de ejemplo y el resultado de «Probar» abajo.</figcaption>
+</figure>
 <h3>Probar sin gastar cupo</h3>
-<p>El Laboratorio tiene el botón <b>Probar</b>: ejecuta la extracción contra el documento de referencia y te muestra al instante <b>cómo va a salir cada campo en el Excel</b> (columna → valor). Así afinás etiquetas, estrategias y frenos hasta que todo capture bien, <b>sin consumir tu cupo de documentos</b> — el cupo solo cuenta cuando procesás lotes reales en Ejecución. Con el panel de prueba abierto, cada cambio que hagas en un campo se re-prueba automáticamente.</p>
+<p>El Laboratorio tiene el botón <b>Probar</b>: ejecuta la extracción contra el documento de referencia y te muestra al instante <b>cómo va a salir cada campo en el Excel</b> (columna → valor). Así afinás etiquetas, estrategias y frenos hasta que todo capture bien, <b>sin consumir tu cupo de documentos</b> — el cupo solo cuenta cuando procesás lotes reales en Ejecución. Con el panel de prueba abierto, cada cambio que hagas en un campo se re-prueba automáticamente. En la vista <b>Visual</b>, «Probar» además marca cada dato sobre el documento donde lo leyó el motor; lo que no se puede ubicar se nombra, no se inventa.</p>
 <p>Cada plantilla define su <b>clave única</b> (para deduplicar), campos obligatorios y, si querés, su set de <a href="#validacion">reglas de validación</a> y peritaje de firmas.</p>
 
 <div class="star" id="extractos">
-<h3>⭐ 9. Extracto bancario → Excel (ilimitado)</h3>
+<h3>⭐ 9. Extractos: del resumen del banco al Excel (ilimitado)</h3>
 <p>Convertí el PDF del resumen bancario en una planilla de movimientos, sin cargar nada
 a mano y <b>sin que el extracto salga de tu PC</b>. Esta sección recorre el camino
 completo: qué entra, qué hace DEXIAE con eso, y exactamente qué hojas salen en cada
@@ -386,6 +412,13 @@ ajustar o apagar: el criterio vive en un archivo de configuración
 justamente para que nadie quede trabado sin salida. Escribinos y lo vemos — apagarlo
 devuelve la conducta vieja: el archivo entra con sus filas marcadas.</div>
 
+<h4>El tablero de lo convertido</h4>
+<p>Debajo de la zona para soltar los resúmenes queda todo lo convertido en 30 o 90 días, 12 meses o todo: resúmenes, movimientos, clasificados solos, para revisar, cadena de saldos y asientos; las últimas conversiones con su estado y su Excel; las cuentas de cada cliente con su último saldo; cómo se clasificó; y lo que conviene resolver (categorías sin cuenta, banco sin configurar, cadena cortada, revisiones sin terminar, resúmenes que no se pudieron leer). Con un cliente elegido arriba, muestra sólo lo suyo. Las conversiones hechas con versiones anteriores a la 2.8.0 muestran «—» en lo que antes no se guardaba.</p>
+<figure>
+<img src="/extractos-modulo.png" alt="Pantalla Extractos de DEXIAE con la zona para soltar los resúmenes, los bancos calibrados y el tablero de lo convertido" loading="lazy" width="1696" height="860">
+<figcaption>La pantalla Extractos con los datos de ejemplo de la demo.</figcaption>
+</figure>
+
 <h4>Qué hojas salen, según tu edición</h4>
 <p>Este es el punto donde más se confunde la gente, así que va explícito:</p>
 <table class="tabla-plan">
@@ -404,12 +437,12 @@ devuelve la conducta vieja: el archivo entra con sus filas marcadas.</div>
   <tr><td><b>Categorías</b></td>
       <td>Totales por tipo de movimiento: cuántos, cuánto débito, cuánto crédito y el
           neto. Es la foto del mes antes de entrar a los asientos.</td>
-      <td><b>PRO</b> · y la <b>prueba gratis</b></td></tr>
+      <td><b>Contable y PRO</b> · y la <b>prueba gratis</b></td></tr>
   <tr><td><b>Asientos (borrador)</b></td>
       <td>Las dos puntas de cada asiento <b>y por qué se eligió esa cuenta</b>: categoría
           detectada, confianza, origen de la decisión, detalle y archivo. Es la hoja para
           <b>revisar</b>, no para importar.</td>
-      <td><b>PRO</b> · y la <b>prueba gratis</b> — <u>además</u> hay que elegir un
+      <td><b>Contable y PRO</b> · y la <b>prueba gratis</b> — <u>además</u> hay que elegir un
           cliente configurado</td></tr>
   <tr><td><b>Para importar</b></td>
       <td>Solo los asientos <b>completos</b>, en 9 columnas: <code>EJERCICIO</code>,
@@ -429,10 +462,11 @@ contable <b>lo rechazaría entero</b>. Por eso los incompletos se apartan: prefe
 importes 40 asientos buenos y revises 3, antes que se te caigan los 43.</p>
 
 <div class="box"><b>Sobre las ediciones.</b> La conversión a Excel funciona en
-<b>todas</b>. Las hojas de clasificación y asientos son de <b>PRO</b>, y la
-<b>prueba gratis de 14 días también las incluye</b> —es una prueba de PRO—, así que
-podés ver el flujo completo con tus propios resúmenes antes de decidir. Al vencer la
-prueba, la conversión sigue disponible; los asientos quedan en PRO. Para que aparezcan
+<b>todas</b>. Las hojas de clasificación y asientos son de <b>DEXIAE Contable</b> y
+<b>PRO</b>, y la <b>prueba gratis de 14 días también las incluye</b> —es una prueba de
+PRO—, así que podés ver el flujo completo con tus propios resúmenes antes de decidir. Al
+vencer la prueba, la conversión sigue disponible; la clasificación y los asientos quedan
+en Contable y PRO. Para que aparezcan
 necesitás además <a href="#plan-cuentas">un cliente con su plan de cuentas cargado</a>:
 sin plan no hay cuentas que proponer.</div>
 
@@ -457,11 +491,12 @@ sumamos.</p>
 <p><b>Esta herramienta es ilimitada en todas las ediciones</b>: no gasta tu cupo mensual
 de documentos. Convertí los que necesites. Y desde la versión 2.3.1, <b>cada corrida
 queda registrada en el <a href="#historial">Historial</a></b>, con sus movimientos, su
-banco y el resultado de la cadena de saldos.</p>
+banco y el resultado de la cadena de saldos, y desde la 2.8.0 suma al tablero de
+Extractos.</p>
 </div>
 
 
-<h3 id="plan-cuentas">9.1 Importar tu plan de cuentas (PRO)</h3>
+<h3 id="plan-cuentas">9.1 Importar tu plan de cuentas (Contable y PRO)</h3>
 <p>Para que DEXIAE proponga asientos necesita <b>tu</b> plan de cuentas. Se importa
 <b>una sola vez por cliente</b> desde el archivo que ya exporta tu sistema contable, y
 queda guardado: al reabrir la app sigue estando.</p>
@@ -532,7 +567,7 @@ antes de asignar cuentas.</p>
 cliente, el plan va adentro del mismo archivo: del otro lado se importa y queda
 funcionando, sin volver a buscar el Excel.</p>
 
-<h3 id="cliente-imputacion">9.2 El cliente de imputación (PRO)</h3>
+<h3 id="cliente-imputacion">9.2 El cliente de imputación (Contable y PRO)</h3>
 <p>Las hojas de asientos no salen por tener el plan de cuentas: salen cuando
 <b>elegís un cliente</b> en el desplegable «Asientos para», en la misma ventana del
 conversor. Si dice «— sin asientos —», el Excel sale con los movimientos y nada más.
@@ -716,13 +751,13 @@ usan juntas.</div>
 <tr><td><b>PDF a Word</b></td><td>Convierte a .docx editable.</td></tr>
 <tr><td><b>Imágenes a PDF</b></td><td>JPG/PNG → un PDF.</td></tr>
 <tr><td><b>Comprimir PDF</b></td><td>Reduce el peso (nivel equilibrado sin pérdida, o máxima). Nunca deja el archivo más grande.</td></tr>
-<tr><td><b>OCR por lote</b></td><td>Vuelve buscables PDFs escaneados completos (TRIAL/PRO/SENTINEL).</td></tr>
+<tr><td><b>Escaneados → PDF con texto</b></td><td>OCR por lote: vuelve buscables PDFs escaneados completos (TRIAL/PRO/SENTINEL).</td></tr>
 <tr><td><b>Fusionar reportes</b></td><td>Une varios Excel de lotes en uno (TRIAL/PRO/SENTINEL).</td></tr>
 <tr><td><b>Buscar en los PDF</b></td><td>Encontrá un dato entre miles de archivos, sin armar plantilla — <a href="#buscar">abajo</a>.</td></tr>
 </table>
-<div class="box note">El <b>conversor de extractos bancarios</b> está en la misma pantalla
-pero <b>no</b> es una de estas nueve: no es una utilidad de PDF, es un camino propio del
-producto y tiene su <a href="#extractos">sección 9</a>.</div>
+<div class="box note">El <b>conversor de extractos bancarios</b> <b>no</b> es una de estas
+nueve: no es una utilidad de PDF. Desde la 2.8.0 tiene su pantalla, <b>Extractos</b>, y su
+<a href="#extractos">sección 9</a>.</div>
 
 <h3 id="buscar">11.1 Buscar en los PDF</h3>
 <p>Para cuando necesitás <b>encontrar un dato</b> y no extraer nada: un CUIT, un nombre,
@@ -743,7 +778,7 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 </ul>
 
 <h2 id="dragdrop">12. Arrastrar y soltar</h2>
-<p>Arrastrá archivos a cualquier parte de la ventana de DEXIAE: aparece un menú con las herramientas compatibles según el tipo (PDFs → unir, comprimir, extracto bancario…; imágenes → convertir a PDF; Excel → fusionar). Elegís la acción y se ejecuta directo con los archivos que soltaste, sin pasar por el explorador.</p>
+<p>Arrastrá archivos a cualquier parte de la ventana de DEXIAE: aparece un menú con las herramientas compatibles según el tipo (PDFs → unir, comprimir, extracto bancario…; imágenes → convertir a PDF; Excel → fusionar). Elegís la acción y se ejecuta directo con los archivos que soltaste, sin pasar por el explorador. Con la pantalla <b>Extractos</b> abierta no hay menú: los PDF que soltás se suman a la lista de resúmenes para convertir.</p>
 
 <h2 id="validacion">13. Validación de datos</h2>
 <p>Reglas de negocio que la plantilla no puede expresar, aplicadas sobre lo extraído (PRO/SENTINEL/TRIAL):</p>
@@ -755,7 +790,7 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 </ul>
 
 <h2 id="peritaje">14. Peritaje de firmas digitales</h2>
-<p>DEXIAE verifica la <b>integridad criptográfica</b> de las firmas embebidas en cada PDF: hash, datos del firmante, algoritmo y si el documento fue modificado después de firmar. Los hallazgos van al reporte con su fundamento técnico y alimentan el score de riesgo.</p>
+<p>DEXIAE verifica la <b>integridad criptográfica</b> de las firmas embebidas en cada PDF: hash, datos del firmante, algoritmo y si el documento fue modificado después de firmar. Los hallazgos van al informe del lote con su fundamento técnico: con el peritaje activo, el informe es pericial.</p>
 <div class="box warn"><b>Alcance:</b> es una herramienta de screening masivo. No resuelve la cadena de confianza contra la AC-Raíz ni consulta CRL/OCSP — no sustituye un peritaje judicial formal.</div>
 
 <h2 id="centinela">15. Modo Centinela</h2>
@@ -766,37 +801,47 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 <ul>
 <li>Todos los lotes con fecha, plantilla, resultados, tiempo de proceso y sus reportes (Excel/HTML/PDF) para reabrir.</li>
 <li>Filtros por modo (manual/centinela/espejo) y por hallazgos de validación; detalle por documento con su estado.</li>
-<li><b>Analítica</b>: tiempo manual ahorrado, volumen por semana, duplicados detectados y distribución de resultados.</li>
+<li><b>Analítica</b> (su propia pantalla desde la 2.8.0): documentos y lotes del período, cuántos salieron bien y cuántos fueron a revisión, por semana y por plantilla, y una lista de <b>dónde conviene actuar</b> —la plantilla que más manda a revisión, los lotes sin huella, los documentos asignados con puntaje bajo— con el botón que te lleva a resolverlo. Los umbrales se cambian en <b>Ajustes</b>. El puntaje es el de la asignación de la plantilla, no un porcentaje de exactitud. Las conversiones de extractos no entran: tienen su tablero en Extractos.</li>
 <li>Podés renombrar o borrar lotes (borrar elimina también sus claves de deduplicación).</li>
 </ul>
+<figure>
+<img src="/analitica.png" alt="Analítica de DEXIAE: documentos, lotes, salieron OK, fueron a revisión, duplicados, dónde conviene actuar y volumen por semana" loading="lazy" width="1600" height="900">
+<figcaption>La Analítica con los datos de ejemplo de la demo.</figcaption>
+</figure>
 
 <h2 id="reportes">17. Los reportes</h2>
 <ul>
-<li><b>Excel</b> (todas las ediciones): una fila por documento, columnas por campo + validación.</li>
-<li><b>HTML interactivo</b> (TRIAL/PRO/SENTINEL): tabla filtrable con score de integridad, bloque de validación y links a los archivos.</li>
-<li><b>PDF pericial</b> (TRIAL/PRO/SENTINEL): informe formal con hash SHA-256 de los entregables, hallazgos de firmas, gaps de numeración correlativa y recomendaciones.</li>
+<li><b>Excel</b> (todas las ediciones): una fila por documento, columnas por campo + validación. Si hubo casos para revisar, ya sale marcado; al <a href="#revision">revisar</a>, suma la hoja Revisión.</li>
+<li><b>Informe del lote en HTML y PDF</b> (TRIAL/PRO/SENTINEL), rehecho en la 2.8.0: <b>cuenta, no puntúa</b>. Dice cuántos documentos salieron sin observaciones, cuáles están duplicados y dónde está el original, las alertas de firma, lo que está para revisar y los errores; la revisión; la validación regla por regla; los números que faltan en cada serie; el detalle por documento con filtros; la calidad de lectura y con qué plantilla y reglas se procesó.</li>
+<li>Lleva la <b>huella SHA-256 del Excel</b> y cómo verificarla (con <code>certutil</code> o PowerShell). No carga nada de internet, y el PDF es el mismo informe impreso con el Edge de Windows.</li>
+<li>Con el <a href="#peritaje">peritaje de firmas</a> activo, el informe es <b>pericial</b> y suma el detalle de cada firma.</li>
 </ul>
+<figure>
+<img src="/informe-lote.png" alt="Informe del lote de DEXIAE: documentos sin observaciones, duplicados, para revisar, la validación por regla y los duplicados con su original" loading="lazy" width="1039" height="876">
+<figcaption>El informe de un lote de facturas de ejemplo: los números son conteos, cada uno dice qué documentos son.</figcaption>
+</figure>
 
 <h2 id="ediciones">18. Tabla de ediciones</h2>
 <table>
-<tr><th></th><th>TRIAL</th><th>CORE</th><th>PRO</th><th>SENTINEL</th></tr>
-<tr><td><b>Documentos</b></td><td>100 en total (14 días)</td><td><b>500 / mes</b></td><td><b>2.500 / mes</b></td><td>Ilimitado</td></tr>
-<tr><td><b>Plantillas</b></td><td>3</td><td>3</td><td>Ilimitadas</td><td>Ilimitadas</td></tr>
-<tr><td><b>Extracto bancario → Excel</b></td><td class="si">✓ ilimitado</td><td class="si">✓ ilimitado</td><td class="si">✓ ilimitado</td><td class="si">✓ ilimitado</td></tr>
-<!-- Clasificacion + asientos = cap "imputacion" en dexiae_license.EDICIONES.
-     Desde el 12/08/2026 esta en True en TRIAL (la prueba es de PRO) y sigue en
-     False en CORE, que es donde esta la diferencia con PRO. -->
-<tr><td><b>Categorías y borrador de asientos</b></td><td class="si">✓</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
-<!-- 9 = las 8 herramientas PDF + el conversor de extractos. CORE decía 7: son 8,
-     es el único que pierde el OCR por lote (ocr_ilimitado:False). Verificado 02/08/2026. -->
-<tr><td><b>Herramientas PDF</b></td><td class="si">9</td><td class="si">8</td><td class="si">9</td><td class="si">9</td></tr>
-<tr><td><b>Asistente + Autodetección</b></td><td class="no">—</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
-<tr><td><b>Peritaje de firmas</b></td><td class="si">✓</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
-<tr><td><b>Validación de datos</b></td><td class="si">✓</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
-<tr><td><b>Centinela</b></td><td class="si">✓</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
-<tr><td><b>Reportes HTML + PDF</b></td><td class="si">✓</td><td class="no">Solo Excel</td><td class="si">✓</td><td class="si">✓</td></tr>
-<tr><td><b>OCR por lote</b></td><td class="si">✓</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
-<tr><td><b>Equipos</b></td><td>1</td><td>1</td><td>1</td><td>Múltiples</td></tr>
+<tr><th></th><th>TRIAL</th><th>CORE</th><th>CONTABLE</th><th>PRO</th><th>SENTINEL</th></tr>
+<tr><td><b>Documentos</b></td><td>100 en total (14 días)</td><td><b>500 / mes</b></td><td>30 / mes, para probar</td><td><b>2.500 / mes</b></td><td>Ilimitado</td></tr>
+<tr><td><b>Plantillas</b></td><td>3</td><td>3</td><td>3</td><td>Ilimitadas</td><td>Ilimitadas</td></tr>
+<tr><td><b>Extractos bancarios → Excel</b></td><td class="si">✓ ilimitado</td><td class="si">✓ ilimitado</td><td class="si">✓ ilimitado</td><td class="si">✓ ilimitado</td><td class="si">✓ ilimitado</td></tr>
+<!-- Clasificacion + asientos = cap "imputacion" en dexiae_license.EDICIONES:
+     True en TRIAL (desde el 12/08/2026, la prueba es de PRO), CONTABLE (desde la
+     2.8.0, es lo suyo), PRO y SENTINEL; False en CORE. -->
+<tr><td><b>Categorías y borrador de asientos</b></td><td class="si">✓</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td><td class="si">✓</td></tr>
+<!-- Las 9 tarjetas de Herramientas de la 2.8.0 (el conversor ya no está ahí).
+     CORE y CONTABLE: 7, sin «Escaneados → PDF con texto» (ocr_ilimitado:False) ni
+     «Fusionar reportes» (pide pdf_report). Verificado 01/10/2026. -->
+<tr><td><b>Herramientas PDF</b></td><td class="si">9</td><td class="si">7</td><td class="si">7</td><td class="si">9</td><td class="si">9</td></tr>
+<tr><td><b>Asistente + Autodetección</b></td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
+<tr><td><b>Peritaje de firmas</b></td><td class="si">✓</td><td class="no">—</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
+<tr><td><b>Validación de datos y Revisión del lote</b></td><td class="si">✓</td><td class="no">—</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
+<tr><td><b>Centinela</b></td><td class="si">✓</td><td class="no">—</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
+<tr><td><b>Informe HTML + PDF</b></td><td class="si">✓</td><td class="no">Solo Excel</td><td class="no">Solo Excel</td><td class="si">✓</td><td class="si">✓</td></tr>
+<tr><td><b>OCR por lote</b></td><td class="si">✓</td><td class="no">—</td><td class="no">—</td><td class="si">✓</td><td class="si">✓</td></tr>
+<tr><td><b>Equipos</b></td><td>1</td><td>1</td><td>1</td><td>1</td><td>Múltiples</td></tr>
 </table>
 <p>Precios y contratación: <a href="/#precios">getdexiae.com/#precios</a>. Planes en pesos, pago por Mercado Pago.</p>
 
@@ -894,7 +939,7 @@ punto azul. No se pierde por trabajar así.</li>
 todavía no existe en tu equipo o se ve muy poco: esa actualización hay que avisarla a
 mano. De la 2.5.17 en adelante, la app avisa sola.</div>
 
-<div class="foot">DEXIAE 2.5 · Guía del usuario · septiembre 2026 · <a href="/">getdexiae.com</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
+<div class="foot">DEXIAE 2.8 · Guía del usuario · septiembre 2026 · <a href="/">getdexiae.com</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
 </div>
 <!-- Pre-chat + modal. La guía no tenía ningún punto de contacto: quien llegaba
      acá con una duda no tenía dónde preguntar ni cómo empezar la prueba. -->

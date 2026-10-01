@@ -1,0 +1,124 @@
+/* Módulo Extractos (30/09/2026). Sigue la maqueta aprobada
+   (maquetas/modulos-nuevos/extractos.html) con las variables de la app: tema
+   claro y oscuro salen solos. Reusa las tarjetas de Analítica (.ana-*); lo
+   propio va con prefijo xt-. */
+#screen-ext{font-size:13px}
+/* El botón apagado tiene regla general en index.html (.btn:disabled). */
+.xt-top{display:flex;align-items:flex-end;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+.xt-top h1{margin:0;font-size:19px;font-weight:600;color:var(--txt)}
+.xt-top .sub{color:var(--txt2);font-size:12px}
+.xt-acc{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.xt-cli{display:flex;align-items:center;gap:7px;background:var(--card);border:1px solid var(--border2);border-radius:var(--r-sm);padding:0 4px 0 10px;min-width:0}
+.xt-cli i{color:var(--teal-l);font-size:16px}
+.xt-cli .form-select{border:0;background:transparent;height:32px;padding:4px 6px;font-size:12.5px;font-weight:600;color:var(--txt);min-width:180px;max-width:300px;box-shadow:none}
+.xt-cli .form-select:focus{outline:none}
+.xt-lock{opacity:.75}
+
+/* El conversor */
+.xt-conv{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin-bottom:16px;align-items:stretch}
+.xt-conv.ocupado .xt-drop{opacity:.55;cursor:progress}
+.xt-drop.arrastrando{border-style:solid;border-color:#2563EB;background:var(--teal-dim);box-shadow:0 0 0 4px rgba(37,99,235,.18)}
+.xt-drop.arrastrando .xt-drop-ic{background:#2563EB;color:#fff}
+.xt-drop.arrastrando *{pointer-events:none}
+.xt-drop{border:1.5px dashed var(--border2);border-radius:var(--r-lg);background:var(--bg2);padding:18px;display:flex;gap:14px;align-items:flex-start;
+  cursor:pointer;transition:border-color .15s,background .15s}
+.xt-drop:hover,.xt-drop:focus-visible{border-color:var(--teal-l);background:var(--teal-dim);outline:none}
+.xt-drop-ic{width:42px;height:42px;border-radius:12px;background:var(--teal-dim);color:var(--teal-l);display:flex;align-items:center;justify-content:center;font-size:22px;flex:none}
+.xt-drop .t{font-weight:600;font-size:14px;color:var(--txt)}
+.xt-drop .s{color:var(--txt2);font-size:12px;margin-top:3px}
+.xt-bancos{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px;align-items:center}
+.xt-bancos .xt-bl{font-size:11px;font-weight:600;color:var(--txt2);margin-right:2px}
+.xt-bancos span{font-size:11px;padding:2px 9px;border-radius:12px;background:var(--card);border:1px solid var(--border2);color:var(--txt2)}
+.xt-bancos em{flex-basis:100%;font-style:normal;font-size:11.5px;color:var(--txt3);margin-top:4px;cursor:text;user-select:text}
+.xt-lado{display:flex;flex-direction:column;gap:10px;min-width:0}
+.xt-lista{max-height:168px;overflow:auto;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--input-bg)}
+.xt-lista-t{font-size:11.5px;color:var(--txt2);padding:7px 10px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--input-bg)}
+.xt-lista-vacia{font-size:12px;color:var(--txt3);padding:10px}
+.xt-arch{display:flex;align-items:center;gap:8px;padding:6px 10px;border-bottom:1px solid var(--border);font-size:12.5px}
+.xt-arch:last-child{border-bottom:0}
+.xt-arch>i{color:var(--err-fg);flex:none}
+.xt-arch .n{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt)}
+.xt-st{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:10px;white-space:nowrap;flex:none}
+.xt-st.ok{color:var(--ok-fg);background:var(--ok-bg)}
+.xt-st.rev{color:var(--rev-fg);background:var(--rev-bg)}
+.xt-st.lee{color:var(--txt3);background:var(--input-bg);border:1px solid var(--border)}
+.xt-arch.lee .n{color:var(--txt2)}
+.xt-st.lee.act{color:var(--teal-l);border-color:var(--teal-l);font-variant-numeric:tabular-nums}
+.xt-lee{display:flex;align-items:center;gap:10px;color:var(--teal-l)}
+.xt-lee>span:first-child{flex:none}
+.xt-mini{flex:1;height:5px;border-radius:3px;background:var(--border);overflow:hidden}
+.xt-mini i{display:block;height:100%;background:#2563EB;border-radius:3px;transition:width .25s}
+.xt-gira{display:inline-block;animation:xtGira .9s linear infinite}
+@keyframes xtGira{to{transform:rotate(360deg)}}
+/* El reposo pausa las animaciones con la ventana sin foco (al soltar desde
+   el Explorador, la ventana no tiene foco): este giro tiene que seguir. */
+html.anim-pausa .xt-gira{animation-play-state:running !important}
+.xt-x{background:transparent;border:0;color:var(--txt3);cursor:pointer;padding:2px;border-radius:4px;flex:none;line-height:1}
+.xt-x:hover:not(:disabled){color:var(--err-fg);background:var(--err-bg)}
+.xt-x:disabled{opacity:.4;cursor:default}
+.xt-hint{margin:0;font-size:12px;line-height:1.45}
+.xt-hint a,.xt-link,.ana-vacio a,.xt-vacio a{color:var(--teal-l);cursor:pointer;text-decoration:none}
+.xt-hint a:hover,.xt-link:hover{text-decoration:underline}
+.xt-rev{margin:0;align-items:flex-start;font-size:12.5px;color:var(--txt)}
+.xt-rev[hidden]{display:none}
+.xt-rev input{margin-top:2px}
+.xt-prog-t{display:flex;justify-content:space-between;font-size:11px;color:var(--txt2);margin-bottom:5px;gap:10px}
+.xt-prog-t span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.xt-prog-bar{height:8px;border-radius:5px;background:var(--border);overflow:hidden}
+.xt-prog-bar div{height:100%;width:0;border-radius:5px;background:#2563EB;transition:width .25s}
+.xt-bts{display:flex;align-items:center;gap:8px;margin-top:auto;flex-wrap:wrap}
+.xt-bts .xt-link{font-size:12px;margin-right:auto}
+.xt-bts .btn-primary{min-width:150px;justify-content:center}
+.xt-gen{font-size:12px;color:var(--txt2);line-height:1.5;padding:8px 10px;border-left:3px solid var(--teal);background:var(--bg2);border-radius:var(--r-sm)}
+.xt-gen[hidden]{display:none}
+
+/* Lo convertido */
+.xt-sec{display:flex;align-items:center;gap:12px;margin:2px 0 10px;flex-wrap:wrap}
+.xt-sec-t{font-size:14px;color:var(--txt2)}
+.xt-sec-t b{color:var(--txt);font-weight:600}
+.xt-sec .ana-seg{margin-left:auto}
+.xt-kpis{grid-template-columns:repeat(auto-fit,minmax(160px,1fr))}
+.xt-k-lock{cursor:pointer}
+.xt-k-lock .v,.xt-k-lock .l{color:var(--txt3)}
+.xt-k-lock .l i{font-size:12px;color:var(--rev-fg)}
+/* Mitad y mitad como .ana-fila2 (ya lo es): el corte cae en el medio de «Borrador de asientos». */
+.xt-fila2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.xt-tabla{overflow-x:auto;margin:0 -4px}
+.xt-tabla table{width:100%;border-collapse:collapse;font-size:12.5px}
+.xt-tabla th{text-align:left;font-weight:500;font-size:11px;color:var(--txt3);padding:5px 6px;border-bottom:1px solid var(--border);white-space:nowrap}
+.xt-tabla td{padding:7px 6px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--txt)}
+.xt-tabla tr:last-child td{border-bottom:0}
+.xt-tabla .num{text-align:right;font-variant-numeric:tabular-nums}
+.xt-tabla .nw{white-space:nowrap}
+.xt-b{white-space:nowrap}
+.xt-g{color:var(--txt3);font-size:11.5px}
+.xt-est{font-size:11px;font-weight:600;padding:2px 9px;border-radius:10px;display:inline-block;line-height:1.35;max-width:150px}
+.xt-est.ok{color:var(--ok-fg);background:var(--ok-bg)}
+.xt-est.rev{color:var(--rev-fg);background:var(--rev-bg)}
+.xt-est.err{color:var(--err-fg);background:var(--err-bg)}
+.xt-acc-c{text-align:right;white-space:nowrap}
+.xt-ib{background:transparent;border:1px solid transparent;color:var(--txt2);cursor:pointer;border-radius:6px;padding:3px 5px;font-size:15px;line-height:1}
+.xt-ib:hover:not(:disabled){border-color:var(--border2);color:var(--teal-l);background:var(--teal-dim)}
+.xt-ib:disabled{opacity:.3;cursor:default}
+.xt-cuenta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;padding:10px 0;border-top:1px solid var(--border)}
+.xt-cuenta:first-of-type{border-top:0}
+.xt-cuenta .n{font-weight:600;color:var(--txt)}
+.xt-cuenta .s{font-size:11.5px;color:var(--txt3)}
+.xt-cuenta .sal{text-align:right;font-variant-numeric:tabular-nums;font-weight:600;color:var(--txt);white-space:nowrap}
+.xt-cuenta .sal .s{font-weight:400}
+.xt-cuenta .cad{grid-column:1/-1;font-size:11.5px}
+.xt-cuenta .cad .b{color:var(--ok-fg)}.xt-cuenta .cad .m{color:var(--err-fg)}.xt-cuenta .cad .g{color:var(--txt3)}
+.xt-mas{color:var(--teal-l);cursor:pointer;text-decoration:none;white-space:nowrap}
+.xt-mas:hover{text-decoration:underline}
+.xt-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.xt-chip{font:inherit;font-size:12px;padding:4px 11px;border-radius:14px;border:1px solid var(--border2);background:var(--input-bg);color:var(--txt);cursor:pointer}
+.xt-chip:hover{border-color:var(--teal-l);color:var(--teal-l)}
+.xt-bloq{position:relative;overflow:hidden;min-height:170px}
+.xt-velo{position:absolute;inset:0;background:var(--card);opacity:.97;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;padding:16px}
+.xt-velo>i{font-size:22px;color:var(--rev-fg)}
+.xt-velo .s{font-size:12px;color:var(--txt2);max-width:260px}
+.xt-vacio{display:flex;gap:14px;align-items:center;padding:18px}
+.xt-vacio>i{font-size:28px;color:var(--teal-l)}
+.xt-vacio .s{color:var(--txt2);font-size:12.5px;margin-top:3px}
+@media (max-width:1180px){.xt-fila2{grid-template-columns:1fr}}
+@media (max-width:980px){.xt-conv{grid-template-columns:1fr}}

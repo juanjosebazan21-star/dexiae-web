@@ -1,0 +1,70 @@
+/* Analítica (30/09/2026). Sigue la maqueta aprobada
+   (maquetas/modulos-nuevos/analitica.html) con las variables de la app: tema
+   claro y oscuro salen solos. Todo con prefijo ana- para no pisar index.html. */
+#screen-ana{font-size:13px}
+.ana-top{display:flex;align-items:flex-end;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.ana-top h1{margin:0;font-size:19px;font-weight:600;color:var(--txt)}
+.ana-top .sub{color:var(--txt2);font-size:12px}
+.ana-filtros{margin-left:auto;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ana-seg{display:flex;border:1px solid var(--border2);border-radius:var(--r-sm);overflow:hidden}
+.ana-seg button{background:transparent;border:0;padding:6px 11px;font-size:12px;color:var(--txt2);cursor:pointer;font-family:var(--font)}
+.ana-seg button.act{background:var(--teal);color:#fff}
+.ana-filtros .form-select{height:30px;padding:4px 8px;font-size:12px;max-width:220px}
+.ana-demo{font-size:11.5px;color:var(--rev-fg);background:var(--rev-bg);border:1px solid var(--rev-bd);border-radius:var(--r-sm);padding:6px 10px;margin-bottom:12px}
+.ana-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:12px}
+.ana-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r-lg);padding:14px 16px;min-width:0}
+.ana-k .l{font-size:11.5px;color:var(--txt2)}
+.ana-k .v{font-size:24px;font-weight:600;margin-top:2px;font-variant-numeric:tabular-nums;color:var(--txt)}
+.ana-k .v small{font-size:13px;color:var(--txt2);font-weight:500}
+.ana-k .d{font-size:11.5px;margin-top:2px;color:var(--txt3)}
+.ana-k .d.bien{color:var(--ok-fg)}.ana-k .d.mal{color:var(--err-fg)}.ana-k .d.ojo{color:var(--rev-fg)}
+.ana-k.alerta{border-color:var(--err-bd)}.ana-k.alerta .v{color:var(--err-fg)}
+/* Mitad y mitad: el corte cae en el medio de la tarjeta del medio de abajo (01/10/2026). */
+.ana-fila2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:12px}
+/* minmax(0,…): tercios exactos aunque un gráfico pida más ancho (si no, el corte de arriba no cae en el medio). */
+.ana-fila3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:12px}
+@media (max-width:1180px){.ana-fila2{grid-template-columns:1fr}.ana-fila3{grid-template-columns:1fr 1fr}}
+@media (max-width:860px){.ana-fila3{grid-template-columns:1fr}}
+.ana-ct{display:flex;align-items:center;gap:8px;font-weight:600;margin-bottom:10px;color:var(--txt)}
+.ana-ct i{color:var(--teal-l)}
+.ana-ct .h{margin-left:auto;font-weight:400;font-size:11.5px;color:var(--txt3)}
+.ana-ct .h a{color:var(--teal-l);cursor:pointer}
+.ana-acc{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--border)}
+.ana-acc:first-of-type{border-top:0}
+.ana-acc .ic{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex:none;font-size:16px}
+.ana-acc .ic.rev{background:var(--rev-bg);color:var(--rev-fg)}.ana-acc .ic.err{background:var(--err-bg);color:var(--err-fg)}
+.ana-acc .ic.info{background:var(--teal-dim);color:var(--teal-l)}.ana-acc .ic.gris{background:var(--input-bg);color:var(--txt3)}
+.ana-acc .t{font-weight:600;color:var(--txt)}
+.ana-acc .s{color:var(--txt2);font-size:12px}
+.ana-acc .ir{margin-left:auto;flex:none}
+.ana-acc.futuro{opacity:.6}
+.ana-vacio{color:var(--txt2);font-size:12.5px;padding:8px 0}
+.ana-nota{font-size:11.5px;color:var(--txt3);margin-top:8px}
+.ana-nota i{vertical-align:-2px}
+.ana-svg text{fill:var(--txt2);font:11px var(--font)}
+.ana-barras .b{display:grid;grid-template-columns:minmax(0,150px) 1fr 44px;gap:8px;align-items:center;margin:7px 0;font-size:12px}
+.ana-barras .b .n{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--txt2)}
+.ana-barras .b .tot{text-align:right;color:var(--txt2);font-variant-numeric:tabular-nums}
+.ana-pila{display:flex;height:10px;border-radius:5px;overflow:hidden;background:var(--input-bg)}
+.ana-pila span{display:block;height:100%}
+.ana-leyenda{display:flex;gap:12px;font-size:11px;color:var(--txt2);margin-top:6px;flex-wrap:wrap}
+.ana-leyenda span::before{content:'';display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:5px;background:var(--c)}
+.ana-traza{display:grid;grid-template-columns:1fr auto;gap:6px 10px;font-size:12.5px}
+.ana-traza .k2{color:var(--txt2)}
+.ana-traza .k2.sub{padding-left:12px}
+.ana-traza .v2{font-variant-numeric:tabular-nums;text-align:right;color:var(--txt)}
+.ana-est{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:12px;color:var(--txt2);flex-wrap:wrap}
+.ana-est input{width:56px;background:var(--input-bg);border:1px solid var(--border2);border-radius:5px;padding:3px 6px;text-align:right;color:var(--txt);font:inherit}
+.ana-pie{font-size:11.5px;color:var(--txt3);margin:4px 2px 18px}
+/* Ajustes */
+.ana-aj{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center}
+.ana-aj[hidden]{display:none}
+.ana-aj .caja{width:520px;max-width:calc(100vw - 32px);max-height:calc(100vh - 40px);overflow:auto;background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);padding:18px 20px;box-shadow:var(--shadow)}
+.ana-aj h3{margin:0 0 4px;font-size:15px;color:var(--txt)}
+.ana-aj .p{color:var(--txt2);font-size:12px;margin:0 0 12px}
+.ana-aj .g{display:grid;grid-template-columns:1fr 90px;gap:8px 12px;align-items:center;font-size:12.5px;color:var(--txt)}
+.ana-aj .g input[type=number]{width:90px;background:var(--input-bg);border:1px solid var(--border2);border-radius:5px;padding:5px 7px;color:var(--txt);font:inherit;text-align:right}
+.ana-aj .g small{display:block;color:var(--txt3);font-size:11px}
+.ana-aj .chks{margin-top:12px;display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:var(--txt)}
+.ana-aj .chks label{display:flex;gap:8px;align-items:center;cursor:pointer}
+.ana-aj .bts{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}

@@ -41,8 +41,11 @@ Windows 10/11 y funciona sin conexión a internet. Se licencia por suscripción
   trae el IVA discriminado ni el detalle de los ítems: para eso sigue haciendo
   falta una plantilla.
 - **Centinela**: vigila una carpeta y procesa automáticamente lo que va llegando.
-- **Reportes** en Excel, HTML y PDF pericial (con score de integridad y hash
-  SHA-256).
+- **Informe del lote** en Excel, HTML y PDF: conteos por documento (no un puntaje),
+  duplicados con su original, validación, revisión, con qué plantilla y reglas se
+  procesó y la huella SHA-256 del Excel. Con el peritaje activo, el detalle de cada firma.
+- **Revisión del lote** (desde 2.8.0, con la Validación de datos): antes de generar el
+  Excel se decide cada caso con el documento al lado; el Excel sale con cada decisión anotada.
 - **9 herramientas PDF** integradas: unir, dividir, PDF a Word, imagen a PDF,
   OCR, comprimir, reordenar/rotar páginas, entre otras.
 

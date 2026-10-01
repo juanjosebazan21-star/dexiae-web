@@ -2,8 +2,9 @@
 <html lang="es" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<title>Demo interactiva · DEXIAE v2.7.5</title>
+<title>Demo interactiva · DEXIAE v2.8.0</title>
 <link rel="stylesheet" href="assets/tabler/tabler-icons.min.css">
+<link rel="stylesheet" href="revision_lote.css?v=928356ebd1">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 /* El `hidden` del HTML tiene que ganarle a las clases que fijan
@@ -101,6 +102,17 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 .sb-nav{flex:1;padding:8px 0;overflow-y:auto}
 .sb-item{display:flex;align-items:center;gap:9px;padding:9px 14px;cursor:pointer;color:#8b97a8;font-size:13px;font-weight:500;transition:all .13s;border-left:2px solid transparent}
 .sb-item i{font-size:16px;flex-shrink:0;opacity:.6}
+/* Lo que el plan no trae (30/09/2026): marca en el menú y candado en el control */
+.sb-tag{margin-left:auto;font-size:9.5px;font-weight:600;letter-spacing:.03em;border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:0 6px;color:#9aa6b6;display:inline-flex;align-items:center;gap:3px}
+.sb-tag.lock{color:#c79633;border-color:rgba(199,150,51,.4)}
+.sb-tag i{font-size:10px!important;opacity:1!important}
+.ti-lock.cand{font-size:12px;margin-left:5px;color:var(--rev-fg);opacity:1}
+[data-nocap]:not([data-nocap=""]){cursor:pointer}
+.up-body .up-t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--txt3);margin:4px 0 6px}
+.up-body ul{list-style:none;margin:0 0 14px;padding:0}
+.up-body li{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:var(--txt);padding:3px 0}
+.up-body li i{color:var(--ok-fg);margin-top:2px}
+.up-body ul.pro li i{color:var(--teal-l)}
 .sb-item:hover{background:rgba(255,255,255,.03);color:#cbd5e1}
 .sb-item:hover i{opacity:.9}
 .sb-item.active{background:var(--teal-dim);color:#fff;border-left-color:var(--teal)}
@@ -191,7 +203,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 .tb-crumb{display:flex;align-items:center;gap:7px;flex:1}
 .tb-app{font-size:11px;color:var(--txt3)}
 .tb-sep{color:var(--border2);font-size:16px}
-.tb-page{font-size:14px;font-weight:600;color:var(--txt)}
+.tb-page{font-size:14px;font-weight:600;color:#e4e8ef}   /* la barra es oscura también en modo claro */
 .tb-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px}
 .b-ok{background:var(--ok-bg);color:var(--ok-fg);border:1px solid var(--ok-bd)}
 .b-inf{background:var(--dup-bg);color:var(--dup-fg);border:1px solid var(--dup-bd)}
@@ -236,8 +248,6 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 /* STATS */
 .stat{text-align:center;padding:10px 6px;border-radius:6px;border:1px solid;position:relative;overflow:hidden}
 .stat .n{font-size:22px;font-weight:700;line-height:1;transition:transform .2s}
-.stat .n.bump{animation:bump .3s ease}
-@keyframes bump{0%,100%{transform:scale(1)}50%{transform:scale(1.18)}}
 .stat .lbl{font-size:9px;font-weight:700;margin-top:2px;letter-spacing:.6px;text-transform:uppercase;opacity:.8}
 .st-ok{background:var(--ok-bg);border-color:var(--ok-bd);color:var(--ok-fg)}
 .st-dup{background:var(--dup-bg);border-color:var(--dup-bd);color:var(--dup-fg)}
@@ -292,6 +302,13 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 .btn-row{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
 .hist-det-head .btn-row{justify-content:flex-end}
 .btn.sm{padding:4px 9px;font-size:11px}
+/* Un botón apagado se VE apagado, en toda la app (01/10/2026). No había regla
+   general: «Convertir» o «Generar» apagados se veían iguales que prendidos y
+   el clic no hacía nada, sin decir por qué. Sin pointer-events:none, para que
+   el cursor y el title de por qué está apagado sigan andando. */
+.btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed;box-shadow:none;filter:saturate(.6)}
+.btn-primary:disabled:hover{background:var(--teal)}
+.btn-accent:disabled:hover{background:var(--teal-dim);color:var(--teal-l)}
 
 /* FORM */
 .form-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}
@@ -442,6 +459,11 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 #modal-resumen .btn.rep-html:hover,#modal-resumen .btn.rep-pdf:hover{border-color:var(--teal);color:var(--teal-l)}
 #modal-resumen .btn.rep-excel{background:var(--teal);color:#fff;border:1px solid var(--teal)}
 #modal-resumen .btn.rep-excel:hover{background:var(--teal-d)}
+#modal-resumen .btn.rep-excel.sec{background:transparent;color:var(--txt);border:1px solid var(--border2)}
+#modal-resumen .btn.rep-excel.sec:hover{border-color:var(--teal);color:var(--teal-l)}
+.m-rx{margin-top:12px;padding:9px 12px;gap:10px;align-items:flex-start;border-radius:var(--r-sm);background:var(--rev-bg);border:1px solid var(--rev-bd);font-size:12px;color:var(--txt)}
+.m-rx>i{color:var(--rev-fg);font-size:16px;margin-top:1px}
+.m-rx .t span{color:var(--txt2);font-size:11.5px}
 .pv-conf{display:grid;grid-template-columns:84px minmax(0,1fr);column-gap:10px;row-gap:9px;align-items:baseline;
   padding-bottom:12px;margin-bottom:12px;border-bottom:1px solid var(--border)}
 .pv-conf-l{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.4px}
@@ -631,6 +653,16 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 .sb-robot .robot-status{color:#e4e8ef;font-size:13px;font-weight:700;margin-top:10px}
 .sb-robot .robot-sub{color:#7c8a9c;font-size:10px}
 .sb-robot .robot-timer{color:var(--orb,#5b9bef);font-size:11px;font-weight:700;font-family:var(--mono);margin-top:3px}
+/* ⚠️ El menú no se achica por debajo de sus ítems: cede el indicador. Con
+   Analítica (6 ítems) y 1366×768 —el TV del usuario— «Herramientas» quedaba
+   escondido abajo del menú con barra de desplazamiento (30/09/2026). */
+.sb-nav{flex:1 0 auto}
+.sb-robot{flex:0 1 auto;min-height:0;overflow:hidden}
+@media (max-height:820px){
+  .sb-robot{padding:10px 12px 8px}
+  .sb-robot .scan-doc{width:78px;height:84px}
+  .sb-robot .robot-status{margin-top:4px}
+}
 
 .motor-orb{position:relative;width:104px;height:104px;border-radius:50%;display:flex;align-items:center;justify-content:center;--orb:#5b9bef}
 .orb-core{position:relative;z-index:3;width:62px;height:62px;border-radius:50%;display:flex;align-items:center;justify-content:center;
@@ -679,6 +711,10 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 html.anim-pausa *,
 html.anim-pausa *::before,
 html.anim-pausa *::after{animation-play-state:paused !important}
+/* ⚠️ La entrada de cada pantalla (fadeIn, arranca en opacidad 0) NO se pausa:
+   si se cambiaba de pantalla con la ventana sin foco, quedaba en blanco hasta
+   volver a hacer clic (anotado en PLAN_DEMO_WEB.md, arreglado el 30/09/2026). */
+html.anim-pausa .screen.active{animation-play-state:running !important}
 
 /* Quien pide menos movimiento en Windows deja de pagar lo decorativo.
    No se tocan las transiciones de la interfaz: sólo los bucles infinitos. */
@@ -778,7 +814,6 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 .cnt{padding:2px 12px;border-left:1px solid var(--border);min-width:0}
 .cnt:first-child{border-left:none;padding-left:0}
 .cnt .n{font-size:24px;font-weight:800;line-height:1.15;font-variant-numeric:tabular-nums;color:var(--c)}
-.cnt .n.bump{animation:bump .3s ease}
 .cnt .l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt3);
   display:flex;align-items:center;gap:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .cnt .l::before{content:'';width:7px;height:7px;border-radius:50%;background:var(--c);flex-shrink:0}
@@ -1012,6 +1047,42 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 .lab-zona.sel{box-shadow:0 0 0 2px var(--ok-fg);z-index:2}
 .lab-zona.activa{border-color:var(--rev-fg);background:rgba(199,150,51,.18);z-index:3}
 .lab-zona.activa .lz-lbl{background:var(--rev-fg)}
+.lab-zona .lz-x{position:absolute;top:-10px;right:-10px;width:20px;height:20px;border-radius:50%;background:var(--rev-fg);color:#fff;
+  font:700 14px/20px var(--font);text-align:center;cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.35);z-index:5}
+.lab-zona .lz-x:hover{background:var(--err-fg)}
+.lab-zona.leido{border:1.5px solid rgba(37,99,235,.65);background:rgba(37,99,235,.07);cursor:pointer;z-index:1}
+.lab-zona.leido:hover{background:rgba(37,99,235,.16)}
+.lab-zona.leido .lz-lbl{background:#2563EB;display:none}
+.lab-zona.leido:hover .lz-lbl,.lab-zona.leido.sel .lz-lbl{display:block}
+.lab-zona.leido.sel{border:2px solid #2563EB;background:rgba(37,99,235,.18);box-shadow:0 0 0 3px rgba(37,99,235,.2);z-index:3}
+.lab-vis-nota{font-size:11.5px;color:var(--txt2);padding:6px 10px;margin:0 0 6px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--input-bg)}
+.lab-vis-nota[hidden]{display:none}
+.lab-zona.marcado{border:2px dashed var(--teal);background:rgba(37,99,235,.14);z-index:4;pointer-events:none}
+.lab-zona.marcado .lz-lbl{background:var(--teal)}
+/* Laboratorio · marcá el dato y te sugiero (30/09/2026) */
+.lab-sug{position:fixed;right:18px;top:64px;bottom:18px;width:400px;max-width:calc(100vw - 36px);z-index:130;background:var(--card);border:1px solid var(--border2);border-radius:var(--r-lg);box-shadow:0 18px 50px rgba(0,0,0,.45);display:flex;flex-direction:column}
+.lab-sug.izq{left:18px;right:auto}
+.lab-sug .ls-cab{cursor:move}
+.lab-sug .ls-grip{color:var(--txt3);margin-top:2px}
+.lab-sug.arrastrando{opacity:.93;user-select:none}
+.lab-sug[hidden]{display:none}
+.lab-sug .ls-cab{display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-bottom:1px solid var(--border)}
+.lab-sug .ls-cab .v{font-family:var(--mono);font-size:15px;font-weight:600;word-break:break-all}
+.lab-sug .ls-cab .s{font-size:12px;color:var(--txt2)}
+.lab-sug .ls-cuerpo{flex:1;overflow:auto;padding:10px 14px}
+.lab-sug .ls-tit{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--txt3);margin:4px 0 8px}
+.ls-card{border:1px solid var(--border2);border-radius:var(--r);padding:10px 12px;margin-bottom:10px}
+.ls-card.rec{border-color:var(--teal);box-shadow:0 0 0 1px var(--teal) inset}
+.ls-card .t{display:flex;gap:8px;align-items:center;font-weight:600;font-size:12.5px}
+.ls-card .t .n{margin-left:auto;font-size:11px;border-radius:9px;padding:1px 8px;font-weight:600}
+.ls-card .n.todo{background:var(--ok-bg);color:var(--ok-fg)}.ls-card .n.parte{background:var(--rev-bg);color:var(--rev-fg)}.ls-card .n.nada{background:var(--err-bg);color:var(--err-fg)}
+.ls-card .tec{font-family:var(--mono);font-size:11px;color:var(--txt3);margin:3px 0 6px;word-break:break-all}
+.ls-card .por{font-size:11.5px;color:var(--teal-l);margin-bottom:6px}
+.ls-card .adv{font-size:11.5px;color:var(--rev-fg);margin-bottom:6px}
+.ls-res{display:flex;gap:6px;font-size:11.5px;padding:2px 0;align-items:baseline}
+.ls-res .d{color:var(--txt2);flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ls-res .val{font-family:var(--mono);max-width:150px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ls-res.ok i{color:var(--ok-fg)}.ls-res.vacio i,.ls-res.raro i,.ls-res.otro_valor i,.ls-res.otro_lugar i{color:var(--err-fg)}.ls-res.sin_lugar i{color:var(--rev-fg)}
 .lab-zona-draw{position:absolute;border:2px dashed var(--err-fg);background:rgba(207,90,90,.12);box-sizing:border-box;z-index:4;pointer-events:none}
 .lab-editor{flex-shrink:0}
 
@@ -1029,30 +1100,6 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 .tool-card.tc-ghost{background:transparent;border:1.5px dashed var(--border2);box-shadow:none;justify-content:center;text-align:center;align-items:center;color:var(--txt3)}
 .tool-card.tc-ghost .tc-icon{background:transparent;color:var(--txt3);opacity:.6}
 .tool-card.tc-ghost .tc-title{color:var(--txt2)}
-/* Tarjeta destacada (Extracto bancario): mas presencia sin robarle el trono
-   a la extraccion por plantilla — borde teal + badge, mismo tamano de tarjeta */
-.tool-card.tc-star{border:1.5px solid var(--teal-l,#2563EB);box-shadow:0 0 0 1px rgba(61,217,182,.12),0 8px 26px rgba(61,217,182,.08)}
-/* HERO de Extractos — 07/08/2026. Revierte a proposito la decision de arriba
-   ("sin robarle el trono"): el conversor de extractos es el unico camino del
-   producto VALIDADO punta a punta contra un sistema contable real (PDF del
-   banco -> DEXIAE -> Excel -> software de la contadora -> saldo cuadro). Estaba
-   8vo de 10, al lado de "Comprimir PDF". Ahora va primero, a ancho completo y
-   con los 4 pasos a la vista, que es lo que explica el valor sin abrir nada. */
-.tool-card.tc-hero{grid-column:1/-1;flex-direction:row;gap:22px;align-items:stretch;
-  border:1.5px solid var(--teal-l,#2563EB);
-  box-shadow:0 0 0 1px var(--teal-dim),0 10px 30px rgba(0,0,0,.10)}
-.tc-hero-main{flex:1.15;display:flex;flex-direction:column;gap:9px;min-width:0}
-.tc-hero-title{font-size:19px;font-weight:800;color:var(--txt);line-height:1.25}
-.tc-hero-pasos{flex:1;margin:0;padding:15px 17px;list-style:none;background:var(--bg2);
-  border-radius:var(--r);display:flex;flex-direction:column;gap:8px;justify-content:center;min-width:0}
-.tc-hero-pasos li{font-size:12px;color:var(--txt2);line-height:1.45;padding-left:21px;position:relative}
-.tc-hero-pasos li::before{content:'';position:absolute;left:2px;top:6px;width:6px;height:6px;
-  border-radius:50%;background:var(--teal-l,#2563EB)}
-.tc-hero-pasos li b{color:var(--txt);font-weight:700}
-.tc-hero-pro{font-size:9.5px;font-weight:800;letter-spacing:.04em;color:var(--rev-fg);
-  background:var(--rev-bg);border:1px solid var(--rev-bd);padding:1px 6px;border-radius:20px}
-/* En ventana angosta el hero se apila para no comprimir los pasos */
-@media (max-width:880px){.tool-card.tc-hero{flex-direction:column;gap:14px}}
 .tools-subhead{font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
   color:var(--txt3);margin:22px 0 10px}
 /* Nombre de la categoría = botón para editar sus textos. Antes el lápiz iba a
@@ -1086,16 +1133,9 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 .lr-k{color:var(--txt3);font-size:10px;text-transform:uppercase;letter-spacing:.4px;min-width:70px;flex-shrink:0}
 .lr-v{font-family:var(--mono);font-size:12px;color:var(--ok-fg);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
 .lr-v.empty{color:var(--rev-fg);font-weight:400;font-style:italic}
-.hist-analitica{flex-shrink:0}
-.ha-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 24px;margin-top:14px}
-.ha-ct{font-size:10px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:9px}
-.ha-bar-row{display:flex;align-items:center;gap:9px;margin-bottom:7px;font-size:11px}
-.ha-bar-lbl{flex:0 0 96px;color:var(--txt2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.ha-bar-track{flex:1;height:8px;background:var(--input-bg);border-radius:5px;overflow:hidden}
-.ha-bar-fill{display:block;height:100%;border-radius:5px;transition:width .45s ease}
-.ha-bar-val{flex:0 0 40px;text-align:right;font-weight:700;font-family:var(--mono);color:var(--txt)}
-.ha-banner{display:flex;align-items:center;gap:12px;margin-top:12px;padding:11px 14px;border-radius:var(--r);background:var(--teal-dim);border:1px solid var(--ok-bd)}
-.ha-banner i{font-size:26px;color:var(--teal-l)}
+.h-ids-chip{display:inline-flex;align-items:center;gap:6px;align-self:center;font-size:12px;padding:4px 10px;border-radius:14px;background:var(--teal-dim);color:var(--teal-l);border:1px solid var(--border2)}
+.h-ids-chip[hidden]{display:none}
+.h-ids-chip a{cursor:pointer;color:var(--txt2)}
 .hab-lbl{font-size:11px;color:var(--txt2)}
 .hab-val{font-size:20px;font-weight:800;color:var(--teal-l);font-family:var(--mono)}
 .opt-sec-t{font-size:9px;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid var(--border)}
@@ -1240,6 +1280,8 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 .rev-rep-p{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:12px;margin-top:4px}
 @media (max-width:1100px){.rev-final .cajas{grid-template-columns:1fr}.rev-orig{grid-template-columns:150px 1fr 48px}}
 </style>
+<link rel="stylesheet" href="analitica.css?v=faa5de1ad7"><!-- después de los estilos de la app: Analítica (30/09) -->
+<link rel="stylesheet" href="extractos.css?v=62140b9b9e"><!-- módulo Extractos (30/09); usa las tarjetas de Analítica -->
 </head>
 <body>
 <div class="app">
@@ -1272,7 +1314,7 @@ html.anim-pausa *::after{animation-play-state:paused !important}
     </div>
     <div class="sb-badges">
       <span class="sb-badge sentinel" id="sb-edition">SENTINEL</span>
-      <span class="sb-badge ver" id="sb-version">v2.7.5</span>
+      <span class="sb-badge ver" id="sb-version">v2.8.0</span>
     </div>
     <div class="sb-client"><span class="sb-dot"></span><span id="sb-client">Cargando...</span></div>
   </div>
@@ -1289,7 +1331,9 @@ html.anim-pausa *::after{animation-play-state:paused !important}
   </div>
   <nav class="sb-nav">
     <div class="sb-item active" data-s="run" onclick="UI.nav('run')" title="Ejecución"><i class="ti ti-player-play"></i> Ejecución</div>
+    <div class="sb-item" data-s="ext" onclick="UI.nav('ext')" title="Extractos bancarios: del resumen al Excel, clasificado y con el borrador de asientos"><i class="ti ti-building-bank"></i> Extractos</div>
     <div class="sb-item" data-s="hist" onclick="UI.nav('hist')" title="Historial"><i class="ti ti-chart-bar"></i> Historial</div>
+    <div class="sb-item" data-s="ana" onclick="UI.nav('ana')" title="Analítica: qué se repite y dónde conviene actuar"><i class="ti ti-chart-histogram"></i> Analítica</div>
     <div class="sb-item" data-s="lab" onclick="UI.nav('lab')" title="Laboratorio"><i class="ti ti-flask"></i> Laboratorio</div>
     <div class="sb-item" data-s="val" onclick="UI.nav('val')" title="Validación"><i class="ti ti-checklist"></i> Validación</div>
     <div class="sb-item" data-s="tools" onclick="UI.nav('tools')" title="Herramientas"><i class="ti ti-tool"></i> Herramientas</div>
@@ -1464,6 +1508,7 @@ html.anim-pausa *::after{animation-play-state:paused !important}
           <label class="chk-row" title="Agrega al Excel la columna ORIGEN: de qué carpeta o zip salió cada documento (y CARPETA_ORIGEN cuando dice algo distinto). Sirve para agrupar documentos en Validación. Los .zip de la carpeta se abren solos, y si elegís documentos que salieron de un zip, el origen se anota siempre."><input type="checkbox" id="chk-origen"> <i class="ti ti-file-zip chk-ic"></i> Anotar carpeta o zip de origen</label>
           <label class="chk-row" title="Los PDF que son una imagen (escaneados o fotos) no tienen texto, así que ninguna plantilla los reconoce. Con esto se leen con OCR ANTES de clasificar. Tarda unos segundos por página y solo se aplica a esos documentos."><input type="checkbox" id="chk-ocr-clasif" checked> <i class="ti ti-scan chk-ic"></i> Reconocer documentos escaneados <span class="opt-hint">(OCR)</span></label>
           <label class="chk-row"><input type="checkbox" id="chk-validacion" checked onchange="onValidacionChange()"> <i class="ti ti-checklist chk-ic"></i> Validación de datos <span class="opt-hint" id="val-hint-run" onclick="event.preventDefault();UI.nav('val')" style="cursor:pointer" title="Configurar en el módulo Validación"></span></label>
+          <label class="chk-row" title="Al terminar el lote se abre una pantalla con lo que necesita tu criterio (un dato obligatorio vacío, lo que marca una regla…), con el PDF y el dato marcado. Si no hay nada para decidir, el Excel sale directo. Podés seguir después o generarlo como salió."><input type="checkbox" id="chk-revisar-lote" checked onchange="onRevisarLoteChange()"> <i class="ti ti-eye-check chk-ic"></i> Revisar antes de generar el Excel <span class="opt-hint">(sólo si hay algo para decidir)</span></label>
           </div>
         </div>
         <!-- Histórico -->
@@ -1567,7 +1612,7 @@ html.anim-pausa *::after{animation-play-state:paused !important}
         </div>
         <div class="bit-cuerpo">
           <div class="bit-ocultos" id="bit-ocultos" hidden></div>
-          <div class="log-wrap" id="log-wrap" onscroll="UI.logScroll()"></div>
+          <div class="log-wrap" id="log-wrap" onscroll="UI.logScroll()" onwheel="UI._logUsuario()" ontouchstart="UI._logUsuario()" onkeydown="UI._logUsuario()" onmousedown="UI._logUsuario(true)" tabindex="0"></div>
           <div class="bit-vacio" id="bit-vacio">
             <i class="ti ti-player-play"></i><b id="bit-vacio-t">Todavía no corrió ningún lote</b>
             <span id="bit-vacio-s">Elegí la plantilla y apretá «Iniciar extracción»: acá vas a ver cada archivo a medida que se procesa.</span>
@@ -1580,6 +1625,8 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 </section>
 
 <!-- OTRAS PANTALLAS -->
+<!-- Extractos (30/09/2026): la arma ui/extractos.js al entrar -->
+<section class="screen" id="screen-ext"></section>
 <section class="screen" id="screen-hist">
   <!-- Filtros -->
   <div class="card card-sm hist-filtros">
@@ -1594,7 +1641,8 @@ html.anim-pausa *::after{animation-play-state:paused !important}
     <div class="hf-item"><span class="form-label">Validación</span>
       <label style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--txt);height:32px;cursor:pointer;white-space:nowrap"><input type="checkbox" id="h-hallazgos" style="width:16px;height:16px;flex:none" onchange="cargarHistorial()"> Solo con hallazgos</label>
     </div>
-    <button class="btn btn-primary" onclick="cargarHistorial()"><i class="ti ti-search"></i> Buscar</button>
+    <button class="btn btn-primary" onclick="histBuscar()"><i class="ti ti-search"></i> Buscar</button>
+    <span class="h-ids-chip" id="h-ids-chip" hidden></span>
   </div>
 
   <!-- Rastrear un documento en TODO el histórico (responde "¿de qué lote salió
@@ -1623,28 +1671,8 @@ html.anim-pausa *::after{animation-play-state:paused !important}
     <div class="card hist-kpi"><div class="hk-lbl">Duplicados</div><div class="hk-val" id="h-dups">—</div></div>
   </div>
 
-  <!-- Visión Analítica (integrada, desplegable) -->
-  <div class="card card-sm hist-analitica">
-    <div class="card-title" style="margin-bottom:0;cursor:pointer;user-select:none" onclick="histToggleAnalitica()">
-      <i class="ti ti-chart-histogram"></i>Visión Analítica
-      <i class="ti ti-chevron-down" id="ha-chev" style="margin-left:auto"></i>
-    </div>
-    <div id="ha-body" style="display:none">
-      <div class="ha-banner">
-        <i class="ti ti-clock-bolt"></i>
-        <div><div class="hab-lbl">Tiempo de trabajo manual ahorrado <span class="opt-hint">(estimado · 90s/doc)</span></div>
-        <div class="hab-val" id="ha-tiempo">—</div></div>
-      </div>
-      <div class="ha-grid">
-        <div><div class="ha-ct">Volumen por semana</div><div id="ha-semana"></div></div>
-        <div><div class="ha-ct">Documentos por plantilla</div><div id="ha-plantilla"></div></div>
-        <div><div class="ha-ct">Distribución de resultados</div><div id="ha-resultados"></div></div>
-        <div><div class="ha-ct">Por modo de ejecución</div><div id="ha-modo"></div></div>
-        <div id="ha-peritaje-wrap"><div class="ha-ct">Peritaje · firmas</div><div id="ha-peritaje"></div></div>
-      </div>
-    </div>
-  </div>
-
+  <!-- La «Visión Analítica» que vivía acá se sacó (30/09/2026): la analítica
+       es su propio módulo del menú (Analítica). -->
   <!-- Tabla de lotes -->
   <div class="card hist-tabla-card">
     <div class="card-title" style="margin-bottom:8px"><i class="ti ti-history"></i>Lotes ejecutados <span class="opt-hint" id="h-count"></span></div>
@@ -1663,6 +1691,8 @@ html.anim-pausa *::after{animation-play-state:paused !important}
     <div class="hist-tbody" id="h-tbody"></div>
   </div>
 </section>
+<!-- Analítica (30/09/2026): la arma ui/analitica.js al entrar -->
+<section class="screen" id="screen-ana"></section>
 <section class="screen" id="screen-lab">
   <!-- Barra de plantilla -->
   <div class="card card-sm lab-bar">
@@ -1683,6 +1713,8 @@ html.anim-pausa *::after{animation-play-state:paused !important}
     <span style="margin-left:auto; display:flex; gap:6px; align-items:center;">
       <button class="btn btn-ghost sm" onclick="labRecop()" title="Forzar OCR del documento"><i class="ti ti-scan"></i> RECOP</button>
       <button class="btn btn-ghost sm" onclick="labCargarDoc()"><i class="ti ti-file-upload"></i> Cargar documento</button>
+      <button class="btn btn-ghost sm" onclick="labCarpetaPrueba()" title="Documentos del mismo tipo para probar las sugerencias de «marcá el dato» (se leen una vez)"><i class="ti ti-folders"></i> Carpeta de prueba</button>
+      <span class="opt-hint" id="lab-carpeta-chip" hidden></span>
       <button class="btn btn-asis" onclick="labAsistente()" title="Detectar plantillas automáticamente desde PDFs de muestra"><i class="ti ti-wand"></i> Asistente inteligente</button>
     </span>
   </div>
@@ -1820,7 +1852,8 @@ html.anim-pausa *::after{animation-play-state:paused !important}
         <div class="lab-texto" id="lab-texto" onmouseup="labTextoSel()"><div class="hist-empty" style="font-size:12px">Cargá un documento de referencia para ver su texto.</div></div>
       </div>
       <div id="lab-tab-visual" class="lab-tabpane" style="display:none">
-        <div class="lab-vis-hint" id="lab-vis-hint"><i class="ti ti-pointer"></i> Arrastrá sobre el documento para definir una <strong>ZONA</strong> (sirve para escaneados: el dato se lee con OCR adentro del recuadro). Tocá un campo ZONA para resaltarla.</div>
+        <div class="lab-vis-hint" id="lab-vis-hint"><i class="ti ti-pointer"></i><span>Arrastrá sobre un <strong>dato</strong> y DEXIAE te sugiere cómo sacarlo, probado en la referencia y en la carpeta de prueba (una de las formas es <strong>ZONA</strong>: siempre en ese lugar; en un escaneado se lee con OCR). Con <strong>Probar</strong>, cada dato se marca donde lo leyó el motor; tocá un campo (en la lista o en la página) para resaltarlo.</span></div>
+        <div class="lab-vis-nota" id="lab-vis-nota" hidden></div>
         <div class="lab-vis-scroll" id="lab-vis-scroll">
           <div class="lab-vis-wrap" id="lab-vis-wrap">
             <img id="lab-vis-img" alt="" draggable="false">
@@ -1881,33 +1914,10 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 <section class="screen" id="screen-tools">
   <div class="tools-head">
     <div class="th-title">Caja de Herramientas</div>
-    <div class="th-sub">El conversor de extractos bancarios y las utilidades para preparar tus documentos.</div>
+    <div class="th-sub">Las utilidades para preparar tus documentos.</div>
   </div>
-  <div class="tools-grid">
-    <!-- HERO: primero y a ancho completo. Es el camino validado punta a punta
-         con una contadora sobre un extracto real de 28 páginas. -->
-    <div class="tool-card tc-hero">
-      <div class="tc-hero-main">
-        <div class="tc-starrow"><div class="tc-icon"><i class="ti ti-building-bank"></i></div>
-          <!-- El número lo pone busqBancosBadge() desde _PARSERS. Estuvo
-               clavado en "7" y quedó viejo al sumar Mercado Pago: la tarjeta
-               decía 7 mientras la app leía 8. Ver [[verificar-claims-contra-el-camino-real]]. -->
-          <span class="tc-badge" id="tc-bancos-badge">saldos verificados</span></div>
-        <div class="tc-hero-title">Extractos bancarios a Excel y borrador de asientos</div>
-        <div class="tc-desc">Del PDF del banco al Excel, con la cadena de saldos verificada movimiento
-          por movimiento. <b>No gasta tu cupo de documentos en ningún plan.</b></div>
-        <button class="btn btn-primary sm" onclick="extAbrir()"><i class="ti ti-player-play"></i> Ejecutar</button>
-      </div>
-      <ul class="tc-hero-pasos">
-        <li>Detecta el banco y extrae <b>fecha · detalle con CUIT · importe · saldo</b></li>
-        <li>Verifica la <b>cadena de saldos</b> y te marca cualquier desfase</li>
-        <li>Clasifica cada movimiento por categoría <span class="tc-hero-pro">PRO</span></li>
-        <li>Arma el Excel en 3 hojas: <b>Asientos (borrador) · Para importar · Pendientes</b>
-          <span class="tc-hero-pro">PRO</span></li>
-      </ul>
-    </div>
-  </div>
-
+  <!-- El conversor de extractos (la tarjeta destacada que iba acá) es el
+       módulo Extractos desde el 30/09/2026 y se sacó de Herramientas el 01/10. -->
   <div class="tools-subhead">Utilidades de PDF</div>
   <div class="tools-grid">
     <div class="tool-card">
@@ -2034,6 +2044,9 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 /* ===== Drag & drop global ===== */
 #drop-overlay{position:fixed;inset:0;z-index:300;display:none;background:rgba(8,16,34,.84);align-items:center;justify-content:center}
 #drop-overlay.show{display:flex}
+/* En Extractos el cartel es transparente: sólo recibe el «drop»; se ve el recuadro de la pantalla. */
+#drop-overlay.solo-zona{background:transparent}
+#drop-overlay.solo-zona .drop-box{display:none}
 .drop-box{border:2px dashed var(--teal-l);border-radius:18px;background:var(--teal-dim);padding:46px 72px;text-align:center;pointer-events:none}
 .drop-box i{font-size:46px;color:var(--teal-l)}
 .drop-t{font-size:18px;font-weight:700;color:var(--txt);margin-top:10px}
@@ -2068,6 +2081,7 @@ html.anim-pausa *::after{animation-play-state:paused !important}
     <i class="ti ti-lock" style="font-size:28px;color:var(--txt3)"></i>
     <div style="margin-top:8px;color:var(--txt2);font-weight:600">La Validación de datos requiere edición PRO o superior</div>
     <div class="opt-hint" style="margin-top:4px">Actualizá tu licencia para definir reglas de control.</div>
+    <button class="btn btn-ghost sm" style="margin-top:12px" onclick="UI.upsell('validacion')"><i class="ti ti-list-details"></i> Ver qué trae tu plan y qué suma PRO</button>
   </div>
   <div class="val-grid" id="val-body">
     <div class="card">
@@ -2183,14 +2197,19 @@ html.anim-pausa *::after{animation-play-state:paused !important}
         <div class="m-stat-row" id="m-val-row" style="display:none"><span style="color:var(--txt3)"><i class="ti ti-checklist chk-ic"></i> Validación de datos</span><span style="font-weight:600" id="m-val">—</span></div>
         <div class="m-stat-row" id="m-hash-row" style="display:none"><span style="color:var(--txt3)"><i class="ti ti-lock chk-ic"></i> SHA-256 Excel</span><span style="font-weight:600;color:var(--txt2);font-family:var(--mono);font-size:11px" id="m-hash">—</span></div>
       </div>
+      <!-- Revisión asistida: hay casos para decidir (lo llena mostrarResumen). -->
+      <div class="m-rx" id="m-rx" style="display:none"><i class="ti ti-list-check"></i><div class="t"></div></div>
     </div>
     <div class="modal-footer">
-      <!-- Abrir Excel es LA acción: va llena. Los otros dos, con borde. -->
+      <!-- Abrir Excel es LA acción: va llena. Los otros dos, con borde.
+           Con casos para decidir, la acción es «Revisar N casos» y el Excel
+           pasa a ir con borde. -->
       <button class="btn rep-html" id="m-btn-html" onclick="onAbrirHtml()"><i class="ti ti-world"></i> Ver HTML</button>
       <button class="btn rep-pdf" id="m-btn-pdf" onclick="onAbrirPdf()"><i class="ti ti-file-type-pdf"></i> Abrir PDF</button>
       <button class="btn rep-excel" id="m-btn-excel" onclick="onAbrirExcel()">
         <i class="ti ti-file-spreadsheet"></i> Abrir Excel
       </button>
+      <button class="btn btn-primary" id="m-btn-rx" style="display:none" onclick="onRevisarDesdeResumen()"></button>
     </div>
   </div>
 </div>
@@ -2504,61 +2523,8 @@ html.anim-pausa *::after{animation-play-state:paused !important}
 </div>
 
 <!-- MODAL EXTRACTO BANCARIO -->
-<div class="modal-overlay" id="modal-ext">
-  <div class="modal" style="width:560px">
-    <div class="modal-header">
-      <div class="modal-title"><i class="ti ti-building-bank"></i> Extracto bancario → Excel</div>
-      <div class="modal-close" onclick="extCerrar()"><i class="ti ti-x" style="font-size:14px"></i></div>
-    </div>
-    <div class="modal-body">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-        <span class="form-label">Resúmenes bancarios (PDF)</span>
-        <div class="btn-row">
-          <button class="btn btn-ghost sm" onclick="extSeleccionar()"><i class="ti ti-plus"></i> Agregar</button>
-          <button class="btn btn-ghost sm" onclick="extLimpiar()">Limpiar</button>
-        </div>
-      </div>
-      <div class="hr-files" id="ext-list" style="max-height:180px"></div>
-      <div class="opt-hint" id="ext-estado" style="margin-top:8px"></div>
-      <!-- Asientos (PRO): cliente de la contadora + editor de configuración.
-           Va en un bloque propio con borde de acento porque ES una sección, no
-           una fila más del formulario: este botón es la ÚNICA puerta a toda la
-           Configuración Contable (plan de cuentas, categorías, CUITs) y como
-           botón chico y gris al final de la fila no se encontraba. -->
-      <div style="margin-top:12px;padding:10px 12px;background:var(--bg2);
-           border-radius:var(--r-sm);border-left:3px solid var(--teal)">
-        <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-          <span class="form-label" style="min-width:auto;margin:0">Asientos para</span>
-          <select class="form-select" id="ext-cliente" style="flex:1 1 150px;min-width:150px"
-            onchange="extHintCliente()"><option value="">— sin asientos —</option></select>
-          <button class="btn btn-accent" id="ext-cli-btn" onclick="imputAbrir()"
-            title="Plan de cuentas, categorías, CUITs · importar y exportar clientes"><i class="ti ti-settings"></i> Configurar clientes</button>
-        </div>
-        <div class="opt-hint" id="ext-cliente-hint" style="margin-top:6px"></div>
-        <!-- «Revisar antes de generar el Excel» (15/09/2026). No es obligatoria:
-             tildada por defecto y recordada POR CLIENTE. Sin cliente no hay
-             asientos, así que no hay nada que revisar. -->
-        <label class="chk-row" id="ext-rev-row" style="margin-top:9px;align-items:flex-start">
-          <input type="checkbox" id="ext-revisar" checked onchange="extRevisarCambio()" style="margin-top:2px">
-          <span><b style="color:var(--txt)">Revisar antes de generar el Excel</b><br>
-            <span class="opt-hint" id="ext-rev-hint" style="margin:0">Te muestra lo que DEXIAE no pudo decidir y lo corregís ahí. Si no hay nada, genera directo.</span></span>
-        </label>
-      </div>
-      <div id="ext-prog" style="display:none;margin-top:10px">
-        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--txt2);margin-bottom:5px">
-          <span id="ext-prog-lbl">Procesando…</span><span id="ext-prog-n"></span>
-        </div>
-        <div style="height:8px;border-radius:5px;background:var(--border);overflow:hidden">
-          <div id="ext-prog-bar" style="height:100%;width:0%;border-radius:5px;background:var(--teal-l,#2563EB);transition:width .25s"></div>
-        </div>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="extCerrar()">Cerrar</button>
-      <button class="btn btn-primary" id="ext-run" onclick="extProcesar()" disabled><i class="ti ti-table-export"></i> Generar Excel</button>
-    </div>
-  </div>
-</div>
+<!-- El cuadro «Extracto bancario → Excel» (modal-ext) se sacó el 30/09/2026:
+     el conversor es el módulo Extractos (ui/extractos.js). -->
 
 <!-- MODAL CLIENTES DE IMPUTACIÓN (asientos, PRO) -->
 <div class="modal-overlay" id="modal-imput">
@@ -3067,11 +3033,15 @@ html.anim-pausa *::after{animation-play-state:paused !important}
     </div>
     <div class="modal-body">
       <div class="pref-row">
-        <div class="pref-lbl"><b>Tamaño de texto</b><span class="pref-sub">Escala toda la interfaz</span></div>
+        <div class="pref-lbl"><b>Tamaño de texto</b><span class="pref-sub">Escala toda la interfaz · también con Ctrl − / Ctrl + / Ctrl 0</span></div>
         <div class="seg-tam" id="seg-tam">
-          <button data-tam="normal" onclick="prefsSetTam('normal')">Normal</button>
-          <button data-tam="grande" onclick="prefsSetTam('grande')">Grande</button>
-          <button data-tam="muy_grande" onclick="prefsSetTam('muy_grande')">Muy grande</button>
+          <button data-tam="70" onclick="prefsSetTam('70')">70 %</button>
+          <button data-tam="80" onclick="prefsSetTam('80')">80 %</button>
+          <button data-tam="90" onclick="prefsSetTam('90')">90 %</button>
+          <button data-tam="100" onclick="prefsSetTam('100')">100 %</button>
+          <button data-tam="110" onclick="prefsSetTam('110')">110 %</button>
+          <button data-tam="125" onclick="prefsSetTam('125')">125 %</button>
+          <button data-tam="150" onclick="prefsSetTam('150')">150 %</button>
         </div>
       </div>
       <div class="pref-row">
@@ -3148,6 +3118,10 @@ const PY = {
     return Promise.resolve(DEMO[m] ? DEMO[m](...a) : {ok:true});
   }
 };
+// ¿La demo del navegador? Por la marca de pywebview, NUNCA por la ruta: antes se
+// miraba si la ruta decía «demo» y una carpeta «… demo» del usuario dejaba sin
+// el aviso de «¿Abrir?» al terminar (01/10/2026).
+PY.demo = () => !(window.pywebview && window.pywebview.api);
 
 // Demo (solo cuando se abre el HTML directo en un navegador, sin pywebview)
 const DEMO = {
@@ -3268,7 +3242,7 @@ const DEMO = {
     incidente:'DX-260910-A3F7',
     mensaje:'ESTO NO ME CIERRA · DX-260910-A3F7 (demo)',wa_url:'https://wa.me/5493516574188?text=demo'}),
   abrir_url: () => ({ok:true}),
-  actualizacion_estado: () => ({ok:true,actual:'2.7.5',ultima:'2.5.99',hay_nueva:true,
+  actualizacion_estado: () => ({ok:true,actual:'2.8.0',ultima:'2.5.99',hay_nueva:true,
     descarga:'https://getdexiae.com/',notas:'https://getdexiae.com/',
     resumen:'Ejemplo de aviso de versión (demo).',corrige_resultados:true,
     revocada:false,motivo:''}),
@@ -3278,8 +3252,8 @@ const DEMO = {
   exportar_soporte: () => ({ok:true,archivos:14,incidente:'DX-260910-K7QM',
     mensaje:'Diagnóstico exportado (demo) · 14 archivos'}),
   reporte_tecnico_previa: () => ({ok:true,mail:'dexiaesoporte@gmail.com',wa:'5493516574188',
-    estado:{version:'2.7.5',edicion:'TRIAL',sistema:'Windows-11'},
-    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.7.5 · TRIAL · versión de Windows. Nada que te identifique'},
+    estado:{version:'2.8.0',edicion:'TRIAL',sistema:'Windows-11'},
+    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.8.0 · TRIAL · versión de Windows. Nada que te identifique'},
            {clave:'logs',fijo:false,incluido:true,etiqueta:'Registro técnico de los últimos días',detalle:'Es lo que dice qué estaba haciendo el programa cuando falló'},
            {clave:'config',fijo:false,incluido:true,etiqueta:'Plantillas, reglas y preferencias',detalle:'Sin documentos, sin Excel y sin la base de datos'},
            {clave:'equipo',fijo:false,incluido:false,etiqueta:'Identificador de tu equipo',detalle:'Tildalo sólo si el problema es con la licencia o la activación'}]}),
@@ -3356,19 +3330,20 @@ const DEMO = {
         categorias_desconocidas:[],categorias_nuevas:['Cheques debitados'],
         patrones_a_sumar:[{nombre:'Sueldos y haberes',patrones:1}],categorias_ya_estaban:[]}),
   herr_ocr_seleccionar: () => ({ok:true,archivos:[{ruta:'(demo)/escaneo_acta.pdf',nombre:'escaneo_acta.pdf',tipo:'pdf'},{ruta:'(demo)/foto_recibo.jpg',nombre:'foto_recibo.jpg',tipo:'img'}]}),
-  herr_buscar_seleccionar: () => ({ok:true,carpeta:'(demo)/Resoluciones 2026',archivos:34}),
+  // Ejemplo inventado (contratos de alquiler): el mismo de la demo web.
+  herr_buscar_seleccionar: () => ({ok:true,carpeta:'(demo)/Contratos de alquiler',archivos:34}),
   herr_buscar_detener: () => ({ok:true}),
-  busq_indice_estado: () => ({ok:true,paginas:102,archivos:34,mb:0.71}),
+  busq_indice_estado: () => ({ok:true,paginas:212,archivos:34,mb:0.71}),
   busq_indice_borrar: () => ({ok:true}),
   abrir_pdf_en_pagina: () => ({ok:true,pagina:1}),
   herr_buscar_ejecutar: (q) => ({ok:true,termino:q,archivos:34,con_hallazgo:2,total:3,truncado:false,
-    ocr_usado:0,desde_indice:102,cancelado:false,duracion:'0.1s',resultados:[
-      {archivo:'Reso A 1361-2026.pdf',ruta:'(demo)/a.pdf',pagina:1,antes:'VISTO:',
-       linea:`El expediente N* 874-008163/2026 mediante el cual se tramita ${q}`,despues:'solicitada por la agente'},
-      {archivo:'Reso A 1361-2026.pdf',ruta:'(demo)/a.pdf',pagina:3,antes:'Y CONSIDERANDO:',
-       linea:`${q}`,despues:'ARTÍCULO 2*.- DISPÓNGASE a partir de la fecha'},
-      {archivo:'Reso A 0087-2026.pdf',ruta:'(demo)/b.pdf',pagina:2,antes:'',
-       linea:`en los términos de la Ordenanza N* 9807 ${q}`,despues:'y su modificatoria N* 9856'}]}),
+    ocr_usado:0,desde_indice:34,cancelado:false,duracion:'0.1s',resultados:[
+      {archivo:'Contrato local 12.pdf',ruta:'(demo)/a.pdf',pagina:2,antes:'CLÁUSULA CUARTA.- PRECIO.',
+       linea:`El precio se ajustará cada seis meses según ${q}`,despues:'publicado por el organismo oficial.'},
+      {archivo:'Contrato local 12.pdf',ruta:'(demo)/a.pdf',pagina:3,antes:'CLÁUSULA SEXTA.-',
+       linea:`${q}`,despues:'se notificará por escrito con treinta días de anticipación.'},
+      {archivo:'Contrato depósito 07.pdf',ruta:'(demo)/b.pdf',pagina:1,antes:'',
+       linea:`Las partes acuerdan ${q}`,despues:'en los términos de la cláusula anterior.'}]}),
   herr_ocr_ejecutar: (r) => ({ok:true,exitos:(r||[]).length,errores:0,carpeta:'_OCR_DEXIAE_ (demo)',detalle:[]}),
   herr_organizar_abrir: () => ({ok:true,nombre:'contrato_escaneado.pdf',ruta:'(demo)',src:0,total:4,paginas:[0,1,2,3].map(i=>({src:0,idx:i,thumb:''}))}),
   herr_organizar_agregar: () => ({ok:true,src:1,nombre:'anexo.pdf',total:2,paginas:[0,1].map(i=>({src:1,idx:i,thumb:''}))}),
@@ -3684,8 +3659,8 @@ const UI = {
     // CANDADO LÓGICO (igual que el original): si hay proceso corriendo,
     // no se puede navegar a otra pantalla.
     if(STATE.busy && s!=='run'){ UI.toast('Proceso en curso — esperá a que termine','warn'); return; }
-    const P={run:'Ejecución',hist:'Historial',lab:'Laboratorio',val:'Validación',tools:'Herramientas'};
-    const B={run:{t:'Motor activo',c:'b-ok'},hist:{t:'Analítica',c:'b-inf'},lab:{t:'Studio',c:'b-inf'},val:{t:'Reglas',c:'b-inf'},tools:{t:'PRO+',c:'b-ok'}};
+    const P={run:'Ejecución',ext:'Extractos',hist:'Historial',ana:'Analítica',lab:'Laboratorio',val:'Validación',tools:'Herramientas'};
+    const B={run:{t:'Motor activo',c:'b-ok'},ext:{t:'Bancos',c:'b-inf'},hist:{t:'Lotes',c:'b-inf'},ana:{t:'Local',c:'b-inf'},lab:{t:'Studio',c:'b-inf'},val:{t:'Reglas',c:'b-inf'},tools:{t:'PRO+',c:'b-ok'}};
     document.querySelectorAll('.screen').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.sb-item').forEach(x=>x.classList.remove('active'));
     document.getElementById('screen-'+s).classList.add('active');
@@ -3695,9 +3670,11 @@ const UI = {
     const el=document.getElementById('tb-badge');
     el.textContent=b.t;el.className='tb-badge '+b.c;
     if(s==='hist'){ histDefaultDates(); cargarHistorial(); }
+    if(s==='ext' && typeof extInit==='function'){ extInit(); }
+    if(s==='ana' && typeof anaInit==='function'){ anaInit(); }
     if(s==='lab'){ labInit(); }
     if(s==='val'){ valInit(); }
-    if(s==='tools'){ busqBancosBadge(); cmpCargarNiveles(); }
+    if(s==='tools'){ cmpCargarNiveles(); }
     UI.sidebarIndicador(s);
   },
 
@@ -3741,14 +3718,14 @@ const UI = {
     const cajas=document.querySelectorAll('.modal-overlay.show .modal');
     const caja=cajas[cajas.length-1];
     if(!caja) return;
-    const m=caja.getBoundingClientRect();
+    const m=caja.getBoundingClientRect(), k=uiK();
     const alto=el.offsetHeight||48;
-    const hueco=window.innerHeight-m.bottom;             // aire debajo del modal
+    const hueco=(window.innerHeight-m.bottom)*k;         // aire debajo del modal (px de interfaz)
     if(hueco>=alto+24) return;                           // entra abajo: no lo muevo
     const pie=caja.querySelector('.modal-footer');
-    const altoPie=pie?pie.getBoundingClientRect().height:0;
+    const altoPie=pie?pie.getBoundingClientRect().height*k:0;
     // apoyarlo justo por encima del footer, para no tapar Cerrar/Guardar
-    const tope=window.innerHeight-alto-8;                // que no se escape arriba
+    const tope=window.innerHeight*k-alto-8;              // que no se escape arriba
     el.style.bottom=Math.round(Math.min(hueco+altoPie+12,tope))+'px';
   },
 
@@ -3851,6 +3828,26 @@ const UI = {
         else { v.textContent='Sin hallazgos'; v.style.color='var(--ok-fg)'; }
       } else vr.style.display='none';
     }
+    // Revisión asistida: el lote tiene algo para decidir y el tilde está puesto.
+    // ⚠️ No se abre sola (30/09/2026): abrirla tapaba este resumen y pisaba una
+    // revisión minimizada de otro lote. El resumen lo dice y el botón principal
+    // pasa a ser «Revisar N casos»; el Excel ya existe y los trae marcados.
+    const _rv=(d.revision && typeof rxAbrir==='function') ? d.revision : null;
+    STATE.rxLote=_rv ? _rv.lote_id : null;
+    const _mrx=document.getElementById('m-rx'), _mrxb=document.getElementById('m-btn-rx');
+    if(_mrx){
+      _mrx.style.display=_rv?'flex':'none';
+      if(_rv){
+        const _pc=_rv.pendientes-_rv.bloquean;
+        _mrx.querySelector('.t').innerHTML=`<b>${_rv.pendientes} caso${_rv.pendientes===1?'':'s'} para decidir</b>`
+          +(_rv.bloquean?` · ${_rv.bloquean} bloquea${_rv.bloquean===1?'':'n'} el Excel`:'')
+          +(_pc>0?` · ${_pc} para confirmar`:'')
+          +`<br><span>El Excel ya está y los trae marcados «sin revisar». Al terminar la revisión se reemplaza.</span>`;
+      }
+    }
+    if(_mrxb){ _mrxb.style.display=_rv?'':'none';
+      if(_rv) _mrxb.innerHTML=`<i class="ti ti-list-check"></i> Revisar ${_rv.pendientes} caso${_rv.pendientes===1?'':'s'}`; }
+    const _mxl=document.getElementById('m-btn-excel'); if(_mxl) _mxl.classList.toggle('sec', !!_rv);
     document.getElementById('modal-resumen').classList.add('show');
     UI.ultimoLote(d);
     UI.logFin(d);
@@ -3891,7 +3888,9 @@ const UI = {
     const ic=document.getElementById('sd-screen-ic');
     if(s==='run'){ w.classList.remove('screen-mode'); UI.setRobot(STATE._lastRobot||'idle'); return; }
     const M={
-      hist: {ic:'ti-chart-histogram', cls:'r-watch', st:'Analítica',     sub:'Historial de lotes'},
+      ext:  {ic:'ti-building-bank',   cls:'r-watch', st:'Extractos',     sub:'Del banco al Excel'},
+      hist: {ic:'ti-chart-bar',       cls:'r-watch', st:'Historial',     sub:'Lotes ejecutados'},
+      ana:  {ic:'ti-chart-histogram', cls:'r-watch', st:'Analítica',     sub:'Dónde conviene actuar'},
       lab:  {ic:'ti-flask',           cls:'r-scan',  st:'Laboratorio',    sub:'Editor de plantillas'},
       val:  {ic:'ti-checklist',       cls:'r-scan',  st:'Validación',     sub:'Reglas de control'},
       tools:{ic:'ti-tool',            cls:'r-idle',  st:'Herramientas',   sub:'Utilidades de PDF'},
@@ -3926,15 +3925,29 @@ const UI = {
     }
   },
 
-  bump(id) {
-    const el=document.getElementById(id);
-    el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump');
-    setTimeout(()=>el.classList.remove('bump'),350);
-  },
+  // ⚠️ Los contadores CUENTAN hasta el valor nuevo, parejo y sin agrandarse, y
+  // SÓLO el que cambió (30/09/2026, el usuario: «saltan, parece que el sistema
+  // funcionara mal»). Antes cada actualización agrandaba los cinco al 118 %,
+  // también los que seguían igual, y forzaba un recálculo de layout por cada uno.
   setC(id,v){
-    const el=document.getElementById(id); el.textContent=v; UI.bump(id);
+    const el=document.getElementById(id); if(!el) return;
+    const txt=String(v), nuevo=Number(v);
     // En la franja del monitor, un cero va apagado: resalta lo que pasó.
-    const c=el.closest('.cnt'); if(c) c.classList.toggle('cero', String(v)==='0');
+    const c=el.closest('.cnt'); if(c) c.classList.toggle('cero', txt==='0');
+    const prev=(el._val!=null)?el._val:(parseInt(el.textContent,10)||0);
+    if(!Number.isFinite(nuevo) || nuevo===prev || nuevo<prev){ el._val=Number.isFinite(nuevo)?nuevo:null; cancelAnimationFrame(el._raf||0); el.textContent=txt; return; }
+    el._val=nuevo;
+    cancelAnimationFrame(el._raf||0);
+    const t0=performance.now(), dur=Math.min(600, 220+30*(nuevo-prev));
+    const paso=t=>{
+      const k=Math.min(1,(t-t0)/dur), e=1-Math.pow(1-k,3);          // ease-out
+      el.textContent=(k<1)?String(Math.round(prev+(nuevo-prev)*e)):txt;
+      if(k<1) el._raf=requestAnimationFrame(paso);
+    };
+    el._raf=requestAnimationFrame(paso);
+    // con la ventana en segundo plano el navegador no avanza los cuadros: el
+    // número final queda igual
+    setTimeout(()=>{ if(el._val===nuevo) el.textContent=txt; }, dur+80);
   },
 
   actualizarContadores(c) {
@@ -4068,6 +4081,7 @@ const UI = {
     });
     ['sel-plantilla','chk-auto','chk-peritaje','chk-historico',
      'chk-html','chk-pdf','chk-consolidar','chk-subcarpetas','chk-origen','chk-validacion','chk-ocr-clasif',
+     'chk-revisar-lote',     // quedaba suelto con el lote corriendo (visto por el usuario, 30/09)
      'chk-org-recursivo'].forEach(id=>{
       const el=document.getElementById(id); if(el) el.disabled=busy;
     });
@@ -4083,25 +4097,96 @@ const UI = {
   },
 
   // Gating por edición de licencia (igual que el original deshabilita features)
+  // ⚠️ Lo que el plan no trae se VE (con candado) y al tocarlo dice qué trae tu
+  // plan y qué suma PRO (30/09/2026, DEXIAE Contable). Antes quedaba gris y
+  // mudo. Todo sale de las capacidades de la licencia: ningún plan escrito acá.
   aplicarCaps(caps) {
-    const gate=(id, ok, label)=>{
+    caps=caps||{}; UI._caps=caps;
+    const gate=(id, ok, label, func)=>{
       const el=document.getElementById(id); if(!el) return;
       el.disabled = ok===false;
       const lbl=el.closest('label');
-      if(lbl){ lbl.style.opacity = ok===false?'.4':''; lbl.title = ok===false?`${label}: requiere edición superior`:''; }
+      if(lbl){ lbl.style.opacity = ok===false?'.6':''; lbl.title = ok===false?`${label}: no está en tu plan (tocá para ver qué trae)`:'';
+        lbl.dataset.nocap = ok===false ? func : ''; UI._candado(lbl, ok===false); }
     };
-    gate('chk-peritaje', caps.peritaje, 'Peritaje Legal');
-    gate('chk-validacion', caps.validacion, 'Validación de datos');
+    gate('chk-peritaje', caps.peritaje, 'Peritaje legal', 'peritaje');
+    gate('chk-validacion', caps.validacion, 'Validación de datos', 'validacion');
     // Autodetección: el control real es el botón del segmented
     const sa=document.getElementById('seg-fuente-auto');
     if(sa){
       const ok=caps.deteccion_auto!==false;
-      sa.style.pointerEvents = ok?'':'none';
-      sa.style.opacity = ok?'':'.4';
-      sa.title = ok?'':'Detección automática: requiere edición PRO o SENTINEL';
+      sa.style.pointerEvents = '';
+      sa.style.opacity = ok?'':'.6';
+      sa.title = ok?'':'Detección automática: no está en tu plan (tocá para ver qué trae)';
+      sa.dataset.nocap = ok?'':'deteccion_auto'; UI._candado(sa, !ok);
     }
     const bc=document.getElementById('btn-cent');
-    if(bc) bc.dataset.nocap = caps.centinela===false ? '1' : '';
+    if(bc){ bc.dataset.nocap = caps.centinela===false ? 'centinela' : ''; UI._candado(bc, caps.centinela===false); }
+    const ba=document.querySelector('.btn-asis');
+    if(ba){ ba.dataset.nocap = caps.deteccion_auto===false ? 'asistente' : ''; UI._candado(ba, caps.deteccion_auto===false); }
+    // En el menú: el módulo que el plan no trae, con candado; la extracción de
+    // prueba (un cupo chico para probar antes de pasar a PRO), con su marca.
+    UI._tagMenu('val', caps.validacion===false ? 'PRO' : '', true);
+    UI._tagMenu('run', caps.extraccion_prueba ? 'prueba' : '', false);
+  },
+  // Con la extracción de documentos sólo de prueba (DEXIAE Contable), lo
+  // principal del plan es Extractos: la app arranca ahí. Sólo si está en
+  // Ejecución y no hay nada corriendo: nunca saca a alguien de donde está.
+  _inicioPorPlan(caps) {
+    if(!(caps||{}).extraccion_prueba || STATE.busy) return;
+    const act=document.querySelector('.screen.active');
+    if(!act || act.id==='screen-run') UI.nav('ext');
+  },
+  _candado(el, on){
+    let i=el.querySelector(':scope > .ti-lock.cand');
+    if(on && !i){ i=document.createElement('i'); i.className='ti ti-lock cand'; el.appendChild(i); }
+    else if(!on && i) i.remove();
+  },
+  _tagMenu(s, txt, candado){
+    const it=document.querySelector(`.sb-item[data-s="${s}"]`); if(!it) return;
+    let t=it.querySelector('.sb-tag');
+    if(!txt){ if(t) t.remove(); return; }
+    if(!t){ t=document.createElement('span'); it.appendChild(t); }
+    t.className='sb-tag'+(candado?' lock':'');
+    t.innerHTML=(candado?'<i class="ti ti-lock"></i>':'')+txt;
+    t.title=candado?'No está en tu plan':'Cupo de prueba: para probar antes de pasar a PRO';
+  },
+  // Qué trae el plan y qué suma PRO, a partir de las capacidades de la licencia.
+  upsell(func){
+    const c=UI._caps||{}, ed=((document.getElementById('sb-edition')||{}).textContent||'').trim();
+    const NOM={deteccion_auto:'La Detección automática', asistente:'El Asistente inteligente',
+               centinela:'El Centinela', peritaje:'El peritaje de firmas', validacion:'La Validación de datos'};
+    const trae=[];
+    if(c.imputacion) trae.push('Extractos bancarios con clasificación y borrador de asientos, sin límite');
+    trae.push('Conversor de extractos y herramientas PDF, sin límite');
+    if(c.max_lote) trae.push(`Extracción de documentos: ${Number(c.max_lote).toLocaleString('es-AR')} por mes${c.extraccion_prueba?', para probar':''}`);
+    trae.push('Historial y Analítica');
+    let m=document.getElementById('modal-upsell');
+    if(!m){ m=document.createElement('div'); m.id='modal-upsell'; m.className='modal-overlay';
+      m.onclick=ev=>{ if(ev.target===m) m.classList.remove('show'); }; document.body.appendChild(m); }
+    // Clasificación y asientos: están en Contable y en PRO (30/09/2026).
+    const imp=(func==='imputacion');
+    const suma=imp
+      ? `<div class="up-t">Con DEXIAE Contable o PRO se suma</div>
+        <ul class="pro"><li><i class="ti ti-plus"></i>Cada movimiento clasificado por categoría, con tus reglas</li>
+          <li><i class="ti ti-plus"></i>Borrador de asientos con el plan de cuentas de cada cliente, listo para importar</li>
+          <li><i class="ti ti-plus"></i>Revisar antes de generar: corregís lo que DEXIAE no pudo decidir y lo aprende</li></ul>`
+      : `<div class="up-t">Con PRO se suma</div>
+        <ul class="pro"><li><i class="ti ti-plus"></i>Detección automática de plantillas y Asistente inteligente</li>
+          <li><i class="ti ti-plus"></i>Centinela: vigila una carpeta y procesa solo</li>
+          <li><i class="ti ti-plus"></i>Peritaje de firmas y Validación de datos</li>
+          <li><i class="ti ti-plus"></i>Más documentos por mes</li></ul>`;
+    m.innerHTML=`<div class="modal" style="width:520px">
+      <div class="modal-header"><div class="modal-title"><i class="ti ti-lock"></i>${imp?'La clasificación y los asientos están en DEXIAE Contable y PRO':_he(NOM[func]||'Esta función')+' es de DEXIAE PRO'}</div>
+        <div class="modal-close" onclick="document.getElementById('modal-upsell').classList.remove('show')"><i class="ti ti-x" style="font-size:14px"></i></div></div>
+      <div class="modal-body up-body">
+        <div class="up-t">Tu plan ${_he(ed)} incluye</div>
+        <ul>${trae.map(x=>`<li><i class="ti ti-check"></i>${_he(x)}</li>`).join('')}</ul>
+        ${suma}
+      </div>
+      <div class="modal-footer"><button class="btn btn-ghost" onclick="document.getElementById('modal-upsell').classList.remove('show')">Cerrar</button>
+        <button class="btn btn-primary" onclick="document.getElementById('modal-upsell').classList.remove('show');licCambiar()"><i class="ti ti-key"></i> Cambiar de licencia</button></div></div>`;
+    m.classList.add('show');
   },
 
   _startTimer(){
@@ -4255,6 +4340,11 @@ const UI = {
     }
     UI._logCuenta();
     UI._logVacio();
+    UI._logSeguir(w);
+  },
+  // Baja la bitácora con lo que llega, salvo que el usuario haya subido a leer.
+  _logSeguir(w){
+    w=w||document.getElementById('log-wrap');
     // Si el usuario subió a leer, NO se lo baja de un tirón: aparece «Ir al final».
     if(UI._logPegado===false){ const f=document.getElementById('bit-final'); if(f) f.hidden=false; return; }
     // ⚠️ EL SCROLL VA COALESCIDO, NO EN CADA LÍNEA.
@@ -4304,6 +4394,7 @@ const UI = {
     w.appendChild(r);
     const d={n,el:r,nombre,lineas:[],estado:null};
     UI._bx.docs[n]=d; UI._bx.actual=d;
+    UI._logSeguir(w);          // la fila del documento nuevo también baja la lista
     return d;
   },
   _docLinea(d,l){
@@ -4422,10 +4513,24 @@ const UI = {
   // ¿Está mirando el final? Se mide sólo cuando el usuario (o el scroll
   // automático) mueve la lista: leer scrollHeight en cada línea costaba caro.
   _logPegado:true,
+  // ⚠️ (29/09/2026) SÓLO EL USUARIO DESPEGA LA BITÁCORA. Antes cualquier evento
+  // de scroll que no estuviera al final la despegaba, y con el ritmo del motor
+  // (≈21 líneas por documento casi juntas) la lista crecía entre el scroll
+  // automático y su evento: se despegaba sola en medio segundo y no bajaba
+  // más (medido: 4.252 px lejos del final con 120 documentos). Ahora despega
+  // sólo si hubo rueda, toque, tecla o la barra agarrada en el último segundo.
+  _logUsuarioT:0, _logArrastre:false,
+  _logUsuario(arrastre){
+    UI._logUsuarioT=Date.now();
+    if(arrastre){ UI._logArrastre=true;
+      window.addEventListener('mouseup',()=>{ UI._logArrastre=false; },{once:true}); }
+  },
   logScroll(){
     const w=document.getElementById('log-wrap');
-    UI._logPegado = w.scrollTop + w.clientHeight >= w.scrollHeight - 24;
-    if(UI._logPegado){ const f=document.getElementById('bit-final'); if(f) f.hidden=true; }
+    if(w.scrollTop + w.clientHeight >= w.scrollHeight - 24){
+      UI._logPegado=true; const f=document.getElementById('bit-final'); if(f) f.hidden=true; return;
+    }
+    if(UI._logArrastre || Date.now()-UI._logUsuarioT < 1200) UI._logPegado=false;
   },
   logAlFinal(){
     const w=document.getElementById('log-wrap'); w.scrollTop=w.scrollHeight;
@@ -4879,6 +4984,10 @@ async function onOrganizarAplicar(){
   if(ok && r.destino && r.destino.indexOf('(demo)')<0) PY.call('abrir_path',r.destino);
 }
 function onPeritajeChange(){ PY.call('set_peritaje',document.getElementById('chk-peritaje').checked); }
+function onRevisarLoteChange(){
+  const chk=document.getElementById('chk-revisar-lote');
+  PY.call('set_revisar_lote',chk.checked).then(r=>{ if(r&&r.ok===false){ chk.checked=!chk.checked; UI.toast(r.error||'No se pudo guardar','warn'); } });
+}
 function onValidacionChange(){
   const chk=document.getElementById('chk-validacion');
   PY.call('set_validacion',chk.checked).then(r=>{
@@ -4912,6 +5021,7 @@ function onIniciar(){
                (r.zips.avisos||[]).length?'warn':'info');
       if((r.zips.avisos||[]).length) UI.toast(r.zips.avisos.slice(0,3).join(' · '),'warn');
     }
+    if(r.salidas_dexiae) UI.toast(`📄 ${r.salidas_dexiae} informe(s) de DEXIAE de un lote anterior no se procesan (están junto a su Excel).`,'info');
     UI.openPrevuelo(r);
   }).catch(e=>{console.error(e);UI.toast('Error preparando lote','err');});
 }
@@ -5003,7 +5113,15 @@ function onDetenerCentinela(){
 }
 // Detener lote (extracción manual)
 function onDetener(){
-  PY.call('detener').then(()=>{
+  // ⚠️ No se pasa a «Listo» si el lote sigue vivo: el motor termina el
+  // documento en curso y recién ahí manda «idle» (antes se habilitaba Iniciar
+  // con el lote viejo corriendo; auditoría 29/09/2026).
+  PY.call('detener').then(r=>{
+    if(r&&r.deteniendo){
+      UI.actualizarEstadoProceso({estado:'stopping',progreso:0});
+      UI.toast('Deteniendo: termina el documento en curso','warn');
+      return;
+    }
     UI.actualizarEstadoProceso({estado:'idle',progreso:0});
     UI.setRobot('stop');
     UI.toast('Proceso detenido','warn');
@@ -5012,6 +5130,14 @@ function onDetener(){
 // (Reprocesar _REVISAR_ removido por decisión de UX — backend contar_revisar/
 //  reprocesar_revisar quedan dormidos por si se reintroduce con otro flujo.)
 function onLimpiarLog(){ PY.call('limpiar_consola').then(()=>UI.limpiarLog()); }
+// «Revisar N casos» del resumen: cierra el resumen (sin abrir la carpeta: el
+// Explorer taparía la revisión) y abre la revisión de ESE lote.
+function onRevisarDesdeResumen(){
+  const id=STATE.rxLote;
+  document.getElementById('modal-resumen').classList.remove('show');
+  try{ PY.call('resumen_cerrado', false); }catch(e){}
+  if(id!=null && typeof rxAbrir==='function') rxAbrir(id);
+}
 function onAbrirExcel(){ if(STATE.rep&&!STATE.rep.excel){ UI.toast('No se generó el Excel en este lote','warn'); return; } PY.call('abrir_excel').then(r=>{ if(r&&!r.ok)UI.toast(r.error||'No se pudo abrir','warn'); else UI.closeModal(); }); }
 function onAbrirHtml(){ if(STATE.rep&&!STATE.rep.html){ UI.toast('No se generó el reporte HTML en este lote','warn'); return; } PY.call('abrir_html').then(r=>{ if(r&&!r.ok)UI.toast(r.error||'No se pudo abrir el HTML','warn'); }); }
 function onAbrirPdf(){ if(STATE.rep&&!STATE.rep.pdf){ UI.toast('No se generó el reporte PDF en este lote','warn'); return; } PY.call('abrir_pdf').then(r=>{ if(r&&!r.ok)UI.toast(r.error||'No se pudo abrir el PDF','warn'); }); }
@@ -5024,7 +5150,15 @@ function histDefaultDates(){
   if(dd&&!dd.value) dd.value=f(hace30);
   if(dh&&!dh.value) dh.value=f(hoy);
 }
+// «Ver en Historial» desde Analítica deja en STATE.histIds los lotes a
+// mostrar (de cualquier fecha). Buscar o la ✕ del chip vuelven a lo normal.
+function histBuscar(){ STATE.histIds=null; STATE.histIdsDe=null; cargarHistorial(); }
 function cargarHistorial(){
+  const ids=(STATE.histIds&&STATE.histIds.length)?STATE.histIds:null;
+  if(ids){ document.getElementById('h-plantilla').value='Todas'; document.getElementById('h-modo').value='Todos'; document.getElementById('h-hallazgos').checked=false; }
+  const chip=document.getElementById('h-ids-chip');
+  const _de=STATE.histIdsDe||'Analítica';
+  if(chip){ chip.hidden=!ids; if(ids) chip.innerHTML=`<i class="ti ${_de==='Extractos'?'ti-building-bank':'ti-chart-histogram'}"></i> ${ids.length} lote${ids.length===1?'':'s'} desde ${_he(_de)} <a onclick="histBuscar()" title="Volver a la búsqueda por fechas">✕</a>`; }
   const filtros={
     desde:document.getElementById('h-desde').value,
     hasta:document.getElementById('h-hasta').value,
@@ -5032,6 +5166,7 @@ function cargarHistorial(){
     modo:document.getElementById('h-modo').value,
     solo_con_hallazgos:!!document.getElementById('h-hallazgos').checked,
   };
+  if(ids) filtros.ids=ids;
   const tb=document.getElementById('h-tbody');
   tb.innerHTML='<div class="hist-empty">Cargando…</div>';
   PY.call('historial_datos',filtros).then(r=>{
@@ -5046,85 +5181,7 @@ function cargarHistorial(){
     sel.innerHTML='<option>Todas</option>'+(r.plantillas||[]).map(p=>`<option>${p}</option>`).join('');
     sel.value=(r.plantillas||[]).includes(cur)?cur:'Todas';
     histRenderLotes(r.lotes||[]);
-    histRenderAnalitica(r.analitica);
   });
-}
-function histBars(el, items){
-  if(!el) return;
-  const max=Math.max(1, ...items.map(i=>i.value||0));
-  el.innerHTML = items.length ? items.map(i=>{
-    const w=Math.round((i.value||0)/max*100);
-    return `<div class="ha-bar-row"><span class="ha-bar-lbl" title="${i.label}">${i.label}</span>`+
-      `<span class="ha-bar-track"><span class="ha-bar-fill" style="width:${w}%;background:${i.color||'var(--teal)'}"></span></span>`+
-      `<span class="ha-bar-val">${i.value||0}</span></div>`;
-  }).join('') : '<div class="hist-empty" style="padding:8px;font-size:11px">Sin datos</div>';
-}
-function histLineChart(el, points){
-  if(!el) return;
-  if(!points.length){ el.innerHTML='<div class="hist-empty" style="padding:8px;font-size:11px">Sin datos</div>'; return; }
-  const W=460,H=150,pl=34,pr=10,pt=12,pb=24;
-  const iw=W-pl-pr, ih=H-pt-pb;
-  const maxV=Math.max(1,...points.map(p=>p.value||0));
-  const nice=(v)=>{const s=[1,2,5,10,20,25,50,100,200,250,500,1000];for(const n of s){if(v<=n*4)return n;}return Math.ceil(v/4/1000)*1000;};
-  const step=nice(maxV), top=Math.ceil(maxV/step)*step||step;
-  const X=i=>pl+(points.length===1?iw/2:iw*i/(points.length-1));
-  const Y=v=>pt+ih-(v/top)*ih;
-  // grid + eje Y
-  let grid='',ylab='';
-  for(let v=0; v<=top; v+=step){ const y=Y(v);
-    grid+=`<line x1="${pl}" y1="${y.toFixed(1)}" x2="${W-pr}" y2="${y.toFixed(1)}" stroke="var(--border)" stroke-width="1" ${v===0?'':'stroke-dasharray="3 4"'}/>`;
-    ylab+=`<text x="${pl-6}" y="${(y+3).toFixed(1)}" text-anchor="end" font-size="9" fill="var(--txt3)">${v}</text>`;
-  }
-  const linePts=points.map((p,i)=>`${X(i).toFixed(1)},${Y(p.value||0).toFixed(1)}`);
-  const area=`M ${X(0).toFixed(1)},${Y(0).toFixed(1)} L `+linePts.join(' L ')+` L ${X(points.length-1).toFixed(1)},${Y(0).toFixed(1)} Z`;
-  const line='M '+linePts.join(' L ');
-  const dots=points.map((p,i)=>`<circle cx="${X(i).toFixed(1)}" cy="${Y(p.value||0).toFixed(1)}" r="3" fill="var(--teal-l,#2563EB)"><title>${_he(p.label)}: ${p.value||0}</title></circle>`).join('');
-  const every=Math.ceil(points.length/8);
-  const xlab=points.map((p,i)=> (i%every===0||i===points.length-1)?`<text x="${X(i).toFixed(1)}" y="${H-7}" text-anchor="middle" font-size="9" fill="var(--txt3)">${_he(p.label)}</text>`:'').join('');
-  el.innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" style="width:100%;height:auto;display:block">
-    <defs><linearGradient id="haGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="var(--teal-l,#2563EB)" stop-opacity="0.30"/>
-      <stop offset="100%" stop-color="var(--teal-l,#2563EB)" stop-opacity="0.02"/></linearGradient></defs>
-    ${grid}${ylab}
-    <path d="${area}" fill="url(#haGrad)"/>
-    <path d="${line}" fill="none" stroke="var(--teal-l,#2563EB)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
-    ${dots}${xlab}
-  </svg>`;
-}
-function histRenderAnalitica(a){
-  if(!a){ return; }
-  histLineChart(document.getElementById('ha-semana'),
-    (a.por_semana||[]).map(s=>({label:(s.semana||'').replace(/^\d+-W/,'s'),value:s.total||0})));
-  histBars(document.getElementById('ha-plantilla'),
-    (a.por_plantilla||[]).slice(0,6).map(p=>({label:p.plantilla||'—',value:p.total||0,color:'var(--dup-fg)'})));
-  histBars(document.getElementById('ha-modo'),
-    (a.por_modo||[]).map(x=>({label:x.modo||'—',value:x.total||0,color:'var(--teal)'})));
-  const tmin=a.tiempo_ahorrado_min||0, th=document.getElementById('ha-tiempo');
-  if(th) th.textContent = tmin>=60 ? `${Math.floor(tmin/60)} h ${tmin%60} min` : `${tmin} min`;
-  const r=a.resultados||{};
-  // ALERTA LEGAL va SIEMPRE, aunque sea 0: es un bucket excluyente del motor, así
-  // que si falta, las barras no suman el total de documentos y un lote con firma
-  // alterada desaparece del gráfico. Mismo olvido que ya hubo en el modal de
-  // cierre y en el mini visor — acá era el tercero.
-  histBars(document.getElementById('ha-resultados'),[
-    {label:'OK',value:r.ok||0,color:'var(--ok-fg)'},
-    {label:'Duplicados',value:r.dup||0,color:'var(--dup-fg)'},
-    {label:'Revisar',value:r.rev||0,color:'var(--rev-fg)'},
-    {label:'Alerta legal',value:r.alerta||0,color:'var(--err-fg)'},
-    {label:'Error',value:r.err||0,color:'var(--err-fg)'}]);
-  const pe=a.peritaje||{}, pw=document.getElementById('ha-peritaje-wrap');
-  if(((pe.digital||0)+(pe.manuscrita||0)+(pe.alerta||0))>0){
-    pw.style.display='';
-    histBars(document.getElementById('ha-peritaje'),[
-      {label:'Firma digital',value:pe.digital||0,color:'var(--ok-fg)'},
-      {label:'Manuscrita',value:pe.manuscrita||0,color:'var(--dup-fg)'},
-      {label:'Alerta firma',value:pe.alerta||0,color:'var(--err-fg)'}]);
-  } else { pw.style.display='none'; }
-}
-function histToggleAnalitica(){
-  const b=document.getElementById('ha-body'), c=document.getElementById('ha-chev');
-  const open=b.style.display==='none'; b.style.display=open?'block':'none';
-  c.className='ti '+(open?'ti-chevron-up':'ti-chevron-down');
 }
 // Formatea una fecha ISO ("2026-06-21T10:00:00") a formato argentino DD/MM/AAAA HH:MM.
 function fmtFechaAR(iso){
@@ -5182,6 +5239,8 @@ function histPlantillaCell(l){
 function histValCell(l){
   const est=String(l.validacion_estado||'').toUpperCase();
   const n=l.validacion_hallazgos||0;
+  // Un control pedido que no pudo correr: no es «sin validación» (29/09/2026).
+  if(est==='ERROR') return `<span class="hval hval-warn" style="color:var(--err,#dc2626)" title="La validación estaba activa pero no se pudo ejecutar: el Excel salió sin esos controles">ERROR</span>`;
   if(est==='CON_HALLAZGOS'||n>0){
     const set=l.validacion_set?(' · set: '+l.validacion_set):'';
     return `<span class="hval hval-warn" title="${n} hallazgo(s) de validación${_he(set)}">${n}</span>`;
@@ -5406,7 +5465,9 @@ function histToggleDetalle(lote,row,det){
         ? `<button class="btn btn-ghost sm" onclick="histRevisarDeNuevo(${lote.id},event)" `+
           `title="Vuelve a leer los resúmenes de este lote con tu configuración de hoy. Si generás, se reemplaza su Excel">`+
           `<i class="ti ti-list-check"></i> Revisar de nuevo</button>`
-        : '')+
+        : `<button class="btn btn-ghost sm" onclick="rxDesdeHistorial(${lote.id},event)" `+
+          `title="Lo que necesita tu criterio en este lote, con el PDF y el dato marcado. Al generar, se reemplaza su Excel">`+
+          `<i class="ti ti-eye-check"></i> Revisar</button>`)+
       `<button class="btn btn-ghost sm" onclick="dudaAbrir(${lote.id},event)" `+
         `title="El resultado de esta corrida no es el que esperabas: armá un archivo con tu configuración para que lo revisemos">`+
         `<i class="ti ti-message-report"></i> Esto no me cierra</button>`+
@@ -5529,7 +5590,9 @@ async function labLimpiar(){
   const res=document.getElementById('lab-result'); if(res){ res.style.display='none'; LAB._probarVisible=false; }
   // Visor Modo Visual: limpiar SIEMPRE (no solo si la pestaña activa es visual),
   // si no, el render de la página anterior queda fantasma.
-  LAB.visScale=null; LAB._formCoords=null;
+  LAB.visScale=null; LAB._formCoords=null; LAB._marca=null; LAB._leidos=null; LAB._leidoSel=null;
+  { const _vn=document.getElementById('lab-vis-nota'); if(_vn) _vn.hidden=true; }
+  { const _ls=document.getElementById('lab-sug'); if(_ls) _ls.hidden=true; }
   const vimg=document.getElementById('lab-vis-img'); if(vimg){ vimg.removeAttribute('src'); }
   const vwrap=document.getElementById('lab-vis-wrap'); if(vwrap){ vwrap.style.display='none'; }
   const vov=document.getElementById('lab-vis-overlay'); if(vov){ vov.querySelectorAll('.lab-zona,.lab-zona-draw').forEach(e=>e.remove()); }
@@ -5610,6 +5673,9 @@ function labEsColumna(e){
   return lista.indexOf(e)>=0;
 }
 function labStratChange(){
+  // Elegir otra estrategia descarta la zona dibujada para el campo nuevo: si no,
+  // el recuadro quedaba en la página sin pertenecer a nada.
+  if(labV('lab-strat')!=='ZONA' && LAB._formCoords){ LAB._formCoords=null; if(LAB.tab==='visual') labRenderZonas(); }
   // «Puede faltar» sólo tiene sentido en una columna de tabla.
   const _opc=document.getElementById('lab-opc-row');
   if(_opc){
@@ -5664,9 +5730,9 @@ function labAdjMenu(ev){
     +`<i class="ti ti-file-text"></i> ${_he(a)}</button>`).join('');
   pop.innerHTML=html;
   pop.style.display='flex';
-  const r=ev.currentTarget.getBoundingClientRect();
-  pop.style.left=Math.min(r.left, window.innerWidth-pop.offsetWidth-10)+'px';
-  pop.style.top=(r.bottom+6)+'px';
+  const r=ev.currentTarget.getBoundingClientRect(), k=uiK();
+  pop.style.left=Math.min(r.left*k, window.innerWidth*k-pop.offsetWidth-10)+'px';
+  pop.style.top=(r.bottom*k+6)+'px';
 }
 function labVerAdjunto(nombre){
   document.getElementById('lab-adjpop').style.display='none';
@@ -5726,9 +5792,9 @@ function labCompAbrir(ev){
   ev.stopPropagation();
   const pop=document.getElementById('lab-comp-pop'); if(!pop) return;
   if(pop.style.display==='flex'){ pop.style.display='none'; return; }
-  const r=ev.currentTarget.getBoundingClientRect();
-  pop.style.left=Math.max(8,Math.min(r.left,innerWidth-340))+'px';
-  pop.style.top=(r.bottom+4)+'px';
+  const r=ev.currentTarget.getBoundingClientRect(), k=uiK();
+  pop.style.left=Math.max(8,Math.min(r.left*k,innerWidth*k-340))+'px';
+  pop.style.top=(r.bottom*k+4)+'px';
   pop.style.display='flex';
   const q=document.getElementById('lab-comp-q'); q.value=''; labCompFiltrar(); q.focus();
 }
@@ -5912,6 +5978,21 @@ function labPreviewCampo(c){
   if(!c)return;
   if(c.estrategia==='ZONA'){ labTab('visual'); labRenderZonas(); return; }
   if(!LAB._texto)return;
+  // ⚠️ En Modo Visual se queda en Modo Visual y el dato se marca en la página
+  // (30/09/2026: «sólo en modo texto me lo selecciona»). La marca es donde
+  // leyó el motor; si la estrategia no lo sabe, se dice, no se inventa.
+  if(LAB.tab==='visual' && LAB.doc){
+    if(labEsCara(c)){ labRenderZonas(); return; }
+    PY.call('lab_probar',[c]).then(r=>{
+      const f=(r&&r.ok&&r.filas&&r.filas[0])||null;
+      LAB._leidoSel=f?{doc:LAB.doc,fila:f}:null; labRenderZonas();
+      if(!f) return;
+      if(!f.valor) UI.toast(`${f.columna}: no encontró nada en este documento`,'warn');
+      else if(!(f.cajas||[]).length) UI.toast(`${f.columna}: leyó «${f.valor}», pero esta estrategia no dice dónde`,'info');
+      else if(!f.cajas.some(k=>k.pagina===LAB._visPag)) UI.toast(`${f.columna}: está en la página ${f.cajas[0].pagina}`,'info');
+    });
+    return;
+  }
   labTab('texto');
   // ⚠️ Seleccionar un campo es un CLICK, y un click no puede costar 11
   // segundos. Con una estrategia cara se muestra el texto sin resaltar el
@@ -5932,6 +6013,111 @@ function labAnclaToggle(){ const on=document.getElementById('lab-anc').checked; 
 function labAnclaModo(m){ LAB.anclaModo=m; document.querySelectorAll('#lab-anc-modo .seg-btn').forEach(b=>b.classList.toggle('active',b.dataset.am===m)); }
 function labTab(t){ document.querySelectorAll('.lab-tab').forEach(b=>b.classList.toggle('active',b.dataset.t===t)); document.getElementById('lab-tab-texto').style.display=t==='texto'?'flex':'none'; document.getElementById('lab-tab-visual').style.display=t==='visual'?'flex':'none'; LAB.tab=t; if(t==='visual'){ if(LAB.doc && LAB._visPag!==(LAB.pag||1)) labRenderVisual(); else labRenderZonas(); } }
 // ----- Modo Visual: render de página + zonas -----
+// ── Laboratorio · marcá el dato y te sugiero cómo sacarlo (30/09/2026) ────────
+// Arrastrar sobre la página ya no dibuja una ZONA a secas: DEXIAE arma las
+// formas de sacar lo marcado y las PRUEBA con el motor en la referencia y en la
+// carpeta de prueba. «Siempre en este lugar» (ZONA) es una de ellas. «Usar
+// esta» llena el editor de siempre: el campo se agrega como siempre.
+async function labCarpetaPrueba(){
+  const r=await PY.call('lab_carpeta_prueba');
+  if(!r||r.cancelled) return;
+  if(!r.ok){ UI.toast(r.error||'No se pudo leer la carpeta','warn'); return; }
+  LAB.carpeta=r; labCarpetaChip();
+  UI.toast(`Carpeta de prueba: ${r.documentos} documento(s)`+(r.tope?` (de ${r.total}: se leen los primeros ${r.tope})`:''),'ok');
+}
+async function labCarpetaQuitar(ev){ if(ev)ev.stopPropagation(); await PY.call('lab_carpeta_quitar'); LAB.carpeta=null; labCarpetaChip(); }
+function labCarpetaChip(){
+  const c=document.getElementById('lab-carpeta-chip'); if(!c) return;
+  const r=LAB.carpeta;
+  c.innerHTML=r?`<i class="ti ti-folders"></i> ${_he(r.carpeta)} · ${r.documentos} doc. <a onclick="labCarpetaQuitar(event)" title="Quitar la carpeta de prueba" style="cursor:pointer">✕</a>`:'';
+  c.hidden=!r;
+}
+// ⚠️ Lo que se marcó queda dibujado mientras se decide (30/09/2026, pedido
+// del usuario: el recuadro desaparecía al soltar el mouse y no se veía qué se
+// estaba analizando). Se va al cerrar el panel o al elegir una.
+function labMarcaPoner(coords,etq){ LAB._marca={coords:coords.slice(),pag:LAB._visPag,doc:LAB.doc,etq:etq}; labRenderZonas(); }
+function labMarcaQuitar(){ if(LAB._marca){ LAB._marca=null; labRenderZonas(); } }
+async function labSugerir(coords){
+  labMarcaPoner(coords,'probando…');
+  const r=await PY.call('lab_sugerir',LAB.pag||1,coords[0],coords[1],coords[2],coords[3]);
+  if(r&&r.solo_zona){
+    LAB._marca=null;
+    const st=document.getElementById('lab-strat');
+    if(st.value!=='ZONA') LAB._stratAntes=st.value;     // la × la devuelve
+    LAB._formCoords=coords; st.value='ZONA'; labStratChange(); labRenderZonas();
+    UI.toast((r.error||'Zona definida')+' Quedó en el editor: «Agregar» la suma, la × la quita.','info'); return;
+  }
+  if(!r||!r.ok||!Array.isArray(r.sugerencias)){ labMarcaQuitar(); UI.toast((r&&r.error)||'No se pudo sugerir','warn'); return; }
+  LAB._sug=r; labMarcaPoner(coords,'lo que marcaste'); labSugPintar();
+}
+const LAB_SUG_EST={ok:['ti-circle-check','lo lee bien'],vacio:['ti-circle-x','no encontró nada'],raro:['ti-alert-circle','otra cosa'],
+  otro_valor:['ti-alert-circle','lee otro valor'],otro_lugar:['ti-alert-circle','lo lee de otro lugar'],sin_lugar:['ti-circle-dot','no dice dónde lo leyó']};
+function labSugPintar(){
+  const r=LAB._sug; let p=document.getElementById('lab-sug');
+  if(!p){ p=document.createElement('div'); p.id='lab-sug'; p.className='lab-sug'; document.body.appendChild(p); }
+  const n=r.documentos;
+  let h=`<div class="ls-cab" onmousedown="labSugArrastre(event)" ondblclick="LAB._sugPos=null;labSugUbicar(document.getElementById('lab-sug'))" title="Arrastrá para moverlo · doble clic: vuelve a su lugar"><i class="ti ti-grip-vertical ls-grip"></i><div style="flex:1;min-width:0"><div class="s">Marcaste</div><div class="v">${_he(r.impreso)}</div>
+    <div class="s">Es ${_he(r.tipo_txt)}${r.etiqueta?` · su rótulo: «${_he(r.etiqueta)}»`:' · no tiene rótulo al lado'}</div></div>
+    <button class="btn btn-ghost sm" onclick="labSugCerrar()" aria-label="Cerrar"><i class="ti ti-x"></i></button></div>
+    <div class="ls-cuerpo"><div class="ls-tit">Probadas en ${n} documento(s)${n<2?' · sumá una carpeta de prueba para ver cuál aguanta otros diseños':''}</div>`;
+  r.sugerencias.forEach((s,k)=>{
+    const cls=s.n_ok===n?'todo':(s.n_ok?'parte':'nada');
+    const tec=s.estrategia+(s.config.etiqueta?' · '+s.config.etiqueta:'')+(s.config.coords?' · '+s.config.coords.join(', '):'');
+    h+=`<div class="ls-card ${k===0&&s.ref_ok?'rec':''}"><div class="t">${k===0&&s.ref_ok?'<i class="ti ti-star" style="color:var(--teal-l)"></i>':''}<span>${_he(s.titulo)}</span>
+      <span class="n ${cls}">${s.n_ok} de ${n}</span></div><div class="tec">${_he(tec)}</div>`
+      +(s.por_que?`<div class="por">${_he(s.por_que)}</div>`:'')
+      +(s.estrategia==='ZONA'?'<div class="adv"><i class="ti ti-alert-triangle"></i> Se rompe si cambia el diseño del documento.</div>':'')
+      +s.resultados.map(x=>{const [ic,tx]=LAB_SUG_EST[x.estado]||['ti-help',x.estado];
+        return `<div class="ls-res ${x.estado}" title="${_he(tx)}"><i class="ti ${ic}"></i><span class="d">${_he(x.doc)}</span><span class="val">${_he(x.valor||'—')}</span></div>`;}).join('')
+      +`<button class="btn ${k===0&&s.ref_ok?'btn-primary':'btn-ghost'} sm" style="margin-top:6px" onclick="labSugUsar(${k})"><i class="ti ti-check"></i> Usar esta</button></div>`;
+  });
+  p.innerHTML=h+'</div>'; p.hidden=false;
+  labSugUbicar(p);
+}
+// ⚠️ El panel no tapa lo marcado (30/09/2026, «a veces tapa el dato»): se abre
+// del lado contrario al recuadro y se arrastra desde su título; queda donde lo
+// dejaste mientras dure la sesión (doble clic en el título: vuelve a su lugar).
+// Con «Tamaño de texto» ≠ 100 % el mouse viene en píxeles de pantalla: uiK().
+function labSugUbicar(p){
+  if(!p) return;
+  if(LAB._sugPos){
+    Object.assign(p.style,{left:LAB._sugPos.left+'px',top:LAB._sugPos.top+'px',right:'auto',bottom:'auto',height:LAB._sugPos.h+'px'});
+    return;
+  }
+  Object.assign(p.style,{left:'',top:'',right:'',bottom:'',height:''});
+  const mk=document.querySelector('#lab-vis-overlay .lab-zona.marcado');
+  let izq=false;
+  if(mk){ const r=mk.getBoundingClientRect(); izq=((r.left+r.right)/2) > window.innerWidth/2; }
+  p.classList.toggle('izq', izq);
+}
+function labSugArrastre(ev){
+  const p=document.getElementById('lab-sug');
+  if(!p || ev.button!==0 || ev.target.closest('button')) return;
+  ev.preventDefault();
+  const k=uiK(), r=p.getBoundingClientRect();
+  const x0=ev.clientX, y0=ev.clientY, l0=r.left*k, t0=r.top*k, w=r.width*k, h0=r.height*k;
+  const W=window.innerWidth*k, H=window.innerHeight*k;
+  const mv=e=>{
+    const l=Math.max(0,Math.min(W-w, l0+(e.clientX-x0)*k)), t=Math.max(0,Math.min(H-80, t0+(e.clientY-y0)*k));
+    LAB._sugPos={left:l, top:t, h:Math.max(160, Math.min(h0, H-t-8))};
+    Object.assign(p.style,{left:l+'px',top:t+'px',right:'auto',bottom:'auto',height:LAB._sugPos.h+'px'});
+  };
+  const up=()=>{ document.removeEventListener('mousemove',mv); document.removeEventListener('mouseup',up); p.classList.remove('arrastrando'); };
+  document.addEventListener('mousemove',mv); document.addEventListener('mouseup',up); p.classList.add('arrastrando');
+}
+function labSugCerrar(){ const p=document.getElementById('lab-sug'); if(p)p.hidden=true; labMarcaQuitar(); }
+function labSugUsar(k){
+  const r=LAB._sug, s=r&&r.sugerencias[k]; if(!s) return;
+  if(!labV('lab-col') && r.columna) labSetv('lab-col', r.columna);
+  const sel=document.getElementById('lab-strat');
+  if(![...sel.options].some(o=>o.value===s.estrategia)){ UI.toast('Esta versión no tiene la estrategia «'+s.estrategia+'»','warn'); return; }
+  sel.value=s.estrategia;
+  if(s.estrategia==='ZONA'){ LAB._formCoords=s.config.coords.slice(); labSetv('lab-tag',''); }
+  else { LAB._formCoords=null; labSetv('lab-tag', s.config.etiqueta||''); }
+  labStratChange(); labRenderZonas(); labSugCerrar();
+  const ed=document.querySelector('.lab-editor'); if(ed) ed.scrollIntoView({block:'nearest',behavior:'smooth'});
+  UI.toast('Listo en el editor: revisá el nombre de la columna y tocá Agregar','ok');
+}
 function labRenderVisual(){
   if(!window._labVisWired){ window._labVisWired=true; document.addEventListener('mousemove',labVisMove); document.addEventListener('mouseup',labVisUp); }
   if(!LAB.doc){ document.getElementById('lab-vis-wrap').style.display='none'; const e=document.getElementById('lab-vis-empty'); e.style.display='block'; e.textContent='Cargá un documento para verlo en Modo Visual.'; return; }
@@ -5939,7 +6125,7 @@ function labRenderVisual(){
     const wrap=document.getElementById('lab-vis-wrap'), empty=document.getElementById('lab-vis-empty');
     if(!r||!r.ok){ wrap.style.display='none'; empty.style.display='block'; empty.textContent=(r&&r.error)||'No se pudo renderizar la página'; return; }
     if(r.demo){ wrap.style.display='none'; empty.style.display='block'; empty.textContent='Modo Visual: requiere el motor real (no disponible en demo).'; return; }
-    LAB.visScale=r.scale||1.4; LAB._visPag=LAB.pag||1;
+    LAB.visScale=r.scale||1.4; LAB._visPag=LAB.pag||1; LAB._visW=r.w; LAB._visH=r.h;
     document.getElementById('lab-vis-img').src=r.img;
     wrap.style.width=r.w+'px'; wrap.style.height=r.h+'px'; wrap.style.display='inline-block';
     empty.style.display='none';
@@ -5951,8 +6137,25 @@ function labDibujarZona(pts,label,cls){
   const x=Math.min(pts[0],pts[2])*sc, y=Math.min(pts[1],pts[3])*sc, w=Math.abs(pts[2]-pts[0])*sc, h=Math.abs(pts[3]-pts[1])*sc;
   const d=document.createElement('div'); d.className='lab-zona'+(cls?(' '+cls):'');
   d.style.cssText=`left:${x}px;top:${y}px;width:${w}px;height:${h}px`;
-  d.innerHTML='<span class="lz-lbl">'+(label||'ZONA')+'</span>';
+  d.innerHTML='<span class="lz-lbl">'+(label||'ZONA')+'</span>'
+    // ⚠️ La zona del editor (todavía sin agregar) se puede quitar (30/09/2026:
+    // al marcar una firma —una imagen, sin texto— quedaba una ZONA cargada
+    // sin forma de sacarla).
+    +(String(cls||'').includes('activa')?'<span class="lz-x" title="Quitar esta zona" onmousedown="event.stopPropagation()" onclick="labQuitarZonaForm(event)">×</span>':'');
   ov.appendChild(d);
+}
+function labQuitarZonaForm(ev){
+  if(ev){ ev.stopPropagation(); ev.preventDefault(); }
+  if(LAB.edit>=0){ labCancelar(); UI.toast('Edición cancelada: el campo quedó como estaba','info'); return; }
+  LAB._formCoords=null;
+  const sel=document.getElementById('lab-strat');
+  if(sel && sel.value==='ZONA'){
+    const ant=LAB._stratAntes; LAB._stratAntes=null;
+    if(ant && [...sel.options].some(o=>o.value===ant)) sel.value=ant; else sel.selectedIndex=0;
+    labStratChange();
+  }
+  labRenderZonas();
+  UI.toast('Zona quitada','info');
 }
 function labRenderZonas(){
   const ov=document.getElementById('lab-vis-overlay'); if(!ov)return;
@@ -5964,33 +6167,75 @@ function labRenderZonas(){
   });
   if(LAB._formCoords && LAB._formCoords.length===4)
     labDibujarZona(LAB._formCoords, (labV('lab-col')||'nueva zona'), 'activa');
+  if(LAB._marca && LAB._marca.pag===LAB._visPag && LAB._marca.doc===LAB.doc)   // en otro documento, no
+    labDibujarZona(LAB._marca.coords, LAB._marca.etq, 'marcado');
+  labDibujarLeidos(ov);
+}
+// Los datos de la última prueba, donde los leyó el motor (30/09/2026). Las
+// cajas vienen en fracción de la página. Tocar una selecciona su campo. Lo que
+// no se puede marcar va en la nota de abajo: leído sin ubicación (la
+// estrategia no la anota), en otra página, o sin dato.
+function labDibujarLeidos(ov){
+  const nota=document.getElementById('lab-vis-nota');
+  const filas=[];
+  if(LAB._leidos && LAB._leidos.doc===LAB.doc) filas.push(...LAB._leidos.filas);
+  if(LAB._leidoSel && LAB._leidoSel.doc===LAB.doc){
+    const f=LAB._leidoSel.fila, i=filas.findIndex(x=>x.columna===f.columna);
+    if(i>=0) filas[i]=f; else filas.push(f);
+  }
+  const selCol=(LAB.sel>=0 && LAB.campos[LAB.sel]) ? LAB.campos[LAB.sel].columna : '';
+  const W=LAB._visW||0, H=LAB._visH||0, pag=LAB._visPag;
+  const sinLugar=[], otraPag=[], vacios=[];
+  filas.forEach(f=>{
+    const c=LAB.campos.find(x=>x.columna===f.columna);
+    if(!c || c.estrategia==='ZONA') return;            // la ZONA ya se dibuja con su recuadro
+    if(!f.valor){ vacios.push(f.columna); return; }
+    const cj=f.cajas||[];
+    if(!cj.length){ sinLugar.push(f.columna); return; }
+    const aca=cj.filter(k=>k.pagina===pag);
+    if(!aca.length){ otraPag.push(`${f.columna} (pág. ${cj[0].pagina})`); return; }
+    if(!W||!H) return;
+    aca.forEach((k,j)=>{
+      const d=document.createElement('div');
+      d.className='lab-zona leido'+(f.columna===selCol?' sel':'');
+      d.style.cssText=`left:${k.x0*W}px;top:${k.y0*H}px;width:${(k.x1-k.x0)*W}px;height:${(k.y1-k.y0)*H}px`;
+      if(j===0) d.innerHTML='<span class="lz-lbl">'+_he(f.columna)+'</span>';
+      d.title=f.columna+': '+f.valor;
+      d.onmousedown=ev=>{ ev.stopPropagation(); ev.preventDefault();
+        const i=LAB.campos.findIndex(x=>x.columna===f.columna); if(i>=0) labSeleccionarCampo(i); };
+      ov.appendChild(d);
+    });
+  });
+  if(!nota) return;
+  const partes=[];
+  if(sinLugar.length) partes.push(`<b>Leídos sin ubicación</b> (la estrategia no dice dónde): ${_he(sinLugar.join(', '))}`);
+  if(otraPag.length) partes.push(`<b>En otra página:</b> ${_he(otraPag.join(', '))}`);
+  if(vacios.length) partes.push(`<b>Sin dato:</b> ${_he(vacios.join(', '))}`);
+  nota.innerHTML=partes.join(' · '); nota.hidden=!partes.length;
 }
 let _vdraw=null;
 function labVisDown(e){
   if(!LAB.doc||LAB._visPag==null)return;
-  const r=e.currentTarget.getBoundingClientRect();
-  _vdraw={x0:e.clientX-r.left,y0:e.clientY-r.top,el:null}; e.preventDefault();
+  const r=e.currentTarget.getBoundingClientRect(), k=uiK(e.currentTarget);
+  _vdraw={x0:(e.clientX-r.left)*k,y0:(e.clientY-r.top)*k,k:k,el:null}; e.preventDefault();
 }
 function labVisMove(e){
   if(!_vdraw)return;
   const ov=document.getElementById('lab-vis-overlay'), r=ov.getBoundingClientRect();
-  const x1=e.clientX-r.left,y1=e.clientY-r.top;
+  const x1=(e.clientX-r.left)*_vdraw.k,y1=(e.clientY-r.top)*_vdraw.k;
   if(!_vdraw.el){ _vdraw.el=document.createElement('div'); _vdraw.el.className='lab-zona-draw'; ov.appendChild(_vdraw.el); }
   Object.assign(_vdraw.el.style,{left:Math.min(_vdraw.x0,x1)+'px',top:Math.min(_vdraw.y0,y1)+'px',width:Math.abs(x1-_vdraw.x0)+'px',height:Math.abs(y1-_vdraw.y0)+'px'});
 }
 function labVisUp(e){
   if(!_vdraw)return;
   const ov=document.getElementById('lab-vis-overlay'), r=ov.getBoundingClientRect();
-  const x1=e.clientX-r.left,y1=e.clientY-r.top;
+  const x1=(e.clientX-r.left)*_vdraw.k,y1=(e.clientY-r.top)*_vdraw.k;
   if(_vdraw.el)_vdraw.el.remove();
   const a=_vdraw; _vdraw=null;
   const px0=Math.min(a.x0,x1),py0=Math.min(a.y0,y1),px1=Math.max(a.x0,x1),py1=Math.max(a.y0,y1);
   if(px1-px0<6||py1-py0<6)return;
   const sc=LAB.visScale||1.4;
-  LAB._formCoords=[px0/sc,py0/sc,px1/sc,py1/sc];
-  document.getElementById('lab-strat').value='ZONA'; labStratChange();
-  labRenderZonas();
-  UI.toast('Zona definida — poné la columna y tocá Agregar / Actualizar','ok');
+  labSugerir([px0/sc,py0/sc,px1/sc,py1/sc]);
 }
 // ── Criterio de comprobantes ────────────────────────────────────────────────
 // Vive en la PLANTILLA (clave `criterio_comprobantes`), no en la máquina.
@@ -6241,11 +6486,11 @@ function labTextoSel(){
   const txt=(sel&&sel.toString()||'').trim();
   if(!txt || !sel.rangeCount || !cont.contains(sel.anchorNode)){ pop.style.display='none'; return; }
   LAB._sel=txt;
-  const rect=sel.getRangeAt(0).getBoundingClientRect();
+  const rect=sel.getRangeAt(0).getBoundingClientRect(), k=uiK();
   pop.style.display='flex';
   const w=pop.offsetWidth||220;
-  pop.style.left=Math.max(8,Math.min(window.innerWidth-w-8, rect.left+rect.width/2-w/2))+'px';
-  pop.style.top=Math.max(8, rect.top-pop.offsetHeight-8)+'px';
+  pop.style.left=Math.max(8,Math.min(window.innerWidth*k-w-8, (rect.left+rect.width/2)*k-w/2))+'px';
+  pop.style.top=Math.max(8, rect.top*k-pop.offsetHeight-8)+'px';
 }
 function labUsarSel(campo){
   const t=(LAB._sel||'').trim(); if(!t){ document.getElementById('lab-selpop').style.display='none'; return; }
@@ -6278,6 +6523,9 @@ function labProbar(){
     const rows=document.getElementById('lr-rows');
     if(!r||!r.ok){ rows.innerHTML='<span style="color:var(--err-fg);padding:6px">'+(r&&r.error||'Error')+'</span>'; return; }
     const filas=r.filas||[], okN=filas.filter(f=>f.valor).length;
+    // Para Modo Visual: cada dato, donde lo leyó el motor (labDibujarLeidos).
+    LAB._leidos={doc:LAB.doc, filas:filas}; LAB._leidoSel=null;
+    if(LAB.tab==='visual') labRenderZonas();
     // Con adjuntos, «cuántos campos tienen dato» no alcanza: lo que hay que
     // ver antes de tirar el lote es cuántas FILAS de Excel sale este
     // documento. Si dice 0 la tabla no se encontró, aunque los campos de la
@@ -6354,21 +6602,42 @@ function _dropTipo(n){
   return null;
 }
 function _dropEsArchivos(e){ return [...(e.dataTransfer&&e.dataTransfer.types||[])].includes('Files'); }
+// ⚠️ En Extractos el destino es el recuadro que la pantalla ya tiene dibujado
+// (donde también se hace clic): se resalta ése y NO se abre el cartel del
+// medio, que decía «al soltar elegís qué hacer» y parecía otra herramienta
+// (01/10/2026). Soltar ahí suma los PDF a la lista, sin menú.
+function _dropEnExtractos(){ return typeof _extActiva==='function' && _extActiva(); }
 window.addEventListener('dragenter',e=>{
   if(!_dropEsArchivos(e))return;
   e.preventDefault(); DROP.depth++;
-  document.getElementById('drop-overlay').classList.add('show');
+  // El cartel es SIEMPRE el destino del «drop»: Python escucha ahí, que es un
+  // elemento chico (ver dexiae_web.py). En Extractos va transparente y lo que
+  // se ve es el recuadro de la pantalla resaltado.
+  const ov=document.getElementById('drop-overlay'), ext=_dropEnExtractos();
+  ov.classList.toggle('solo-zona', ext);
+  ov.classList.add('show');
+  if(ext) extArrastre(true);
 });
 window.addEventListener('dragover',e=>{ if(_dropEsArchivos(e)) e.preventDefault(); });
 window.addEventListener('dragleave',e=>{
   if(!_dropEsArchivos(e))return;
   DROP.depth=Math.max(0,DROP.depth-1);
-  if(DROP.depth===0) document.getElementById('drop-overlay').classList.remove('show');
+  if(DROP.depth===0){ document.getElementById('drop-overlay').classList.remove('show','solo-zona'); if(typeof extArrastre==='function') extArrastre(false); }
 });
+// En CAPTURA: corre antes que el manejador de pywebview, así la lista muestra
+// lo soltado en el acto pase lo que pase después.
 window.addEventListener('drop',e=>{
+  DROP.depth=0;
+  document.getElementById('drop-overlay').classList.remove('show','solo-zona');
+  if(typeof extArrastre==='function') extArrastre(false);
   if(!_dropEsArchivos(e))return;
-  e.preventDefault(); DROP.depth=0;
-  document.getElementById('drop-overlay').classList.remove('show');
+  e.preventDefault();
+  // En Extractos, lo soltado aparece en la lista en el acto («leyendo…»): las
+  // rutas llegan después, por Python. Sólo si son todos PDF (si no, va el menú).
+  if(_dropEnExtractos()){
+    const ns=[...(e.dataTransfer&&e.dataTransfer.files||[])].map(f=>f.name);
+    if(ns.length && ns.every(n=>/\.pdf$/i.test(n)) && !EXT.pidiendo && !EXT.corriendo) extLeyendo({archivos:ns});
+  }
   // En la app real, el handler DOM de Python (pywebview) recibe las RUTAS y
   // llama a UI.dropMenu() — no armamos el menú acá para no duplicarlo. En modo
   // navegador (demo) no hay pywebview: clasificamos por nombre y avisamos.
@@ -6378,7 +6647,7 @@ window.addEventListener('drop',e=>{
   const g={pdf:[],img:[],xls:[],otros:0};
   fs.forEach(f=>{ const t=_dropTipo(f.name); if(t){const k=t==='img'?'img':(t==='xls'?'xls':'pdf');g[k].push(f.name);} else g.otros++; });
   dropSheet(g, true);
-});
+}, true);
 // Lo llama Python (on_files_dropped) con las rutas ya en la cola del backend.
 function dropMenu(g){ dropSheet(g, false); }
 function dropCerrar(){ document.getElementById('modal-drop').classList.remove('show'); }
@@ -6388,10 +6657,17 @@ function _dropItem(ic,txt,fn){
   return `<button class="drop-item" onclick="dropGo(${_dropAcc.length-1})"><i class="ti ${ic}"></i>${txt}</button>`;
 }
 async function dropGo(i){ dropCerrar(); const fn=_dropAcc[i]; if(!fn) return; try{ await PY.call('arm_drop'); }catch(e){} fn(); }
+function nP_ext(P,I,X){ return P.length>0 && !I.length && !X.length; }
 function dropSheet(g, demo){
   g=g||{}; const P=g.pdf||[], I=g.img||[], X=g.xls||[], otros=g.otros||0;
   const total=P.length+I.length+X.length;
   if(!total){ UI.toast('Formatos no compatibles: arrastrá PDF, imágenes o Excel','warn'); return; }
+  // Con la pantalla Extractos abierta, soltar PDF es agregarlos a la lista: sin
+  // menú y sin el «Agregar» de después (30/09/2026).
+  if(nP_ext(P,I,X) && typeof _extActiva==='function' && _extActiva()){
+    (demo?Promise.resolve():PY.call('arm_drop')).catch(()=>{}).then(()=>extSeleccionar(P));
+    return;
+  }
   _dropAcc=[]; let h='';
   const lista=a=>a.slice(0,3).map(_he).join(' · ')+(a.length>3?` · +${a.length-3} más`:'');
   const nP=P.length, nI=I.length, nX=X.length;
@@ -6399,7 +6675,7 @@ function dropSheet(g, demo){
     h+=`<div class="drop-sec"><b>${nP} PDF${nP>1?'s':''}</b><span class="drop-files">${lista(P)}</span></div>`;
     // Extractos va PRIMERO: soltar el PDF del banco acá es el camino de entrada
     // más probable de una contadora, y estaba último de la lista de PDF.
-    h+=_dropItem('ti-building-bank','Extracto bancario → Excel',()=>extAbrir());
+    h+=_dropItem('ti-building-bank','Extractos bancarios → Excel',()=>extSoltar());
     if(nP>1) h+=_dropItem('ti-files','Unir en un solo PDF',()=>onHerr('unir_pdfs'));
     h+=_dropItem('ti-arrows-minimize','Comprimir',()=>onComprimir());
     h+=_dropItem('ti-scan','OCR por lote',()=>{ocrAbrir();ocrSeleccionar();});
@@ -6870,9 +7146,20 @@ function _prefsLlenar(sel,opciones,actual){
   sel.innerHTML='';
   opciones.forEach(o=>{ const op=document.createElement('option'); op.value=o.v; op.textContent=o.t; if(o.v===(actual||'')) op.selected=true; sel.appendChild(op); });
 }
-function prefsMarcarTam(tam){ document.querySelectorAll('#seg-tam button').forEach(b=>b.classList.toggle('on', b.getAttribute('data-tam')===tam)); }
+// Tamaños (30/09/2026, pedido desde un TV de 1366×768: ahí lo que hace falta
+// es ACHICAR). Se guardan como porcentaje; los nombres viejos siguen valiendo.
+const PREFS_TAMS=['70','80','90','100','110','125','150'];
+// ⚠️ Con un tamaño ≠ 100 % el documento tiene CSS zoom: el mouse y
+// getBoundingClientRect vienen en píxeles de PANTALLA y lo que se posiciona
+// (left/top) va en píxeles de la INTERFAZ. Sin convertir, el recuadro del Modo
+// Visual quedaba corrido del mouse (visto a 90 % en un TV, 30/09/2026).
+// k = píxeles de interfaz por píxel de pantalla (1 sin zoom).
+function uiK(el){ el=el||document.body; const r=el.getBoundingClientRect(), w=el.offsetWidth; return (r.width>0&&w>0)? w/r.width : 1; }
+function prefsTamNorm(tam){ return ({normal:'100',grande:'110',muy_grande:'125'})[tam] || (PREFS_TAMS.includes(String(tam))?String(tam):'100'); }
+function prefsMarcarTam(tam){ tam=prefsTamNorm(tam); document.querySelectorAll('#seg-tam button').forEach(b=>b.classList.toggle('on', b.getAttribute('data-tam')===tam)); }
 function prefsAplicarTam(tam){
-  const z=tam==='grande'?1.1:(tam==='muy_grande'?1.22:1);
+  tam=prefsTamNorm(tam); PREFS_TAM_ACTUAL=tam;
+  const z=Number(tam)/100;
   const html=document.documentElement;
   html.style.setProperty('--ui-zoom', z);   // compensa la altura del shell (.app)
   html.style.zoom = z;                        // escala el contenido
@@ -6889,7 +7176,18 @@ async function prefsAbrir(){
   document.getElementById('modal-prefs').classList.add('show');
 }
 function prefsCerrar(){ document.getElementById('modal-prefs').classList.remove('show'); }
-async function prefsSetTam(tam){ prefsMarcarTam(tam); prefsAplicarTam(tam); try{ await PY.call('config_set','tam_texto',tam); }catch(e){} }
+async function prefsSetTam(tam){ prefsMarcarTam(tam); prefsAplicarTam(tam); try{ await PY.call('config_set','tam_texto',prefsTamNorm(tam)); }catch(e){} }
+var PREFS_TAM_ACTUAL='100';
+// Ctrl − / Ctrl + / Ctrl 0, como en el navegador (la ventana no hace zoom propio).
+document.addEventListener('keydown',ev=>{
+  if(!(ev.ctrlKey||ev.metaKey)||ev.altKey) return;
+  const k=ev.key; if(!['+','=','-','_','0'].includes(k)) return;
+  ev.preventDefault();
+  const i=PREFS_TAMS.indexOf(PREFS_TAM_ACTUAL);
+  const nuevo = k==='0' ? '100' : PREFS_TAMS[Math.max(0,Math.min(PREFS_TAMS.length-1,(i<0?PREFS_TAMS.indexOf('100'):i)+((k==='-'||k==='_')?-1:1)))];
+  if(nuevo===PREFS_TAM_ACTUAL) return;
+  prefsSetTam(nuevo); UI.toast('Tamaño de texto: '+nuevo+' %','info');
+});
 async function prefsSetCarpeta(checked){ try{ await PY.call('config_set','abrir_carpeta_fin',!!checked); }catch(e){} }
 async function prefsSetApp(tipo,val){
   const sel=document.getElementById(tipo==='pdf'?'pref-pdf':'pref-html');
@@ -6960,151 +7258,12 @@ async function divExtraer(){
   const msg=r.renombrado?`${r.paginas} PDFs renombrados por campo`:(r.explode?`${r.paginas} PDFs generados`:`${r.paginas} página(s) extraída(s)`);
   UI.toast(msg,'ok');
   divCerrar();
-  if(r.ruta && r.ruta.indexOf('demo')<0){ const ok=await appConfirm('Listo', msg+'.\n¿Abrir ahora?'); if(ok) PY.call('abrir_path',r.ruta); }
+  if(r.ruta && !PY.demo()){ const ok=await appConfirm('Listo', msg+'.\n¿Abrir ahora?'); if(ok) PY.call('abrir_path',r.ruta); }
 }
 
 // ===== EXTRACTO BANCARIO =====
-const EXT={archivos:[]};
-function extAbrir(){ EXT.archivos=[]; extRenderLista(); UI.extProgreso(null); extCargarClientes();
-  extInfoRender();
-  document.getElementById('modal-ext').classList.add('show'); }
-// La pantalla arrancaba con un párrafo de 6 renglones que había que leer entero
-// para encontrar el único dato que se busca al abrirla: **si anda con mi banco**.
-// Ahora los bancos van arriba y en pastillas, y el inventario de hojas —que se
-// lee una vez en la vida— queda plegado. Nada se borró: se ordenó por urgencia.
-async function extInfoRender(){
-  const box=document.getElementById('ext-estado'); if(!box) return;
-  let bancos=[]; try{ const r=await PY.call('herr_extracto_bancos'); bancos=(r&&r.bancos)||[]; }catch(e){}
-  const chips=bancos.map(b=>`<span class="ext-banco">${_he(b)}</span>`).join('');
-  box.innerHTML=`
-    <div class="ext-bancos-t">Bancos calibrados <span>${bancos.length}</span></div>
-    <div class="ext-bancos">${chips}</div>
-    <div style="margin-top:7px">Extrae <b>fecha · detalle (con CUIT) · importe · saldo</b>,
-      con verificación de cadena de saldos. <b>No gasta tu cupo de documentos.</b></div>
-    <div style="margin-top:5px">¿Tu banco no está? Escribinos con un extracto de muestra y lo sumamos.</div>
-    <div style="margin-top:7px"><a href="javascript:void 0" onclick="extQueGenera()"
-      style="color:var(--teal-l);text-decoration:none"><i class="ti ti-chevron-down" id="ext-gen-arrow"></i>
-      <span id="ext-gen-lbl">Ver qué hojas genera el Excel</span></a></div>
-    <div id="ext-gen" style="display:none;margin-top:6px;padding-top:6px;border-top:1px solid var(--border)">
-      <b>Siempre:</b> una hoja por extracto (+ hoja <b>Resumen</b> si son varios).<br>
-      <b>Con PRO:</b> suma la hoja <b>Categorías</b>.<br>
-      <b>Con PRO y un cliente elegido:</b> el borrador de asientos en 3 hojas —
-      <b>Asientos (borrador) · Para importar · Pendientes</b>.
-    </div>`;
-}
-function extQueGenera(){
-  const d=document.getElementById('ext-gen'); if(!d) return;
-  const ab=d.style.display==='none';
-  d.style.display=ab?'':'none';
-  document.getElementById('ext-gen-arrow').className='ti ti-chevron-'+(ab?'up':'down');
-  document.getElementById('ext-gen-lbl').textContent=ab?'Ocultar':'Ver qué hojas genera el Excel';
-}
-function extCerrar(){ document.getElementById('modal-ext').classList.remove('show'); }
-function extRenderLista(){
-  const w=document.getElementById('ext-list');
-  const bancoLbl=(a)=> a.soportado ? `<span class="hf-st" style="color:var(--ok-fg)">${_he((a.banco||'').toUpperCase())} ✓</span>` : `<span class="hf-st" style="color:var(--rev-fg)">${a.banco?_he(a.banco.toUpperCase())+' · sin soporte':'banco no reconocido'}</span>`;
-  w.innerHTML=EXT.archivos.length?EXT.archivos.map((a,i)=>`<div class="hr-file"><i class="ti ti-file-type-pdf"></i><span class="hf-name" title="${_he(a.nombre)}">${_he(a.nombre)}</span>${bancoLbl(a)}<i class="ti ti-x" style="cursor:pointer;color:var(--txt3)" onclick="extQuitar(${i})"></i></div>`).join(''):'<div class="hr-file"><span class="hf-name" style="color:var(--txt3)">Ningún extracto agregado</span></div>';
-  document.getElementById('ext-run').disabled=!EXT.archivos.some(a=>a.soportado);
-}
-function extQuitar(i){ EXT.archivos.splice(i,1); extRenderLista(); }
-function extLimpiar(){ EXT.archivos=[]; extRenderLista(); }
-async function extSeleccionar(){
-  const r=await PY.call('herr_extracto_seleccionar');
-  if(!r||!r.ok){ if(r&&!r.cancelled) UI.toast(r&&r.error||'No se pudo seleccionar','err'); return; }
-  const exist=new Set(EXT.archivos.map(a=>a.ruta||a.nombre));
-  (r.archivos||[]).forEach(a=>{ if(!exist.has(a.ruta||a.nombre)) EXT.archivos.push(a); });
-  extRenderLista();
-  const noSop=EXT.archivos.filter(a=>!a.soportado).length;
-  if(noSop) UI.toast(`${noSop} archivo(s) de banco no calibrado — se omitirán`,'warn');
-}
-async function extProcesar(){
-  if(!EXT.archivos.some(a=>a.soportado)){ UI.toast('No hay extractos de bancos soportados','warn'); return; }
-  const btn=document.getElementById('ext-run'); if(btn) btn.disabled=true;
-  // Una revisión por vez. Si hay una minimizada, se decide antes de leer nada.
-  if(REV.activa){
-    const seguir=await appConfirm('Revisión sin terminar',
-      'Tenés una revisión sin terminar. ¿La continuás? Si elegís Cancelar, se descarta y se procesan estos resúmenes.');
-    if(seguir){ extCerrar(); revVolver(); return; }
-    await PY.call('revision_cerrar'); revOcultar();
-  }
-  UI.extProgreso({actual:0,total:EXT.archivos.length,nombre:'Preparando…'});
-  const _cli=(document.getElementById('ext-cliente')||{}).value||null;
-  const _rev=!!(_cli && (document.getElementById('ext-revisar')||{}).checked);
-  let r; try{ r=await PY.call('herr_extracto_procesar',EXT.archivos.map(a=>a.ruta),_cli,_rev); }
-  catch(e){ UI.extProgreso(null); if(btn) btn.disabled=false; UI.toast('Error inesperado','err'); return; }
-  UI.extProgreso(null); if(btn) btn.disabled=false;
-  if(!r||!r.ok){ if(r&&!r.cancelled) UI.toast(r&&r.error||'No se pudo procesar','err'); return; }
-  if(r.revision){ extCerrar(); revAbrir(r.revision); return; }
-  if(r.paso3){
-    extCerrar();
-    revFinal(r, {modal:true});
-    return;
-  }
-  const ns=(r.no_soportados||[]).length;
-  const v=r.verificacion||null;
-  const nDesf=v?(v.desfases||[]).length:0;
-  // Si hubo asientos, el toast lleva el desglose: "Para importar" son los
-  // completos, "Pendientes" los que quedaron afuera. Sin esto el usuario ve
-  // "listo" y no se entera de que hay asientos que no puede importar.
-  const _a=r.asientos;
-  const _ast=(_a&&_a.asientos)
-    ? ` · Para importar: ${_a.importables!==undefined?_a.importables:_a.asientos}`
-      + (_a.pendientes?` · Pendientes: ${_a.pendientes}`:'')
-      + (_a.revisar?` · A revisar: ${_a.revisar}`:'')
-    : '';
-  const _tipo=(_a&&_a.pendientes)?'warn':'ok';
-  if(v && nDesf>0){
-    UI.toast(`⚠ ${nDesf} desfase(s) en la cadena de saldos — ver columna "Verif. Saldo"`,'warn');
-  } else if(v && v.evaluados>0){
-    UI.toast(`${r.movimientos} movimientos · cadena de saldos ${v.ok}/${v.evaluados} ✓`+_ast+(ns?` · ${ns} omitido(s)`:''),_tipo);
-  } else {
-    UI.toast(`${r.movimientos} movimientos · ${(r.bancos||[]).join(', ')}`+_ast+(ns?` · ${ns} omitido(s)`:''),_tipo);
-  }
-  extCerrar();
-  if(r.ruta && r.ruta.indexOf('demo')<0){
-    let msg=`${r.movimientos} movimientos extraídos a Excel`+((r.hojas||1)>1?` (${r.hojas} hojas: una por extracto + Resumen).`:'.');
-    if(v && nDesf>0){
-      const det=(v.desfases||[]).slice(0,4).map(d=>`· ${d.archivo||''} fila ${d.fila} (${d.fecha}): diferencia ${(d.diferencia>0?'+':'')+d.diferencia}`).join('\n');
-      msg=`${r.movimientos} movimientos extraídos.\n\n⚠ La cadena de saldos NO cierra en ${nDesf} punto(s):\n${det}${nDesf>4?`\n· … y ${nDesf-4} más`:''}\n\nRevisá la columna "Verif. Saldo" del Excel antes de conciliar.`;
-    } else if(v && v.evaluados>0){
-      msg=`${r.movimientos} movimientos extraídos.\nCadena de saldos verificada: ${v.ok}/${v.evaluados} ✓`;
-    }
-    if(r.asientos && r.asientos.asientos){
-      const a=r.asientos;
-      const imp=(a.importables!==undefined?a.importables:a.asientos), pend=a.pendientes||0;
-      // "Pendientes" y "A revisar" NO son lo mismo y la diferencia importa:
-      //   Pendientes → quedaron FUERA de "Para importar", les falta una
-      //                decisión obligatoria (categoría marcada Manual).
-      //   A revisar  → SÍ entraron, con la cuenta por defecto. El asiento está
-      //                completo y cuadra; conviene mirarlo, nada más.
-      // ⚠️ Desde el 14/09/2026 «Revisar» también incluye asientos SIN cuenta
-      // (el signo al revés que no encaja en nada, o una transferencia propia sin
-      // la otra punta). Se nombra cada motivo por separado: decir «se imputaron
-      // con la cuenta por defecto» de algo que salió sin cuenta sería mentir.
-      const _def=(a.a_revisar!==undefined)?a.a_revisar:a.revisar;
-      msg+=`\n\nPara importar: ${imp} asientos`
-         + (pend?` · Pendientes: ${pend}`:'')
-         + (_def?` · Con la cuenta por defecto: ${_def}`:'');
-      if(pend){
-        const _mot=[];
-        if(a.manual) _mot.push('categorías que marcaste para resolver a mano');
-        if(a.contradicciones) _mot.push(`${a.contradicciones} con el signo al revés que no encajan en ninguna categoría`);
-        if(a.propias_sin_punta) _mot.push(`${a.propias_sin_punta} transferencia(s) entre tus cuentas sin la otra punta en el lote`);
-        msg+=`\n\nRevisá la hoja "Pendientes": ${pend} asiento(s) sin cuenta`
-           + (_mot.length?` — ${_mot.join('; ')}.`:'.');
-      }
-      if(_def){
-        msg+=`\n\n${_def} asiento(s) usaron la cuenta por defecto porque su categoría no tiene`
-           + ` cuenta asignada. Están en "Para importar" y listados en la hoja "A revisar".`;
-      }
-      if(a.reversas){
-        msg+=`\n\n${a.reversas} devolución(es) o anulación(es) fueron a la misma cuenta que el movimiento que anulan.`;
-      }
-    }
-    const ok=await appConfirm('Extracto bancario',msg+`\n¿Abrir el Excel ahora?`);
-    if(ok) PY.call('abrir_path',r.ruta).then(rr=>{ if(rr&&!rr.ok) UI.toast(rr.error||'No se pudo abrir el Excel — abrilo desde la carpeta donde lo guardaste','warn'); }).catch(()=>UI.toast('No se pudo abrir el Excel','warn'));
-  }
-}
+// El conversor (EXT, extAbrir, extProcesar…) vive en ui/extractos.js desde el
+// 30/09/2026: es el módulo Extractos.
 
 // ═══ «REVISÁ ANTES DE GENERAR» ═══════════════════════════════════════════════
 // Todo lo que se muestra lo arma el motor (dexiae_revision): los grupos, sus
@@ -7115,30 +7274,8 @@ const REV={activa:false, est:null, tab:'grupos', abiertos:new Set(), fila:null, 
            // «Cómo va a salir» por asiento y «Saldos por día» (19/09/2026)
            previa:null, modos:null, asiAbiertos:new Set(), lineas:{}, rep:null, saldos:null, saldoCta:0};
 
-// ── La casilla del modal chico, recordada por cliente ──────────────────────
-async function extRevisarPintar(){
-  const s=document.getElementById('ext-cliente'), ch=document.getElementById('ext-revisar'),
-        row=document.getElementById('ext-rev-row'), hint=document.getElementById('ext-rev-hint'),
-        btn=document.getElementById('ext-run');
-  if(!ch||!s) return;
-  if(REV.prefs===null){ try{ const c=await PY.call('config_get'); REV.prefs=(c&&c.revision_previa)||{}; }catch(e){ REV.prefs={}; } }
-  const cli=s.value;
-  ch.disabled=!cli;
-  row.style.opacity=cli?'1':'.55';
-  ch.checked = cli ? (REV.prefs[cli]!==false) : false;
-  hint.textContent = cli
-    ? 'Te muestra lo que DEXIAE no pudo decidir y lo corregís ahí. Si no hay nada, genera directo.'
-    : 'Elegí un cliente: sin asientos no hay nada que revisar.';
-  if(btn) btn.innerHTML = (cli && ch.checked)
-    ? '<i class="ti ti-list-check"></i> Procesar y revisar'
-    : '<i class="ti ti-table-export"></i> Generar Excel';
-}
-async function extRevisarCambio(){
-  const cli=(document.getElementById('ext-cliente')||{}).value; if(!cli) return;
-  REV.prefs=REV.prefs||{}; REV.prefs[cli]=!!document.getElementById('ext-revisar').checked;
-  try{ await PY.call('config_set','revision_previa',REV.prefs); }catch(e){}
-  extRevisarPintar();
-}
+// La casilla «Revisar antes de generar» (extRevisarPintar/Cambio) está en
+// ui/extractos.js, con el resto del conversor.
 
 // ── Abrir, minimizar, cerrar ────────────────────────────────────────────────
 function revAbrir(est){
@@ -7153,6 +7290,7 @@ function revAbrir(est){
 }
 function revOcultar(){
   REV.activa=false; REV.est=null;
+  if(typeof extPanelCargar==='function' && typeof _extActiva==='function' && _extActiva()) extPanelCargar(true);
   document.getElementById('rev-vista').hidden=true;
   document.getElementById('rev-pastilla').hidden=true;
   document.getElementById('rev-notas').hidden=true;
@@ -7770,6 +7908,7 @@ async function revGenerar(sinRevisar){
 }
 function revFinal(r, opt){
   REV.ultimaRuta=r.ruta||'';
+  if(typeof extPanelCargar==='function' && typeof _extActiva==='function' && _extActiva()) extPanelCargar(true);
   const p3=r.paso3||{}, a=r.asientos||{}, pend=p3.pendientes||[];
   const aprendidas=(p3.aprendido||[]).filter(x=>x.alcance!=='uno');
   const n_solos=aprendidas.reduce((s,x)=>s+(x.n||0),0);
@@ -7924,41 +8063,7 @@ async function revCrearTipo(){
 // él: hasta el 08/08/2026 el plan solo existía acá adentro y se perdía al cerrar
 // la app, así que el autocompletado de descripción dejaba de andar sin aviso.
 const IMPUT={cap:true,clientes:[],cats:[],plan:[],planInfo:null,planPendiente:false,tab:'datos'};
-async function extCargarClientes(){
-  let r; try{ r=await PY.call('imput_estado'); }catch(e){ r=null; }
-  IMPUT.cap=!!(r&&r.cap); IMPUT.clientes=(r&&r.clientes)||[];
-  const s=document.getElementById('ext-cliente'), b=document.getElementById('ext-cli-btn'),
-        h=document.getElementById('ext-cliente-hint');
-  if(!s)return;
-  const cur=s.value;
-  s.innerHTML='<option value="">— sin asientos —</option>'+IMPUT.clientes.map(c=>`<option>${_he(c)}</option>`).join('');
-  if(IMPUT.clientes.includes(cur)) s.value=cur;
-  s.disabled=!IMPUT.cap;
-  // El botón NO se deshabilita sin clientes: es justamente donde hay que ir a
-  // crear el primero. Sin cap sí, porque la pantalla entera es PRO/SENTINEL.
-  b.disabled=!IMPUT.cap;
-  if(!IMPUT.cap){
-    h.innerHTML='El borrador de asientos es exclusivo de <b>PRO</b> y <b>SENTINEL</b>.';
-  } else if(!IMPUT.clientes.length){
-    // Estado vacío explícito: antes el desplegable decía "— sin asientos —" y no
-    // había ninguna pista de que el primer cliente se crea desde el botón de al lado.
-    h.innerHTML='<b>Todavía no configuraste ningún cliente.</b> Entrá a '
-      +'<b style="color:var(--teal-l)">Configurar clientes</b> para crear el primero '
-      +'(o para traer uno que te pasaron en un archivo). Sin cliente, el Excel sale igual, pero sin la hoja de asientos.';
-  } else {
-    extHintCliente();
-  }
-}
-// El hint depende de si YA elegiste cliente. Antes decía las dos cosas siempre —
-// qué pasa si elegís y la advertencia de no mezclar— y ninguna de las dos se leía.
-function extHintCliente(){
-  const s=document.getElementById('ext-cliente'), h=document.getElementById('ext-cliente-hint');
-  extRevisarPintar();
-  if(!s||!h||!IMPUT.cap||!IMPUT.clientes.length) return;
-  h.innerHTML = s.value
-    ? '<b style="color:var(--rev-fg)">Procesá juntos solo los extractos de este cliente</b> — los asientos se arman con su plan de cuentas.'
-    : 'Elegí un cliente y el Excel suma el <b>borrador de asientos</b>, listo para importar en tu sistema contable.';
-}
+// extCargarClientes / extHintCliente: en ui/extractos.js (módulo Extractos).
 function imputAbrir(){ document.getElementById('modal-imput').classList.add('show'); imRenderSel(); imCargar(); }
 function imputCerrar(){
   document.getElementById('modal-imput').classList.remove('show'); extCargarClientes();
@@ -9108,7 +9213,7 @@ async function fusEjecutar(){
   if(!r||!r.ok){ if(r&&!r.cancelled) UI.toast(r&&r.error||'No se pudo fusionar','err'); return; }
   UI.toast(`Consolidado: ${r.filas} filas`+(r.duplicados?` · ${r.duplicados} duplicados`:'')+(r.filtradas?` · ${r.filtradas} filtradas`:''),'ok');
   fusCerrar();
-  if(r.ruta && r.ruta.indexOf('demo')<0){ const ok=await appConfirm('Fusionar Reportes',`Consolidado con ${r.filas} filas`+(r.duplicados?` (${r.duplicados} duplicados quitados)`:'')+`.\n¿Abrir el Excel?`); if(ok) PY.call('abrir_path',r.ruta); }
+  if(r.ruta && !PY.demo()){ const ok=await appConfirm('Fusionar Reportes',`Consolidado con ${r.filas} filas`+(r.duplicados?` (${r.duplicados} duplicados quitados)`:'')+`.\n¿Abrir el Excel?`); if(ok) PY.call('abrir_path',r.ruta); }
 }
 
 // ===== OCR POR LOTE =====
@@ -9117,15 +9222,6 @@ const OCR={archivos:[],corriendo:false};
 // Búsqueda puntual sobre una carpeta: ni plantilla ni Excel. Para el caso de
 // "tengo el archivo digitalizado en una nube y necesito UN dato".
 const BUSQ={carpeta:'',archivos:0,corriendo:false};
-// La pastilla de la tarjeta de extractos: el número de bancos sale de _PARSERS,
-// nunca escrito a mano. Se llama al abrir Herramientas.
-async function busqBancosBadge(){
-  const el=document.getElementById('tc-bancos-badge'); if(!el)return;
-  try{
-    const r=await PY.call('herr_extracto_bancos');
-    if(r&&r.ok&&r.n) el.textContent=`${r.n} bancos · saldos verificados`;
-  }catch(e){}
-}
 function busqAbrir(){
   BUSQ.corriendo=false;
   document.getElementById('busq-res').innerHTML='';
@@ -9329,7 +9425,7 @@ async function ocrEjecutar(){
   ocrBar(1);
   document.getElementById('ocr-estado').textContent=`OCR completado · ${r.exitos} ok${r.errores?(' · '+r.errores+' con error'):''} → ${r.carpeta}`;
   UI.toast(`OCR listo: ${r.exitos} archivo${r.exitos===1?'':'s'}`+(r.errores?` (${r.errores} con error)`:''), r.errores?'warn':'ok');
-  if(r.carpeta && r.carpeta.indexOf('demo')<0){ const ok=await appConfirm('OCR completado',`Se procesaron ${r.exitos} archivo(s).\n¿Abrir la carpeta de resultados?`); if(ok) PY.call('abrir_path',r.carpeta); }
+  if(r.carpeta && !PY.demo()){ const ok=await appConfirm('OCR completado',`Se procesaron ${r.exitos} archivo(s).\n¿Abrir la carpeta de resultados?`); if(ok) PY.call('abrir_path',r.carpeta); }
 }
 
 // ===== ORGANIZAR PDF =====
@@ -9388,7 +9484,7 @@ async function orgGuardar(){
   if(!r||!r.ok){ if(r&&!r.cancelled) UI.toast(r&&r.error||'No se pudo guardar','err'); return; }
   UI.toast(`PDF organizado: ${r.guardadas} página(s)`,'ok');
   orgCerrar();
-  if(r.ruta && r.ruta.indexOf('demo')<0){ const ok=await appConfirm('Organizar PDF',`Guardado con ${r.guardadas} página(s).\n¿Abrirlo ahora?`); if(ok) PY.call('abrir_path',r.ruta); }
+  if(r.ruta && !PY.demo()){ const ok=await appConfirm('Organizar PDF',`Guardado con ${r.guardadas} página(s).\n¿Abrirlo ahora?`); if(ok) PY.call('abrir_path',r.ruta); }
 }
 // --- Visor grande de página ---
 async function orgZoom(pos){
@@ -9722,6 +9818,7 @@ async function _init(){
     document.getElementById('chk-historico').checked=!!r.historico;
     document.getElementById('chk-consolidar').checked=!!r.consolidar;
     document.getElementById('chk-validacion').checked=(r.validar_datos!==false);
+    { const _rl=document.getElementById('chk-revisar-lote'); if(_rl) _rl.checked=(r.revisar_lote!==false); }
     setTimeout(valHintEjecucion,150);
     UI.setRenamePattern(r.patron||'');
     onModoChange(r.modo||'extractor');
@@ -9729,9 +9826,9 @@ async function _init(){
     // Destino de originales: espejo por defecto (decisión de producto 14/07).
     setDestino('espejo'); syncDestinoTipo(); onOrgModo('mover');
     UI.renderRenameVars(r.columnas||[]);
-    document.getElementById('sb-version').textContent=`v${r.version||'2.7.5'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.8.0'}`;
     const ed=r.edicion||'—';
-    document.getElementById('sb-version').textContent=`v${r.version||'2.7.5'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.8.0'}`;
     document.getElementById('sb-edition').textContent=ed;
     document.getElementById('sb-uedicion').textContent='Licencia activa';
     document.getElementById('sb-client').textContent='DEXIAE · Producción';
@@ -9739,6 +9836,7 @@ async function _init(){
     refrescarSidebarLic();
     // Gating por licencia (igual que el original)
     UI.aplicarCaps(r.caps||{});
+    UI._inicioPorPlan(r.caps||{});
     if(r.plantilla_activa) UI.actualizarPlantilla({nombre:r.plantilla_activa});
     // (Acá iban «DEXIAE vX iniciado» y «N plantillas · Modo»: no decían nada
     //  que la pantalla no muestre, y tapaban el cartel que explica qué hacer.)
@@ -9757,7 +9855,7 @@ async function refrescarLicencia(){
     const r=await PY.call('get_estado_inicial'); if(!r||!r.ok)return;
     const ed=r.edicion||'—';
     document.getElementById('sb-edition').textContent=ed;
-    UI.renderCuota(r.cuota); UI.aplicarCaps(r.caps||{});
+    UI.renderCuota(r.cuota); UI.aplicarCaps(r.caps||{}); UI._inicioPorPlan(r.caps||{});
   }catch(e){}
   refrescarSidebarLic();
 }
@@ -9840,6 +9938,13 @@ function licCopyHwid(){
   const t=document.getElementById('lic-hwid').textContent||'';
   try{ const ta=document.createElement('textarea'); ta.value=t; ta.style.position='fixed'; ta.style.opacity='0'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); UI.toast('ID de equipo copiado','ok'); }catch(e){ UI.toast('No se pudo copiar','warn'); }
 }
+// Tocar algo que el plan no trae: dice qué trae tu plan y qué suma PRO, y no
+// hace nada más (ni cambia el modo ni arranca nada).
+document.addEventListener('click', ev=>{
+  const t=ev.target && ev.target.closest ? ev.target.closest('[data-nocap]') : null;
+  if(!t || !t.dataset.nocap) return;
+  ev.preventDefault(); ev.stopPropagation(); UI.upsell(t.dataset.nocap);
+}, true);
 function licCambiar(){
   document.getElementById('modal-lic').classList.remove('show');
   if(typeof OB!=='undefined'){ OB.forzado=false; OB.modo='cambiar'; OB.estado=LICINFO||{valida:true}; if(LICINFO) document.getElementById('ob-hwid').textContent=LICINFO.hw_id||'—'; obShowActivar(); obAbrir(); }
@@ -10222,6 +10327,10 @@ function actAbrir() {
   document.getElementById('act-body').innerHTML = `
     <div class="duda-ctx"><b style="color:var(--txt2)">Versión ${_he(r.ultima)}</b><br>
       Tenés la ${_he(r.actual)}.</div>
+    ${r.sin_verificar ? `<div class="act-ojo"><i class="ti ti-shield-question"></i>
+      <span>Este aviso <b>no se pudo verificar</b>: la conexión pasa por un equipo
+      que no deja comprobar el certificado (un proxy). Bajá la versión sólo desde
+      getdexiae.com.</span></div>` : ''}
     ${r.corrige_resultados ? `<div class="act-ojo"><i class="ti ti-alert-triangle"></i>
       <span>Esta versión <b>corrige resultados</b>: puede cambiar lo que salió en
       un Excel que ya generaste.</span></div>` : ''}
@@ -10235,8 +10344,11 @@ function actAbrir() {
   const pie = document.getElementById('act-footer');
   pie.innerHTML =
     `<button class="btn btn-ghost" onclick="actCerrar()">Ahora no</button>` +
-    (r.notas ? `<button class="btn btn-ghost" onclick="actIr('${_he(r.notas)}')">Ver el detalle</button>` : '') +
-    (r.descarga ? `<button class="btn btn-primary" onclick="actIr('${_he(r.descarga)}')"><i class="ti ti-download"></i> Descargar</button>` : '');
+    // ⚠️ La URL viaja en data-url, NUNCA dentro del JS del onclick: _he no
+    // escapa el apóstrofo y el enlace viene de un archivo remoto (auditoría
+    // 29/09/2026). En un atributo entre comillas, _he alcanza.
+    (r.notas ? `<button class="btn btn-ghost" data-url="${_he(r.notas)}" onclick="actIr(this.dataset.url)">Ver el detalle</button>` : '') +
+    (r.descarga ? `<button class="btn btn-primary" data-url="${_he(r.descarga)}" onclick="actIr(this.dataset.url)"><i class="ti ti-download"></i> Descargar</button>` : '');
   document.getElementById('modal-act').classList.add('show');
 }
 function actCerrar() { document.getElementById('modal-act').classList.remove('show'); }
@@ -10284,6 +10396,9 @@ window.addEventListener('load', () => {
   }, 1500);
 });
 </script>
-<script defer src="demo-web.js?v=57c43208a0"></script>
+<script src="revision_lote.js?v=d2f0e1088b"></script>
+<script src="analitica.js?v=35ff20174c"></script>
+<script src="extractos.js?v=ed8c5958f7"></script>
+<script defer src="demo-web.js?v=64e6680f5e"></script>
 </body>
 </html>

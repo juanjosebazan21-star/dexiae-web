@@ -1,0 +1,5 @@
+{
+  "total": 10,
+  "quedan": 10,
+  "nota": "Cupos fundadores de DEXIAE Contable (59.000 AR$/mes por 12 meses). Con cada estudio fundador, bajar 'quedan' en 1 y pushear. En 0 la web pasa sola al precio de lista (79.000). Lo lee lead.js."
+}

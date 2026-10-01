@@ -19,6 +19,11 @@
 /app/ejemplos/*
   X-Robots-Tag: noindex
 
+# Cupos fundadores de DEXIAE Contable: se baja a mano con cada estudio
+# que se suma; que nadie vea un numero viejo (lo lee lead.js).
+/cupos-fundadores.json
+  Cache-Control: no-cache
+
 # Capturas y assets: cache largo (no cambian de nombre seguido, pero tampoco
 # rompe nada si se reemplazan: Pages invalida en cada deploy).
 /*.png

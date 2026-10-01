@@ -32,8 +32,9 @@ Windows 10/11 y funciona sin conexión a internet. Se licencia por suscripción
 - **Conversión de extractos bancarios a Excel**, con recálculo de la cadena de
   saldos fila por fila: si una no cierra, dice cuál. Hay 8 bancos con lector
   calibrado (Chubut, Credicoop, Galicia, ICBC, Macro, Mercado Pago, Patagonia,
-  Santander). El banco se reconoce por el CBU de la cuenta. En el plan PRO,
-  borrador de asientos contables.
+  Santander). El banco se reconoce por el CBU de la cuenta. En DEXIAE Contable,
+  PRO, SENTINEL y la prueba gratis: clasificación de cada movimiento con reglas
+  del usuario y borrador de asientos con el plan de cuentas de cada cliente.
 - **Lectura de facturas por su código QR.** Del código salen el CUIT del
   emisor, el tipo de comprobante, el punto de venta y número, la fecha, el
   importe y el CAE, sin configurar una plantilla por proveedor. El código NO
@@ -60,8 +61,11 @@ equipo estándar (Intel i5, 8 GB RAM). Con PDFs escaneados que requieren OCR, 10
 
 ## Planes
 
-TRIAL (gratis, 14 días, 100 documentos) · CORE · PRO · SENTINEL (organizaciones,
-a coordinar). Precios y topes vigentes en https://getdexiae.com/#planes
+TRIAL (gratis, 14 días, 100 documentos) · CORE · DEXIAE Contable (extractos
+bancarios con clasificación y borrador de asientos; desde la 2.8.0) · PRO ·
+SENTINEL (organizaciones, a coordinar). DEXIAE Contable tiene precio fundador
+para los primeros 10 estudios durante 12 meses. Precios y topes vigentes en
+https://getdexiae.com/#precios
 
 ## Páginas
 

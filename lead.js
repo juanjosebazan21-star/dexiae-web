@@ -72,7 +72,21 @@
       monthly: 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=f739212a89904cadb057722ad9f1e49d',
       annual: 'https://www.mercadopago.com.ar/subscriptions/checkout?preapproval_plan_id=bf0b764a56dd4059b7059ee3b89be994'
     }
+    /* CONTABLE: todavía SIN suscripción de Mercado Pago (01/10/2026). Hasta
+       que exista, el botón deja el lead y abre WhatsApp, y la licencia se
+       arma a mano con el keygen. Cuando estén los links, agregar acá
+         CONTABLE: { monthly: '…59.000…', annual: '…565.000…' }
+       y en planConfig.CONTABLE pasar primaryUrl a mpUrlFor('CONTABLE'). */
   };
+
+  /* WhatsApp con el pedido ya escrito: el mensaje dice qué plan quiere */
+  function waContable() {
+    return 'https://wa.me/5493516574188?text=' + encodeURIComponent(
+      fundAgotado() ? 'Hola! Quiero DEXIAE Contable' : 'Hola! Quiero un cupo fundador de DEXIAE Contable');
+  }
+  function fundAgotado() {
+    return document.documentElement.classList.contains('fund-agotado');
+  }
 
   /* el toggle mensual/anual sólo existe en la home; en el resto es mensual */
   function billing() {
@@ -111,6 +125,22 @@
       successSub: 'Hacé click para completar tu suscripción en Mercado Pago. Apenas se acredite, recibís la clave por email.',
       primaryLabel: 'Ir a Mercado Pago →',
       primaryUrl: function () { return mpUrlFor('CORE'); },
+      isDownload: false
+    },
+    CONTABLE: {
+      pill: 'DEXIAE CONTABLE · PRECIO FUNDADOR',
+      pillAgotado: 'DEXIAE CONTABLE',
+      title: 'Quiero mi cupo fundador',
+      titleAgotado: 'Quiero DEXIAE Contable',
+      sub: 'Dejanos tus datos y te escribimos para coordinar el pago y la activación. Precio fundador: 59.000 AR$/mes durante 12 meses, para los primeros 10 estudios.',
+      subAgotado: 'Dejanos tus datos y te escribimos para coordinar el pago y la activación.',
+      submitBtn: 'Pedir mi cupo',
+      submitBtnAgotado: 'Enviar',
+      footNote: 'Extractos, clasificación y asientos sin límite · 100% offline',
+      successTitle: 'Recibimos tu pedido',
+      successSub: 'Te escribimos para coordinar el pago y la activación. Si querés acelerar, escribinos por WhatsApp.',
+      primaryLabel: 'Escribir por WhatsApp',
+      primaryUrl: function () { return waContable(); },
       isDownload: false
     },
     PRO: {
@@ -487,7 +517,47 @@
        anteriores (ej. la persona estaba sin conexión cuando falló) */
     enviarFallosPendientes();
 
+    cuposFundadores();
+
     montarPrechat();
+  }
+
+  /* ── CUPOS FUNDADORES DE DEXIAE CONTABLE ─────────────────────────
+     Cuántos quedan vive en /cupos-fundadores.json, NO en el HTML: con cada
+     estudio fundador que se suma se baja «quedan» y listo. En 0, la página
+     pasa sola al precio de lista (clase fund-agotado en <html>: el CSS de
+     cada página esconde .fund-on y muestra .fund-off).
+     [data-quedan] lleva su propio texto con {q} y {t}; [data-cupos-dots]
+     dibuja un punto por cupo. Si el JSON no carga, se ve el precio
+     fundador sin contador (que es lo que dice la oferta). */
+  function cuposFundadores() {
+    var marcas = document.querySelectorAll('[data-quedan],[data-cupos-dots],.fund-on');
+    if (!marcas.length || !window.fetch) return;
+    fetch('/cupos-fundadores.json', { cache: 'no-cache' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d) return;
+        var t = parseInt(d.total, 10), q = parseInt(d.quedan, 10);
+        if (!(t > 0) || isNaN(q)) return;
+        q = Math.max(0, Math.min(q, t));
+        if (q === 0) {
+          document.documentElement.classList.add('fund-agotado');
+        } else {
+          document.querySelectorAll('[data-quedan]').forEach(function (el) {
+            el.textContent = el.getAttribute('data-quedan').replace('{q}', q).replace('{t}', t);
+            el.hidden = false;
+          });
+          document.querySelectorAll('[data-cupos-dots]').forEach(function (el) {
+            var h = '';
+            for (var i = 0; i < t; i++) h += '<i' + (i < q ? '' : ' class="tomado"') + '></i>';
+            el.innerHTML = h;
+          });
+          document.querySelectorAll('[data-cupos]').forEach(function (el) { el.hidden = false; });
+        }
+        /* la tabla de precios mide su cabecera fija: que vuelva a medir */
+        document.dispatchEvent(new Event('dx-cupos'));
+      })
+      .catch(function () {});
   }
 
   var currentPlan = 'TRIAL';
@@ -495,11 +565,13 @@
   window.openLead = function (plan) {
     currentPlan = planConfig[plan] ? plan : 'TRIAL';
     var c = planConfig[currentPlan];
-    document.getElementById('m-pill').textContent = c.pill;
-    document.getElementById('m-title').textContent = c.title;
-    document.getElementById('m-sub').textContent = c.sub;
+    /* con los cupos fundadores agotados, el modal deja de hablar de ellos */
+    var ag = fundAgotado();
+    document.getElementById('m-pill').textContent = (ag && c.pillAgotado) || c.pill;
+    document.getElementById('m-title').textContent = (ag && c.titleAgotado) || c.title;
+    document.getElementById('m-sub').textContent = (ag && c.subAgotado) || c.sub;
     var b = document.getElementById('m-submit');
-    b.textContent = c.submitBtn; b.disabled = false;
+    b.textContent = (ag && c.submitBtnAgotado) || c.submitBtn; b.disabled = false;
     document.getElementById('m-foot').textContent = c.footNote;
     document.getElementById('m-form-wrap').style.display = '';
     document.getElementById('m-success').style.display = 'none';
@@ -612,7 +684,8 @@
       fd.append('_origen', location.pathname);   /* de qué página vino el lead */
       fd.append('_utm', origenCampana());        /* de qué pieza/campaña vino */
       fd.append('_subject', 'Nuevo lead DEXIAE — ' + currentPlan +
-        ((currentPlan === 'CORE' || currentPlan === 'PRO') ? ' (' + billing() + ')' : ''));
+        ((currentPlan === 'CORE' || currentPlan === 'PRO' || currentPlan === 'CONTABLE') ? ' (' + billing() + ')' : '') +
+        ((currentPlan === 'CONTABLE' && !fundAgotado()) ? ' · cupo fundador' : ''));
       var res = await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
       if (!res.ok) fallo = 'HTTP ' + res.status;   /* cuota agotada, rate limit, filtro de spam */
     } catch (err) {
@@ -637,7 +710,7 @@
     }
     document.getElementById('m-success-note').style.display = (currentPlan === 'TRIAL') ? '' : 'none';
     if (c.isDownload && url) { try { primary.click(); } catch (_) {} }
-    btn.textContent = c.submitBtn; btn.disabled = false;
+    btn.textContent = (fundAgotado() && c.submitBtnAgotado) || c.submitBtn; btn.disabled = false;
   };
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', montar);

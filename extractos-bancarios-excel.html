@@ -314,24 +314,56 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 .rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.84,.24,1),transform .7s cubic-bezier(.16,.84,.24,1)}
 .rv.in{opacity:1;transform:none}
 .logo img.m,nav img.m{background:none!important;padding:0;object-fit:cover;border-radius:8px;flex:0 0 auto}
+
+/* ══ DEXIAE CONTABLE · PRECIO FUNDADOR (01/10/2026) — mismo criterio que la home:
+   cuántos cupos quedan sale de /cupos-fundadores.json (lead.js); en 0 la página
+   pasa sola al precio de lista (html.fund-agotado). ══ */
+.fund-off{display:none}
+html.fund-agotado .fund-on{display:none}
+html.fund-agotado .fund-off{display:revert}
+.anuncio{display:block;background:#060A14;border-bottom:1px solid rgba(37,99,235,.38);color:var(--md);font-size:13.5px;line-height:1.45}
+.anuncio-in{max-width:1300px;margin:0 auto;padding:9px 32px;display:flex;align-items:center;justify-content:center;gap:6px 12px;flex-wrap:wrap;text-align:center}
+.an-chip{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;background:rgba(37,99,235,.24);color:#DBEAFE;border:1px solid rgba(96,165,250,.45);font-weight:700}
+.anuncio b{color:var(--hi);font-weight:600}
+.an-q{font-family:var(--mono);font-size:12px;color:#93C5FD}
+.an-ir{color:var(--ac);font-weight:600;white-space:nowrap;transition:color .15s}
+.anuncio:hover .an-ir{color:var(--hi)}
+.an-cel{display:none}
+@media(max-width:760px){.an-sec,.an-q.an-sec{display:none}.an-cel{display:inline}.anuncio-in{padding:8px 16px;gap:4px 8px;font-size:13px}}
+/* tarjeta clara: el bloque de asientos de arriba ya es oscuro */
+.fund{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:30px;align-items:center;background:#fff;
+ border:1px solid var(--pline);border-radius:22px;padding:30px 32px;box-shadow:0 24px 50px -30px rgba(20,28,50,.35)}
+.fund-k{display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:700;letter-spacing:.05em;color:var(--ac-deep);text-transform:uppercase;margin-bottom:10px}
+.fund-k .an-chip{background:var(--ac2);color:#fff;border-color:transparent}
+.fund h2{font-size:clamp(22px,2.6vw,30px);letter-spacing:-.03em;line-height:1.15;margin-bottom:10px}
+.fund p{color:var(--ink2);font-size:15.5px}
+.fund-mas{display:inline-block;margin-top:12px;color:var(--ac-deep);font-weight:600;font-size:14.5px}
+.fund-mas:hover{text-decoration:underline;text-underline-offset:3px}
+.fund-precio{background:var(--navy);color:var(--md);border-radius:16px;padding:22px 22px 20px}
+.fund-pr{font-family:var(--mono);color:var(--hi);font-size:36px;letter-spacing:-.03em;margin-top:10px;line-height:1.1}
+.fund-pr small{font-size:12.5px;color:var(--lo);letter-spacing:0}
+.fund-cond{font-size:13px;margin-top:6px}.fund-cond b{color:var(--hi)}.fund-cond s{color:var(--md)}
+.fund-q{display:block;font-family:var(--mono);font-size:12.5px;color:#93C5FD;margin-top:8px}
+.fund-q[hidden]{display:none}
+.fund-btn{width:100%;justify-content:center;margin-top:14px;background:rgba(37,99,235,.20);border:1px solid rgba(96,165,250,.6);color:#fff}
+.fund-btn:hover{background:rgba(37,99,235,.34);border-color:var(--ac)}
+@media(max-width:760px){.fund{grid-template-columns:1fr;padding:24px 20px}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Extractos bancarios a Excel","item":"https://getdexiae.com/extractos-bancarios-excel"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[
-{"@type":"Question","name":"¿Cómo convierto un extracto bancario de PDF a Excel?","acceptedAnswer":{"@type":"Answer","text":"Abrís DEXIAE, elegís el PDF del resumen y el sistema detecta el banco, arma la tabla de movimientos y exporta la planilla. Todo el proceso corre en tu computadora."}},
-{"@type":"Question","name":"¿Por qué mi extracto sale mal cuando lo paso con un conversor online?","acceptedAnswer":{"@type":"Answer","text":"Porque un conversor genérico no sabe que ese PDF es un extracto bancario: ve líneas y espacios, y copia formas. De ahí salen las columnas fusionadas, los importes tomados como texto, las fechas dadas vuelta y un movimiento partido en dos filas cuando el detalle es largo. DEXIAE no convierte el PDF: lo lee sabiendo qué es. Reconoce el banco, sabe dónde empieza y termina la tabla de movimientos, descarta la letra chica legal y los anexos de comisiones, y arma las columnas FECHA, DETALLE, IMPORTE y SALDO con los importes como números. La diferencia se puede verificar: DEXIAE recalcula la cadena de saldos fila por fila y avisa «cadena verificada N/N». Un conversor genérico no puede hacerlo, porque para comprobar un saldo hay que entender el documento, no copiarlo."}},
-{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia, más la billetera Mercado Pago. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos en poco tiempo."}},
-{"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},
-{"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},
-{"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, como función del plan PRO. En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},
-{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. La conversión de extractos bancarios es ilimitada en todos los planes, incluida la prueba gratis de 14 días, y no descuenta del cupo de documentos: ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela."}}
-]}
+{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo convierto un extracto bancario de PDF a Excel?","acceptedAnswer":{"@type":"Answer","text":"Abrís DEXIAE, elegís el PDF del resumen y el sistema detecta el banco, arma la tabla de movimientos y exporta la planilla. Todo el proceso corre en tu computadora."}},{"@type":"Question","name":"¿Por qué mi extracto sale mal cuando lo paso con un conversor online?","acceptedAnswer":{"@type":"Answer","text":"Porque un conversor genérico no sabe que ese PDF es un extracto bancario: ve líneas y espacios, y copia formas. De ahí salen las columnas fusionadas, los importes tomados como texto, las fechas dadas vuelta y un movimiento partido en dos filas cuando el detalle es largo. DEXIAE no convierte el PDF: lo lee sabiendo qué es. Reconoce el banco, sabe dónde empieza y termina la tabla de movimientos, descarta la letra chica legal y los anexos de comisiones, y arma las columnas FECHA, DETALLE, IMPORTE y SALDO con los importes como números. La diferencia se puede verificar: DEXIAE recalcula la cadena de saldos fila por fila y avisa «cadena verificada N/N». Un conversor genérico no puede hacerlo, porque para comprobar un saldo hay que entender el documento, no copiarlo."}},{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia, más la billetera Mercado Pago. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos en poco tiempo."}},{"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},{"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},{"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, en DEXIAE Contable y en PRO (y en la prueba gratis de 14 días). En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. La conversión de extractos bancarios es ilimitada en todos los planes, incluida la prueba gratis de 14 días, y no descuenta del cupo de documentos: ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela."}}]}
 </script>
 </head>
 <body>
 
+<a class="anuncio" href="/#contable"><span class="anuncio-in">
+ <span class="an-chip">Nuevo</span>
+ <span><b>DEXIAE Contable</b><span class="an-sec"> · los extractos de tus clientes, clasificados y con borrador de asientos</span></span>
+ <span class="fund-on"><span class="an-sec">· Precio fundador para los primeros 10 estudios</span><span class="an-cel">· precio fundador</span><span class="an-q an-sec" data-quedan=" · quedan {q} de {t}" hidden></span></span>
+ <span class="an-ir">Ver →</span>
+</span></a>
 <nav><div class="nav-in">
  <a class="logo" href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
  <span class="nav-l">
@@ -362,7 +394,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <div class="flecha f2"><i></i></div>
   <div class="nodo xls"><span class="ico">📊</span><b>Excel</b><small>movimientos</small></div>
   <div class="flecha f3"><i></i></div>
-  <div class="nodo asi"><span class="tagpro">PRO</span><span class="ico">📒</span><b>Asientos</b><small>borrador contable</small></div>
+  <div class="nodo asi"><span class="tagpro">CONTABLE · PRO</span><span class="ico">📒</span><b>Asientos</b><small>borrador contable</small></div>
  </div>
 
  <div class="hero-note">Windows 10 y 11 · no necesita internet · sin costo por página ni por documento</div>
@@ -461,7 +493,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
    <li class="et-flecha" aria-hidden="true"><span></span></li>
    <li class="etapa" id="et3">
     <div class="et-h"><span class="et-n">3</span>
-     <div><h3>Y el borrador de asientos <span class="pro">PRO</span></h3>
+     <div><h3>Y el borrador de asientos <span class="pro">CONTABLE · PRO</span></h3>
       <p>Las dos puntas de cada asiento, con cuenta, descripción, DEBE/HABER y el nivel de confianza
        de la contrapartida propuesta.</p></div>
     </div>
@@ -472,7 +504,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 
  <section class="sec">
   <div class="destacado">
-   <h2>La mayoría llega hasta el Excel. Acá seguís hasta el asiento.<span class="pro">PRO</span></h2>
+   <h2>La mayoría llega hasta el Excel. Acá seguís hasta el asiento.<span class="pro">CONTABLE · PRO</span></h2>
    <p class="lead">En un movimiento bancario <b>una de las dos cuentas ya se conoce: la cuenta del banco</b>.
     DEXIAE propone automáticamente la contrapartida y genera el borrador del asiento, en formato de libro
     diario cronológico.</p>
@@ -494,6 +526,28 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   </div>
  </section>
 
+ <!-- ══ DEXIAE CONTABLE · PRECIO FUNDADOR (01/10/2026) ══
+      Justo después de «hasta el asiento»: es donde la persona ya vio lo que
+      hace la clasificación y los asientos. El detalle está en /#contable. -->
+ <section class="sec" id="contable">
+  <div class="fund">
+   <div>
+    <div class="fund-k"><span class="an-chip">Nuevo</span>DEXIAE Contable</div>
+    <h2>El plan para llevar los bancos de tus clientes</h2>
+    <p>Extractos, clasificación y borrador de asientos sin límite, con el plan de cuentas de cada
+     cliente. Suma la extracción de documentos para probar (30 por mes) y las herramientas PDF.</p>
+    <a class="fund-mas" href="/#contable">Ver qué incluye y cómo se compara con los otros planes →</a>
+   </div>
+   <div class="fund-precio">
+    <span class="an-chip fund-on">Precio fundador</span>
+    <div class="fund-pr"><span class="fund-on">59.000</span><span class="fund-off">79.000</span> <small>AR$/mes</small></div>
+    <div class="fund-cond fund-on">Primeros <b>10 estudios</b> · <b>12 meses</b> · lista <s>79.000</s></div>
+    <span class="fund-q fund-on" data-quedan="Quedan {q} de {t} cupos" hidden></span>
+    <button class="btn fund-btn" onclick="openLead('CONTABLE')"><span class="fund-on">Quiero mi cupo fundador</span><span class="fund-off">Quiero DEXIAE Contable</span></button>
+   </div>
+  </div>
+ </section>
+
  <section class="sec">
   <h2>Qué hojas te quedan en el Excel</h2>
   <p class="lead">Un archivo, varias hojas. Cada una resuelve un momento distinto: lo que importás,
@@ -507,35 +561,35 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
       <b>Resumen</b> con el estado de cada archivo.</div></div></li>
 
    <li><span class="ico">▤</span>
-    <div><div class="hn">Categorías <span class="ed espro">PRO</span></div>
+    <div><div class="hn">Categorías <span class="ed espro">CONTABLE · PRO</span></div>
      <div class="hd">Totales por tipo de movimiento: cuántos, cuánto débito, cuánto crédito y el neto.
       Es la foto del mes antes de entrar a los asientos.</div></div></li>
 
    <li><span class="ico">⚲</span>
-    <div><div class="hn">Asientos (borrador) <span class="ed espro">PRO</span></div>
+    <div><div class="hn">Asientos (borrador) <span class="ed espro">CONTABLE · PRO</span></div>
      <div class="hd">Las dos puntas de cada asiento <b>y por qué se eligió esa cuenta</b>: la categoría
       detectada, la confianza, el <b>origen de la decisión</b> y el archivo del que salió.
       Es la hoja para revisar, no para importar.</div></div></li>
 
    <li><span class="ico">⤓</span>
-    <div><div class="hn">Para importar <span class="ed espro">PRO</span></div>
+    <div><div class="hn">Para importar <span class="ed espro">CONTABLE · PRO</span></div>
      <div class="hd">Las <b>9 columnas</b> que entran al sistema contable, sin las ayudas de revisión.
       Se copia y se pega.</div></div></li>
 
    <li><span class="ico">⏸</span>
-    <div><div class="hn">Pendientes <span class="ed espro">PRO</span></div>
+    <div><div class="hn">Pendientes <span class="ed espro">CONTABLE · PRO</span></div>
      <div class="hd">Los asientos que quedaron sin cuenta, apartados. Aparece solo si hay alguno.</div></div></li>
   </ul>
 
-  <div class="aviso-ed"><b>Las hojas de asientos son de PRO</b>, y salen cuando elegís un
-   cliente configurado. <b>La prueba gratis de 14 días las incluye</b>: es una prueba de PRO,
-   así que podés llegar hasta el borrador con tus propios resúmenes. Al vencer, la conversión
-   sigue disponible en cualquier plan; los asientos quedan en PRO.</div>
+  <div class="aviso-ed"><b>Las hojas de asientos son de DEXIAE Contable y PRO</b>, y salen cuando
+   elegís un cliente configurado. <b>La prueba gratis de 14 días las incluye</b>, así que podés
+   llegar hasta el borrador con tus propios resúmenes. Al vencer, la conversión sigue disponible
+   en cualquier plan; la clasificación y los asientos quedan en Contable y PRO.</div>
  </section>
 
  <section class="sec">
   <div class="destacado">
-   <h2>Por qué son dos hojas de asientos y no una<span class="pro">PRO</span></h2>
+   <h2>Por qué son dos hojas de asientos y no una<span class="pro">CONTABLE · PRO</span></h2>
    <p class="lead">Porque revisar e importar son dos tareas distintas, y mezclarlas rompe una de las dos.</p>
    <ul class="linea-pro">
     <li><span class="lp-i">◆</span>
@@ -676,8 +730,8 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <section class="sec faq">
   <h2>Preguntas frecuentes</h2>
   <details><summary>¿Cómo convierto un extracto bancario de PDF a Excel?</summary>
-   <p>Abrís DEXIAE, vas a Herramientas → “Extracto bancario → Excel”, elegís el PDF (o lo arrastrás a la
-    ventana) y obtenés la planilla. Está explicado paso a paso en la
+   <p>Abrís DEXIAE, vas a <b>Extractos</b> (en el menú de la izquierda), soltás los PDF en la zona de
+    arriba (o hacés clic para elegirlos) y tocás <b>Convertir</b>. Está explicado paso a paso en la
     <a href="/guia-usuario" style="color:var(--ac-deep);font-weight:600">guía del usuario</a>.</p></details>
   <details><summary>¿Por qué mi extracto sale mal cuando lo paso con un conversor online?</summary>
    <p>Porque un conversor genérico <b>no sabe que ese PDF es un extracto bancario</b>. Ve líneas y espacios,
@@ -715,7 +769,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     hay un desfase, te marca en qué fila y de cuánto — así detectás cortes o páginas faltantes antes de
     conciliar.</p></details>
   <details><summary>¿Genera los asientos contables?</summary>
-   <p>Sí, como función del plan PRO. En un movimiento bancario una de las dos cuentas ya se conoce: la del
+   <p>Sí, en <b>DEXIAE Contable</b> y en PRO (y en la prueba gratis de 14 días). En un movimiento bancario una de las dos cuentas ya se conoce: la del
     banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de
     confianza Alta, Media o Revisar.</p></details>
   <details><summary>¿Consume mi cupo mensual de documentos?</summary>

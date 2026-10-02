@@ -170,9 +170,10 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <figcaption>La pestaña Datos y banco (datos de ejemplo).</figcaption>
 </figure>
 <ul>
+<li><b>Cliente</b>: el nombre de la empresa, mejor <b>como lo escribe el banco</b>. Además de identificarla, sirve para reconocer cuándo se transfiere plata a sí misma (ver <a href="#cruzadas">transferencias entre sus cuentas</a>).</li>
 <li><b>Ejercicio</b> y <b>asiento Nº inicial</b>. El ejercicio se escribe tal cual en el Excel: poné lo que use tu sistema (<code>3</code>, <code>2026</code> o <code>2026/27</code>).</li>
 <li><b>Cuenta banco por defecto</b>: la punta fija de cada asiento.</li>
-<li><b>Si el cliente opera con varios bancos</b>, cargá la cuenta de cada uno con <b>+ Banco</b>: cada movimiento se imputa a la cuenta del banco <b>de su propio resumen</b>.</li>
+<li><b>Si el cliente opera con varios bancos</b>, cargá la cuenta de cada uno con <b>+ Banco</b>: cada movimiento se imputa a la cuenta del banco <b>de su propio resumen</b>, y las transferencias entre esas cuentas se aparean solas (<a href="#cruzadas">sección 6</a>).</li>
 <li><b>Las cuentas por defecto</b>: una para cuando sale plata y otra para cuando entra. Es adonde va lo que no tiene ninguna otra pista.</li>
 <li><b>La leyenda</b> del asiento: el detalle del banco, un texto fijo o armada con datos del movimiento.</li>
 <li><b>Anulaciones y devoluciones en su propia línea</b>: al agrupar, cada una va al lado de la operación que anula en vez de sumarse con el resto del día. No cambia un peso: sólo se leen mejor.</li>
@@ -193,7 +194,14 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <img src="/guia-contable-categorias.png?v=56951071" alt="Configuración Contable, pestaña Cuentas por categoría con el botón Importar plan de cuentas" loading="lazy" width="778" height="685">
 <figcaption>La pestaña Cuentas por categoría, todavía sin cuentas asignadas.</figcaption>
 </figure>
-<p>Acá decís a qué cuenta va cada tipo de movimiento: impuesto a los débitos y créditos, comisiones, IVA y percepciones, sueldos, tarjetas, transferencias… Lo que dejes vacío cae en la cuenta por defecto y sale marcado <b>Revisar</b>, para que lo mires a mano.</p>
+<p>Acá decís a qué cuenta va cada tipo de movimiento: impuesto a los débitos y créditos, comisiones, IVA y percepciones, sueldos, tarjetas, transferencias… Cada tipo de movimiento puede quedar de tres maneras:</p>
+<table>
+<tr><th>Cómo lo dejás</th><th>Qué pasa con esos movimientos</th></tr>
+<tr><td><b>Con una cuenta</b></td><td>Van a esa cuenta (confianza media: la pista es la categoría).</td></tr>
+<tr><td><b>Vacío</b></td><td>Van a la <b>cuenta por defecto</b> y salen marcados <b>Revisar</b>: entran al Excel, pero nadie los eligió.</td></tr>
+<tr><td><b>Con la manito ✋</b> («La reviso a mano»)</td><td>DEXIAE <b>no les pone ninguna cuenta</b>: salen <b>sin cuenta</b> y los decidís vos en la revisión, de a uno. Si no los decidís, van a <b>Pendientes</b>. Sirve para los tipos de movimiento que cada mes van a cuentas distintas.</td></tr>
+</table>
+<p>Tocando el <b>nombre</b> de un tipo de movimiento (el lápiz) editás los textos que lo reconocen en el detalle del banco, y con <b>+ Tipo de movimiento</b> sumás uno nuevo.</p>
 <p><b>Importar plan de cuentas</b> trae el plan desde el archivo que ya exporta tu sistema (<code>.xlsx</code>, <code>.csv</code> o <code>.xls</code>), una vez por cliente:</p>
 <ul>
 <li>Las columnas se buscan por el nombre del encabezado, en cualquier orden. Hacen falta el <b>código</b> (<code>Cuenta</code>, <code>Código</code>, <code>Cta</code>, <code>Nro</code>…) y la <b>descripción</b> (<code>Descripción</code>, <code>Nombre</code>, <code>Denominación</code>…). Si falta alguna, DEXIAE te muestra los encabezados que encontró para que sepas cuál renombrar.</li>
@@ -221,6 +229,15 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <li><b>Controla la cadena de saldos</b>: fila por fila, saldo anterior + importe = saldo nuevo. Si algo no cierra, te dice en qué fila y de cuánto.</li>
 <li><b>Si la cadena se derrumba</b> (una cuarta parte o más de las filas no cierra), ese archivo se aparta en vez de entrar al Excel, porque se leyó mal. Los demás siguen. El aviso te dice con qué banco se leyó y te pide el archivo para ajustarlo.</li>
 </ul>
+<h3 id="cruzadas">Si el cliente tiene varios bancos: las transferencias entre sus cuentas</h3>
+<p>Cuando la plata pasa de una cuenta del cliente a otra, el movimiento aparece <b>dos veces</b>: la salida en un resumen y la entrada en el otro. Imputadas por separado serían un gasto y un ingreso que no existieron —en un mes real medido, eran $8,4 millones inflando las compras y otro tanto inflando las ventas—. DEXIAE <b>las aparea y las cuenta una sola vez</b>, de banco a banco.</p>
+<p>Para que eso pase:</p>
+<ul>
+<li>En <b>Datos y banco</b>, cargá con <b>+ Banco</b> la cuenta de cada banco del cliente (hacen falta al menos dos).</li>
+<li><b>Convertí juntos</b> los resúmenes de esos bancos, del mismo período.</li>
+</ul>
+<p>Cómo decide que es una transferencia propia: el mismo importe saliendo de una cuenta y entrando en <b>otra</b> del cliente, con hasta un día de diferencia, y además el texto lo tiene que confirmar —el detalle nombra al banco de la otra cuenta o a la propia empresa—. El texto se exige porque un mismo día puede haber varios movimientos del mismo importe. Dentro de <b>un mismo resumen</b> nunca se aparea: ahí dos importes opuestos son dos operaciones reales.</p>
+<div class="box tip"><b>Si falta el otro resumen.</b> Cuando el detalle nombra a la empresa pero el resumen del otro banco no está en el lote, en la revisión aparece el grupo <b>«Transferencias entre tus cuentas sin la otra punta»</b>: con <b>Agregar el resumen que falta</b> se aparean solas; si no, elegís la cuenta. Si le asignaste cuenta a la categoría «Transferencias entre cuentas propias», se usa esa; la cuenta por defecto, no.</div>
 <div class="box note"><b>Bancos calibrados:</b> Banco del Chubut, Credicoop, Galicia, ICBC, Macro, Mercado Pago, Patagonia y Santander. ¿El tuyo no está? Mandanos un resumen de muestra (podés tapar nombres y CUIT: al lector le sirve la estructura, no los valores) y lo calibramos.</div>
 
 <h2 id="revisar">7. Revisar antes de generar</h2>
@@ -288,10 +305,10 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <p>Hay cinco pistas y se prueban en orden: gana la primera que acierta.</p>
 <table>
 <tr><th>#</th><th>Qué mira</th><th>Confianza</th><th>De dónde sale</th></tr>
-<tr><td><b>1</b></td><td><b>Transferencia entre cuentas propias</b>, confirmada por las dos puntas (la salida en un resumen y la entrada en otro).</td><td><b>Alta</b></td><td>Las cuentas bancarias del cliente</td></tr>
+<tr><td><b>1</b></td><td><b>Transferencia entre cuentas propias</b>, confirmada por las dos puntas (la salida en un resumen y la entrada en otro). Ver <a href="#cruzadas">cómo se aparean</a>.</td><td><b>Alta</b></td><td>Las cuentas bancarias del cliente</td></tr>
 <tr><td><b>2</b></td><td><b>El CUIT</b>, cuando el banco lo imprime en el detalle y está en la lista.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
 <tr><td><b>3</b></td><td><b>El nombre</b>, cuando alguno de los cargados aparece en el detalle.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
-<tr><td><b>4</b></td><td><b>La categoría</b>, si tiene cuenta asignada.</td><td>Media</td><td>Cuentas por categoría</td></tr>
+<tr><td><b>4</b></td><td><b>La categoría</b>, si tiene cuenta asignada (con la manito ✋ sale sin cuenta, para que la decidas vos).</td><td>Media</td><td>Cuentas por categoría</td></tr>
 <tr><td><b>5</b></td><td><b>La cuenta por defecto</b>, según entre o salga plata.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Datos y banco</td></tr>
 </table>
 <div class="box note"><b>El nombre le gana a la categoría.</b> Si cargaste un proveedor apuntando a una cuenta, ese movimiento va ahí aunque la categoría diga otra cosa: vos sabés quién es ese proveedor y el sistema no.</div>

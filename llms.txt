@@ -77,6 +77,7 @@ https://getdexiae.com/#precios
 - [Casos de uso](https://getdexiae.com/casos-de-uso): cómo lo usan contadores, estudios jurídicos, organismos públicos, empresas y auditoría interna.
 - [Extracto bancario a Excel](https://getdexiae.com/extractos-bancarios-excel): qué bancos lee, qué hojas genera y cómo verifica la cadena de saldos.
 - [Facturas por QR a Excel](https://getdexiae.com/facturas-qr-excel): qué datos trae el código de una factura electrónica argentina, qué NO trae, y cuándo no sirve.
+- [Guía de DEXIAE Contable](https://getdexiae.com/guia-contable): paso a paso para estudios contables, de la instalación a la configuración de cada cliente, la revisión antes de generar el Excel y el borrador de asientos.
 - [Guía del usuario](https://getdexiae.com/guia-usuario): documentación completa, 18 secciones.
 - [Términos y EULA](https://getdexiae.com/eula)
 - [Política de privacidad](https://getdexiae.com/privacidad): procesamiento local, sin telemetría ni recolección de documentos.

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de DEXIAE Contable</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Guía de DEXIAE Contable, paso a paso: instalar, activar, configurar cada cliente, convertir los resúmenes del banco, revisar antes de generar el Excel y armar el borrador de asientos. Todo en tu computadora.">
+<link rel="canonical" href="https://getdexiae.com/guia-contable">
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://getdexiae.com/guia-contable">
+<meta property="og:site_name" content="DEXIAE">
+<meta property="og:title" content="Guía de DEXIAE Contable">
+<meta property="og:description" content="Del resumen del banco al borrador de asientos: la guía completa de DEXIAE Contable, de la instalación a la configuración de cada cliente.">
+<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<meta property="og:locale" content="es_AR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#141c32;--ink2:#3d4660;--ink3:#78819b;--paper:#faf8f4;--card:#fff;--line:#e6e1d6;--ac:#2563EB;--ac-deep:#1D4ED8;--ok:#1d9e75;--warn:#b7791f;--navy:#0b1120;--mono:'JetBrains Mono',monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:15.5px}
+a{color:var(--ac);text-decoration:none}a:hover{text-decoration:underline}
+.top{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px}
+.top .m{width:30px;height:30px;border-radius:8px;background:none;object-fit:cover;flex:0 0 auto}
+.top b{font-size:16px}.top a{color:#9fb2d4;margin-left:auto;font-size:13.5px}
+.wrap{max-width:860px;margin:0 auto;padding:40px 24px 80px}
+h1{font-size:34px;letter-spacing:-.02em;margin-bottom:6px}
+.sub{color:var(--ink3);font-size:14.5px;margin-bottom:24px}
+h2{font-size:23px;letter-spacing:-.01em;margin:52px 0 14px;padding-top:18px;border-top:1px solid var(--line)}
+h3{font-size:17px;margin:26px 0 8px}
+p{margin-bottom:12px;color:var(--ink2)}
+ul,ol{margin:0 0 14px 22px;color:var(--ink2)}li{margin-bottom:6px}
+code{font-family:var(--mono);font-size:12.5px;background:#efece4;padding:2px 6px;border-radius:5px}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px;margin-bottom:10px}
+.toc b{display:block;margin-bottom:10px;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
+.toc ol{margin:0 0 0 20px;columns:2;gap:34px}.toc li{margin-bottom:5px;font-size:14px}
+.box{border-radius:12px;padding:16px 20px;margin:16px 0;border:1px solid;font-size:14.5px}
+.box.tip{background:#eef7f2;border-color:#bfe3d2;color:#14532d}
+.box.warn{background:#fdf6e9;border-color:#ecd9ae;color:#7a5310}
+.box.note{background:#eef2fb;border-color:#c4d4f2;color:#1e3a6e}
+.star{background:linear-gradient(135deg,#0b1120,#0e2148);color:#e7eefc;border:none;border-radius:16px;padding:26px 30px;margin:20px 0}
+.star h3{color:#4fd1b5;margin-top:0;font-size:20px}
+.star p,.star li{color:#c3d0e8}.star ol,.star ul{color:#c3d0e8}
+.star b{color:#fff}
+table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+th{background:#f1ede3;text-align:left;padding:10px 12px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
+td{padding:9px 12px;border-top:1px solid var(--line);color:var(--ink2);vertical-align:top}
+td b{color:var(--ink)}
+.si{color:var(--ok);font-weight:700}.no{color:#b6aa92}
+.foot{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;color:var(--ink3);font-size:13.5px}
+.pasos{counter-reset:p;list-style:none;margin-left:0}
+.pasos>li{counter-increment:p;position:relative;padding-left:40px;margin-bottom:14px}
+.pasos>li::before{content:counter(p);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:var(--ac);color:#fff;font-weight:700;font-size:13px;display:grid;place-items:center}
+figure{margin:26px 0}
+figure img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
+figure.angosta{max-width:640px}
+figcaption{font-size:13.5px;color:var(--ink3);margin-top:10px;line-height:1.6}
+@media(max-width:640px){.toc ol{columns:1}h1{font-size:27px}table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
+</style>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Guía de DEXIAE Contable","item":"https://getdexiae.com/guia-contable"}]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía de DEXIAE Contable","description":"Instalar, activar, configurar cada cliente, convertir resúmenes bancarios, revisar antes de generar el Excel y armar el borrador de asientos con DEXIAE Contable.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-contable","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-contable"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og-image.png"}
+</script>
+</head>
+<body>
+<div class="top"><img class="m" src="/logo-marca.svg" alt="" width="30" height="30" decoding="async"><b>DEXIAE · Guía de DEXIAE Contable</b><a href="/">← getdexiae.com</a></div>
+<div class="wrap">
+
+<h1>Guía de DEXIAE Contable</h1>
+<p class="sub">Válida para <b>DEXIAE 2.8.0</b> · octubre 2026 · todo el procesamiento ocurre en tu computadora</p>
+
+<div class="star">
+<h3>En una línea</h3>
+<p>Soltás los resúmenes del banco en PDF, DEXIAE los pasa a Excel controlando que el saldo cierre día por día, clasifica cada movimiento y arma el <b>borrador de asientos con el plan de cuentas de cada cliente</b>. Lo que no puede decidir solo te lo muestra <b>antes</b> de generar el Excel, para que lo corrijas ahí mismo, y lo que corregís queda aprendido.</p>
+<p style="margin-bottom:0">El plan de cuentas y las categorías de cada cliente los cargás <b>cuando quieras</b>: antes de procesar, mientras revisás o después. Y la conversión, la clasificación y los asientos <b>no tienen límite</b>.</p>
+</div>
+
+<div class="toc"><b>Contenido</b>
+<ol>
+<li><a href="#plan">Qué trae tu plan</a></li>
+<li><a href="#instalar">Instalar</a></li>
+<li><a href="#activar">Activar</a></li>
+<li><a href="#pantalla">La pantalla Extractos</a></li>
+<li><a href="#cliente">Configurar un cliente</a></li>
+<li><a href="#convertir">Convertir los resúmenes</a></li>
+<li><a href="#revisar">Revisar antes de generar</a></li>
+<li><a href="#excel">El Excel que sale</a></li>
+<li><a href="#cuenta">Cómo decide la cuenta</a></li>
+<li><a href="#mes">El mes a mes</a></li>
+<li><a href="#mas">Lo demás que trae Contable</a></li>
+<li><a href="#faq">Preguntas frecuentes</a></li>
+</ol>
+</div>
+
+<h2 id="plan">1. Qué trae tu plan</h2>
+<p><b>DEXIAE Contable</b> es el plan para estudios que llevan los bancos de sus clientes.</p>
+<table>
+<tr><th>Trae</th><th>No trae (son de PRO)</th></tr>
+<tr><td>
+<b>Extractos</b>: resúmenes en PDF a Excel, con la cadena de saldos controlada · <b>sin límite</b><br>
+<b>Clasificación</b> de cada movimiento y <b>borrador de asientos</b> con el plan de cuentas de cada cliente · <b>sin límite</b><br>
+<b>Revisión antes de generar</b> el Excel<br>
+<b>Historial</b> y <b>Analítica</b><br>
+<b>Extracción de documentos para probar</b>: 30 por mes, hasta 3 plantillas<br>
+<b>Herramientas PDF</b>: 7 de las 9
+</td><td>
+Detección automática de plantillas<br>
+Modo Centinela<br>
+Validación de datos<br>
+Peritaje de firmas digitales<br>
+Reportes HTML y PDF<br>
+Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que faltan
+</td></tr>
+</table>
+<p>Lo que el plan no trae aparece en la app con un <b>candado</b>: al tocarlo te dice qué trae tu plan y qué suma PRO. Los precios y los cupos fundadores están en <a href="/#contable">getdexiae.com</a>.</p>
+
+<h2 id="instalar">2. Instalar</h2>
+<ol class="pasos">
+<li>Descargá el instalador desde <a href="https://getdexiae.com">getdexiae.com</a>.</li>
+<li>Ejecutalo y seguí el asistente. Requisitos: Windows 10 u 11 de 64 bits; el instalador trae todo lo necesario.</li>
+</ol>
+<div class="box warn"><b>Si Windows muestra «Windows protegió tu equipo»:</b> es el aviso estándar de SmartScreen para programas de desarrolladores independientes. Tocá <b>«Más información»</b> y después <b>«Ejecutar de todos modos»</b>.</div>
+
+<h2 id="activar">3. Activar</h2>
+<p>La primera vez que abrís DEXIAE elegís entre dos caminos:</p>
+<ul>
+<li><b>Empezar prueba de 14 días.</b> Es una prueba de PRO y <b>ya trae la clasificación y los asientos</b>, así que podés hacer todo lo de esta guía con tus propios resúmenes antes de pedir tu licencia.</li>
+<li><b>Ya tengo una licencia.</b> Pegás la clave que te mandamos y listo.</li>
+</ul>
+<h3>Pedir la clave</h3>
+<ol class="pasos">
+<li>En el panel de licencia tocá <b>«Copiar solicitud»</b>: copia un mensaje con el ID de tu equipo.</li>
+<li>En la línea <b>«Edición deseada»</b> dejá <b>CONTABLE</b>, completá tu nombre y mandanos el mensaje por WhatsApp o por mail.</li>
+<li>Te devolvemos la clave con las instrucciones. En DEXIAE tocá <b>«Ya tengo una licencia»</b>, pegala completa y confirmá.</li>
+</ol>
+<div class="box note">La licencia es por equipo. Una licencia Contable necesita <b>la versión 2.8.0 o posterior</b>: una anterior no la reconoce. Si necesitás DEXIAE en más de una computadora, consultanos.</div>
+
+<h2 id="pantalla">4. La pantalla Extractos</h2>
+<p>Con la licencia Contable, DEXIAE arranca directamente en <b>Extractos</b>. Todo el trabajo con los bancos pasa en esta pantalla:</p>
+<figure>
+<img src="/guia-contable-convertir.png?v=cd6abc8c" alt="La parte de arriba de la pantalla Extractos: el cliente elegido, Configurar clientes, la zona para soltar los resúmenes y Revisar antes de generar el Excel" loading="lazy" width="1214" height="298">
+<figcaption>Arriba de la pantalla Extractos, con los datos de ejemplo de la demo.</figcaption>
+</figure>
+<ul>
+<li><b>El cliente</b>, arriba a la derecha. Elige de quién son los asientos de la próxima conversión y, al mismo tiempo, filtra el tablero de abajo para mostrar sólo lo suyo.</li>
+<li><b>Configurar clientes</b>, al lado: la única puerta a todo lo contable (plan de cuentas, categorías, CUITs).</li>
+<li><b>La zona para soltar los resúmenes</b>, con la lista de bancos calibrados.</li>
+<li><b>Revisar antes de generar el Excel</b>: viene tildado. Si no hay nada para revisar, genera directo. DEXIAE recuerda la opción por cliente.</li>
+<li><b>Qué hojas trae el Excel</b>: un resumen, en la misma pantalla, de lo que va a salir.</li>
+<li><b>Lo convertido</b>: el tablero de 30 o 90 días, 12 meses o todo, con lo que conviene resolver.</li>
+</ul>
+
+<h2 id="cliente">5. Configurar un cliente</h2>
+<div class="box tip"><b>Cuándo se configura: cuando quieras.</b> Podés cargar el plan de cuentas y asignar las categorías <b>antes</b> de procesar el primer resumen, hacerlo <b>mientras revisás</b> (en la revisión se elige o se escribe la cuenta de cada movimiento) o <b>después</b>, con calma. No hace falta tener todo listo para empezar: lo que esté sin cuenta va a la cuenta por defecto y te lo muestra para revisar.</div>
+<p>Tocá <b>Configurar clientes</b>. Arriba elegís el cliente o tocás <b>Nuevo</b>. La configuración tiene tres pestañas.</p>
+
+<h3>Datos y banco</h3>
+<figure class="angosta">
+<img src="/guia-contable-datos.png?v=1415960f" alt="Configuración Contable, pestaña Datos y banco: ejercicio, asiento inicial, cómo se arman los asientos y la cuenta del banco" loading="lazy" width="778" height="685">
+<figcaption>La pestaña Datos y banco (datos de ejemplo).</figcaption>
+</figure>
+<ul>
+<li><b>Ejercicio</b> y <b>asiento Nº inicial</b>. El ejercicio se escribe tal cual en el Excel: poné lo que use tu sistema (<code>3</code>, <code>2026</code> o <code>2026/27</code>).</li>
+<li><b>Cuenta banco por defecto</b>: la punta fija de cada asiento.</li>
+<li><b>Si el cliente opera con varios bancos</b>, cargá la cuenta de cada uno con <b>+ Banco</b>: cada movimiento se imputa a la cuenta del banco <b>de su propio resumen</b>.</li>
+<li><b>Las cuentas por defecto</b>: una para cuando sale plata y otra para cuando entra. Es adonde va lo que no tiene ninguna otra pista.</li>
+<li><b>La leyenda</b> del asiento: el detalle del banco, un texto fijo o armada con datos del movimiento.</li>
+<li><b>Anulaciones y devoluciones en su propia línea</b>: al agrupar, cada una va al lado de la operación que anula en vez de sumarse con el resto del día. No cambia un peso: sólo se leen mejor.</li>
+</ul>
+<p><b>Cómo se arman los asientos</b>: cinco formas, y en la revisión las podés comparar con los números del propio lote antes de elegir (<a href="#revisar">sección 7</a>).</p>
+<table>
+<tr><th>Opción</th><th>Qué hace</th></tr>
+<tr><td><b>Uno por movimiento</b></td><td>Igual que el resumen del banco.</td></tr>
+<tr><td><b>Agrupar por día y cuenta</b> <span class="si">recomendado</span></td><td>Los movimientos del día que van a la misma cuenta se suman en un asiento.</td></tr>
+<tr><td><b>Por día, separando lo que entró de lo que salió</b></td><td>Hasta dos asientos por día; el banco queda en una línea en cada uno.</td></tr>
+<tr><td><b>Un solo asiento por día</b></td><td>Todo el día junto; los días con entradas y salidas dejan el banco en dos líneas.</td></tr>
+<tr><td><b>Un asiento por día, con el banco en una sola línea (neto del día)</b></td><td>El banco va por la diferencia del día. Es la única que cambia el total del diario: el control pasa a ser el saldo de cada día.</td></tr>
+</table>
+<div class="box warn">Si ya importaste asientos a tu sistema, <b>cambiar esta opción renumera</b> los del próximo Excel. Revisá que no se dupliquen.</div>
+
+<h3>Cuentas por categoría</h3>
+<figure class="angosta">
+<img src="/guia-contable-categorias.png?v=56951071" alt="Configuración Contable, pestaña Cuentas por categoría con el botón Importar plan de cuentas" loading="lazy" width="778" height="685">
+<figcaption>La pestaña Cuentas por categoría, todavía sin cuentas asignadas.</figcaption>
+</figure>
+<p>Acá decís a qué cuenta va cada tipo de movimiento: impuesto a los débitos y créditos, comisiones, IVA y percepciones, sueldos, tarjetas, transferencias… Lo que dejes vacío cae en la cuenta por defecto y sale marcado <b>Revisar</b>, para que lo mires a mano.</p>
+<p><b>Importar plan de cuentas</b> trae el plan desde el archivo que ya exporta tu sistema (<code>.xlsx</code>, <code>.csv</code> o <code>.xls</code>), una vez por cliente:</p>
+<ul>
+<li>Las columnas se buscan por el nombre del encabezado, en cualquier orden. Hacen falta el <b>código</b> (<code>Cuenta</code>, <code>Código</code>, <code>Cta</code>, <code>Nro</code>…) y la <b>descripción</b> (<code>Descripción</code>, <code>Nombre</code>, <code>Denominación</code>…). Si falta alguna, DEXIAE te muestra los encabezados que encontró para que sepas cuál renombrar.</li>
+<li>Si el archivo trae una columna <b>Imputable</b>, los rubros de agrupación (<code>NO</code>, <code>N</code>, <code>FALSE</code>, <code>0</code> o vacío) no se ofrecen para asignar. Si no la trae, todas las filas quedan disponibles y te lo avisa.</li>
+<li>Las filas sin código y los códigos repetidos se descartan, y te dice cuáles con su número de fila tal como se ve en Excel.</li>
+</ul>
+<p>No es obligatorio: sin plan importado, la lista ofrece las cuentas que el cliente ya usa, y en la revisión podés escribir una cuenta nueva (código y nombre).</p>
+
+<h3>CUITs</h3>
+<p>Los CUIT y los nombres de los habituales —proveedores, clientes, socios— con su cuenta. Cuando el banco imprime el CUIT en el detalle de una transferencia, esa es la pista más fuerte que hay. Esta pestaña también se llena sola con lo que corregís en la revisión y elegís recordar.</p>
+<div class="box tip"><b>Importar cliente / Exportar cliente</b> mueve toda la configuración en <b>un solo archivo</b>: cuentas, categorías, CUITs y el plan de cuentas. Se arma una vez y se pasa a otra computadora sin volver a cargar nada. Antes de escribir, DEXIAE te muestra qué trae el archivo y qué pisa.</div>
+
+<h2 id="convertir">6. Convertir los resúmenes</h2>
+<ol class="pasos">
+<li><b>Elegí el cliente</b> arriba a la derecha (sin cliente, el Excel sale con los movimientos y sin asientos).</li>
+<li><b>Soltá los resúmenes</b> en PDF, o tocá la zona para elegirlos. Pueden ser varios meses o varios bancos del mismo cliente: cada resumen va a su hoja.</li>
+<li><b>Convertir</b> (o <b>Convertir y revisar</b>, si está tildada la revisión).</li>
+</ol>
+<h3>Qué PDF sirve</h3>
+<p>El que <b>bajás del homebanking</b>: un PDF con texto, que es para lo que están calibrados los lectores. Un <b>PDF escaneado o una foto</b> no sirve para el conversor, porque es una imagen sin texto. No hace falta recortar nada: encabezados, leyendas y pies de página se descartan solos.</p>
+<h3>Qué hace DEXIAE solo</h3>
+<ul>
+<li><b>Reconoce el banco.</b> No lo elegís de una lista: lo decide por el <b>CBU de la portada</b>, después por la <b>forma de la tabla</b> y, como último recurso, por el <b>nombre</b>. El nombre va último a propósito: un resumen nombra al banco de la contraparte en cada transferencia.</li>
+<li><b>Descarta los repetidos</b> por contenido, aunque tengan otro nombre de archivo.</li>
+<li><b>Controla la cadena de saldos</b>: fila por fila, saldo anterior + importe = saldo nuevo. Si algo no cierra, te dice en qué fila y de cuánto.</li>
+<li><b>Si la cadena se derrumba</b> (una cuarta parte o más de las filas no cierra), ese archivo se aparta en vez de entrar al Excel, porque se leyó mal. Los demás siguen. El aviso te dice con qué banco se leyó y te pide el archivo para ajustarlo.</li>
+</ul>
+<div class="box note"><b>Bancos calibrados:</b> Banco del Chubut, Credicoop, Galicia, ICBC, Macro, Mercado Pago, Patagonia y Santander. ¿El tuyo no está? Mandanos un resumen de muestra (podés tapar nombres y CUIT: al lector le sirve la estructura, no los valores) y lo calibramos.</div>
+
+<h2 id="revisar">7. Revisar antes de generar</h2>
+<p>Con <b>Revisar antes de generar el Excel</b> tildado, después de convertir se abre la revisión: lo que DEXIAE no pudo decidir solo, antes de que llegue al Excel. Si no hay nada para revisar, genera directo.</p>
+<figure>
+<img src="/guia-contable-revision.png?v=a5c0b35c" alt="La revisión antes de generar el Excel: la barra con sin cuenta, con la cuenta por defecto y resueltos, los grupos para revisar y el pie con los asientos para importar" loading="lazy" width="1440" height="810">
+<figcaption>La revisión de un lote de ejemplo: 469 movimientos, 5 para revisar.</figcaption>
+</figure>
+<h3>La barra de arriba</h3>
+<p>Cada movimiento está en uno de tres estados, con su importe:</p>
+<ul>
+<li><b>Sin cuenta</b> — si no decidís, van a la hoja <b>Pendientes</b>.</li>
+<li><b>Con la cuenta por defecto</b> — entran al Excel, pero nadie los eligió.</li>
+<li><b>Resueltos</b> — por la memoria de CUIT o de nombres, la categoría, el signo o el apareo de transferencias entre cuentas propias.</li>
+</ul>
+<h3>Qué revisar</h3>
+<p>Los movimientos agrupados por motivo, del más urgente al menos: transferencias entre tus cuentas sin la otra punta, un signo que no corresponde a su categoría, movimientos sin categoría, una categoría sin cuenta, y lo que se resolvió sólo por la categoría, para controlar. Cada grupo trae su botón: <b>Corregir…</b>, <b>Asignar cuenta a la categoría…</b>, <b>Agregar el resumen que falta</b>, <b>Está bien así</b>, <b>Dejar en Pendientes</b> o <b>Ver movimientos</b>.</p>
+<figure class="angosta">
+<img src="/guia-contable-corregir.png?v=a2e72dd1" alt="La ventana ¿A dónde va este movimiento?: elegir la cuenta y para cuáles movimientos aplicarla" loading="lazy" width="638" height="552">
+<figcaption>Corregir un movimiento: la cuenta y para cuáles.</figcaption>
+</figure>
+<p>Al corregir elegís la <b>cuenta</b> (la buscás por código o nombre, o escribís una nueva) y <b>para cuáles</b>:</p>
+<table>
+<tr><th>Opción</th><th>Qué pasa</th></tr>
+<tr><td><b>Solo este movimiento</b></td><td>Queda en este Excel. El mes que viene vuelve a preguntar.</td></tr>
+<tr><td><b>Todo lo de este nombre</b></td><td>Se guarda en la memoria de nombres del cliente.</td></tr>
+<tr><td><b>Todo lo del CUIT</b></td><td>Se guarda en la memoria de CUIT del cliente (cuando el detalle trae un CUIT).</td></tr>
+<tr><td><b>Toda la categoría</b></td><td>Cambia la cuenta de la categoría para ese cliente.</td></tr>
+</table>
+<p>Antes de aplicar te muestra cuántos movimientos del lote cambian. <b>Deshacer</b>, arriba, vuelve atrás la última corrección.</p>
+<h3>Cómo va a salir</h3>
+<figure>
+<img src="/guia-contable-como-sale.png?v=9ac08d55" alt="La pestaña Cómo va a salir: las cinco formas de armar los asientos con los números del lote y cada asiento abierto" loading="lazy" width="1440" height="810">
+<figcaption>Las cinco formas de armar los asientos, con los números del lote, y cada asiento con su saldo del día.</figcaption>
+</figure>
+<p>Comparás las formas de armar los asientos <b>con los números de este lote</b> —cuántos asientos, cuántas filas, el total del diario— y elegís una. Cada asiento se abre: ves sus líneas, el saldo del día según el resumen y, en las líneas que juntan varios movimientos, podés cambiarlos de cuenta, quitarlos del Excel o repartirlos, de a uno.</p>
+<h3>Saldos por día</h3>
+<p>Compara cada día con el saldo del resumen. Un día que no cierra también se ve en el pie, sin cambiar de pestaña.</p>
+<h3>El pie, y generar</h3>
+<p>Abajo ves siempre cómo va a quedar: cuántos asientos van a <b>Para importar</b> (y su numeración), cuántos quedan en <b>Pendientes</b>, si <b>DEBE = HABER</b> y los saldos por día. Después:</p>
+<ul>
+<li><b>Generar Excel</b> — o <b>Generar con N en Pendientes</b>, si dejaste algo sin cuenta.</li>
+<li><b>Generar sin revisar</b> — sale como lo dejó DEXIAE.</li>
+<li><b>Minimizar</b> — seguís usando la app y volvés después. Y <b>Nota</b> deja lo que sabés de ese lote y el sistema no.</li>
+</ul>
+
+<h2 id="excel">8. El Excel que sale</h2>
+<table>
+<tr><th>Hoja</th><th>Qué trae</th><th>Cuándo</th></tr>
+<tr><td><b>Una por resumen</b></td><td>Una fila por movimiento: fecha, detalle, CUIT (si venía en el detalle), importe con signo, tipo, saldo y <b>Verif. Saldo</b>.</td><td>Siempre</td></tr>
+<tr><td><b>Resumen</b></td><td>Una línea por archivo: banco, hoja, movimientos y cómo cerró la cadena de saldos.</td><td>Con más de un resumen</td></tr>
+<tr><td><b>Acerca de este archivo</b></td><td>De dónde salió el Excel.</td><td>Siempre</td></tr>
+<tr><td><b>Categorías</b></td><td>Totales por tipo de movimiento; además, cada movimiento suma la columna Categoría.</td><td>Siempre en Contable</td></tr>
+<tr><td><b>Asientos (borrador)</b></td><td>Las dos puntas de cada asiento <b>y por qué se eligió esa cuenta</b>: categoría, confianza, origen de la decisión. Es la hoja para revisar.</td><td>Con un cliente elegido</td></tr>
+<tr><td><b>Para importar</b></td><td>Sólo los asientos completos, en 9 columnas: <code>EJERCICIO</code>, <code>FECHA</code>, <code>ASIENTO</code>, <code>LEYENDA</code>, <code>MOVIMIENTO</code>, <code>CUENTA</code>, <code>DESCRIPCION</code>, <code>DEBE</code>, <code>HABER</code>.</td><td>Con un cliente elegido</td></tr>
+<tr><td><b>Pendientes</b></td><td>Los asientos que quedaron sin cuenta, apartados.</td><td>Sólo si hay alguno</td></tr>
+<tr><td><b>A revisar</b></td><td>Los asientos que usaron la cuenta por defecto, con su porqué. Esos <b>sí</b> entran a Para importar: esta hoja es para no perderlos de vista.</td><td>Sólo si hay alguno</td></tr>
+<tr><td><b>Quitados</b></td><td>Lo que sacaste de los asientos en la revisión, tal cual el resumen, para que el Excel siga cerrando contra el banco.</td><td>Sólo si quitaste algo</td></tr>
+</table>
+<p><b>Por qué Pendientes va aparte.</b> Si un asiento sin cuenta se colara en Para importar, el lote saldría descuadrado y el sistema podría rechazarlo entero. Preferimos que importes los asientos completos y revises los pendientes.</p>
+<div class="box warn"><b>Ojo con esto, que se escapa fácil.</b> Un movimiento que fue a la cuenta por defecto <b>igual entra a Para importar</b> y ahí se ve como una línea más, porque esa hoja no tiene la columna de confianza. Esos asientos están listados en la hoja <b>A revisar</b> y marcados en la revisión y en Asientos (borrador): miralos antes de importar un mes nuevo.</div>
+<div class="box note"><b>Sobre tu sistema contable.</b> La hoja Para importar trae esas 9 columnas. No está verificada contra un sistema en particular: probala primero con un mes chico. Si tu sistema pide otro modelo, mandanos el modelo de importación y vemos de dejarlo en ese formato.</div>
+
+<h2 id="cuenta">9. Cómo decide la cuenta</h2>
+<p>Hay cinco pistas y se prueban en orden: gana la primera que acierta.</p>
+<table>
+<tr><th>#</th><th>Qué mira</th><th>Confianza</th><th>De dónde sale</th></tr>
+<tr><td><b>1</b></td><td><b>Transferencia entre cuentas propias</b>, confirmada por las dos puntas (la salida en un resumen y la entrada en otro).</td><td><b>Alta</b></td><td>Las cuentas bancarias del cliente</td></tr>
+<tr><td><b>2</b></td><td><b>El CUIT</b>, cuando el banco lo imprime en el detalle y está en la lista.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
+<tr><td><b>3</b></td><td><b>El nombre</b>, cuando alguno de los cargados aparece en el detalle.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
+<tr><td><b>4</b></td><td><b>La categoría</b>, si tiene cuenta asignada.</td><td>Media</td><td>Cuentas por categoría</td></tr>
+<tr><td><b>5</b></td><td><b>La cuenta por defecto</b>, según entre o salga plata.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Datos y banco</td></tr>
+</table>
+<div class="box note"><b>El nombre le gana a la categoría.</b> Si cargaste un proveedor apuntando a una cuenta, ese movimiento va ahí aunque la categoría diga otra cosa: vos sabés quién es ese proveedor y el sistema no.</div>
+<p>Las <b>categorías</b> (qué es un movimiento) vienen con DEXIAE y las comparten todos tus clientes. La <b>cuenta de cada categoría</b> y los <b>CUITs y nombres</b> son de cada cliente, porque dependen de su plan de cuentas y de lo que sólo vos sabés.</p>
+
+<h2 id="mes">10. El mes a mes</h2>
+<ul>
+<li><b>Lo que corregiste y elegiste recordar queda aprendido</b> para ese cliente: el mes siguiente esos movimientos ya salen resueltos.</li>
+<li><b>El tablero de Extractos</b> te dice qué conviene resolver: categorías sin cuenta, un banco sin configurar, una cadena cortada, revisiones sin terminar, resúmenes que no se pudieron leer. Con un cliente elegido, muestra sólo lo suyo.</li>
+<li><b>Todo queda en el Historial</b>: cada conversión con sus movimientos, su banco y el resultado de la cadena de saldos.</li>
+<li><b>Para pasar un cliente a otra computadora</b>, Exportar cliente en una y Importar cliente en la otra.</li>
+</ul>
+
+<h2 id="mas">11. Lo demás que trae Contable</h2>
+<ul>
+<li><b>Extracción de documentos para probar</b>: hasta 30 documentos por mes con plantillas (hasta 3) en Ejecución y Laboratorio. Sirve para probar cómo DEXIAE lee tus facturas o comprobantes; el volumen es de los planes CORE y PRO.</li>
+<li><b>Herramientas PDF</b>: 7 de las 9 —unir, dividir o extraer, PDF a Word, imágenes a PDF, organizar, comprimir y buscar dentro de los PDF—, sin límite.</li>
+<li><b>Analítica</b>: qué se repite y dónde conviene actuar, calculado con el historial de esta computadora.</li>
+</ul>
+
+<h2 id="faq">12. Preguntas frecuentes</h2>
+<h3>¿Se sube algo a internet?</h3>
+<p>No. Los resúmenes, los Excel y la configuración de tus clientes quedan en tu computadora. Lo único que DEXIAE consulta en internet es la lista de licencias revocadas y el aviso de versión nueva; y sólo sale lo que vos mandes a propósito con «Reportar un problema» o «Esto no me cierra».</p>
+<h3>¿DEXIAE concilia?</h3>
+<p>Deja <b>el lado del banco</b> completo: los movimientos, la cadena de saldos controlada día por día, clasificados y con el borrador de asientos. El cruce contra lo registrado lo hacés en tu sistema, como siempre, pero sin cargar nada a mano.</p>
+<h3>¿Hay un límite de resúmenes, movimientos o asientos?</h3>
+<p>No. La conversión, la clasificación y los asientos no tienen límite. El único cupo de Contable es la extracción de documentos para probar (30 por mes).</p>
+<h3>¿Tengo que configurar todo antes de empezar?</h3>
+<p>No. Podés convertir el primer resumen sin nada configurado y asignar las cuentas en la revisión o después. Lo que no tiene cuenta va a la cuenta por defecto y te lo marca.</p>
+<h3>Mi banco no está en la lista.</h3>
+<p>Mandanos un resumen de muestra (podés tapar los datos) y lo calibramos. Mientras tanto, ese archivo se omite al convertir y los demás siguen.</p>
+<h3>Los saldos no cierran en un resumen.</h3>
+<p>Casi siempre es un resumen <b>incompleto</b>: faltan páginas o se bajó con un rango cortado. Volvé a bajarlo completo del homebanking. Si sigue, mandanos el archivo: la fila y el importe que marca DEXIAE son justo lo que necesitamos.</p>
+<h3>¿Qué pasa cuando termina la prueba?</h3>
+<p>La conversión de extractos sigue funcionando. La clasificación y los asientos quedan para Contable y PRO: al activar tu licencia Contable, seguís exactamente donde estabas, con tus clientes configurados.</p>
+<h3>Algo no me cierra.</h3>
+<p>En la revisión y en el Historial está <b>«Esto no me cierra»</b>: nos manda ese lote con lo que decidió el sistema. Los CUITs y nombres de terceros van destildados, salvo que la duda sea justamente sobre eso. Y si algo falla, <b>«Reportar un problema»</b>, abajo en la barra lateral. También nos encontrás en <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>.</p>
+
+<p class="foot">DEXIAE · Guía de DEXIAE Contable · válida para la versión 2.8.0. La guía completa de todos los módulos está en la <a href="/guia-usuario">Guía del usuario</a>.</p>
+</div>
+</body>
+</html>

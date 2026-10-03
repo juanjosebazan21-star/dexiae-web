@@ -348,6 +348,20 @@ html.fund-agotado .fund-off{display:revert}
 .fund-btn{width:100%;justify-content:center;margin-top:14px;background:rgba(37,99,235,.20);border:1px solid rgba(96,165,250,.6);color:#fff}
 .fund-btn:hover{background:rgba(37,99,235,.34);border-color:var(--ac)}
 @media(max-width:760px){.fund{grid-template-columns:1fr;padding:24px 20px}}
+
+/* video de YouTube con fachada (03/10/2026): portada propia, YouTube al tocar (yt.js) */
+.ytv{position:relative;aspect-ratio:16/9;border-radius:13px;overflow:hidden;background:#0B1120;border:1px solid rgba(37,99,235,.22);box-shadow:0 30px 60px -28px rgba(20,28,50,.45),0 8px 20px -12px rgba(20,28,50,.3)}
+.ytv-b{all:unset;display:block;position:absolute;inset:0;cursor:pointer}
+.ytv-b img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s cubic-bezier(.2,.9,.3,1),filter .3s}
+.ytv-b:hover img{transform:scale(1.02);filter:brightness(1.06)}
+.ytv-play{position:absolute;left:50%;top:50%;width:84px;height:84px;margin:-42px 0 0 -42px;border-radius:50%;background:#2563EB;box-shadow:0 12px 32px rgba(37,99,235,.5);display:grid;place-items:center;transition:transform .2s}
+.ytv-b:hover .ytv-play{transform:scale(1.08)}
+.ytv-play svg{width:30px;height:30px;margin-left:5px;fill:#fff}
+.ytv-dur{position:absolute;right:12px;top:12px;background:rgba(11,17,32,.85);color:#fff;font:600 13px/1 Inter,system-ui,sans-serif;padding:6px 9px;border-radius:6px}
+.ytv-b:focus-visible{outline:3px solid #2563EB;outline-offset:-3px}
+.ytv iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.ytv-cap a{color:#2563EB}
+@media (max-width:640px){.ytv-play{width:64px;height:64px;margin:-32px 0 0 -32px}.ytv-play svg{width:24px;height:24px}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Extractos bancarios a Excel","item":"https://getdexiae.com/extractos-bancarios-excel"}]}
@@ -355,6 +369,7 @@ html.fund-agotado .fund-off{display:revert}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo convierto un extracto bancario de PDF a Excel?","acceptedAnswer":{"@type":"Answer","text":"Abrís DEXIAE, elegís el PDF del resumen y el sistema detecta el banco, arma la tabla de movimientos y exporta la planilla. Todo el proceso corre en tu computadora."}},{"@type":"Question","name":"¿Por qué mi extracto sale mal cuando lo paso con un conversor online?","acceptedAnswer":{"@type":"Answer","text":"Porque un conversor genérico no sabe que ese PDF es un extracto bancario: ve líneas y espacios, y copia formas. De ahí salen las columnas fusionadas, los importes tomados como texto, las fechas dadas vuelta y un movimiento partido en dos filas cuando el detalle es largo. DEXIAE no convierte el PDF: lo lee sabiendo qué es. Reconoce el banco, sabe dónde empieza y termina la tabla de movimientos, descarta la letra chica legal y los anexos de comisiones, y arma las columnas FECHA, DETALLE, IMPORTE y SALDO con los importes como números. La diferencia se puede verificar: DEXIAE recalcula la cadena de saldos fila por fila y avisa «cadena verificada N/N». Un conversor genérico no puede hacerlo, porque para comprobar un saldo hay que entender el documento, no copiarlo."}},{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC y Galicia, más la billetera Mercado Pago. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos en poco tiempo."}},{"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},{"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},{"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, en DEXIAE Contable y en PRO (y en la prueba gratis de 14 días). En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. La conversión de extractos bancarios es ilimitada en todos los planes, incluida la prueba gratis de 14 días, y no descuenta del cupo de documentos: ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela."}}]}
 </script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Extracto bancario de PDF a Excel y asientos, en tu computadora | DEXIAE Contable","description":"Soltás los resúmenes del banco en PDF y DEXIAE Contable los pasa a Excel controlando que el saldo cierre día por día, clasifica cada movimiento y arma el borrador de asientos con el plan de cuentas de cada cliente. Todo en tu computadora: los resúmenes no se suben a internet.","thumbnailUrl":["https://getdexiae.com/video/dexiae-contable-portada.jpg","https://i.ytimg.com/vi/2OLKYAJxirM/hqdefault.jpg"],"uploadDate":"2026-10-03T00:54:18-07:00","duration":"PT2M28S","inLanguage":"es-AR","embedUrl":"https://www.youtube.com/embed/2OLKYAJxirM","contentUrl":"https://www.youtube.com/watch?v=2OLKYAJxirM","publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"}}</script>
 </head>
 <body>
 
@@ -401,6 +416,14 @@ html.fund-agotado .fund-off{display:revert}
 </div></header>
 
 <main><div class="wrap">
+
+ <!-- ══ EL VIDEO (03/10/2026) ══ -->
+ <section class="sec">
+  <h2>Míralo en 2 minutos</h2>
+  <p class="lead">Del resumen en PDF al borrador de asientos, con la interfaz real de DEXIAE Contable.</p>
+  <div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" loading="lazy" decoding="async"><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div>
+  <p class="ytv-cap" style="font-size:13px;color:var(--md);margin-top:10px">Interfaz real de DEXIAE 2.8, con datos de ejemplo. <a href="https://www.youtube.com/watch?v=2OLKYAJxirM" target="_blank" rel="noopener">Verlo en YouTube</a></p>
+ </section>
 
  <!-- ══ EL DIFERENCIAL, ARRIBA ══ -->
  <section class="sec">
@@ -864,5 +887,6 @@ html.fund-agotado .fund-off{display:revert}
  io.observe(t);
 })();
 </script>
+<script src="/yt.js" defer></script>
 </body>
 </html>

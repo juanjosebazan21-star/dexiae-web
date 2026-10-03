@@ -4169,7 +4169,7 @@ const UI = {
     const suma=imp
       ? `<div class="up-t">Con DEXIAE Contable o PRO se suma</div>
         <ul class="pro"><li><i class="ti ti-plus"></i>Cada movimiento clasificado por categoría, con tus reglas</li>
-          <li><i class="ti ti-plus"></i>Borrador de asientos con el plan de cuentas de cada cliente, listo para importar</li>
+          <li><i class="ti ti-plus"></i>Borrador de asientos con el plan de cuentas de cada cliente</li>
           <li><i class="ti ti-plus"></i>Revisar antes de generar: corregís lo que DEXIAE no pudo decidir y lo aprende</li></ul>`
       : `<div class="up-t">Con PRO se suma</div>
         <ul class="pro"><li><i class="ti ti-plus"></i>Detección automática de plantillas y Asistente inteligente</li>
@@ -10022,7 +10022,9 @@ function copiarSolicitud(hwElId){
     'Nombre: (completá tu nombre)\n'+
     'Email: (tu email de contacto)\n'+
     'HWID: '+hw+'\n'+
-    'Edición deseada: PRO\n\n'+
+    // (01/10/2026) Antes decía «PRO» fijo: un fundador de Contable pedía PRO
+    // sin saberlo. Con las tres, el keygen no adivina y la edición se elige.
+    'Edición deseada: (dejá una: CONTABLE, PRO o SENTINEL)\n\n'+
     'Enviá este mensaje a dexiaesoporte@gmail.com o por WhatsApp y te devolvemos la clave de activación.';
   try{
     const ta=document.createElement('textarea'); ta.value=msj; ta.style.position='fixed'; ta.style.opacity='0';

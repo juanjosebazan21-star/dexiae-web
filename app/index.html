@@ -2,7 +2,7 @@
 <html lang="es" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<title>Demo interactiva · DEXIAE v2.9.0</title>
+<title>Demo interactiva · DEXIAE v2.9.1</title>
 <link rel="stylesheet" href="assets/tabler/tabler-icons.min.css">
 <link rel="stylesheet" href="revision_lote.css?v=dc60527b8c">
 <style>
@@ -1327,7 +1327,7 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
     </div>
     <div class="sb-badges">
       <span class="sb-badge sentinel" id="sb-edition">SENTINEL</span>
-      <span class="sb-badge ver" id="sb-version">v2.9.0</span>
+      <span class="sb-badge ver" id="sb-version">v2.9.1</span>
     </div>
     <div class="sb-client"><span class="sb-dot"></span><span id="sb-client">Cargando...</span></div>
   </div>
@@ -3279,7 +3279,7 @@ const DEMO = {
     incidente:'DX-260910-A3F7',
     mensaje:'ESTO NO ME CIERRA · DX-260910-A3F7 (demo)',wa_url:'https://wa.me/5493516574188?text=demo'}),
   abrir_url: () => ({ok:true}),
-  actualizacion_estado: () => ({ok:true,actual:'2.9.0',ultima:'2.5.99',hay_nueva:true,
+  actualizacion_estado: () => ({ok:true,actual:'2.9.1',ultima:'2.5.99',hay_nueva:true,
     descarga:'https://getdexiae.com/',notas:'https://getdexiae.com/',
     resumen:'Ejemplo de aviso de versión (demo).',corrige_resultados:true,
     revocada:false,motivo:''}),
@@ -3296,8 +3296,8 @@ const DEMO = {
   exportar_soporte: () => ({ok:true,archivos:14,incidente:'DX-260910-K7QM',
     mensaje:'Diagnóstico exportado (demo) · 14 archivos'}),
   reporte_tecnico_previa: () => ({ok:true,mail:'contacto@getdexiae.com',wa:'5493516574188',
-    estado:{version:'2.9.0',edicion:'TRIAL',sistema:'Windows-11'},
-    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.9.0 · TRIAL · versión de Windows. Nada que te identifique'},
+    estado:{version:'2.9.1',edicion:'TRIAL',sistema:'Windows-11'},
+    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.9.1 · TRIAL · versión de Windows. Nada que te identifique'},
            {clave:'logs',fijo:false,incluido:true,etiqueta:'Registro técnico de los últimos días',detalle:'Es lo que dice qué estaba haciendo el programa cuando falló'},
            {clave:'config',fijo:false,incluido:true,etiqueta:'Plantillas, reglas y preferencias',detalle:'Sin documentos, sin Excel y sin la base de datos'},
            {clave:'equipo',fijo:false,incluido:false,etiqueta:'Identificador de tu equipo',detalle:'Tildalo sólo si el problema es con la licencia o la activación'}]}),
@@ -9906,9 +9906,9 @@ async function _init(){
     // Destino de originales: espejo por defecto (decisión de producto 14/07).
     setDestino('espejo'); syncDestinoTipo(); onOrgModo('mover');
     UI.renderRenameVars(r.columnas||[]);
-    document.getElementById('sb-version').textContent=`v${r.version||'2.9.0'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.9.1'}`;
     const ed=r.edicion||'—';
-    document.getElementById('sb-version').textContent=`v${r.version||'2.9.0'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.9.1'}`;
     document.getElementById('sb-edition').textContent=ed;
     document.getElementById('sb-uedicion').textContent='Licencia activa';
     document.getElementById('sb-client').textContent='DEXIAE · Producción';
@@ -10646,6 +10646,6 @@ window.addEventListener('load', () => {
 <script src="revision_lote.js?v=4121013244"></script>
 <script src="analitica.js?v=35ff20174c"></script>
 <script src="extractos.js?v=a5e0a1d9fa"></script>
-<script defer src="demo-web.js?v=8d15026f68"></script>
+<script defer src="demo-web.js?v=d76196c541"></script>
 </body>
 </html>

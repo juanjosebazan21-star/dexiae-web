@@ -204,6 +204,13 @@
 '.lm-steps{margin-top:16px;padding:14px;background:var(--paper);border:1px solid var(--pline);border-radius:10px;font-size:13px;color:var(--ink2);line-height:1.55}' +
 '.lm-steps b{color:var(--ink)}.lm-steps ol{margin:6px 0 0 18px}';
 
+  var OPC = '<span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span>';
+  var INTERES_BANCOS = 'Pasar resúmenes bancarios a Excel y asientos';
+  /* el campo del banco aparece sólo si lo que quiere resolver son los bancos */
+  window.leadInteres = function (v) {
+    var b = document.getElementById('lf-banco');
+    if (b) b.hidden = (v !== INTERES_BANCOS);
+  };
   var MARKUP = '' +
 '<div class="lm-box">' +
 ' <div class="lm-head"><div>' +
@@ -216,11 +223,38 @@
 '   <div class="field"><label>Nombre</label><input name="name" type="text" required placeholder="Tu nombre" autocomplete="name"></div>' +
 '   <div class="field"><label>Email</label><input name="email" type="email" required placeholder="vos@ejemplo.com" autocomplete="email"></div>' +
 '  </div>' +
-'  <div class="field"><label>¿Cuántos documentos procesás por mes? <span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span></label>' +
-'   <select name="volumen" autocomplete="off">' +
-'    <option value="">Elegí una opción</option><option>Menos de 100</option><option>Entre 100 y 500</option>' +
-'    <option>Entre 500 y 2.000</option><option>Más de 2.000</option><option>No lo tengo medido</option>' +
+/* (07/10/2026) Llegaban leads con nombre y mail solamente que después no
+   respondían: no había cómo saber qué buscaban ni cómo escribirles por otro
+   lado. «Qué querés resolver» es un clic y dice con qué mensaje escribirle;
+   el banco, si ya está calibrado (si no, se lo avisa antes de que pruebe y se
+   vaya sin decir nada); el resto es opcional. */
+'  <div class="field"><label>¿Qué querés resolver?</label>' +
+'   <select name="interes" id="lf-interes" required autocomplete="off" onchange="leadInteres(this.value)">' +
+'    <option value="">Elegí una opción</option>' +
+'    <option>Pasar resúmenes bancarios a Excel y asientos</option>' +
+'    <option>Extraer datos de facturas o comprobantes</option>' +
+'    <option>Renombrar u organizar PDF</option>' +
+'    <option>Verificar firmas digitales</option>' +
+'    <option>Otra cosa</option>' +
 '   </select></div>' +
+'  <div class="field" id="lf-banco" hidden><label>¿Con qué banco? ' + OPC + '</label>' +
+'   <input name="banco" type="text" placeholder="Ej.: Galicia, Santander, Macro" autocomplete="off"></div>' +
+'  <div class="f-row">' +
+'   <div class="field"><label>WhatsApp ' + OPC + '</label><input name="whatsapp" type="tel" placeholder="Por si el mail no llega" autocomplete="tel"></div>' +
+'   <div class="field"><label>¿Sos…? ' + OPC + '</label><select name="perfil" autocomplete="off">' +
+'    <option value="">Elegí</option><option>Estudio contable</option><option>Estudio jurídico</option>' +
+'    <option>Empresa</option><option>Organismo público</option><option>Otro</option></select></div>' +
+'  </div>' +
+'  <div class="f-row">' +
+'   <div class="field"><label>Documentos por mes ' + OPC + '</label>' +
+'    <select name="volumen" autocomplete="off">' +
+'     <option value="">Elegí</option><option>Menos de 100</option><option>Entre 100 y 500</option>' +
+'     <option>Entre 500 y 2.000</option><option>Más de 2.000</option><option>No lo tengo medido</option>' +
+'    </select></div>' +
+'   <div class="field"><label>¿Cómo llegaste? ' + OPC + '</label><select name="como_llego" autocomplete="off">' +
+'    <option value="">Elegí</option><option>Buscando en Google</option><option>Instagram</option><option>YouTube</option>' +
+'    <option>Me escribieron por mail o WhatsApp</option><option>Me lo recomendaron</option><option>Otro</option></select></div>' +
+'  </div>' +
 '  <button type="submit" class="lm-submit" id="m-submit"></button>' +
 '  <div class="lm-note" id="m-foot"></div>' +
 ' </form></div>' +
@@ -581,6 +615,9 @@
     document.getElementById('m-form-wrap').style.display = '';
     document.getElementById('m-success').style.display = 'none';
     var f = document.getElementById('lead-form'); if (f) f.reset();
+    /* desde Contable lo que quiere resolver ya se sabe: va elegido */
+    var sel = document.getElementById('lf-interes');
+    if (sel) { sel.value = (currentPlan === 'CONTABLE') ? INTERES_BANCOS : ''; window.leadInteres(sel.value); }
     document.getElementById('lead-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   };
@@ -634,6 +671,11 @@
       motivo: motivo,
       nombre: campoLead(form, 'name'),
       email: email,
+      interes: campoLead(form, 'interes'),
+      banco: campoLead(form, 'banco'),
+      whatsapp: campoLead(form, 'whatsapp'),
+      perfil: campoLead(form, 'perfil'),
+      como_llego: campoLead(form, 'como_llego'),
       volumen: campoLead(form, 'volumen'),
       timestamp: ahora.toISOString(),
       /* hour12:false explícito: sin esto algunos navegadores rinden es-AR en
@@ -690,7 +732,8 @@
       fd.append('_utm', origenCampana());        /* de qué pieza/campaña vino */
       fd.append('_subject', 'Nuevo lead DEXIAE — ' + currentPlan +
         ((currentPlan === 'CORE' || currentPlan === 'PRO' || currentPlan === 'CONTABLE') ? ' (' + billing() + ')' : '') +
-        ((currentPlan === 'CONTABLE' && !fundAgotado()) ? ' · cupo fundador' : ''));
+        ((currentPlan === 'CONTABLE' && !fundAgotado()) ? ' · cupo fundador' : '') +
+        (campoLead(form, 'interes') ? ' · ' + campoLead(form, 'interes') : ''));
       var res = await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
       if (!res.ok) fallo = 'HTTP ' + res.status;   /* cuota agotada, rate limit, filtro de spam */
     } catch (err) {

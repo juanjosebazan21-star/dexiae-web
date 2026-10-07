@@ -15,7 +15,7 @@
 (function () {
   'use strict';
 
-  var VERSION = '2.8.0';
+  var VERSION = '2.9.0';
   var CONTACTO = 'contacto@getdexiae.com';
   var FORMSPREE = 'https://formspree.io/f/xyklkprd';
   // ?plan=TRIAL abre el formulario de la prueba al llegar (lead.js). Antes iba a

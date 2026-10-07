@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Acuerdo de Licencia de Usuario Final (EULA) de DEXIAE, versión 2.0.0.">
+<meta name="description" content="Acuerdo de Licencia de Usuario Final (EULA) de DEXIAE, versión 2.1.0.">
 <link rel="canonical" href="https://getdexiae.com/eula">
 <style>
 :root{--navy:#0B1120;--card:#17223A;--line:rgba(150,180,235,.14);--hi:#F3F6FC;--md:#A9B4C9;--ac:#60A5FA}
@@ -36,10 +36,10 @@ a{color:var(--ac)}
 <nav><a href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a></nav>
 <div class="wrap">
 <h1>Términos y EULA</h1>
-<div class="meta">Acuerdo de Licencia de Usuario Final · Versión 2.0.0</div>
-<pre class="b">﻿ACUERDO DE LICENCIA DE USUARIO FINAL (EULA)
+<div class="meta">Acuerdo de Licencia de Usuario Final · Versión 2.1.0</div>
+<pre class="b">ACUERDO DE LICENCIA DE USUARIO FINAL (EULA)
 DEXIAE - Document Extraction &amp; Intelligent Automation Engine
-Version 2.0.0
+Version 2.1.0
 
 IMPORTANTE: LEA ATENTAMENTE ESTE ACUERDO DE LICENCIA ANTES DE INSTALAR O UTILIZAR ESTE SOFTWARE.
 
@@ -71,9 +71,11 @@ el Software de acuerdo con los terminos de la edicion adquirida:
       digitales, generacion de reportes en formato Excel, HTML interactivo y PDF (Informe
       Pericial), Historial con panel de analitica, y Modo Centinela de vigilancia automatica
       de carpetas. La Deteccion automatica de plantillas y el Asistente inteligente de
-      creacion de plantillas son exclusivos de las ediciones PRO y SENTINEL. Al alcanzar el limite de dias o documentos (lo
-      que ocurra primero), el Software queda inactivo hasta la contratacion de una edicion
-      comercial (CORE, PRO o SENTINEL).
+      creacion de plantillas son exclusivos de las ediciones PRO y SENTINEL. Al usar los 100
+      documentos se pausan la extraccion en lote y el Modo Centinela; las herramientas PDF y
+      el conversor de Extracto bancario a Excel siguen disponibles hasta completar los 14 dias. Cumplidos los
+      14 dias, el Software queda inactivo hasta la contratacion de una edicion comercial
+      (CORE, CONTABLE, PRO o SENTINEL).
 
    b) DEXIAE CORE
       Uso personal o comercial. Procesamiento de hasta 500 documentos por mes calendario.
@@ -86,7 +88,19 @@ el Software de acuerdo con los terminos de la edicion adquirida:
       Reportes, modulo de Validacion de datos, Deteccion automatica de plantillas, Asistente
       inteligente, ni Modo Centinela.
 
-   c) DEXIAE PRO
+   c) DEXIAE CONTABLE
+      Uso personal o comercial, orientado al trabajo con extractos bancarios. Incluye, sin
+      limite de uso: Extracto bancario a Excel con clasificacion de movimientos y borrador de
+      asientos (resumenes digitales: leer uno escaneado requiere OCR, que esta edicion no
+      incluye), Historial y herramientas PDF (Unir, Dividir/Extraer, PDF a Word, Imagenes a
+      PDF, Organizar PDF, Comprimir PDF). La extraccion de datos de documentos se incluye como
+      cupo de prueba de 30 documentos por mes calendario. Limite de 3 plantillas de
+      extraccion configurables.
+      No incluye: peritaje de firmas digitales, reportes HTML o PDF, OCR por lote, Fusion de
+      Reportes, modulo de Validacion de datos, Deteccion automatica de plantillas, Asistente
+      inteligente, ni Modo Centinela.
+
+   d) DEXIAE PRO
       Uso comercial y profesional. Procesamiento de hasta 2.500 documentos por mes calendario.
       Plantillas de extraccion ilimitadas.
       Incluye todas las funciones CORE mas: peritaje legal de firmas digitales, generacion de
@@ -96,22 +110,26 @@ el Software de acuerdo con los terminos de la edicion adquirida:
       Extracto bancario a Excel, Historial con panel de analitica, y Modo Centinela de
       vigilancia automatica de carpetas.
 
-   d) DEXIAE SENTINEL
+   e) DEXIAE SENTINEL
       Edicion corporativa a medida. Las condiciones de licencia, cantidad de equipos autorizados,
       volumenes de procesamiento, nivel de soporte, personalizaciones y precio se determinan
       mediante acuerdo contractual especifico con el licenciante, analizado caso por caso segun
       los requerimientos de cada organizacion.
       Para solicitar una propuesta SENTINEL contacte: contacto@getdexiae.com
 
-   NOTA SOBRE EL LIMITE MENSUAL (CORE y PRO): el cupo de documentos cuenta unicamente
+   NOTA SOBRE EL LIMITE MENSUAL (CORE, CONTABLE y PRO): el cupo de documentos cuenta unicamente
    la auditoria por plantilla (extraccion en lote, Modo Centinela y autodeteccion de
    plantillas). Las herramientas PDF y el conversor de Extracto bancario a Excel son
    ILIMITADOS en todas las ediciones y NO consumen el cupo mensual. El reconocimiento
    optico de caracteres (OCR) usado dentro de la extraccion se contabiliza una sola vez,
-   junto con el documento. En las ediciones pagas (CORE y PRO) el limite admite un margen
-   de tolerancia razonable y nunca interrumpe un lote en curso: el Software solo pausa el
-   inicio de nuevos lotes al superar dicho margen, hasta el reinicio mensual del contador
-   o la actualizacion de edicion. En la edicion TRIAL el limite es un tope estricto.</pre>
+   junto con el documento. En CORE y PRO el limite admite un margen de tolerancia razonable
+   y nunca interrumpe un lote en curso: el Software solo pausa el inicio de nuevos lotes al
+   superar dicho margen, hasta el reinicio mensual del contador o la actualizacion de
+   edicion. Un mismo lote procesa como maximo el limite mensual de la edicion (500 o 2.500
+   documentos); si se eligen mas, el Software lo avisa antes de empezar. En CONTABLE el cupo
+   de prueba admite el mismo margen y se controla antes de cada lote: si el lote no entra
+   completo, el Software avisa cuantos entran y, si el usuario acepta, procesa solo esos.
+   En la edicion TRIAL el limite es un tope estricto.</pre>
 <h2>2. Restricciones</h2>
 <pre class="b">Usted NO puede:
    - Copiar, distribuir, sublicenciar, alquilar o prestar el Software.
@@ -129,16 +147,20 @@ exclusiva del licenciante y estan protegidos por leyes de derechos de autor inte
 Todos los derechos no expresamente concedidos quedan reservados.</pre>
 <h2>4. Activacion Y Modalidades De Licencia</h2>
 <pre class="b">El Software requiere activacion mediante una clave de licencia valida vinculada al hardware
-del equipo donde se instala (identificador de hardware o &quot;HWID&quot;). Cada licencia TRIAL, CORE y PRO
+del equipo donde se instala (identificador de hardware o &quot;HWID&quot;). Cada licencia TRIAL, CORE, CONTABLE y PRO
 autoriza la instalacion en UN (1) equipo por usuario. Las licencias SENTINEL pueden autorizar
 multiples instalaciones segun lo establecido en el contrato especifico.
 
-MODALIDADES DE CONTRATACION (CORE y PRO):
-   a) Licencia Mensual: Renovacion automatica cada mes calendario mediante debito en el medio
-      de pago seleccionado. La licencia permanece activa mientras los pagos se realicen
-      correctamente.
-   b) Licencia Anual: Pago unico que cubre doce (12) meses de uso continuado. Al finalizar el
-      periodo, el usuario puede renovar manualmente o contratar la modalidad mensual.
+MODALIDADES DE CONTRATACION (CORE, CONTABLE y PRO):
+Ambas modalidades se contratan como suscripcion de Mercado Pago. El medio de pago lo elige el
+usuario entre los que Mercado Pago ofrece para suscripciones.
+   a) Licencia Mensual: la suscripcion se cobra cada mes.
+   b) Licencia Anual: la suscripcion se cobra una vez por ano y cubre doce (12) meses de uso.
+Con cada pago acreditado el licenciante extiende la vigencia de la licencia: desde DEXIAE
+2.9.0 la extension llega sola por &quot;Novedades&quot; (Seccion 6.1 h) la proxima vez que el Software
+se abre con internet; en versiones anteriores, con una clave renovada. El usuario puede
+cancelar la suscripcion desde su cuenta de Mercado Pago: la suscripcion cancelada no se
+renueva y la licencia vence al terminar el periodo pagado.
 
 TRANSFERENCIA DE LICENCIA POR CAMBIO DE EQUIPO:
 Si el usuario requiere transferir la licencia a un equipo distinto (por cambio de hardware,
@@ -150,12 +172,15 @@ casos excepcionales se evaluan individualmente.
 
 La licencia puede ser revocada por el licenciante en los siguientes casos:
    a) Incumplimiento de pago de cuotas periodicas en la modalidad mensual.
-   b) Cancelacion voluntaria de la suscripcion por parte del usuario.
-   c) Uso indebido del Software en violacion de los terminos de este Acuerdo.
-   d) Solicitud expresa del usuario para baja definitiva.
+   b) Uso indebido del Software en violacion de los terminos de este Acuerdo.
+   c) Solicitud expresa del usuario para baja definitiva.
 
-La revocacion de una licencia implica que el Software dejara de funcionar en el equipo asociado
-a dicha licencia a partir de la proxima ejecucion con conexion a internet.</pre>
+La revocacion de una licencia hace que el Software pase a modo de SOLO LECTURA en el equipo
+asociado a dicha licencia a partir de la proxima verificacion con conexion a internet
+(Seccion 6.1): el usuario puede consultar el Historial y abrir los archivos ya generados,
+pero no procesar documentos nuevos. El mismo modo de solo lectura aplica cuando la licencia
+vence, hasta que se active una clave renovada o llegue la renovacion por &quot;Novedades&quot;
+(Seccion 6.1 h).</pre>
 <h2>5. Actualizaciones Y Soporte</h2>
 <pre class="b">a) Actualizaciones menores (ej: 1.1 a 1.2): Incluidas en todas las ediciones durante la
       vigencia de la licencia, sin costo adicional.
@@ -178,22 +203,26 @@ El Software tampoco recopila:
    - Contenido de los documentos procesados.
    - Nombres, rutas o metadatos de archivos.
 
-La unica comunicacion externa que realiza el Software se describe en la Seccion 6.1.</pre>
+La unica comunicacion externa que realiza el Software por su cuenta se describe en la
+Seccion 6.1. Aparte, solo se abren los enlaces que el usuario elige abrir (por ejemplo,
+WhatsApp o el correo al reportar un problema).</pre>
 <h2>6.1. Verificacion Remota De Licencia</h2>
-<pre class="b">El Software incluye un mecanismo de verificacion de licencia mediante una consulta
-periodica a un archivo publico alojado en GitHub. Este mecanismo funciona de la siguiente
+<pre class="b">El Software incluye un mecanismo de verificacion de licencia y de novedades mediante la
+descarga periodica de archivos publicos alojados en GitHub. Este mecanismo funciona de la siguiente
 manera:
 
-   a) FRECUENCIA: El Software consulta el estado de su licencia al iniciar la aplicacion,
-      cuando el resultado de la ultima consulta tenga mas de 24 horas de antiguedad. La
-      respuesta se almacena localmente (cache) para evitar consultas innecesarias. En uso
-      normal, esto equivale a una consulta de red por dia como maximo.
+   a) FRECUENCIA: Al iniciar, si la ultima consulta tiene mas de 24 horas de antiguedad, el
+      Software descarga los dos archivos publicos descriptos en b) y h). Cada respuesta se
+      almacena localmente (cache) para evitar consultas innecesarias: en uso normal, como
+      maximo una descarga por dia de cada archivo. Ademas, &quot;Buscar novedades&quot; descarga en
+      el momento el archivo de h).
 
    b) QUE INFORMACION VIAJA: La consulta consiste en descargar un archivo publico JSON
-      con la lista de identificadores de equipos revocados. No se envia informacion del
-      usuario ni del equipo al servidor. El Software descarga la lista y la compara
-      localmente con su propio identificador. La consulta es equivalente a visitar una
-      pagina web publica.
+      con la lista de identificadores de equipos revocados y el numero de la ultima version
+      publicada. No se envia informacion del usuario ni del equipo al servidor: el pedido
+      solo lleva el nombre y la version del programa. El Software descarga la lista y la
+      compara localmente con su propio identificador. La consulta es equivalente a visitar
+      una pagina web publica.
 
    c) FORMATO DEL IDENTIFICADOR: Los HWIDs se almacenan en el servidor unicamente como
       hashes criptograficos SHA-256 (no reversibles). Esto significa que aun si la lista
@@ -205,9 +234,10 @@ manera:
       consultarlo en cualquier momento.
 
    e) MODO PERMISIVO: Si el equipo no tiene conexion a internet, o si el servidor
-      temporalmente no responde, el Software continua funcionando normalmente sin
-      interrumpir al usuario. La verificacion solo bloquea el acceso si la respuesta
-      del servidor confirma explicitamente que la licencia fue revocada.
+      temporalmente no responde, el Software continua funcionando normalmente (dentro de
+      la vigencia de su licencia) sin interrumpir al usuario. La verificacion solo pasa el Software a solo lectura
+      (Seccion 4) si la respuesta del servidor confirma explicitamente que la licencia fue
+      revocada.
 
    f) ALCANCE: El Software NO envia ningun otro tipo de comunicacion a servidores
       externos. No hay telemetria, no hay analiticas, no hay actualizacion automatica de
@@ -216,7 +246,18 @@ manera:
    g) DERECHO DE INSPECCION: El usuario puede, en cualquier momento, monitorear el
       trafico de red del Software mediante herramientas estandar (Wireshark, Fiddler,
       Windows Resource Monitor, etc.) para verificar que la unica comunicacion externa
-      es la consulta al archivo publico descripto en este apartado.</pre>
+      es la consulta a los archivos publicos descriptos en este apartado.
+
+   h) NOVEDADES (desde DEXIAE 2.9.0): Con la misma frecuencia (o cuando el usuario elige
+      &quot;Buscar novedades&quot;), el Software descarga un segundo archivo publico del mismo
+      repositorio con paquetes firmados digitalmente por el licenciante: renovaciones de
+      licencia, plantillas, sets de reglas, configuraciones de clientes, diccionarios del
+      Asistente y avisos. Un paquete cuya firma no coincide se ignora. Los paquetes
+      dirigidos a una licencia viajan cifrados con una llave que sale de la clave de esa
+      licencia: sin esa clave no se pueden leer. El Software solo descarga: el pedido no
+      lleva datos del usuario, del equipo, de la licencia ni de los documentos (solo el
+      nombre y la version del programa). Una renovacion emitida por el licenciante se
+      aplica sola; lo demas se instala unicamente si el usuario lo elige.</pre>
 <h2>7. Garantia Limitada</h2>
 <pre class="b">EL SOFTWARE SE PROPORCIONA &quot;TAL CUAL&quot;, SIN GARANTIAS DE NINGUN TIPO, EXPRESAS O IMPLICITAS,
 INCLUYENDO PERO NO LIMITADO A GARANTIAS DE COMERCIABILIDAD, IDONEIDAD PARA UN PROPOSITO
@@ -276,8 +317,8 @@ plena vigencia.</pre>
 <pre class="b">Al hacer clic en &quot;Acepto&quot; o al instalar el Software, usted reconoce que ha leido este Acuerdo,
 lo comprende y acepta estar sujeto a sus terminos y condiciones.
 
-Vigente desde: 9 de julio de 2026
-Version del EULA: 2.0.0
+Vigente desde: 7 de octubre de 2026
+Version del EULA: 2.1.0
 
 Copyright 2026 Juan Jose Bazan. Todos los derechos reservados.
 DEXIAE es una marca en uso comercial por el licenciante.</pre>

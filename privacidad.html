@@ -39,7 +39,7 @@ a{color:var(--ac)}
 <nav><a href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a></nav>
 <div class="wrap">
 <h1>Política de privacidad</h1>
-<div class="meta">Versión 1.1 · Vigente desde el 9 de julio de 2026 · Aplica a DEXIAE 2.0 y al sitio getdexiae.com</div>
+<div class="meta">Versión 1.3 · Vigente desde el 7 de octubre de 2026 · Aplica a DEXIAE 2.x y al sitio getdexiae.com</div>
 
 <div class="hl"><b>En una línea:</b> DEXIAE procesa tus documentos 100% en tu computadora. No vemos, recibimos ni almacenamos tus archivos, sus datos, ni información sobre tu uso del programa.</div>
 
@@ -54,13 +54,15 @@ a{color:var(--ac)}
 </ul>
 <p>El panel de analítica del Historial se calcula localmente sobre tu propia base de datos, que vive en tu equipo (carpeta de datos de la aplicación) y nunca se transmite.</p>
 
-<h2>2. La única comunicación de red: verificación de licencia</h2>
-<p>La única conexión externa del software es una consulta de estado de licencia, como máximo una vez cada 24 horas. Funciona así:</p>
+<h2>2. La comunicación de red: licencia, aviso de versión y novedades</h2>
+<p>La única conexión externa automática del software es la descarga de dos archivos públicos, como máximo una vez cada 24 horas cada uno (y el de novedades, además, cuando tocás «Buscar novedades»). Sirven para tres cosas: el estado de la licencia, el aviso de versión nueva y las novedades que te manda DEXIAE (desde la versión 2.9.0). Funciona así:</p>
 <ul>
-<li>El software descarga un archivo público (una lista de licencias revocadas) y la compara <b>localmente</b> con su propio identificador. No envía información tuya ni de tu equipo.</li>
+<li>El software descarga un archivo público (la lista de licencias revocadas y el número de la última versión) y lo compara <b>localmente</b> con su propio identificador y su versión. El pedido lleva sólo el nombre y la versión del programa; no envía información tuya ni de tu equipo.</li>
 <li>Los identificadores de hardware (HWID) se almacenan en esa lista únicamente como hashes criptográficos SHA-256, no reversibles: no permiten identificar personas ni equipos.</li>
-<li>Sin conexión a internet, el software sigue funcionando con normalidad.</li>
+<li>Las novedades (la renovación de tu licencia, una plantilla, un set de reglas, la configuración de un cliente, un diccionario del Asistente o un aviso) vienen en un segundo archivo público, <b>firmadas digitalmente</b> por DEXIAE: si la firma no coincide, el software las ignora. Lo que va dirigido a una licencia viaja <b>cifrado</b> y sólo se abre con la clave de esa licencia. Sólo se descarga: el pedido lleva lo mismo que el de arriba, el nombre y la versión del programa. La renovación se aplica sola; lo demás se instala únicamente si vos lo elegís.</li>
+<li>Sin conexión a internet, el software sigue funcionando con normalidad hasta el vencimiento de tu licencia.</li>
 <li>Podés auditar este comportamiento con cualquier monitor de red (Wireshark, Monitor de recursos de Windows, etc.).</li>
+<li>Aparte de esa consulta, sólo sale lo que vos mandes a propósito («Reportar un problema», «Esto no me cierra») o un enlace que vos abras (por ejemplo, la constatación de una factura en ARCA).</li>
 </ul>
 
 <h2>3. El sitio web (getdexiae.com)</h2>

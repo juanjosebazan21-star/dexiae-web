@@ -2,9 +2,9 @@
 <html lang="es" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<title>Demo interactiva · DEXIAE v2.8.0</title>
+<title>Demo interactiva · DEXIAE v2.9.0</title>
 <link rel="stylesheet" href="assets/tabler/tabler-icons.min.css">
-<link rel="stylesheet" href="revision_lote.css?v=928356ebd1">
+<link rel="stylesheet" href="revision_lote.css?v=dc60527b8c">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 /* El `hidden` del HTML tiene que ganarle a las clases que fijan
@@ -211,6 +211,17 @@ html,body{height:100%;overflow:hidden;font-family:var(--font);font-size:13px;col
 .tb-actions{display:flex;align-items:center;gap:6px}
 .tb-icon{width:30px;height:30px;border-radius:5px;background:transparent;border:1px solid var(--border);color:var(--txt2);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .12s}
 .tb-icon:hover{background:var(--card);border-color:var(--border2);color:var(--txt)}
+/* Novedades (07/10/2026): la campana y su número */
+.nov-btn{position:relative;margin-right:6px}
+.nov-badge{position:absolute;top:-6px;right:-6px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--teal,#14b8a6);color:#fff;font-size:10px;font-weight:700;line-height:16px;text-align:center}
+.nov-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.nov-item:last-child{border-bottom:0}
+.nov-item .nov-ico{font-size:20px;color:var(--txt2);padding-top:2px}
+.nov-item .nov-cuerpo{flex:1;min-width:0}
+.nov-item .nov-tit{font-weight:600;color:var(--txt)}
+.nov-item .nov-meta{font-size:11px;color:var(--txt3);margin-top:2px}
+.nov-item .nov-acc{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.nov-item.resuelta{opacity:.62}
 .tb-icon i{font-size:15px}
 .theme-toggle{display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:4px 10px;cursor:pointer;transition:all .2s;user-select:none}
 .theme-toggle:hover{border-color:var(--border2)}
@@ -1294,6 +1305,8 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
     <span class="tb-badge b-ok" id="tb-badge">Motor activo</span>
   </div>
   <div class="tb-actions">
+    <button class="tb-icon nov-btn" id="nov-btn" onclick="novAbrir()" title="Novedades de DEXIAE"
+            ><i class="ti ti-bell"></i><span class="nov-badge" id="nov-badge" hidden></span></button>
     <button class="tb-icon" id="riel-btn" onclick="sidebarRielToggle()"
             title="Achicar la barra lateral"><i class="ti ti-layout-sidebar-left-collapse" id="riel-ico"></i></button>
     <div class="theme-toggle" onclick="UI.toggleTheme()">
@@ -1314,7 +1327,7 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
     </div>
     <div class="sb-badges">
       <span class="sb-badge sentinel" id="sb-edition">SENTINEL</span>
-      <span class="sb-badge ver" id="sb-version">v2.8.0</span>
+      <span class="sb-badge ver" id="sb-version">v2.9.0</span>
     </div>
     <div class="sb-client"><span class="sb-dot"></span><span id="sb-client">Cargando...</span></div>
   </div>
@@ -1382,6 +1395,9 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
 </aside>
 
 <main class="content" id="content">
+<!-- Sólo lectura (06/10/2026, auditoría C1): licencia vencida pasada la gracia o
+     revocada. Se ve todo; lo que procesa lo frena la API y lo dice. -->
+<div class="sl-banner" id="sl-banner" hidden></div>
 
 <!-- EJECUCIÓN -->
 <section class="screen active" id="screen-run">
@@ -2110,7 +2126,7 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
         a <b>otra computadora</b> en un solo archivo. Al importarlo, el set toma el nombre que
         trae adentro — así la plantilla que lo pide lo sigue encontrando aunque al archivo le
         hayan cambiado el nombre en el camino.</div>
-      <div class="val-hint" style="margin-top:10px">¿Necesitás un control especial que no está en la lista? Escribinos a <b>dexiaesoporte@gmail.com</b> y te armamos la regla a medida — te llega lista para usar y aparece en este catálogo.</div>
+      <div class="val-hint" style="margin-top:10px">¿Necesitás un control especial que no está en la lista? Escribinos a <b>contacto@getdexiae.com</b> y te armamos la regla a medida — te llega lista para usar y aparece en este catálogo.</div>
     </div>
     <div class="card" id="val-editor">
       <div class="hist-empty" style="padding:30px">Elegí un set de reglas (o creá uno nuevo) para editarlo.</div>
@@ -2385,6 +2401,10 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
 .ob-actions{display:flex;flex-direction:column;gap:10px;max-width:340px;margin:0 auto 14px}
 .ob-btn{justify-content:center;font-size:14px;padding:12px 18px}
 .ob-legal{font-size:11px;color:var(--txt3);line-height:1.5}
+.sl-banner{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  margin:0 0 10px;padding:9px 14px;border-radius:var(--r);border:1px solid var(--rev-bd);background:var(--rev-bg);
+  color:var(--rev-fg);font-size:12.5px;font-weight:600}
+.sl-banner .ti{font-size:16px}.sl-banner span{flex:1;min-width:220px}
 .ob-venc{display:flex;align-items:center;gap:8px;justify-content:center;font-size:12.5px;font-weight:600;
   color:var(--rev-fg);background:var(--rev-bg,#fef3c7);border:1px solid var(--rev-bd,var(--border));border-radius:8px;padding:8px 12px;margin:0 auto 14px;max-width:42ch}
 .ob-hwid-box{text-align:left;max-width:380px;margin:0 auto 14px}
@@ -2880,7 +2900,7 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
       <div class="ob-brand">DEXIAE</div>
       <div class="ob-title" style="font-size:clamp(24px,3vw,34px)">Activar licencia</div>
       <div class="ob-venc" id="ob-venc" style="display:none"><i class="ti ti-alert-triangle"></i> Tu período de prueba terminó. Activá una licencia para seguir usando DEXIAE.</div>
-      <div class="ob-sub">Pegá tu clave de activación. Si todavía no tenés una, escribinos a <b>dexiaesoporte@gmail.com</b>.</div>
+      <div class="ob-sub">Pegá tu clave de activación. Si todavía no tenés una, escribinos a <b>contacto@getdexiae.com</b>.</div>
       <div class="ob-hwid-box">
         <span class="form-label">Tu ID de equipo (lo necesitamos para emitir la clave)</span>
         <div class="ob-hwid-row"><code id="ob-hwid">—</code><button class="btn btn-ghost sm" onclick="obCopyHwid()"><i class="ti ti-copy"></i> Copiar</button><button class="btn btn-primary sm" onclick="copiarSolicitud('ob-hwid')" title="Copia un mensaje listo para enviarnos con tu ID de equipo"><i class="ti ti-send"></i> Copiar solicitud</button></div>
@@ -2913,7 +2933,7 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
         <span class="form-label">ID de equipo</span>
         <div class="ob-hwid-row" style="margin-top:6px"><code id="lic-hwid">—</code><button class="btn btn-ghost sm" onclick="licCopyHwid()"><i class="ti ti-copy"></i> Copiar</button><button class="btn btn-primary sm" onclick="copiarSolicitud('lic-hwid')" title="Copia un mensaje listo para enviarnos con tu ID de equipo"><i class="ti ti-send"></i> Copiar solicitud</button></div>
       </div>
-      <div class="opt-hint" style="margin-top:12px">DEXIAE v2.0 · 100% local · soporte: dexiaesoporte@gmail.com</div>
+      <div class="opt-hint" style="margin-top:12px">DEXIAE v2.0 · 100% local · soporte: contacto@getdexiae.com</div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="document.getElementById('modal-lic').classList.remove('show')">Cerrar</button>
@@ -2933,6 +2953,23 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
     </div>
     <div class="modal-body" id="act-body"></div>
     <div class="modal-footer" id="act-footer"></div>
+  </div>
+</div>
+
+<!-- MODAL «NOVEDADES» (07/10/2026): lo que DEXIAE mandó a esta licencia o a
+     todas, por el canal firmado. Nada se instala solo salvo la renovación. -->
+<div class="modal-overlay" id="modal-nov">
+  <div class="modal" style="width:600px;max-height:calc(100vh - 32px);display:flex;flex-direction:column">
+    <div class="modal-header">
+      <div class="modal-title"><i class="ti ti-bell"></i> Novedades de DEXIAE</div>
+      <div class="modal-close" onclick="novCerrar()"><i class="ti ti-x" style="font-size:14px"></i></div>
+    </div>
+    <div class="modal-body" id="nov-body" style="overflow:auto"></div>
+    <div class="modal-footer">
+      <span class="opt-hint" id="nov-estado" style="margin:0 auto 0 0"></span>
+      <button class="btn btn-ghost" onclick="novBuscar()" id="nov-buscar"><i class="ti ti-refresh"></i> Buscar novedades</button>
+      <button class="btn btn-primary" onclick="novCerrar()">Cerrar</button>
+    </div>
   </div>
 </div>
 
@@ -3227,7 +3264,7 @@ const DEMO = {
     :[{tipo:'cuit'},{tipo:'suma',tolerancia:1},{tipo:'fecha_rango',max_anios:10},{tipo:'unico'}]}}),
   val_guardar: () => ({ok:true}), val_eliminar: () => ({ok:true}), val_set_global: () => ({ok:true}), val_asociar: () => ({ok:true}), val_renombrar: (v,n) => ({ok:true,nombre:n}),
   val_probar: (n) => ({ok:true,mensaje:'['+n+'] 3 hallazgo(s) en 2 de 38 documento(s) (demo)',ruta:'(demo)/lote_VALIDADO.xlsx',hallazgos:3}),
-  reporte_duda_previa: (id) => ({ok:true,mail:'dexiaesoporte@gmail.com',wa:'5493516574188',
+  reporte_duda_previa: (id) => ({ok:true,mail:'contacto@getdexiae.com',wa:'5493516574188',
     clientes:['Estudio Demo SRL'],lote:{id:id,nombre:'Lote demo',fecha:'2026-09-09 18:04',documentos:3,excel_nombre:'Extractos_demo.xlsx'},
     items:[{clave:'contexto',fijo:true,incluido:true,etiqueta:'Qué corrida fue',detalle:'Lote demo · 3 documento(s) · sin rutas'},
            {clave:'decisiones',fijo:false,incluido:true,etiqueta:'Qué decidió DEXIAE con cada movimiento',detalle:'92 movimiento(s): categoría, cuenta, confianza y por qué. Los nombres y los números largos van tapados; así se ve una línea: «TRANSFERENCIA DE TERCEROS … <N> VARIOS»'},
@@ -3242,18 +3279,25 @@ const DEMO = {
     incidente:'DX-260910-A3F7',
     mensaje:'ESTO NO ME CIERRA · DX-260910-A3F7 (demo)',wa_url:'https://wa.me/5493516574188?text=demo'}),
   abrir_url: () => ({ok:true}),
-  actualizacion_estado: () => ({ok:true,actual:'2.8.0',ultima:'2.5.99',hay_nueva:true,
+  actualizacion_estado: () => ({ok:true,actual:'2.9.0',ultima:'2.5.99',hay_nueva:true,
     descarga:'https://getdexiae.com/',notas:'https://getdexiae.com/',
     resumen:'Ejemplo de aviso de versión (demo).',corrige_resultados:true,
     revocada:false,motivo:''}),
+  config_reparada: () => ({ok:true,archivos:[]}),
+  canal_novedades: () => ({ok:true,nuevos:[],conexion:true,pendientes:2,renovada:'',lista:[
+    {id:'demo-2',tipo:'plantilla',titulo:'Facturas de proveedor (ejemplo)',descripcion:'La plantilla que armamos con tus 3 PDF de muestra.',estado:'pendiente',recibido:'2026-10-07 09:12',para_todos:false},
+    {id:'demo-1',tipo:'diccionario',titulo:'Diccionario AR_AFIP actualizado',descripcion:'Suma campos de facturas electrónicas para el Asistente.',estado:'pendiente',recibido:'2026-10-06 18:40',para_todos:true},
+    {id:'demo-0',tipo:'prorroga',titulo:'Renovación de tu licencia',hasta:'2026-11-15',estado:'aplicada',recibido:'2026-10-05 10:03',para_todos:false}]}),
+  canal_instalar: () => ({ok:true,instalada:true,tipo:'plantilla',mensaje:'Instalado (demo)'}),
+  canal_descartar: () => ({ok:true}),
   config_get: () => ({ok:true,abrir_pdf:'',abrir_html:'',tam_texto:'normal',abrir_carpeta_fin:false,sidebar_riel:false,tema:'dark',apps:{navegadores:[{nombre:'Microsoft Edge',ruta:'C:/edge.exe'},{nombre:'Google Chrome',ruta:'C:/chrome.exe'}],pdf:[{nombre:'Adobe Reader',ruta:'C:/acro.exe'}]}}),
   config_set: () => ({ok:true}),
   config_elegir_app: (t) => ({ok:true,ruta:'C:/demo/'+t+'-app.exe',nombre:t+'-app.exe'}),
   exportar_soporte: () => ({ok:true,archivos:14,incidente:'DX-260910-K7QM',
     mensaje:'Diagnóstico exportado (demo) · 14 archivos'}),
-  reporte_tecnico_previa: () => ({ok:true,mail:'dexiaesoporte@gmail.com',wa:'5493516574188',
-    estado:{version:'2.8.0',edicion:'TRIAL',sistema:'Windows-11'},
-    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.8.0 · TRIAL · versión de Windows. Nada que te identifique'},
+  reporte_tecnico_previa: () => ({ok:true,mail:'contacto@getdexiae.com',wa:'5493516574188',
+    estado:{version:'2.9.0',edicion:'TRIAL',sistema:'Windows-11'},
+    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.9.0 · TRIAL · versión de Windows. Nada que te identifique'},
            {clave:'logs',fijo:false,incluido:true,etiqueta:'Registro técnico de los últimos días',detalle:'Es lo que dice qué estaba haciendo el programa cuando falló'},
            {clave:'config',fijo:false,incluido:true,etiqueta:'Plantillas, reglas y preferencias',detalle:'Sin documentos, sin Excel y sin la base de datos'},
            {clave:'equipo',fijo:false,incluido:false,etiqueta:'Identificador de tu equipo',detalle:'Tildalo sólo si el problema es con la licencia o la activación'}]}),
@@ -4111,6 +4155,18 @@ const UI = {
     };
     gate('chk-peritaje', caps.peritaje, 'Peritaje legal', 'peritaje');
     gate('chk-validacion', caps.validacion, 'Validación de datos', 'validacion');
+    // (06/10/2026, Fase 2) Los reportes HTML/PDF del lote: antes «HTML» aparecía
+    // tildado y salía sólo el Excel. Sin la capacidad, destildados y con candado.
+    ['chk-html','chk-pdf'].forEach(id=>{ const el=document.getElementById(id);
+      if(el && caps.pdf_report===false) el.checked=false; });
+    gate('chk-html', caps.pdf_report, 'Reporte HTML del lote', 'pdf_report');
+    gate('chk-pdf', caps.pdf_report, 'Reporte PDF pericial', 'pdf_report');
+    // Escaneados → PDF con texto y Fusionar reportes: el error aparecía recién al ejecutar
+    [['ocrAbrir()', caps.ocr_ilimitado, 'ocr'], ['fusAbrir()', caps.pdf_report, 'fusionar']].forEach(([fn, ok, func])=>{
+      const b=document.querySelector(`.tool-card button[onclick="${fn}"]`); if(!b) return;
+      b.dataset.nocap = ok===false ? func : ''; UI._candado(b, ok===false);
+      b.title = ok===false ? 'No está en tu plan (tocá para ver qué trae)' : '';
+    });
     // Autodetección: el control real es el botón del segmented
     const sa=document.getElementById('seg-fuente-auto');
     if(sa){
@@ -4155,10 +4211,14 @@ const UI = {
   upsell(func){
     const c=UI._caps||{}, ed=((document.getElementById('sb-edition')||{}).textContent||'').trim();
     const NOM={deteccion_auto:'La Detección automática', asistente:'El Asistente inteligente',
-               centinela:'El Centinela', peritaje:'El peritaje de firmas', validacion:'La Validación de datos'};
+               centinela:'El Centinela', peritaje:'El peritaje de firmas', validacion:'La Validación de datos',
+               pdf_report:'Los reportes HTML y PDF del lote', ocr:'Escaneados → PDF con texto (OCR por lote)',
+               fusionar:'Fusionar reportes'};
     const trae=[];
     if(c.imputacion) trae.push('Extractos bancarios con clasificación y borrador de asientos, sin límite');
-    trae.push('Conversor de extractos y herramientas PDF, sin límite');
+    // (06/10/2026, Fase 2) exacto: OCR por lote y Fusionar no están en todos los planes
+    const faltaHerr=[c.ocr_ilimitado===false?'escaneados a PDF con texto':'', c.pdf_report===false?'Fusionar reportes':''].filter(Boolean);
+    trae.push('Conversor de extractos y herramientas PDF, sin límite'+(faltaHerr.length?` (salvo ${faltaHerr.join(' y ')})`:''));
     if(c.max_lote) trae.push(`Extracción de documentos: ${Number(c.max_lote).toLocaleString('es-AR')} por mes${c.extraccion_prueba?', para probar':''}`);
     trae.push('Historial y Analítica');
     let m=document.getElementById('modal-upsell');
@@ -4175,6 +4235,8 @@ const UI = {
         <ul class="pro"><li><i class="ti ti-plus"></i>Detección automática de plantillas y Asistente inteligente</li>
           <li><i class="ti ti-plus"></i>Centinela: vigila una carpeta y procesa solo</li>
           <li><i class="ti ti-plus"></i>Peritaje de firmas y Validación de datos</li>
+          ${c.pdf_report===false?'<li><i class="ti ti-plus"></i>Reportes HTML y PDF del lote, y Fusionar reportes</li>':''}
+          ${c.ocr_ilimitado===false?'<li><i class="ti ti-plus"></i>Escaneados a PDF con texto (OCR por lote)</li>':''}
           <li><i class="ti ti-plus"></i>Más documentos por mes</li></ul>`;
     m.innerHTML=`<div class="modal" style="width:520px">
       <div class="modal-header"><div class="modal-title"><i class="ti ti-lock"></i>${imp?'La clasificación y los asientos están en DEXIAE Contable y PRO':_he(NOM[func]||'Esta función')+' es de DEXIAE PRO'}</div>
@@ -5028,6 +5090,14 @@ function onIniciar(){
 async function onProcesarLote(){
   const sel=UI.pvSeleccionados();
   if(sel.length===0){UI.toast('No seleccionaste archivos','warn');return;}
+  // (06/10/2026) El tope de la edición se dice ACÁ, antes de procesar: el
+  // motor corta con el mismo cálculo (lote_permitido) y antes lo hacía callado.
+  let cupo=null; try{ cupo=await PY.call('cupo_lote',sel.length); }catch(e){ cupo=null; }
+  if(cupo&&cupo.motivo){
+    if(!cupo.entran){ UI.toast(cupo.motivo,'err'); return; }
+    const seguir=await appConfirm('No entran todos',cupo.motivo+'\n¿Procesar esos '+cupo.entran+'?');
+    if(!seguir) return;   // sigue abierto el Pre-Vuelo para elegir menos
+  }
   const modo=STATE.destino||'espejo';
   // Si el renombrado está bloqueado (Listado / Autodetección) NO se manda el
   // patrón: deshabilitar la caja no alcanza — el motor renombra con lo que le
@@ -5446,7 +5516,16 @@ function histToggleDetalle(lote,row,det){
     // En qué quedó la revisión previa del conversor: un lote «en revisión» o
     // «sin terminar» todavía no tiene Excel, y tiene que decirlo.
     const _er=((r.lote||{}).estado_revision)||lote.estado_revision||'';
-    const _erTxt={en_revision:'en revisión',sin_terminar:'revisión sin terminar',generado:'revisado'}[_er];
+    // (06/10/2026, auditoría 1.C) con los números de la revisión: «revisado ·
+    // 3 corregidos · 1 pendiente» (lo prometía la pantalla final y no estaba)
+    const _rr=r.revision||null;
+    const _erNum=_rr?[_rr.corregidos?`${_rr.corregidos} corregido${_rr.corregidos===1?'':'s'}`:'',
+      _rr.documento_mal?`${_rr.documento_mal} con el documento mal`:'',
+      _rr.no_era_problema?`${_rr.no_era_problema} no era${_rr.no_era_problema===1?'':'n'} un problema`:'',
+      _rr.sacados?`${_rr.sacados} sacado${_rr.sacados===1?'':'s'}`:'',
+      _rr.pendientes?`${_rr.pendientes} por decidir`:''].filter(Boolean).join(' · '):'';
+    const _erTxt0={en_revision:'en revisión',sin_terminar:'revisión sin terminar',generado:'revisado'}[_er];
+    const _erTxt=_erTxt0&&_erNum?`${_erTxt0} · ${_erNum}`:_erTxt0;
     const nom=(lote.nombre_lote?`<b style="color:var(--txt2)">${_he(lote.nombre_lote)}</b> · `:'')
       +(_erTxt?`<span class="hd-badge ${_er==='generado'?'lb-ok':'lb-warn'}">${_erTxt}</span> · `:'');
     // Si algún documento aportó más de una fila, se dice el total: es la
@@ -7936,6 +8015,7 @@ function revFinal(r, opt){
           ${n_solos?`<div class="opt-hint" style="margin:6px 0 0">Con lo que enseñaste hoy, <b>${n_solos}</b> movimiento(s) de este lote se hubieran resuelto solos.</div>`:''}`
           :`<div class="opt-hint" style="margin:0">${p3.revisado?'No se corrigió nada: el mes que viene va a preguntar lo mismo.':'Podés revisarlo ahora y regenerarlo.'}</div>`}</div>
     </div>
+    ${typeof extPocasHtml==='function'?extPocasHtml(r):''}
     ${comp}
     <div class="rev-ga" style="margin-top:14px">
       <button class="btn btn-primary" onclick="revAbrirExcel()"><i class="ti ti-file-spreadsheet"></i> Abrir Excel</button>
@@ -9826,9 +9906,9 @@ async function _init(){
     // Destino de originales: espejo por defecto (decisión de producto 14/07).
     setDestino('espejo'); syncDestinoTipo(); onOrgModo('mover');
     UI.renderRenameVars(r.columnas||[]);
-    document.getElementById('sb-version').textContent=`v${r.version||'2.8.0'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.9.0'}`;
     const ed=r.edicion||'—';
-    document.getElementById('sb-version').textContent=`v${r.version||'2.8.0'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.9.0'}`;
     document.getElementById('sb-edition').textContent=ed;
     document.getElementById('sb-uedicion').textContent='Licencia activa';
     document.getElementById('sb-client').textContent='DEXIAE · Producción';
@@ -9847,7 +9927,151 @@ async function _init(){
     // plano: tiene 5 s de espera de red y arrancar la app nunca puede depender
     // de que haya internet.
     setTimeout(actChequear, 2500);
+    cfgReparadaAvisar();
+    // Novedades: también en segundo plano y con red (como mucho 1 vez por día).
+    setTimeout(() => novChequear(false), 3500);
   }catch(e){ console.error(e);UI.toast('Error de inicialización','err'); }
+}
+
+// (07/10/2026) Un JSON de la configuración que no se podía leer volvió a su
+// última copia buena al abrir. Se dice cuál: es la versión de ANTES de su
+// último cambio, y el usuario tiene que poder revisarla.
+async function cfgReparadaAvisar() {
+  let r; try { r = await PY.call('config_reparada'); } catch (e) { return; }
+  const a = (r && r.archivos) || [];
+  if (!a.length) return;
+  const nombres = a.map(x => String(x).split(/[\\/]/).pop().replace(/\.json$/i, ''));
+  UI.toast((a.length === 1 ? `«${nombres[0]}» no se podía leer` : `${a.length} archivos de tu configuración no se podían leer (${nombres.join(', ')})`) +
+           ': volvió a la última copia buena, la de antes de tu último cambio. Revisalo.', 'warn');
+}
+
+// ── NOVEDADES (07/10/2026) ──────────────────────────────────────────────────
+// Lo que DEXIAE manda por el canal firmado: a esta licencia (la renovación,
+// una plantilla, un set, un cliente de Contable) o a todas (un diccionario
+// del Asistente, un aviso). Reemplaza «te lo mando por mail e importalo».
+// La renovación se aplica sola; lo demás espera a que la persona lo instale,
+// con los mismos controles que importar a mano.
+const NOV = {data: null};
+const NOV_TIPOS = {
+  prorroga:   {ico: 'ti-calendar-check', txt: 'Renovación de la licencia'},
+  plantilla:  {ico: 'ti-template',       txt: 'Plantilla'},
+  set_reglas: {ico: 'ti-list-check',     txt: 'Set de reglas de Validación'},
+  cliente:    {ico: 'ti-building-bank',  txt: 'Configuración de un cliente (Contable)'},
+  diccionario:{ico: 'ti-book',           txt: 'Diccionario del Asistente'},
+  aviso:      {ico: 'ti-message',        txt: 'Aviso'},
+};
+const NOV_ESTADOS = {aplicada: 'Aplicada', instalada: 'Instalada', descartada: 'Descartada', leida: 'Leída'};
+
+function _novFecha(iso) {
+  const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : String(iso || '');
+}
+
+function novBadge() {
+  const n = (NOV.data && NOV.data.pendientes) || 0, b = document.getElementById('nov-badge');
+  if (!b) return;
+  b.textContent = n > 9 ? '9+' : String(n);
+  b.hidden = !n;
+}
+
+async function novChequear(forzar) {
+  let r; try { r = await PY.call('canal_novedades', !!forzar); } catch (e) { return null; }
+  if (!r || !r.ok) return r;
+  NOV.data = r;
+  novBadge();
+  if (r.renovada) {
+    UI.toast(`Tu licencia se renovó hasta el ${_novFecha(r.renovada)}`, 'ok');
+    try { onboardingCheck(); refrescarSidebarLic(); } catch (e) {}
+  }
+  const otros = (r.nuevos || []).filter(x => x.tipo !== 'prorroga');
+  if (otros.length && !document.getElementById('modal-nov').classList.contains('show'))
+    UI.toast(otros.length === 1 ? `Te llegó de DEXIAE: ${otros[0].titulo || NOV_TIPOS[otros[0].tipo]?.txt || 'una novedad'} — mirala en la campana`
+                                : `Te llegaron ${otros.length} novedades de DEXIAE — miralas en la campana`, 'info');
+  return r;
+}
+
+async function novAbrir() {
+  document.getElementById('modal-nov').classList.add('show');
+  if (!NOV.data) { document.getElementById('nov-body').innerHTML = '<div class="opt-hint">Buscando…</div>'; await novChequear(false); }
+  novRender();
+}
+function novCerrar() { document.getElementById('modal-nov').classList.remove('show'); }
+
+async function novBuscar() {
+  const b = document.getElementById('nov-buscar'), e = document.getElementById('nov-estado');
+  b.disabled = true; e.textContent = 'Buscando…';
+  const r = await novChequear(true);
+  b.disabled = false;
+  if (!r || !r.ok) { e.textContent = 'No se pudo buscar.'; return; }
+  const n = (r.nuevos || []).length;
+  e.textContent = !r.conexion ? 'No se pudo consultar (¿hay internet?).'
+                : n ? (n === 1 ? 'Llegó 1 novedad.' : `Llegaron ${n} novedades.`) : 'No hay nada nuevo.';
+  novRender();
+}
+
+function novRender() {
+  const body = document.getElementById('nov-body'), l = (NOV.data && NOV.data.lista) || [];
+  if (!l.length) {
+    body.innerHTML = `<div class="opt-hint" style="margin:6px 0">Todavía no llegó nada. Cuando DEXIAE te mande
+      una plantilla, un set de reglas, la configuración de un cliente o la renovación de tu licencia, aparece
+      acá: no hace falta que te lo manden por mail ni importar nada. DEXIAE lo busca al abrir (una vez por día);
+      con «Buscar novedades» lo trae en el momento. Sólo descarga: el pedido lleva el nombre y la versión
+      del programa, nada tuyo ni de tus documentos.</div>`;
+    return;
+  }
+  body.innerHTML = l.map(x => {
+    const t = NOV_TIPOS[x.tipo] || NOV_TIPOS.aviso, pend = x.estado === 'pendiente';
+    const meta = [t.txt, x.para_todos ? 'para todos' : 'para tu licencia', 'llegó el ' + _novFecha(x.recibido)]
+      .concat(x.hasta ? ['hasta el ' + _novFecha(x.hasta)] : [])
+      .concat(!pend ? [NOV_ESTADOS[x.estado] || x.estado] : []).join(' · ');
+    const acc = !pend ? '' : x.tipo === 'aviso'
+      ? `<button class="btn btn-ghost sm" onclick="novInstalar('${_he(x.id)}')">Marcar como leída</button>`
+      : `<button class="btn btn-primary sm" onclick="novInstalar('${_he(x.id)}')"><i class="ti ti-download"></i> Instalar</button>
+         <button class="btn btn-ghost sm" onclick="novDescartar('${_he(x.id)}')">Descartar</button>`;
+    return `<div class="nov-item${pend ? '' : ' resuelta'}" id="nov-${_he(x.id)}">
+      <i class="ti ${t.ico} nov-ico"></i>
+      <div class="nov-cuerpo"><div class="nov-tit">${_he(x.titulo || t.txt)}</div>
+        <div class="nov-meta">${_he(meta)}</div>
+        ${x.descripcion || x.texto ? `<div class="opt-hint" style="margin:6px 0 0;white-space:pre-wrap">${_he(x.descripcion || x.texto)}</div>` : ''}
+        ${x.detalle && !pend ? `<div class="opt-hint" style="margin:4px 0 0">${_he(x.detalle)}</div>` : ''}
+        <div class="nov-acc" id="nov-acc-${_he(x.id)}">${acc}</div></div></div>`;
+  }).join('');
+}
+
+async function novInstalar(id, confirmar) {
+  let r; try { r = await PY.call('canal_instalar', id, !!confirmar, null); } catch (e) { r = null; }
+  if (!r || !r.ok) { UI.toast((r && r.error) || 'No se pudo instalar', 'err'); return; }
+  if (r.paso === 'revisar') {
+    // Lo mismo que pregunta importar a mano: qué trae y qué pisaría.
+    const pisa = r.ya_existe;
+    const txt = r.tipo === 'set_reglas'
+        ? `Trae ${r.n_reglas} regla(s).` + (pisa ? ` Ya tenés un set «${r.nombre}» con ${r.existente_n_reglas}: se reemplaza` +
+          ((r.plantillas || []).length ? ` y lo usan ${r.plantillas.length} plantilla(s).` : '.') : '')
+      : r.tipo === 'cliente'
+        ? `Cliente «${r.nombre}».` + (pisa ? ' Ya existe: se reemplaza su configuración.' : '')
+      : `Diccionario «${r.nombre}» (${r.n_campos} campos).` + (pisa ? ' Reemplaza el que tenés: queda una copia.' : '');
+    document.getElementById('nov-acc-' + id).innerHTML =
+      `<div class="opt-hint" style="margin:0 0 6px;width:100%">${_he(txt)}</div>
+       <button class="btn btn-primary sm" onclick="novInstalar('${_he(id)}', true)">${pisa ? 'Reemplazar e instalar' : 'Instalar'}</button>
+       <button class="btn btn-ghost sm" onclick="novRender()">Cancelar</button>`;
+    return;
+  }
+  if (r.instalada || r.tipo === 'aviso') {
+    if (r.tipo !== 'aviso') UI.toast(r.mensaje || 'Instalado', 'ok');
+    if (r.renombrada) UI.toast('Ya había una plantilla con ese nombre — se guardó aparte', 'warn');
+    try {
+      if (r.tipo === 'plantilla' && typeof labInit === 'function') labInit();
+      if (r.tipo === 'cliente' && typeof IMPUT !== 'undefined' && r.clientes) IMPUT.clientes = r.clientes;
+    } catch (e) {}
+  }
+  await novChequear(false);
+  novRender();
+}
+
+async function novDescartar(id) {
+  try { await PY.call('canal_descartar', id); } catch (e) {}
+  await novChequear(false);
+  novRender();
 }
 async function refrescarLicencia(){
   // Tras iniciar trial / activar licencia, refresca caps, edición y cuota sin recargar.
@@ -9875,10 +10099,12 @@ async function refrescarSidebarLic(){
         // vencimiento aparecía recién cuando la app dejaba de andar. Desde un
         // mes antes lo avisa acá, que es donde el usuario ya mira.
         if(typeof r.dias==='number' && r.expiry && r.dias<=LIC_AVISO_DIAS){
-          ue.textContent=r.dias<=0?'Licencia vencida':`Licencia · vence en ${r.dias} día${r.dias===1?'':'s'}`;
+          // (06/10/2026) el último día todavía vale: «vence hoy», no «vencida»
+          ue.textContent=r.dias<=0?'Licencia · vence hoy':`Licencia · vence en ${r.dias} día${r.dias===1?'':'s'}`;
           ue.style.color=r.dias<=7?'var(--err-fg)':'var(--rev-fg)';
         } else ue.textContent='Licencia activa';
       }
+      else if(r.solo_lectura){ ue.textContent=`Sólo lectura · ${r.motivo_codigo==='revocada'?'dada de baja':'vencida'}`; ue.style.color='var(--err-fg)'; }
       else ue.textContent='Sin licencia';
     }
   }catch(e){}
@@ -9906,7 +10132,7 @@ function licVencRender(r){
   const dias=(r&&typeof r.dias==='number')?r.dias:null;
   let txt=_licFechaTxt(d), color='';
   if(dias!==null&&dias<=LIC_AVISO_DIAS){
-    txt+=`  ·  ${dias<=0?'vencida':`${dias} día${dias===1?'':'s'}`}`;
+    txt+=`  ·  ${dias<=0?((r&&r.valida)?'vence hoy':'vencida'):`${dias} día${dias===1?'':'s'}`}`;
     color=dias<=7?'var(--err-fg)':'var(--rev-fg)';
   }
   el.textContent=txt;
@@ -9917,7 +10143,9 @@ async function openLicencia(){
   let r=LICINFO; try{ const x=await PY.call('lic_estado'); if(x&&x.ok){ r=x; LICINFO=x; } }catch(e){}
   if(!r){ UI.toast('No se pudo leer la licencia','warn'); return; }
   document.getElementById('lic-ed').textContent=r.edicion||'—';
-  document.getElementById('lic-st').textContent= r.valida ? (r.modo_trial?'Prueba activa':'Activa') : 'Vencida / sin licencia';
+  document.getElementById('lic-st').textContent= r.valida ? (r.modo_trial?'Prueba activa':'Activa')
+    : r.solo_lectura ? (r.motivo_codigo==='revocada'?'Dada de baja · sólo lectura':`Vencida${r.vencio?' el '+r.vencio:''} · sólo lectura`)
+    : 'Vencida / sin licencia';
   const dr=document.getElementById('lic-dias-row');
   if(r.modo_trial){ dr.style.display='flex'; document.getElementById('lic-dias').textContent=`${r.dias} día${r.dias===1?'':'s'} restantes`; }
   else { dr.style.display='none'; }
@@ -9960,12 +10188,24 @@ async function onboardingCheck(){
   if(!r||!r.ok) return;
   OB.estado=r;
   document.getElementById('ob-hwid').textContent=r.hw_id||'—';
-  if(!r.valida){
-    // Trial vencido / sin licencia → activar obligatorio (sin escape)
+  slBanner(r);
+  if(!r.valida && r.solo_lectura){
+    // (06/10/2026, auditoría C1) Vencida pasada la gracia o revocada: la app
+    // abre en SÓLO LECTURA (el banner arriba lo dice). Nada de panel forzado.
+  } else if(!r.valida){
+    // Trial vencido / clave de otro equipo / dañada → activar obligatorio,
+    // con el motivo REAL (r.mensaje) y no siempre «tu prueba terminó».
     OB.forzado=true; OB.modo='welcome'; obShowActivar(); obAbrir();
   } else if(r.primera_vez){
     OB.forzado=false; obWelcome(); obAbrir();
   } // si es válida y no es primera vez → no se muestra
+}
+function slBanner(r){
+  const b=document.getElementById('sl-banner'); if(!b) return;
+  if(!(r&&r.solo_lectura)){ b.hidden=true; b.innerHTML=''; return; }
+  b.innerHTML=`<i class="ti ti-lock"></i><span>${_he(r.mensaje||'DEXIAE está en sólo lectura: podés ver el Historial y abrir tus Excels, pero no procesar.')}</span>`
+    +`<button class="btn btn-ghost sm" onclick="licCambiar()"><i class="ti ti-key"></i> Ingresar clave</button>`;
+  b.hidden=false;
 }
 function obAbrir(){ document.getElementById('onboarding').classList.add('show'); }
 function obCerrar(){ if(OB.forzado)return; document.getElementById('onboarding').classList.remove('show'); }
@@ -9977,7 +10217,11 @@ function obShowActivar(){
   document.getElementById('ob-salir').style.display=OB.forzado?'':'none';
   document.getElementById('ob-err').textContent='';
   const v=document.getElementById('ob-venc');
-  if(v) v.style.display = (OB.estado && !OB.estado.valida) ? '' : 'none';
+  if(v){
+    v.style.display = (OB.estado && !OB.estado.valida) ? '' : 'none';
+    // el motivo real (06/10/2026): otro equipo, clave dañada, prueba terminada…
+    if(OB.estado && OB.estado.mensaje) v.innerHTML='<i class="ti ti-alert-triangle"></i> '+_he(OB.estado.mensaje);
+  }
 }
 async function obSalir(){
   const ok=await appConfirm('Salir de DEXIAE','Sin una licencia activa no podés usar DEXIAE. ¿Cerrar la aplicación ahora?');
@@ -10025,7 +10269,7 @@ function copiarSolicitud(hwElId){
     // (01/10/2026) Antes decía «PRO» fijo: un fundador de Contable pedía PRO
     // sin saberlo. Con las tres, el keygen no adivina y la edición se elige.
     'Edición deseada: (dejá una: CONTABLE, PRO o SENTINEL)\n\n'+
-    'Enviá este mensaje a dexiaesoporte@gmail.com o por WhatsApp y te devolvemos la clave de activación.';
+    'Enviá este mensaje a contacto@getdexiae.com o por WhatsApp y te devolvemos la clave de activación.';
   try{
     const ta=document.createElement('textarea'); ta.value=msj; ta.style.position='fixed'; ta.style.opacity='0';
     document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
@@ -10360,10 +10604,11 @@ async function actIr(url) {
 }
 
 function actAvisarRevocada(r) {
-  // Se INFORMA, no se bloquea desde la pantalla: el candado es una decisión
-  // aparte. Bloquear por error a alguien que pagó es peor que avisar tarde.
+  // (06/10/2026, decidido el 03/10) Revocada → SÓLO LECTURA (la API ya no
+  // procesa): se avisa y se pone el banner. No es un bloqueo de la app.
   UI.toast('Tu licencia figura como dada de baja' +
-           (r.motivo ? ': ' + r.motivo : '') + ' — escribinos a dexiaesoporte@gmail.com', 'err');
+           (r.motivo ? ': ' + r.motivo : '') + ': DEXIAE pasó a sólo lectura — escribinos a contacto@getdexiae.com', 'err');
+  try{ onboardingCheck(); refrescarSidebarLic(); }catch(e){}
 }
 
 // ── EL RIEL DEL SIDEBAR ─────────────────────────────────────────────────────
@@ -10398,9 +10643,9 @@ window.addEventListener('load', () => {
   }, 1500);
 });
 </script>
-<script src="revision_lote.js?v=d2f0e1088b"></script>
+<script src="revision_lote.js?v=4121013244"></script>
 <script src="analitica.js?v=35ff20174c"></script>
-<script src="extractos.js?v=ed8c5958f7"></script>
-<script defer src="demo-web.js?v=64e6680f5e"></script>
+<script src="extractos.js?v=a5e0a1d9fa"></script>
+<script defer src="demo-web.js?v=8d15026f68"></script>
 </body>
 </html>

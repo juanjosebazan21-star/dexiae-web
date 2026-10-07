@@ -84,7 +84,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <div class="wrap">
 
 <h1>Guía del usuario</h1>
-<p class="sub">Válida para <b>DEXIAE 2.8.0</b> · actualizada octubre 2026 · procesamiento 100% local en tu equipo</p>
+<p class="sub">Válida para <b>DEXIAE 2.9.0</b> · actualizada octubre 2026 · procesamiento 100% local en tu equipo</p>
 
 <div class="toc"><b>Contenido</b>
 <ol>
@@ -94,7 +94,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <li><a href="#limite">Qué consume tu límite</a></li>
 <li><a href="#interfaz">La interfaz</a></li>
 <li><a href="#lote">Procesar un lote</a></li>
-<li><a href="#prevuelo">Pre-vuelo: Espejo y Ruteo</a></li>
+<li><a href="#prevuelo">Pre-vuelo y los originales</a></li>
 <li><a href="#plantillas">Laboratorio: plantillas</a></li>
 <li><a href="#extractos">Extractos bancarios → Excel ⭐</a></li>
 <li><a href="#qr">Facturas por código QR</a></li>
@@ -123,7 +123,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <h2 id="instalacion">2. Instalación</h2>
 <ol>
 <li>Descargá el instalador desde <a href="https://getdexiae.com">getdexiae.com</a>.</li>
-<li>Ejecutá <code>DEXIAE_Setup_V2.8.0.exe</code> y seguí el asistente.</li>
+<li>Ejecutá <code>DEXIAE_Setup_V2.9.0.exe</code> y seguí el asistente.</li>
 <li>Requisitos: Windows 10/11 de 64 bits. El instalador incluye todo lo necesario.</li>
 </ol>
 <div class="box warn"><b>Si Windows muestra "Windows protegió tu equipo":</b> es el aviso estándar de SmartScreen para software de desarrolladores independientes — no significa que sea malicioso. Hacé clic en <b>"Más información"</b> → <b>"Ejecutar de todos modos"</b>. Podés verificar el instalador con tu antivirus o en VirusTotal.</div>
@@ -131,12 +131,13 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <h2 id="licencia">3. Licencia y ediciones</h2>
 <p>Al abrir DEXIAE por primera vez elegís:</p>
 <ul>
-<li><b>Probar gratis (TRIAL)</b> — <b>es una prueba del plan PRO</b>: 14 días y 100 documentos en total, sin tarjeta. Trae peritaje, Centinela, reportes, validación, las 9 herramientas y el conversor de extractos <b>con clasificación y borrador de asientos</b>. La única función de PRO que no incluye es la Autodetección y el Asistente de plantillas, porque con 3 plantillas no llegan a mostrar para qué sirven.
+<li><b>Empezar prueba de 14 días</b> — <b>es una prueba del plan PRO</b>: 14 días y 100 documentos en total, sin tarjeta. Trae peritaje, Centinela, reportes, validación, las 9 herramientas y el conversor de extractos <b>con clasificación y borrador de asientos</b>. La única función de PRO que no incluye es la Autodetección y el Asistente de plantillas, porque con 3 plantillas no llegan a mostrar para qué sirven.
 <div class="box note" style="margin-top:10px"><b>Al terminar la prueba</b>, si activás <b>CORE</b> o <b>DEXIAE Contable</b> vas a notar que algunas de esas funciones dejan de estar. CORE es el plan de extracción por plantilla en volumen; Contable, el de los bancos de tus clientes; y peritaje, Centinela, Validación y reportes HTML/PDF son de PRO. No es un error: la prueba te dejó ver PRO.</div></li>
-<li><b>Activar con mi clave</b>: pegás la clave que recibiste al contratar y listo.</li>
+<li><b>Ya tengo una licencia</b>: pegás la clave que recibiste al contratar y listo.</li>
 </ul>
 <p><b>DEXIAE Contable</b> (desde la 2.8.0) es el plan para estudios que llevan los bancos de sus clientes: extractos, clasificación y borrador de asientos sin límite, la extracción de documentos para probar (30 por mes) y las herramientas PDF. Con esa licencia la app arranca en <a href="#extractos">Extractos</a>, y lo que el plan no trae aparece con un candado: al tocarlo te dice qué trae tu plan y qué suma PRO. Una licencia Contable necesita la versión 2.8.0 o posterior. La comparación completa está en la <a href="#ediciones">tabla de ediciones</a>.</p>
 <p>Para pedir tu clave (o renovarla) usá el botón <b>"Copiar solicitud"</b> del panel de licencia: copia tu ID de equipo y tus datos en un mensaje listo para enviar a <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>. Cada licencia vale para una PC.</p>
+<p><b>Novedades (desde la 2.9.0).</b> La renovación de tu licencia y lo que te preparamos —una plantilla, un set de reglas, la configuración de un cliente de Contable, un diccionario del Asistente— te llegan a la campana de arriba a la derecha, sin mails ni archivos para importar: al abrir DEXIAE con internet (como mucho una vez por día) o al tocar <b>"Buscar novedades"</b>. La renovación se aplica sola; lo demás lo instalás vos desde ahí, con los mismos controles que al importarlo a mano. Viaja firmado por DEXIAE y, si es para vos, cifrado con tu clave de licencia. Si una licencia paga vence, DEXIAE queda en <b>sólo lectura</b>: ves el Historial y abrís tus Excels, pero no procesa hasta que llega la renovación.</p>
 
 <h2 id="limite">4. Qué consume tu límite</h2>
 <p>El cupo mensual de tu plan (<b>500 documentos en CORE, 2.500 en PRO</b>; en DEXIAE Contable, 30 por mes para probar la extracción) cuenta <b>solo la auditoría por plantilla</b>:</p>
@@ -211,13 +212,14 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <figcaption>La revisión de un lote de facturas de ejemplo: un campo obligatorio vacío bloquea el Excel; a la derecha, los datos del documento y de dónde salió cada uno.</figcaption>
 </figure>
 
-<h2 id="prevuelo">7. Pre-vuelo: Espejo y Ruteo</h2>
-<p>Antes de procesar, DEXIAE te muestra el panel de Pre-vuelo. Ahí decidís qué pasa con tus archivos originales:</p>
+<h2 id="prevuelo">7. Pre-vuelo y los originales</h2>
+<p>Qué pasa con tus archivos originales se elige en <b>Ejecución</b>, en <b>Originales</b>, y el Pre-vuelo te lo muestra antes de procesar. Hay tres opciones:</p>
 <ul>
-<li><b>Modo Espejo (por defecto)</b>: DEXIAE <b>no toca tus archivos</b>. Quedan exactamente donde están y solo se genera el reporte. Recomendado si reusás los originales.</li>
-<li><b>Ordenar por resultado (Ruteo)</b>: si activás este modo, DEXIAE <b>mueve</b> cada archivo a subcarpetas según el resultado: <code>_PROCESADOS_</code>, <code>_REVISAR_</code>, <code>_DUPLICADOS_</code>, <code>_ALERTA_LEGAL_</code>, <code>_ERRORES_</code>. Útil para dejar la carpeta clasificada. La app te pide confirmación explícita al activarlo.</li>
+<li><b>No mover</b> (modo espejo, por defecto): DEXIAE <b>no toca tus archivos</b>. Quedan exactamente donde están y solo se genera el reporte. Recomendado si reusás los originales.</li>
+<li><b>Por resultado</b>: DEXIAE <b>mueve</b> cada archivo a subcarpetas según el resultado: <code>_PROCESADOS_</code>, <code>_REVISAR_</code>, <code>_DUPLICADOS_</code>, <code>_ALERTA_LEGAL_</code>, <code>_ERRORES_</code>. Útil para dejar la carpeta clasificada. La app te pide confirmación explícita al activarlo.</li>
+<li><b>Por tipo</b>: al terminar, los ordena en subcarpetas por tipo de documento, más <code>Desconocidos</code> para lo que no reconoció. Necesita la Detección automática (PRO y SENTINEL).</li>
 </ul>
-<div class="box note">Con Ruteo activado, al terminar el lote los archivos quedan clasificados en esas subcarpetas, dentro de la misma carpeta que procesaste. La carpeta original queda ordenada por resultado.</div>
+<div class="box note">Con «Por resultado», al terminar el lote los archivos quedan clasificados en esas subcarpetas, dentro de la misma carpeta que procesaste. La carpeta original queda ordenada por resultado.</div>
 <h3>Ver el lote antes de procesar</h3>
 <p>El Pre-vuelo te muestra la <b>lista completa de archivos</b> que entran al lote antes de tocar nada: cuántos son, cuáles son, y podés <b>marcar o desmarcar</b> los que no quieras procesar. Nada se procesa hasta que confirmás con el botón "Procesar lote".</p>
 <p>Ahí mismo configurás el <b>renombrado automático</b> (p. ej. <code>{CUIT}_{FECHA}</code>): antes de confirmar, DEXIAE te muestra una <b>vista previa real</b> del nombre que va a quedar, extrayendo los campos de los primeros documentos del lote.</p>
@@ -303,7 +305,7 @@ referencia que está firmado, DEXIAE te lo marca con un cartelito, para que sepa
 con cuál de los dos estás trabajando.</div>
 
 <h3>Asistente inteligente (PRO)</h3>
-<p>Le das un PDF de muestra y te <b>sugiere los campos automáticamente</b> — de minutos a segundos. Importante entender cómo funciona: el Asistente reconoce los campos <b>a partir de diccionarios</b> de términos, así que rinde en serio cuando los diccionarios activos se corresponden con tus documentos:</p>
+<p>Le das un PDF de muestra y te <b>sugiere los campos automáticamente</b>, en lugar de armar la plantilla desde cero. Importante entender cómo funciona: el Asistente reconoce los campos <b>a partir de diccionarios</b> de términos, así que rinde en serio cuando los diccionarios activos se corresponden con tus documentos:</p>
 <ul>
 <li><b>GENERICO y PRIORITARIOS</b>: los diccionarios base, siempre activos — cubren los campos típicos (CUIT, fecha, totales…) y marcan cuáles priorizar.</li>
 <li><b>Sectoriales</b> (p. ej. <code>AR_AFIP</code>): términos específicos de un rubro. Se agregan como archivos JSON en <code>%APPDATA%\DEXIAE\diccionarios\</code>.</li>
@@ -434,6 +436,9 @@ devuelve la conducta vieja: el archivo entra con sus filas marcadas.</div>
       <td>Una línea por archivo: banco, en qué hoja quedó, cuántos movimientos y cómo
           cerró su cadena de saldos.</td>
       <td>Todas — solo si cargaste <b>más de un</b> extracto</td></tr>
+  <tr><td><b>Acerca de este archivo</b></td>
+      <td>De dónde salió el Excel.</td>
+      <td><b>Siempre</b></td></tr>
   <tr><td><b>Categorías</b></td>
       <td>Totales por tipo de movimiento: cuántos, cuánto débito, cuánto crédito y el
           neto. Es la foto del mes antes de entrar a los asientos.</td>
@@ -445,21 +450,30 @@ devuelve la conducta vieja: el archivo entra con sus filas marcadas.</div>
       <td><b>Contable y PRO</b> · y la <b>prueba gratis</b> — <u>además</u> hay que elegir un
           cliente configurado</td></tr>
   <tr><td><b>Para importar</b></td>
-      <td>Solo los asientos <b>completos</b>, en 9 columnas: <code>EJERCICIO</code>,
+      <td>Todos los asientos, <b>enteros</b>, en 9 columnas: <code>EJERCICIO</code>,
           <code>FECHA</code>, <code>ASIENTO</code>, <code>LEYENDA</code>,
           <code>MOVIMIENTO</code>, <code>CUENTA</code>, <code>DESCRIPCION</code>,
-          <code>DEBE</code>, <code>HABER</code>. Es la que va a tu sistema contable.</td>
+          <code>DEBE</code>, <code>HABER</code>. Es la que va a tu sistema contable. Los que
+          quedaron sin cuenta van con la celda <code>CUENTA</code> vacía, para completarla ahí.</td>
       <td>ídem</td></tr>
   <tr><td><b>Pendientes</b></td>
-      <td>Los asientos que quedaron sin cuenta asignada, apartados.</td>
+      <td>Los mismos asientos sin cuenta, con su contexto (categoría, detalle, archivo) para decidirla.</td>
       <td>ídem — y <b>solo si hay alguno</b></td></tr>
+  <tr><td><b>A revisar</b></td>
+      <td>Los asientos que usaron la cuenta por defecto, con su porqué. Esos <b>sí</b> entran a
+          «Para importar»: esta hoja es para no perderlos de vista.</td>
+      <td>ídem — y <b>solo si hay alguno</b></td></tr>
+  <tr><td><b>Quitados</b></td>
+      <td>Lo que sacaste de los asientos en la revisión, tal cual el resumen, para que el Excel
+          siga cerrando contra el banco.</td>
+      <td>ídem — y <b>solo si quitaste algo</b></td></tr>
  </tbody>
 </table>
 
-<p><b>Por qué «Para importar» y «Pendientes» están separadas.</b> Si un asiento sin
-cuenta se colara en la hoja de importación, el lote saldría descuadrado y tu sistema
-contable <b>lo rechazaría entero</b>. Por eso los incompletos se apartan: preferimos que
-importes 40 asientos buenos y revises 3, antes que se te caigan los 43.</p>
+<p><b>Por qué un asiento sin cuenta está en las dos hojas.</b> Nunca se parte un
+asiento: va entero, así que «Para importar» <b>siempre cuadra</b> (DEBE = HABER). Le
+falta sólo el dato: completás la <code>CUENTA</code> ahí mismo, y «Pendientes» te da el
+contexto para decidirla. Completá la <code>CUENTA</code> antes de importar: no sabemos qué hace tu sistema con una cuenta vacía (probalo con un mes chico).</p>
 
 <div class="box"><b>Sobre las ediciones.</b> La conversión a Excel funciona en
 <b>todas</b>. Las hojas de clasificación y asientos son de <b>DEXIAE Contable</b> y
@@ -482,7 +496,7 @@ y el importe que te marca DEXIAE son justo lo que necesitamos para revisarlo.</l
 reintentá, o guardá con otro nombre.</li>
 </ul>
 
-<p><b>Bancos:</b> hay ocho bancos calibrados — Banco del Chubut, Credicoop, Santander,
+<p><b>Bancos:</b> hay 7 bancos y Mercado Pago calibrados — Banco del Chubut, Credicoop, Santander,
 Patagonia, Macro, ICBC, Galicia y Mercado Pago. <b>¿Tu banco no está?</b> Escribinos a
 <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a> con 1 o 2 extractos
 de muestra (podés tapar los datos — al motor le sirve la estructura, no los valores) y lo
@@ -591,20 +605,21 @@ del movimiento.</li>
 
 <h4>Cómo se arman los asientos</h4>
 <p>Un resumen con muchos movimientos repetidos —veinte liquidaciones de tarjeta el
-mismo día— genera veinte asientos que podrían ser uno. Hay cuatro formas de armarlos:</p>
+mismo día— genera veinte asientos que podrían ser uno. Hay cinco formas de armarlos:</p>
 <table>
 <tr><th>Opción</th><th>Qué hace</th></tr>
 <tr><td><b>Uno por movimiento</b></td><td>Igual que el resumen del banco, línea por línea.</td></tr>
 <tr><td><b>Agrupar por día y cuenta</b> <span class="si">recomendado</span></td><td>Los movimientos del día que van a la misma cuenta se suman en un solo asiento.</td></tr>
 <tr><td><b>Por día, separando lo que entró de lo que salió</b></td><td>Un asiento para las entradas y otro para las salidas de ese día. La cuenta del banco queda en <b>una sola línea</b> en cada uno.</td></tr>
 <tr><td><b>Un solo asiento por día</b></td><td>Todo el día en un asiento. Los días con entradas y salidas dejan la cuenta del banco en <b>dos líneas</b> del mismo asiento.</td></tr>
+<tr><td><b>Un asiento por día, con el banco en una sola línea (neto del día)</b></td><td>El banco va por la diferencia del día: lo que entró menos lo que salió. Es la única que cambia el total del diario; el control pasa a ser el saldo de cada día (pestaña «Saldos por día»).</td></tr>
 </table>
-<div class="box tip"><b>El total nunca cambia: lo que se agrupa se suma, no se netea.</b>
-Esa es la razón de que exista la opción del medio. Para dejar la cuenta del banco en una
-sola línea por día habría que netear entradas contra salidas, y netear <b>esconde
-importes que sí se movieron</b>: sobre un mes real ya validado, netear tapaba casi 30
-millones de pesos que habían pasado por la cuenta. Separando por signo el banco cierra
-con una línea en cada asiento y no desaparece nada.</div>
+<div class="box tip"><b>Lo que se agrupa se suma, no se netea: el total no cambia, salvo
+con el banco en una sola línea (neto del día).</b> Netear entradas contra salidas
+<b>esconde importes que sí se movieron</b>: sobre un mes real ya validado, netear tapaba
+casi 30 millones de pesos que habían pasado por la cuenta. Por eso el neto es una opción
+aparte y no la recomendada; separando por signo, el banco cierra con una línea en cada
+asiento y no desaparece nada.</div>
 <div class="box warn">Si ya importaste asientos a tu sistema, <b>cambiar esta opción
 renumera</b> los del próximo Excel. Revisá que no se dupliquen.</div>
 
@@ -622,18 +637,23 @@ y se pasa a otro equipo sin volver a cargar nada a mano. Antes de escribir, DEXI
 muestra qué trae el archivo y qué pisa.</div>
 
 <h3 id="prioridad">9.3 Cómo decide DEXIAE a qué cuenta va cada movimiento</h3>
-<p>Hay <b>tres formas</b> de que un movimiento encuentre su cuenta, y no compiten:
+<p>Hay <b>ocho pistas</b> para que un movimiento encuentre su cuenta, y no compiten:
 se prueban en orden y gana la primera que acierta. Entender este orden es lo que
 explica por qué un movimiento fue a donde fue.</p>
 
 <table>
 <tr><th>#</th><th>Qué mira</th><th>Confianza</th><th>De dónde sale</th></tr>
-<tr><td><b>1</b></td><td><b>Transferencia entre tus propias cuentas.</b> Confirmada porque aparecen las dos puntas, la salida en un extracto y la entrada en otro.</td><td><b>Alta</b></td><td>Las cuentas bancarias del cliente</td></tr>
-<tr><td><b>2</b></td><td><b>El CUIT</b>, cuando el banco lo imprime en el detalle y está en tu lista.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
-<tr><td><b>3</b></td><td><b>El nombre</b>, cuando alguno de los que cargaste aparece en el detalle.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
-<tr><td><b>4</b></td><td><b>La categoría</b>, si tiene una cuenta asignada.</td><td>Media</td><td>Cuentas por categoría</td></tr>
-<tr><td><b>5</b></td><td><b>La cuenta por defecto</b> según el signo: una si sale plata, otra si entra.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Datos y banco</td></tr>
+<tr><td><b>1</b></td><td><b>Lo que corregiste en la revisión</b> para ese movimiento. Es tu decisión: gana sobre todo lo demás.</td><td><b>Alta</b></td><td>La revisión antes de generar</td></tr>
+<tr><td><b>2</b></td><td><b>Transferencia entre tus propias cuentas.</b> Confirmada porque aparecen las dos puntas, la salida en un extracto y la entrada en otro.</td><td><b>Alta</b></td><td>Las cuentas bancarias del cliente</td></tr>
+<tr><td><b>3</b></td><td><b>Una anulación o devolución</b>: va a la cuenta de lo que anula, así netea con el original.</td><td><b>Alta</b> (<span style="color:#b7791f"><b>Revisar</b></span> si el original quedó sin cuenta o en la cuenta por defecto)</td><td>El movimiento anulado</td></tr>
+<tr><td><b>4</b></td><td><b>El CUIT</b>, cuando el banco lo imprime en el detalle y está en tu lista.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
+<tr><td><b>5</b></td><td><b>El nombre</b>, cuando alguno de los que cargaste aparece en el detalle.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
+<tr><td><b>6</b></td><td><b>El signo no coincide con el concepto</b> (por ejemplo, un gasto que entra): queda sin cuenta, para que lo mires.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Lo marca DEXIAE</td></tr>
+<tr><td><b>7</b></td><td><b>La categoría</b>, si tiene una cuenta asignada (con la manito ✋ sale sin cuenta, para que la decidas vos).</td><td>Media</td><td>Cuentas por categoría</td></tr>
+<tr><td><b>8</b></td><td><b>La cuenta por defecto</b> según el signo: una si sale plata, otra si entra.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Datos y banco</td></tr>
 </table>
+<p>Una transferencia a una cuenta propia cuya otra punta no está en el lote usa la cuenta
+de su categoría si la tiene; si no, queda sin cuenta (nunca la cuenta por defecto).</p>
 
 <div class="box note"><b>El nombre le gana a la categoría.</b> Si cargaste «FAECYS»
 en la pestaña de CUITs apuntando a una cuenta, ese movimiento va ahí aunque la
@@ -664,8 +684,8 @@ por defecto. La columna <b>ORIGEN DE LA DECISIÓN</b> de la hoja
 <div class="box warn"><b>Ojo con esto, que es fácil que se escape.</b> Un movimiento
 en la cuenta por defecto <b>igual entra a «Para importar»</b> y ahí se ve como una
 línea más: esa hoja tiene 9 columnas y ninguna es CONFIANZA. Y si agrupás por día,
-el importe queda sumado con otros. <b>La marca «Revisar» sólo se ve en la hoja de
-borrador</b>, así que conviene mirarla antes de importar un mes nuevo.</div>
+el importe queda sumado con otros. Esos asientos están listados en la hoja <b>«A
+revisar»</b> y marcados en el borrador: miralos antes de importar un mes nuevo.</div>
 
 <h2 id="qr">10. Facturas por código QR</h2>
 <p>Una factura electrónica tiene <b>dos fuentes de datos</b>: lo que está impreso en la
@@ -901,8 +921,8 @@ vez por día y se recuerda 24 horas. El procesamiento nunca depende de la conexi
 Contacto: <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a></div>
 
 <h2 id="version">20. El aviso de versión nueva</h2>
-<p>Hasta la versión 2.5.16 no había forma de enterarse de que existía una versión más
-nueva. Ahora la aplicación lo dice sola, <b>sin interrumpir nada</b>.</p>
+<p>La versión 2.5.16 trajo el aviso de versión nueva, pero se veía muy poco; desde la
+2.5.17 la aplicación lo dice sola y a la vista, <b>sin interrumpir nada</b>.</p>
 
 <h3>La pastilla de la barra lateral</h3>
 <p>Cuando hay una versión nueva publicada, la pastilla con el número de versión
@@ -939,7 +959,7 @@ punto azul. No se pierde por trabajar así.</li>
 todavía no existe en tu equipo o se ve muy poco: esa actualización hay que avisarla a
 mano. De la 2.5.17 en adelante, la app avisa sola.</div>
 
-<div class="foot">DEXIAE 2.8 · Guía del usuario · septiembre 2026 · <a href="/">getdexiae.com</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
+<div class="foot">DEXIAE 2.8 · Guía del usuario · octubre 2026 · <a href="/">getdexiae.com</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
 </div>
 <!-- Pre-chat + modal. La guía no tenía ningún punto de contacto: quien llegaba
      acá con una duda no tenía dónde preguntar ni cómo empezar la prueba. -->

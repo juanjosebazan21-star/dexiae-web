@@ -105,7 +105,7 @@ async function extBancosRender() {
   }
   // La lista sale del registro que ejecuta el motor (_PARSERS), nunca escrita a mano.
   box.innerHTML = `<b class="xt-bl">Bancos calibrados</b>` + EXT.bancos.map(b => `<span>${_he(b)}</span>`).join('')
-    + `<em onclick="event.stopPropagation()">¿Tu banco no está? Mandanos un resumen de muestra a dexiaesoporte@gmail.com (podés tapar nombres y CUIT) y lo calibramos.</em>`;
+    + `<em onclick="event.stopPropagation()">¿Tu banco no está? Mandanos un resumen de muestra a contacto@getdexiae.com (podés tapar nombres y CUIT) y lo calibramos.</em>`;
 }
 function extQueGenera() {
   const d = xt$('ext-gen'); if (!d) return;
@@ -296,6 +296,18 @@ async function extProcesar() {
 // Sin cliente (sin asientos): el cuadro del final, como el de la conversión con
 // cliente. Antes era un cartel de texto que, además, no salía si la ruta del
 // Excel tenía la palabra «demo» (01/10/2026: el Excel se generaba y no se veía).
+// (07/10/2026) Entraron, pero el banco se reconoció con muy pocas filas: con
+// tan pocas la cadena de saldos no controla nada. Lo usan las dos pantallas
+// finales (sin cliente y con cliente / después de revisar).
+function extPocasHtml(r) {
+  const p = (r && r.pocas_filas) || [];
+  if (!p.length) return '';
+  return `<div class="rev-caja" style="margin-top:12px;border-color:var(--rev-fg)">
+    <h3 style="color:var(--rev-fg)"><i class="ti ti-alert-triangle"></i> ${p.length === 1 ? 'Un resumen salió con muy pocas filas' : `${p.length} resúmenes salieron con muy pocas filas`}</h3>
+    <ul>${p.slice(0, 6).map(x => `<li><b>${_he(x.nombre)}</b> (${_he(String(x.banco || '').toUpperCase())}): ${_he(x.motivo)}</li>`).join('')}</ul>
+    <div class="opt-hint" style="margin:6px 0 0">Entró al Excel igual; el aviso queda también en la hoja «Acerca de este archivo».</div></div>`;
+}
+
 function extFinal(r, omitidos) {
   const v = r.verificacion || {}, des = v.desfases || [], arch = (r.ruta || '').split(/[\\/]/).pop();
   const fuera = (omitidos || []).map(a => ({nombre: a.nombre, motivo: a.banco ? `${String(a.banco).toUpperCase()}: banco sin calibrar` : 'no es de un banco calibrado'}))
@@ -320,6 +332,7 @@ function extFinal(r, omitidos) {
     <h2 style="margin:0 0 4px;color:var(--txt)">✓ Excel generado</h2>
     <div class="opt-hint" style="margin:0">${_he(arch)} · ${xtPl(r.movimientos || 0, 'movimiento', 'movimientos')} · ${xtPl(r.hojas || 1, 'resumen', 'resúmenes')} (${_he((r.bancos || []).map(b => (EXT.bancos.find(x => x.toLowerCase().replace(/\s/g, '') === b) || b)).join(', '))})</div>
     <div class="cajas"><div class="rev-caja">${cad}</div><div class="rev-caja">${out}</div></div>
+    ${extPocasHtml(r)}
     ${sinAsi}
     <div class="rev-ga" style="margin-top:14px">
       <button class="btn btn-primary" onclick="extAbrirExcel(EXT.ultimo.ruta)"><i class="ti ti-file-spreadsheet"></i> Abrir Excel</button>

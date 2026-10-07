@@ -92,7 +92,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:10px;line-height:1.6}
 <div class="wrap">
 
 <h1>Guía de DEXIAE Contable</h1>
-<p class="sub">Válida para <b>DEXIAE 2.8.0</b> · octubre 2026 · todo el procesamiento ocurre en tu computadora</p>
+<p class="sub">Válida para <b>DEXIAE 2.9.0</b> · octubre 2026 · todo el procesamiento ocurre en tu computadora</p>
 
 <div class="star">
 <h3>En una línea</h3>
@@ -309,25 +309,29 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <tr><td><b>Acerca de este archivo</b></td><td>De dónde salió el Excel.</td><td>Siempre</td></tr>
 <tr><td><b>Categorías</b></td><td>Totales por tipo de movimiento; además, cada movimiento suma la columna Categoría.</td><td>Siempre en Contable</td></tr>
 <tr><td><b>Asientos (borrador)</b></td><td>Las dos puntas de cada asiento <b>y por qué se eligió esa cuenta</b>: categoría, confianza, origen de la decisión. Es la hoja para revisar.</td><td>Con un cliente elegido</td></tr>
-<tr><td><b>Para importar</b></td><td>Sólo los asientos completos, en 9 columnas: <code>EJERCICIO</code>, <code>FECHA</code>, <code>ASIENTO</code>, <code>LEYENDA</code>, <code>MOVIMIENTO</code>, <code>CUENTA</code>, <code>DESCRIPCION</code>, <code>DEBE</code>, <code>HABER</code>.</td><td>Con un cliente elegido</td></tr>
-<tr><td><b>Pendientes</b></td><td>Los asientos que quedaron sin cuenta, apartados.</td><td>Sólo si hay alguno</td></tr>
+<tr><td><b>Para importar</b></td><td>Todos los asientos, enteros, en 9 columnas: <code>EJERCICIO</code>, <code>FECHA</code>, <code>ASIENTO</code>, <code>LEYENDA</code>, <code>MOVIMIENTO</code>, <code>CUENTA</code>, <code>DESCRIPCION</code>, <code>DEBE</code>, <code>HABER</code>. Los que quedaron sin cuenta van con la celda <code>CUENTA</code> vacía, para completarla ahí.</td><td>Con un cliente elegido</td></tr>
+<tr><td><b>Pendientes</b></td><td>Los mismos asientos sin cuenta, con su contexto (categoría, detalle, archivo) para decidirla.</td><td>Sólo si hay alguno</td></tr>
 <tr><td><b>A revisar</b></td><td>Los asientos que usaron la cuenta por defecto, con su porqué. Esos <b>sí</b> entran a Para importar: esta hoja es para no perderlos de vista.</td><td>Sólo si hay alguno</td></tr>
 <tr><td><b>Quitados</b></td><td>Lo que sacaste de los asientos en la revisión, tal cual el resumen, para que el Excel siga cerrando contra el banco.</td><td>Sólo si quitaste algo</td></tr>
 </table>
-<p><b>Por qué Pendientes va aparte.</b> Si un asiento sin cuenta se colara en Para importar, el lote saldría descuadrado y el sistema podría rechazarlo entero. Preferimos que importes los asientos completos y revises los pendientes.</p>
+<p><b>Por qué un asiento sin cuenta está en las dos hojas.</b> Nunca se parte un asiento: va entero, así que Para importar <b>siempre cuadra</b> (DEBE = HABER). Le falta sólo el dato: completás la <code>CUENTA</code> ahí mismo, sin pasar de una hoja a otra, y Pendientes te da el contexto para decidirla. Completá la <code>CUENTA</code> antes de importar: no sabemos qué hace tu sistema con una cuenta vacía (probalo con un mes chico).</p>
 <div class="box warn"><b>Ojo con esto, que se escapa fácil.</b> Un movimiento que fue a la cuenta por defecto <b>igual entra a Para importar</b> y ahí se ve como una línea más, porque esa hoja no tiene la columna de confianza. Esos asientos están listados en la hoja <b>A revisar</b> y marcados en la revisión y en Asientos (borrador): miralos antes de importar un mes nuevo.</div>
 <div class="box note"><b>Sobre tu sistema contable.</b> La hoja Para importar trae esas 9 columnas. No está verificada contra un sistema en particular: probala primero con un mes chico. Si tu sistema pide otro modelo, mandanos el modelo de importación y vemos de dejarlo en ese formato.</div>
 
 <h2 id="cuenta">9. Cómo decide la cuenta</h2>
-<p>Hay cinco pistas y se prueban en orden: gana la primera que acierta.</p>
+<p>Hay ocho pistas y se prueban en orden: gana la primera que acierta.</p>
 <table>
 <tr><th>#</th><th>Qué mira</th><th>Confianza</th><th>De dónde sale</th></tr>
-<tr><td><b>1</b></td><td><b>Transferencia entre cuentas propias</b>, confirmada por las dos puntas (la salida en un resumen y la entrada en otro). Ver <a href="#cruzadas">cómo se aparean</a>.</td><td><b>Alta</b></td><td>Las cuentas bancarias del cliente</td></tr>
-<tr><td><b>2</b></td><td><b>El CUIT</b>, cuando el banco lo imprime en el detalle y está en la lista.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
-<tr><td><b>3</b></td><td><b>El nombre</b>, cuando alguno de los cargados aparece en el detalle.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
-<tr><td><b>4</b></td><td><b>La categoría</b>, si tiene cuenta asignada (con la manito ✋ sale sin cuenta, para que la decidas vos).</td><td>Media</td><td>Cuentas por categoría</td></tr>
-<tr><td><b>5</b></td><td><b>La cuenta por defecto</b>, según entre o salga plata.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Datos y banco</td></tr>
+<tr><td><b>1</b></td><td><b>Lo que corregiste en la revisión</b> para ese movimiento. Es tu decisión: gana sobre todo lo demás.</td><td><b>Alta</b></td><td>La revisión antes de generar</td></tr>
+<tr><td><b>2</b></td><td><b>Transferencia entre cuentas propias</b>, confirmada por las dos puntas (la salida en un resumen y la entrada en otro). Ver <a href="#cruzadas">cómo se aparean</a>.</td><td><b>Alta</b></td><td>Las cuentas bancarias del cliente</td></tr>
+<tr><td><b>3</b></td><td><b>Una anulación o devolución</b>: va a la cuenta de lo que anula, así netea con el original.</td><td><b>Alta</b> (<span style="color:#b7791f"><b>Revisar</b></span> si el original quedó sin cuenta o en la cuenta por defecto)</td><td>El movimiento anulado</td></tr>
+<tr><td><b>4</b></td><td><b>El CUIT</b>, cuando el banco lo imprime en el detalle y está en la lista.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
+<tr><td><b>5</b></td><td><b>El nombre</b>, cuando alguno de los cargados aparece en el detalle.</td><td><b>Alta</b></td><td>Pestaña CUITs</td></tr>
+<tr><td><b>6</b></td><td><b>El signo no coincide con el concepto</b> (por ejemplo, un gasto que entra): queda sin cuenta, para que lo mires.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Lo marca DEXIAE</td></tr>
+<tr><td><b>7</b></td><td><b>La categoría</b>, si tiene cuenta asignada (con la manito ✋ sale sin cuenta, para que la decidas vos).</td><td>Media</td><td>Cuentas por categoría</td></tr>
+<tr><td><b>8</b></td><td><b>La cuenta por defecto</b>, según entre o salga plata.</td><td><span style="color:#b7791f"><b>Revisar</b></span></td><td>Datos y banco</td></tr>
 </table>
+<p>Una transferencia a una cuenta propia cuya otra punta no está en el lote usa la cuenta de su categoría si la tiene; si no, queda sin cuenta (nunca la cuenta por defecto).</p>
 <div class="box note"><b>El nombre le gana a la categoría.</b> Si cargaste un proveedor apuntando a una cuenta, ese movimiento va ahí aunque la categoría diga otra cosa: vos sabés quién es ese proveedor y el sistema no.</div>
 <p>Las <b>categorías</b> (qué es un movimiento) vienen con DEXIAE y las comparten todos tus clientes. La <b>cuenta de cada categoría</b> y los <b>CUITs y nombres</b> son de cada cliente, porque dependen de su plan de cuentas y de lo que sólo vos sabés.</p>
 
@@ -348,7 +352,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 
 <h2 id="faq">12. Preguntas frecuentes</h2>
 <h3>¿Se sube algo a internet?</h3>
-<p>No. Los resúmenes, los Excel y la configuración de tus clientes quedan en tu computadora. Lo único que DEXIAE consulta en internet es la lista de licencias revocadas y el aviso de versión nueva; y sólo sale lo que vos mandes a propósito con «Reportar un problema» o «Esto no me cierra».</p>
+<p>No. Los resúmenes, los Excel y la configuración de tus clientes quedan en tu computadora. Lo único que DEXIAE consulta en internet es la lista de licencias revocadas, el aviso de versión nueva y las novedades que te mandamos (la renovación, una plantilla, la configuración de un cliente: firmadas, y cifradas si son para vos); y sólo sale lo que vos mandes a propósito con «Reportar un problema» o «Esto no me cierra».</p>
 <h3>¿DEXIAE concilia?</h3>
 <p>Deja <b>el lado del banco</b> completo: los movimientos, la cadena de saldos controlada día por día, clasificados y con el borrador de asientos. El cruce contra lo registrado lo hacés en tu sistema, como siempre, pero sin cargar nada a mano.</p>
 <h3>¿Hay un límite de resúmenes, movimientos o asientos?</h3>
@@ -364,7 +368,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <h3>Algo no me cierra.</h3>
 <p>En la revisión y en el Historial está <b>«Esto no me cierra»</b>: nos manda ese lote con lo que decidió el sistema. Los CUITs y nombres de terceros van destildados, salvo que la duda sea justamente sobre eso. Y si algo falla, <b>«Reportar un problema»</b>, abajo en la barra lateral. También nos encontrás en <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>.</p>
 
-<p class="foot">DEXIAE · Guía de DEXIAE Contable · válida para la versión 2.8.0. La guía completa de todos los módulos está en la <a href="/guia-usuario">Guía del usuario</a>.</p>
+<p class="foot">DEXIAE · Guía de DEXIAE Contable · válida para la versión 2.9.0. La guía completa de todos los módulos está en la <a href="/guia-usuario">Guía del usuario</a>.</p>
 </div>
 <script src="/yt.js" defer></script>
 </body>

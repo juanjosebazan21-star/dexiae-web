@@ -239,11 +239,19 @@ function rxDibujar(centrar) {
   rx$('rx-p-ant').disabled = RX.pagina <= 1; rx$('rx-p-sig').disabled = RX.pagina >= (RX.pg.paginas || 1);
   const c = rxCaso(), marcadas = new Set(c && c.clase === 'regla' ? (c.columnas || []) : []);
   let h = `<div class="rx-hoja" style="width:${ancho}px"><img src="${RX.pg.img}" alt="">`;
-  (RX.pg.marcas || []).forEach(m => (m.cajas || []).filter(k => (k.pagina || 1) === RX.pagina).forEach(k => {
+  // (06/10/2026, auditoría 1.B) un dato corregido se marca donde lo marcó el
+  // usuario (verde) y lo que había leído el motor queda tenue y tachado
+  (RX.pg.marcas || []).forEach(m => {
     const sel = m.columna === RX.campo || marcadas.has(m.columna);
-    h += rxCaja(k, `rx-m ${sel ? 'sel' : 'tenue'} ${m.fuente === 'respaldo' ? 'resp' : ''}`, m.columna,
-                `rxElegirCampo('${rxEsc(m.columna).replace(/'/g, "\\'")}')`);
-  }));
+    const clic = `rxElegirCampo('${rxEsc(m.columna).replace(/'/g, "\\'")}')`;
+    const corr = String(m.fuente || '').startsWith('usuario');
+    if (corr && sel) ((m.antes && m.antes.cajas) || []).filter(k => (k.pagina || 1) === RX.pagina)
+      .forEach(k => { h += rxCaja(k, 'rx-m antes', 'se había leído', clic); });
+    (m.cajas || []).filter(k => (k.pagina || 1) === RX.pagina).forEach(k => {
+      h += rxCaja(k, `rx-m ${sel ? 'sel' : 'tenue'} ${m.fuente === 'respaldo' || m.fuente === 'usuario_ubicado' ? 'resp' : ''} ${corr ? 'corr' : ''}`,
+                  corr ? `${m.columna} · corregido` : m.columna, clic);
+    });
+  });
   if (RX.caja && (RX.caja.pagina || 1) === RX.pagina) h += rxCaja(RX.caja, 'rx-m nuevo', 'lo que tocaste');
   if (RX.tocar && RX.palabras) RX.palabras.forEach((w, i) => { h += rxCaja(w, 'rx-w' + (RX.elegidas.includes(i) ? ' elegida' : ''), '', `rxTocar(${i})`); });
   lz.innerHTML = h + '</div>';
@@ -289,7 +297,11 @@ function rxCamposDoc() {
   if (!ms.length) return '';
   const c = rxCaso();
   return `<div class="rx-tit">Datos de ${rxEsc(RX.pg.archivo || RX.ident)}</div>` + ms.map(m => {
-    const d = !m.valor ? '<i class="ti ti-circle-dashed rx-d-no" title="Vacío"></i>'
+    const antes = m.antes ? ` · se había leído «${m.antes.valor || 'vacío'}»` : '';
+    const d = m.fuente === 'usuario' ? `<i class="ti ti-hand-finger rx-d-corr" title="Lo marcaste vos${rxEsc(antes)}"></i>`
+      : m.fuente === 'usuario_ubicado' ? `<i class="ti ti-pencil rx-d-corr" title="Corregido (escrito); ubicado después en la página${rxEsc(antes)}"></i>`
+      : m.fuente === 'usuario_sin_lugar' ? `<i class="ti ti-pencil rx-d-corr" title="Corregido (escrito); no está en la página${rxEsc(antes)}"></i>`
+      : !m.valor ? '<i class="ti ti-circle-dashed rx-d-no" title="Vacío"></i>'
       : m.fuente === 'motor' ? '<i class="ti ti-target rx-d-motor" title="Donde leyó el motor"></i>'
       : m.fuente === 'respaldo' ? `<i class="ti ti-target rx-d-resp" title="Ubicado después (${rxEsc(m.por || '')})"></i>`
       : '<i class="ti ti-help-circle rx-d-no" title="No se encontró en la página"></i>';
@@ -302,13 +314,13 @@ function rxCamposDoc() {
           <button class="btn btn-ghost sm" onclick="rxEntrarTocar()"><i class="ti ti-hand-finger"></i> Tocar en el PDF</button>
           <button class="btn btn-primary sm" onclick="rxGuardarCorreccion()">Guardar</button></div>
           <div class="rx-excel"><i class="ti ti-file-spreadsheet"></i>Se corrige el dato y las reglas se vuelven a evaluar.</div></div>` : '');
-  }).join('') + `<div class="rx-leyenda"><span><i class="ti ti-target rx-d-motor"></i> donde leyó el motor</span><span><i class="ti ti-target rx-d-resp"></i> ubicado después</span><span><i class="ti ti-circle-dashed rx-d-no"></i> vacío</span></div>`;
+  }).join('') + `<div class="rx-leyenda"><span><i class="ti ti-target rx-d-motor"></i> donde leyó el motor</span><span><i class="ti ti-target rx-d-resp"></i> ubicado después</span>${ms.some(m => m.antes) ? '<span><i class="ti ti-hand-finger rx-d-corr"></i> corregido por vos</span>' : ''}<span><i class="ti ti-circle-dashed rx-d-no"></i> vacío</span></div>`;
 }
 function rxPanel() {
   const c = rxCaso(), p = rx$('rx-panel');
   if (!c) { p.innerHTML = '<div class="rx-vacio">Elegí un caso de la lista.</div>'; return; }
   const sevTxt = {bloquea: 'Bloquea', confirmar: 'Para confirmar', informativo: 'Para mirar'}[c.severidad] || '';
-  let h = `<div class="rx-caso ${c.severidad}"><div class="cab">${c.clase === 'regla' ? `<span class="rx-tipo ${String(c.tipo || '').startsWith('CONTRADIC') ? 'CONTRADICCION' : ''}">${rxEsc(c.tipo || 'REGLA')}</span>` : '<i class="ti ti-alert-triangle"></i>'}
+  let h = `<div class="rx-caso ${c.severidad}"><div class="cab">${c.clase === 'regla' ? `<span class="rx-tipo ${String(c.tipo || '').startsWith('CONTRADIC') ? 'CONTRADICCION' : ''}">${rxEsc(c.tipo || 'REGLA')}</span>` : c.clase === 'correccion' ? '<i class="ti ti-pencil rx-d-corr"></i>' : '<i class="ti ti-alert-triangle"></i>'}
     <span>${rxEsc(c.clase === 'regla' ? rxNombreRegla(c) : c.titulo)}</span><span class="sev">${sevTxt}</span></div>
     <p>${rxEsc(c.detalle || '')}</p>${c.clase === 'regla' && c.control && c.titulo && c.titulo !== c.codigo ? `<p style="margin-top:-4px">Controla: ${rxEsc(c.control)}</p>` : ''}`;
   if (c.clase === 'regla' && (c.docs || []).length) {
@@ -347,7 +359,12 @@ async function rxAplicar(r, msg, quedarse) {
   if (msg) UI.toast(msg, 'ok');
   // el siguiente pendiente de la misma pestaña; si no queda, el caso sigue a la vista
   const sig = rxCasos(RX.tab).find(c => c.pendiente) || rxCasos(RX.tab === 'datos' ? 'reglas' : 'datos').find(c => c.pendiente);
-  if (quedarse) { rxPintar(); return antes; }            // ofrece aplicar lo mismo a los iguales
+  if (quedarse) {                                        // ofrece aplicar lo mismo a los iguales
+    rxPintar();
+    // la página se vuelve a pedir: la corrección tiene que quedar marcada donde se tocó
+    if (RX.ident) await rxCargar(RX.ident, RX.pagina, false);
+    return antes;
+  }
   if (sig && !(rxCaso() && rxCaso().pendiente)) await rxElegir(sig.id);
   else { if (!rxCaso()) RX.sel = sig ? sig.id : null; rxPintar(); if (RX.ident) await rxCargar(RX.ident, RX.pagina, false); }
   return antes;
@@ -486,6 +503,28 @@ function rxAbrirArchivo(ruta) {
 // informe, y «Listo» para cerrar. Sin la lista, el visor ni los botones de
 // decidir, que ya no hacen nada. Si se generó «como salió», además «Seguir
 // revisando» (la revisión queda guardada y el Excel se reemplaza otra vez).
+// (06/10/2026, auditoría 1.C) Qué detectó DEXIAE y qué decidiste, en números
+// (los arma `resumen_revision`, con el mismo cálculo que escribe el Excel).
+function rxResumenHtml(s) {
+  if (!s || s.filas == null) return '';
+  const t = (n, txt, cls) => `<div class="rx-res-t ${cls || ''}"><b>${n}</b><span>${txt}</span></div>`;
+  const pl = (n, uno, varios) => n === 1 ? uno : varios;
+  let h = '<div class="rx-res">'
+    + t(s.filas, pl(s.filas, 'fila revisada', 'filas revisadas'))
+    + t(s.sin_dudas_al_abrir, 'sin dudas al abrir', 'ok')
+    + t(s.casos_al_abrir, pl(s.casos_al_abrir, 'caso detectado', 'casos detectados'))
+    + t(s.corregidos, pl(s.corregidos, 'dato corregido', 'datos corregidos'), s.corregidos ? 'corr' : '')
+    + t(s.documento_mal, 'con el documento mal', s.documento_mal ? 'hall' : '')
+    + t(s.no_era_problema, pl(s.no_era_problema, 'no era un problema', 'no eran un problema'))
+    + (s.sacados ? t(s.sacados, pl(s.sacados, 'sacado del lote', 'sacados del lote')) : '')
+    + t(s.pendientes, 'sin decidir', s.pendientes ? 'pend' : 'ok')
+    + '</div>';
+  const extra = [s.aplicados_a_iguales ? `${s.aplicados_a_iguales} aplicada${s.aplicados_a_iguales === 1 ? '' : 's'} a casos iguales` : '',
+    s.deshechas ? `${s.deshechas} deshecha${s.deshechas === 1 ? '' : 's'}` : '',
+    (s.quienes || []).length ? 'decidió ' + s.quienes.join(', ') : ''].filter(Boolean);
+  if (extra.length) h += `<p class="rx-res-pie">${rxEsc(extra.join(' · '))}</p>`;
+  return h;
+}
 function rxFinal(r) {
   RX.fin = r;
   rx$('rx-vista').classList.add('final'); rxPasos('excel');
@@ -498,6 +537,7 @@ function rxFinal(r) {
                        : '<i class="ti ti-circle-check" style="color:var(--ok-fg)"></i> Excel listo'}</h3>
     <p>${r.pendientes ? `${r.pendientes} caso(s) salen marcados «sin revisar». La revisión queda guardada: la seguís ahora o desde el Historial, y al generar de nuevo el Excel se reemplaza.`
                       : 'Todo decidido. Cada decisión está en la hoja «Revisión» del Excel, con quién, cuándo y la cabeza de la cadena.'}</p>
+    ${rxResumenHtml(r.resumen)}
     ${r.cadena && !r.cadena.ok ? `<div class="aviso">⚠️ La cadena de decisiones no verifica: ${rxEsc(r.cadena.motivo)}.</div>` : ''}
     ${(r.informes_rehechos || []).length ? `<p>El informe del lote se rehízo con el Excel revisado (${rxEsc(r.informes_rehechos.join(', '))}): su huella es la del Excel de ahora.</p>` : ''}
     ${(r.informes_viejos || []).length ? `<div class="aviso">No se pudo rehacer el informe (${rxEsc(r.informes_viejos.join(', '))}): es de antes de la revisión y su huella es la del Excel anterior.</div>` : ''}

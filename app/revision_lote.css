@@ -78,6 +78,13 @@
   padding:3px 6px;border-radius:3px;background:#2563EB;color:#fff;pointer-events:none;display:none;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 .rx-m.sel .et,.rx-m:hover .et,.rx-m.nuevo .et{display:block}
 .rx-m.nuevo .et{background:#2f9e6f}
+/* 06/10/2026: el dato corregido, donde lo marcó el usuario; lo leído antes, tenue */
+.rx-m.corr{border-color:#2f9e6f;background:rgba(47,158,111,.14)}
+.rx-m.corr.sel{border:2px solid #2f9e6f;background:rgba(47,158,111,.18);box-shadow:0 0 0 4px rgba(47,158,111,.18)}
+.rx-m.corr .et{background:#2f9e6f}
+.rx-m.antes{border:1px dashed rgba(120,132,152,.8);background:repeating-linear-gradient(-45deg,rgba(120,132,152,.10) 0 4px,transparent 4px 8px);cursor:default}
+.rx-m.antes .et{display:block;background:#6C7791}
+.rx-d-corr{color:#2f9e6f}
 .rx-w{position:absolute;border-radius:2px;cursor:crosshair}
 .rx-w:hover{background:rgba(47,158,111,.22);outline:1px solid #2f9e6f}
 .rx-w.elegida{background:rgba(47,158,111,.30);outline:2px solid #2f9e6f}
@@ -144,6 +151,13 @@
 .rx-final p{color:var(--txt2);font-size:12.5px}
 .rx-final .aviso{padding:8px 10px;border-radius:var(--r);background:var(--rev-bg);border:1px solid var(--rev-bd);font-size:12px;margin:10px 0}
 .rx-final .bts{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+/* 06/10/2026 (auditoría 1.C): el resumen de la revisión, en números */
+.rx-res{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin:12px 0 6px}
+.rx-res-t{border:1px solid var(--border2);border-radius:var(--r);padding:8px;display:flex;flex-direction:column;gap:2px}
+.rx-res-t b{font-size:18px;line-height:1}.rx-res-t span{font-size:11px;color:var(--txt3)}
+.rx-res-t.ok b{color:var(--ok-fg)}.rx-res-t.corr b{color:#2f9e6f}.rx-res-t.hall b,.rx-res-t.pend b{color:var(--rev-fg)}
+.rx-res-pie{font-size:11.5px!important;color:var(--txt3)!important;margin:0}
+@media (max-width:620px){.rx-res{grid-template-columns:repeat(2,1fr)}}
 .rx-final .bts .listo{margin-left:auto}
 @media (max-width:1360px){.rx-cuerpo{grid-template-columns:230px minmax(0,1fr) 330px}.rx-ctx{display:none}.rx-tabs .rx-atajos{display:none}}
 @media (max-width:1180px){.rx-cuerpo{grid-template-columns:200px minmax(0,1fr) 300px}.rx-pasos span:not(.act){display:none}.rx-franja .nota{display:none}}

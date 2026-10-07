@@ -4,7 +4,7 @@
 > en lote y audita esos documentos, procesando **100% en la computadora del
 > usuario**: ningún archivo se sube a la nube. Pensado para estudios contables,
 > estudios jurídicos, organismos públicos y áreas administrativas de habla
-> hispana (Argentina). Versión actual: 2.8.0.
+> hispana (Argentina). Versión actual: 2.9.0.
 
 DEXIAE = *Document Extraction & Intelligent Automation Engine*. Se instala en
 Windows 10/11 y funciona sin conexión a internet. Se licencia por suscripción
@@ -14,7 +14,7 @@ Windows 10/11 y funciona sin conexión a internet. Se licencia por suscripción
 
 - **Extracción de PDF a Excel en lote.** El usuario define una plantilla una sola
   vez (campos como CUIT, razón social, fecha, monto, CAE) y después procesa
-  carpetas enteras. Incluye 11 estrategias de extracción, entre ellas marcar una
+  carpetas enteras. Incluye 22 estrategias de extracción, entre ellas marcar una
   zona visual sobre el documento.
 - **Autodetección de documentos.** Si la carpeta viene mezclada, reconoce cada
   documento contra un catálogo de plantillas y le aplica la que corresponde. Lo
@@ -30,9 +30,10 @@ Windows 10/11 y funciona sin conexión a internet. Se licencia por suscripción
   revocación.
 - **Validación de datos** por reglas de negocio sobre lo extraído.
 - **Conversión de extractos bancarios a Excel**, con recálculo de la cadena de
-  saldos fila por fila: si una no cierra, dice cuál. Hay 8 bancos con lector
-  calibrado (Chubut, Credicoop, Galicia, ICBC, Macro, Mercado Pago, Patagonia,
-  Santander). El banco se reconoce por el CBU de la cuenta. En DEXIAE Contable,
+  saldos fila por fila: si una no cierra, dice cuál. Hay 8 lectores
+  calibrados: 7 bancos y Mercado Pago (Chubut, Credicoop, Galicia, ICBC, Macro,
+  Patagonia, Santander y Mercado Pago). El banco se reconoce por el CBU de la portada;
+  si no está, por el encabezado de la tabla y, como último recurso, por el nombre. En DEXIAE Contable,
   PRO, SENTINEL y la prueba gratis: clasificación de cada movimiento con reglas
   del usuario y borrador de asientos con el plan de cuentas de cada cliente.
 - **Lectura de facturas por su código QR.** Del código salen el CUIT del
@@ -58,9 +59,10 @@ herramientas no cubren.
 
 ## Rendimiento declarado
 
-Un lote de 100 PDFs con texto seleccionable se procesa en 2 a 4 minutos en un
-equipo estándar (Intel i5, 8 GB RAM). Con PDFs escaneados que requieren OCR, 10 a
-20 minutos por cada 100 documentos. Todo local, sin depender de internet.
+El procesamiento es local y su tiempo depende del equipo y de los documentos: los
+PDF con texto seleccionable son mucho más rápidos que los escaneados, que pasan por
+OCR. Para trabajar no hace falta
+internet (la app consulta una vez por día la lista de licencias y el aviso de versión).
 
 ## Planes
 
@@ -78,7 +80,7 @@ https://getdexiae.com/#precios
 - [Extracto bancario a Excel](https://getdexiae.com/extractos-bancarios-excel): qué bancos lee, qué hojas genera y cómo verifica la cadena de saldos.
 - [Facturas por QR a Excel](https://getdexiae.com/facturas-qr-excel): qué datos trae el código de una factura electrónica argentina, qué NO trae, y cuándo no sirve.
 - [Guía de DEXIAE Contable](https://getdexiae.com/guia-contable): paso a paso para estudios contables, de la instalación a la configuración de cada cliente, la revisión antes de generar el Excel y el borrador de asientos.
-- [Guía del usuario](https://getdexiae.com/guia-usuario): documentación completa, 18 secciones.
+- [Guía del usuario](https://getdexiae.com/guia-usuario): documentación completa, 20 secciones.
 - [Términos y EULA](https://getdexiae.com/eula)
 - [Política de privacidad](https://getdexiae.com/privacidad): procesamiento local, sin telemetría ni recolección de documentos.
 

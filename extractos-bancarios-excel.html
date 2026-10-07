@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Convertí extractos bancarios de PDF a Excel en segundos, y generá el borrador de asientos. Corre en tu computadora, no necesita internet. 8 bancos ya calibrados; si falta el tuyo, lo sumamos.">
+<meta name="description" content="Convertí extractos bancarios de PDF a Excel en segundos, y generá el borrador de asientos. Corre en tu computadora, no necesita internet. 7 bancos y Mercado Pago ya calibrados; si falta el tuyo, lo sumamos.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="DEXIAE">
 <meta name="language" content="es-AR">
@@ -396,6 +396,7 @@ html.fund-agotado .fund-off{display:revert}
  <span class="cu-eyebrow"><span class="d"></span>Conversor de extractos · ilimitado en todos los planes</span>
  <h1>Convertí extractos bancarios de PDF a Excel <span>en segundos</span></h1>
  <p class="sub">Y seguí de largo hasta el borrador de asientos. Sin tipear un movimiento a mano, en tu propia computadora.</p>
+ <p class="sub" style="font-size:13px;opacity:.85">Medido con 14 resúmenes digitales reales de 6 bancos, de 3 a 43 páginas, en una notebook común (Core i5, 16 GB): cada uno pasó a Excel en menos de 10 segundos y la mayoría en menos de 2. Un PDF escaneado necesita antes un paso de OCR.</p>
  <div class="hero-row">
   <button class="btn btn-p" onclick="openLead('TRIAL')">Probar PRO gratis (14 días)</button>
   <a class="btn btn-o" href="app/"><span class="pl">▶</span> Ver la demo online</a>
@@ -605,7 +606,7 @@ html.fund-agotado .fund-off{display:revert}
 
    <li><span class="ico">⏸</span>
     <div><div class="hn">Pendientes <span class="ed espro">CONTABLE · PRO</span></div>
-     <div class="hd">Los asientos que quedaron sin cuenta, apartados. Aparece solo si hay alguno.</div></div></li>
+     <div class="hd">Los asientos sin cuenta, con su contexto para decidirla (también están en Para importar, con la cuenta vacía). Aparece solo si hay alguno.</div></div></li>
   </ul>
 
   <div class="aviso-ed"><b>Las hojas de asientos son de DEXIAE Contable y PRO</b>, y salen cuando
@@ -621,13 +622,14 @@ html.fund-agotado .fund-off{display:revert}
    <ul class="linea-pro">
     <li><span class="lp-i">◆</span>
      <div><b>La hoja de importar siempre cuadra</b>
-      <span>Un asiento son dos filas. Si a una le falta la cuenta, DEXIAE <b>saca el asiento entero</b>
-       y lo manda a Pendientes — nunca media punta. Por eso en esa hoja <b>DEBE = HABER</b> siempre:
-       no es una promesa, es cómo está armada.</span></div></li>
+      <span>Un asiento son dos filas y va siempre <b>entero</b> — nunca media punta. Si le falta la
+       cuenta, la celda queda vacía para que la completes ahí, y el asiento se lista también en
+       Pendientes con su contexto. Por eso en esa hoja <b>DEBE = HABER</b> siempre: no es una
+       promesa, es cómo está armada.</span></div></li>
     <li><span class="lp-i">◆</span>
-     <div><b>Lo que falta decidir no frena lo que ya está</b>
-      <span>El movimiento sin cuenta se aísla. Importás hoy los que están listos y resolvés los
-       que quedaron cuando puedas, sin que el sistema contable rechace el lote entero.</span></div></li>
+     <div><b>Lo que falta decidir queda a la vista</b>
+      <span>El asiento sin cuenta queda a la vista, en las dos hojas. Completá la cuenta antes de
+       importar: no sabemos qué hace tu sistema con una cuenta vacía (probalo con un mes chico).</span></div></li>
     <li><span class="lp-i">◆</span>
      <div><b>Sabés por qué eligió cada cuenta</b>
       <span>Confianza y origen son <b>dos cosas distintas</b>: la confianza es cuánto confiar

@@ -433,6 +433,7 @@
      resto: no se pierde y la persona igual llega al chat. */
   async function leadDesdeWA(rama, email, form) {
     var fallo = null;
+    copiaAlCentro({ email: email, plan: 'WHATSAPP-' + rama, origen: location.pathname, utm: origenCampana() });
     try {
       var fd = new FormData();
       fd.append('email', email);
@@ -713,6 +714,17 @@
     enviarFallosPendientes();   /* sin await: la descarga no espera a esto */
   }
 
+  /* (08/10/2026) Una copia del lead para el Centro de control, que lo pasa a
+     la planilla con un botón (antes había que cargarlo a mano desde el mail).
+     Same-origin y sin await: si falla, el mail de Formspree llega igual y la
+     descarga sale igual. Ver functions/api/lead.js y /privacidad (sección 3). */
+  function copiaAlCentro(datos) {
+    try {
+      fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+                           body: JSON.stringify(datos), keepalive: true }).catch(function () {});
+    } catch (_) {}
+  }
+
   window.submitLead = async function (e) {
     e.preventDefault();
     var form = document.getElementById('lead-form');
@@ -724,6 +736,11 @@
     /* El lead se intenta enviar, pero un fallo NO frena la descarga: sale
        igual y el intento perdido queda registrado para rescatarlo a mano. */
     var fallo = null;
+    copiaAlCentro({ nombre: campoLead(form, 'name'), email: campoLead(form, 'email'),
+                    whatsapp: campoLead(form, 'whatsapp'), interes: campoLead(form, 'interes'),
+                    banco: campoLead(form, 'banco'), perfil: campoLead(form, 'perfil'),
+                    volumen: campoLead(form, 'volumen'), como_llego: campoLead(form, 'como_llego'),
+                    plan: currentPlan, billing: billing(), origen: location.pathname, utm: origenCampana() });
     try {
       var fd = new FormData(form);
       fd.append('_plan', currentPlan);

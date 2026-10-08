@@ -338,7 +338,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 {"@type":"Question","name":"¿Por qué una factura correcta puede no constatar en ARCA?","acceptedAnswer":{"@type":"Answer","text":"Porque el código QR lo genera el sistema del emisor, y puede escribir el importe mal — por ejemplo dejando la coma decimal dentro del código. Constatando con ese importe ARCA rechaza y lista diez causas posibles sin decir cuál es. Con el importe impreso en la hoja, la misma factura constata bien: el problema estaba en el código, no en la factura."}},
 {"@type":"Question","name":"¿Sirve para un PDF con muchas facturas adentro?","acceptedAnswer":{"@type":"Answer","text":"Sí. Cada comprobante sale como una fila del Excel y los datos de la carátula se repiten en todas. Si el mismo comprobante aparece en varias páginas sale una sola fila, y una columna dice en cuántas páginas estaba. Las páginas sin código no se pierden: una columna dice cuáles hay que mirar a mano."}},
 {"@type":"Question","name":"¿Reemplaza a las plantillas de extracción por proveedor?","acceptedAnswer":{"@type":"Answer","text":"No, se complementan. El código trae la identidad del comprobante y el importe sin configurar nada. El IVA discriminado, el subtotal y el detalle de los ítems no están en el código: eso se sigue sacando con una plantilla, que el Asistente arma automáticamente desde los PDFs del usuario."}},
-{"@type":"Question","name":"¿Las facturas se suben a algún servidor?","acceptedAnswer":{"@type":"Answer","text":"No. DEXIAE es una aplicación de escritorio para Windows: la lectura del código y la generación del Excel ocurren en la computadora del usuario. A internet sólo van, como mucho una vez por día al abrir DEXIAE, la consulta de la lista de licencias revocadas, del aviso de versión nueva y de las novedades que manda DEXIAE (sólo se descargan: sin datos del usuario ni de sus facturas) y, si el usuario lo abre, el enlace de constatación de ARCA."}}]}
+{"@type":"Question","name":"¿Las facturas se suben a algún servidor?","acceptedAnswer":{"@type":"Answer","text":"No. DEXIAE es una aplicación de escritorio para Windows: la lectura del código y la generación del Excel ocurren en la computadora del usuario. A internet sólo van, como mucho una vez por día al abrir DEXIAE, la consulta de la lista de licencias revocadas, del aviso de versión nueva y de las novedades que manda DEXIAE (sólo se descargan: sin datos del usuario ni de sus facturas), desde la 2.9.2 una señal diaria de que el programa se usa (sin facturas, archivos ni datos de los clientes del usuario; se apaga en Preferencias) y, si el usuario lo abre, el enlace de constatación de ARCA."}}]}
 </script>
 
 <body>
@@ -525,7 +525,8 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <p>No. Todo corre en tu computadora, incluida la lectura del código. A internet sólo
  van, como mucho una vez por día al abrir DEXIAE, la consulta de la lista de licencias revocadas,
  del aviso de versión nueva y de las novedades que te manda DEXIAE (sólo se descargan: sin datos
- tuyos ni de tus facturas) y, si vos lo abrís, el enlace de constatación de ARCA.</p></details>
+ tuyos ni de tus facturas), desde la 2.9.2 una señal diaria de que el programa se usa (sin facturas,
+ archivos ni datos de tus clientes; se apaga en Preferencias) y, si vos lo abrís, el enlace de constatación de ARCA.</p></details>
  <details><summary>¿Funciona con facturas escaneadas?</summary>
  <p>Si el código quedó legible, sí: DEXIAE prueba varias escalas antes de darse por vencido.
  Si no se puede leer, la fila te dice que esa página hay que mirarla — no la pasa por alto.</p></details>

@@ -60,7 +60,7 @@
   origenCampana();   /* captura al cargar, no al enviar */
 
   var DEXIAE_LINKS = {
-    installer: 'https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v2.9.1/DEXIAE_Setup_V2.9.1.exe',
+    installer: 'https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v2.9.2/DEXIAE_Setup_V2.9.2.exe',
     whatsapp: 'https://wa.me/5493516574188?text=Hola!%20Quiero%20activar%20DEXIAE'
   };
   var MP_LINKS = {
@@ -110,7 +110,7 @@
          en dexiae_license.py, el TRIAL no tiene deteccion_auto ni imputacion —
          son el gancho de upgrade a PRO. Se reemplaza por un beneficio que sí es
          cierto y además no estaba dicho en ningún lado del embudo. */
-      footNote: '100 docs · 3 plantillas · Extractos bancarios ilimitados · 100% offline',
+      footNote: '100 docs · 3 plantillas · Extractos bancarios ilimitados · Funciona sin internet',
       successTitle: '¡Listo! Tu descarga inició',
       successSub: 'Si la descarga no comienza, hacé click en el botón. Una vez instalado, abrí DEXIAE y los 14 días de prueba arrancan automáticamente.',
       primaryLabel: '⇩ Descargar DEXIAE para Windows',
@@ -324,7 +324,7 @@
     { id: 'privacidad', q: '¿Mis datos están seguros?', k: 'Documentos de clientes',
       t: 'No hay nada que subir',
       p: ['Todo el procesamiento ocurre en tu computadora. Los documentos no se suben a ningún servidor, y funciona sin conexión a internet.',
-          'No hay telemetría ni recolección de archivos. Está escrito en la <a class="pc-inl" href="/privacidad">política de privacidad</a> y en el EULA.'],
+          'No se recolectan archivos ni lo que procesás. Desde la 2.9.2, DEXIAE sólo avisa una vez por día que se usa, y eso se apaga en Preferencias. Está escrito en la <a class="pc-inl" href="/privacidad">política de privacidad</a> y en el EULA.'],
       dest: 'dl' },
     { id: 'banco', q: 'Mi banco no está en la lista', k: 'Extractos bancarios',
       t: 'Lo calibramos, sin costo',

@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Política de privacidad de DEXIAE: procesamiento 100% local, sin telemetría, sin recolección de documentos ni datos personales.">
+<meta name="description" content="Política de privacidad de DEXIAE: procesamiento 100% local, sin recolección de documentos ni de lo que procesás; una señal diaria de uso que se puede apagar.">
 <link rel="canonical" href="https://getdexiae.com/privacidad">
 <style>
 :root{--navy:#0B1120;--card:#17223A;--line:rgba(150,180,235,.14);--hi:#F3F6FC;--md:#A9B4C9;--ac:#60A5FA;--ok:#39C07C}
@@ -39,41 +39,44 @@ a{color:var(--ac)}
 <nav><a href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a></nav>
 <div class="wrap">
 <h1>Política de privacidad</h1>
-<div class="meta">Versión 1.3 · Vigente desde el 7 de octubre de 2026 · Aplica a DEXIAE 2.x y al sitio getdexiae.com</div>
+<div class="meta">Versión 1.4 · Vigente desde el 7 de octubre de 2026 · Aplica a DEXIAE 2.x y al sitio getdexiae.com</div>
 
-<div class="hl"><b>En una línea:</b> DEXIAE procesa tus documentos 100% en tu computadora. No vemos, recibimos ni almacenamos tus archivos, sus datos, ni información sobre tu uso del programa.</div>
+<div class="hl"><b>En una línea:</b> DEXIAE procesa tus documentos 100% en tu computadora. No vemos, recibimos ni almacenamos tus archivos ni sus datos. Desde la versión 2.9.2, DEXIAE avisa como mucho una vez por día que se está usando (sin documentos, archivos ni datos de tus clientes); lo podés apagar en Preferencias.</div>
 
 <h2>1. El software: procesamiento estrictamente local</h2>
 <p>DEXIAE (el programa de escritorio para Windows) realiza todo el procesamiento de documentos —extracción de datos, detección de duplicados, validación, peritaje de firmas, OCR, conversión de extractos bancarios y generación de reportes— de forma local en tu equipo. Ningún documento, dato extraído o resultado sale de tu computadora.</p>
 <p>El software <b>no recopila</b>:</p>
 <ul>
 <li>Contenido, nombres, rutas ni metadatos de los documentos procesados.</li>
-<li>Estadísticas de uso o telemetría.</li>
-<li>Información personal del usuario.</li>
+<li>Qué funciones usás ni cuántos documentos procesás.</li>
+<li>Información personal del usuario, salvo el contacto que elijas dejar en el registro opcional de la prueba (sección 2).</li>
 <li>Direcciones de red (IP) ni geolocalización.</li>
 </ul>
 <p>El panel de analítica del Historial se calcula localmente sobre tu propia base de datos, que vive en tu equipo (carpeta de datos de la aplicación) y nunca se transmite.</p>
 
-<h2>2. La comunicación de red: licencia, aviso de versión y novedades</h2>
-<p>La única conexión externa automática del software es la descarga de dos archivos públicos, como máximo una vez cada 24 horas cada uno (y el de novedades, además, cuando tocás «Buscar novedades»). Sirven para tres cosas: el estado de la licencia, el aviso de versión nueva y las novedades que te manda DEXIAE (desde la versión 2.9.0). Funciona así:</p>
+<h2>2. La comunicación de red: licencia, aviso de versión, novedades y señal de uso</h2>
+<p>El software se conecta sólo para dos cosas: descargar dos archivos públicos, como máximo una vez cada 24 horas cada uno (y el de novedades, además, cuando tocás «Buscar novedades»), y, desde la versión 2.9.2, enviar la señal de uso. Los archivos sirven para el estado de la licencia, el aviso de versión nueva y las novedades que te manda DEXIAE (desde la versión 2.9.0). Funciona así:</p>
 <ul>
 <li>El software descarga un archivo público (la lista de licencias revocadas y el número de la última versión) y lo compara <b>localmente</b> con su propio identificador y su versión. El pedido lleva sólo el nombre y la versión del programa; no envía información tuya ni de tu equipo.</li>
 <li>Los identificadores de hardware (HWID) se almacenan en esa lista únicamente como hashes criptográficos SHA-256, no reversibles: no permiten identificar personas ni equipos.</li>
 <li>Las novedades (la renovación de tu licencia, una plantilla, un set de reglas, la configuración de un cliente, un diccionario del Asistente o un aviso) vienen en un segundo archivo público, <b>firmadas digitalmente</b> por DEXIAE: si la firma no coincide, el software las ignora. Lo que va dirigido a una licencia viaja <b>cifrado</b> y sólo se abre con la clave de esa licencia. Sólo se descarga: el pedido lleva lo mismo que el de arriba, el nombre y la versión del programa. La renovación se aplica sola; lo demás se instala únicamente si vos lo elegís.</li>
+<li><b>Señal de uso (desde la 2.9.2).</b> Como mucho una vez por día, al abrir (si no llega, se vuelve a intentar la próxima vez que abrís el programa), el software envía a getdexiae.com un código de instalación, un código derivado de tu clave de licencia (no la clave; nada durante la prueba), la versión y la edición. El código de instalación es al azar: se genera la primera vez y queda guardado en la carpeta de datos de DEXIAE y en el Registro de tu usuario de Windows (se conserva si reinstalás). Guardamos, por instalación, la primera y la última fecha en que llegó la señal, cuántos días llegó, la versión, la edición, el código de licencia y, si lo dejaste, tu contacto del registro (abajo); <b>no guardamos tu IP</b>. Se guardan en el servidor de la web (Cloudflare) y sólo DEXIAE puede consultarlos. Sirve para saber si DEXIAE se instaló y para ofrecerte ayuda si lo dejás de usar. No lleva documentos, archivos, rutas ni datos de tus clientes. Viene encendida y se apaga en Preferencias («Avisarle a DEXIAE que el programa se usa»); apagada, no se envía nada.</li>
+<li><b>Registro opcional de la prueba.</b> Durante la prueba, DEXIAE te ofrece una sola vez dejar tu nombre (opcional) y un mail o un WhatsApp para ayudarte a arrancar. Si lo completás, viaja junto con el código de la instalación, se guarda con la ficha de esa instalación y nos llega por mail a través de Formspree. Si tocás «Ahora no», no se envía nada. Con una licencia paga no se ofrece.</li>
 <li>Sin conexión a internet, el software sigue funcionando con normalidad hasta el vencimiento de tu licencia.</li>
 <li>Podés auditar este comportamiento con cualquier monitor de red (Wireshark, Monitor de recursos de Windows, etc.).</li>
-<li>Aparte de esa consulta, sólo sale lo que vos mandes a propósito («Reportar un problema», «Esto no me cierra») o un enlace que vos abras (por ejemplo, la constatación de una factura en ARCA).</li>
+<li>Aparte de esto, sólo sale lo que vos mandes a propósito («Reportar un problema», «Esto no me cierra») o un enlace que vos abras (por ejemplo, la constatación de una factura en ARCA).</li>
 </ul>
 
 <h2>3. El sitio web (getdexiae.com)</h2>
 <ul>
 <li>El sitio es estático y <b>no usa cookies de seguimiento ni píxeles publicitarios</b>.</li>
-<li>Si completás el formulario de prueba o contacto, los datos que ingreses (nombre, email, qué querés resolver y, si los completás, WhatsApp, banco, tipo de organización, volumen de documentos y cómo llegaste) se envían mediante el servicio Formspree únicamente para que podamos responderte y gestionar tu licencia de prueba. No se venden ni comparten con terceros.</li>
+<li>Para contar visitas, el sitio usa Cloudflare Web Analytics, que no usa cookies: vemos totales por página, país, navegador, sistema operativo y sitio de origen, no datos de cada visitante.</li>
+<li>Si completás el formulario de prueba o contacto, los datos que ingreses (nombre, email, qué querés resolver y, si los completás, WhatsApp, banco, tipo de organización, volumen de documentos y cómo llegaste) se envían mediante el servicio Formspree únicamente para que podamos responderte y gestionar tu licencia de prueba. El contacto del registro opcional de la prueba (sección 2) también nos llega por Formspree. No se venden ni comparten con terceros.</li>
 <li>La descarga del instalador se sirve desde GitHub (GitHub Inc.), sujeto a sus propios términos.</li>
 </ul>
 
 <h2>4. Qué datos guardamos nosotros</h2>
-<p>Solo los que vos nos das al contactarnos o adquirir una licencia: nombre, email y datos de facturación cuando corresponda. Los usamos exclusivamente para emitir y administrar tu licencia, brindarte soporte y comunicarte novedades del producto. Podés pedir la baja o eliminación escribiendo a <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>.</p>
+<p>Los que vos nos das al contactarnos o adquirir una licencia (nombre, email y datos de facturación cuando corresponda) y, desde la versión 2.9.2, los de la señal de uso y del registro opcional de la prueba (sección 2). Los usamos exclusivamente para emitir y administrar tu licencia, brindarte soporte —incluido preguntarte si te pasa algo cuando dejás de usar DEXIAE— y comunicarte novedades del producto. Podés pedir la baja o eliminación escribiendo a <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>.</p>
 
 <h2>5. Tus documentos y el secreto profesional</h2>
 <p>Diseñamos DEXIAE para entornos donde la confidencialidad es obligatoria (estudios contables y jurídicos, administración pública). Como el procesamiento es local, el uso del software no implica ceder información de terceros a nuestro alcance: tus documentos y los de tus clientes permanecen bajo tu custodia en todo momento.</p>

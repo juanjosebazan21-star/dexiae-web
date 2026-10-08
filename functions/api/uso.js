@@ -48,7 +48,14 @@ export async function onRequestPost(context) {
   }
   if (!d || !RE_INST.test(String(d.instalacion || ''))) return new Response(null, { status: 400 });
 
-  const hoy = new Date().toISOString().slice(0, 10);
+  /* el día en Argentina, no en UTC: si no, lo usado después de las 21 cae al día siguiente */
+  let hoy;
+  try {
+    hoy = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Argentina/Buenos_Aires' }).format(new Date());
+  } catch (_) {
+    hoy = new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10);
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(hoy)) hoy = new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10);
   const clave = 'inst:' + d.instalacion;
   const f = (await env.USO.get(clave, 'json')) || { primera: hoy, dias: 0 };
   if (f.ultima !== hoy) f.dias = (f.dias || 0) + 1;

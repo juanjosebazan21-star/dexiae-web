@@ -2,7 +2,7 @@
 <html lang="es" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<title>Demo interactiva · DEXIAE v2.9.1</title>
+<title>Demo interactiva · DEXIAE v2.9.2</title>
 <link rel="stylesheet" href="assets/tabler/tabler-icons.min.css">
 <link rel="stylesheet" href="revision_lote.css?v=dc60527b8c">
 <style>
@@ -1327,7 +1327,7 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
     </div>
     <div class="sb-badges">
       <span class="sb-badge sentinel" id="sb-edition">SENTINEL</span>
-      <span class="sb-badge ver" id="sb-version">v2.9.1</span>
+      <span class="sb-badge ver" id="sb-version">v2.9.2</span>
     </div>
     <div class="sb-client"><span class="sb-dot"></span><span id="sb-client">Cargando...</span></div>
   </div>
@@ -2884,7 +2884,7 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
       <div class="ob-title">Auditá y extraé tus PDFs <em>sin que un archivo salga de tu equipo</em></div>
       <div class="ob-sub">Extracción a Excel, peritaje de firmas, OCR, organización y detección de duplicados. 100% local.</div>
       <div class="ob-feats">
-        <span><i class="ti ti-shield-lock"></i> Offline</span>
+        <span><i class="ti ti-shield-lock"></i> Funciona sin internet</span>
         <span><i class="ti ti-table"></i> PDF → Excel</span>
         <span><i class="ti ti-building-bank"></i> Extractos bancarios</span>
         <span><i class="ti ti-fingerprint"></i> Peritaje de firmas</span>
@@ -2969,6 +2969,29 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
       <span class="opt-hint" id="nov-estado" style="margin:0 auto 0 0"></span>
       <button class="btn btn-ghost" onclick="novBuscar()" id="nov-buscar"><i class="ti ti-refresh"></i> Buscar novedades</button>
       <button class="btn btn-primary" onclick="novCerrar()">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL «¿TE AYUDO A ARRANCAR?» (2.9.2): al empezar la prueba, una sola vez.
+     Opcional: si deja un contacto, viaja con el código de la instalación. -->
+<div class="modal-overlay" id="modal-registro">
+  <div class="modal" style="width:460px">
+    <div class="modal-header">
+      <div class="modal-title"><i class="ti ti-message-circle"></i> ¿Te ayudo a arrancar?</div>
+      <div class="modal-close" onclick="regEnviar(true)"><i class="ti ti-x" style="font-size:14px"></i></div>
+    </div>
+    <div class="modal-body">
+      <div class="opt-hint" style="margin:0 0 12px">Si querés, dejá tu mail o tu WhatsApp y te escribo para ayudarte con tu primera carpeta. Es opcional: DEXIAE funciona igual.</div>
+      <div class="form-row"><label class="form-label">Nombre <span class="opt-hint">(opcional)</span></label>
+        <input class="form-input" id="reg-nombre" maxlength="80" autocomplete="name"></div>
+      <div class="form-row"><label class="form-label">Mail o WhatsApp</label>
+        <input class="form-input" id="reg-contacto" maxlength="120" placeholder="vos@ejemplo.com o +54 9 …"></div>
+      <div class="opt-hint" id="reg-err" style="color:var(--err-fg);margin:6px 0 0"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="regEnviar(true)">Ahora no</button>
+      <button class="btn btn-primary" id="reg-btn" onclick="regEnviar(false)">Enviar</button>
     </div>
   </div>
 </div>
@@ -3092,6 +3115,11 @@ html.anim-pausa .screen.active{animation-play-state:running !important}
       <div class="pref-row">
         <div class="pref-lbl"><b>Abrir carpeta al terminar</b><span class="pref-sub">Muestra la carpeta de salida cuando finaliza un lote</span></div>
         <label class="chk-row" style="margin:0"><input type="checkbox" id="pref-carpeta" onchange="prefsSetCarpeta(this.checked)"> <span class="opt-hint">Activado</span></label>
+      </div>
+      <!-- (2.9.2) La señal de uso: ver dexiae_uso.py y la EULA 6.2 -->
+      <div class="pref-row">
+        <div class="pref-lbl"><b>Avisarle a DEXIAE que el programa se usa</b><span class="pref-sub">Una vez por día, al abrir: un código de esta instalación, el de tu licencia, la versión y la edición. Nada de tus documentos, archivos ni clientes. Sirve para ofrecerte ayuda si dejás de usarlo.</span></div>
+        <label class="chk-row" style="margin:0"><input type="checkbox" id="pref-uso" onchange="prefsSetUso(this.checked)"> <span class="opt-hint">Activado</span></label>
       </div>
     </div>
     <div class="modal-footer">
@@ -3279,7 +3307,7 @@ const DEMO = {
     incidente:'DX-260910-A3F7',
     mensaje:'ESTO NO ME CIERRA · DX-260910-A3F7 (demo)',wa_url:'https://wa.me/5493516574188?text=demo'}),
   abrir_url: () => ({ok:true}),
-  actualizacion_estado: () => ({ok:true,actual:'2.9.1',ultima:'2.5.99',hay_nueva:true,
+  actualizacion_estado: () => ({ok:true,actual:'2.9.2',ultima:'2.5.99',hay_nueva:true,
     descarga:'https://getdexiae.com/',notas:'https://getdexiae.com/',
     resumen:'Ejemplo de aviso de versión (demo).',corrige_resultados:true,
     revocada:false,motivo:''}),
@@ -3290,14 +3318,17 @@ const DEMO = {
     {id:'demo-0',tipo:'prorroga',titulo:'Renovación de tu licencia',hasta:'2026-11-15',estado:'aplicada',recibido:'2026-10-05 10:03',para_todos:false}]}),
   canal_instalar: () => ({ok:true,instalada:true,tipo:'plantilla',mensaje:'Instalado (demo)'}),
   canal_descartar: () => ({ok:true}),
+  uso_registrar: () => ({ok:true,demo:true}),
+  registro_ofrecer: () => ({ok:true,ofrecer:false}),
+  registro_prueba: () => ({ok:true}),
   config_get: () => ({ok:true,abrir_pdf:'',abrir_html:'',tam_texto:'normal',abrir_carpeta_fin:false,sidebar_riel:false,tema:'dark',apps:{navegadores:[{nombre:'Microsoft Edge',ruta:'C:/edge.exe'},{nombre:'Google Chrome',ruta:'C:/chrome.exe'}],pdf:[{nombre:'Adobe Reader',ruta:'C:/acro.exe'}]}}),
   config_set: () => ({ok:true}),
   config_elegir_app: (t) => ({ok:true,ruta:'C:/demo/'+t+'-app.exe',nombre:t+'-app.exe'}),
   exportar_soporte: () => ({ok:true,archivos:14,incidente:'DX-260910-K7QM',
     mensaje:'Diagnóstico exportado (demo) · 14 archivos'}),
   reporte_tecnico_previa: () => ({ok:true,mail:'contacto@getdexiae.com',wa:'5493516574188',
-    estado:{version:'2.9.1',edicion:'TRIAL',sistema:'Windows-11'},
-    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.9.1 · TRIAL · versión de Windows. Nada que te identifique'},
+    estado:{version:'2.9.2',edicion:'TRIAL',sistema:'Windows-11'},
+    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.9.2 · TRIAL · versión de Windows. Nada que te identifique'},
            {clave:'logs',fijo:false,incluido:true,etiqueta:'Registro técnico de los últimos días',detalle:'Es lo que dice qué estaba haciendo el programa cuando falló'},
            {clave:'config',fijo:false,incluido:true,etiqueta:'Plantillas, reglas y preferencias',detalle:'Sin documentos, sin Excel y sin la base de datos'},
            {clave:'equipo',fijo:false,incluido:false,etiqueta:'Identificador de tu equipo',detalle:'Tildalo sólo si el problema es con la licencia o la activación'}]}),
@@ -7250,6 +7281,7 @@ async function prefsAbrir(){
     _prefsLlenar(document.getElementById('pref-pdf'), _prefsOpcionesApp('pdf',PREFS_APPS,r.abrir_pdf), r.abrir_pdf||'');
     _prefsLlenar(document.getElementById('pref-html'), _prefsOpcionesApp('html',PREFS_APPS,r.abrir_html), r.abrir_html||'');
     document.getElementById('pref-carpeta').checked=!!r.abrir_carpeta_fin;
+    document.getElementById('pref-uso').checked=(r.senal_uso!==false);
     prefsMarcarTam(r.tam_texto||'normal');
   }
   document.getElementById('modal-prefs').classList.add('show');
@@ -7268,6 +7300,10 @@ document.addEventListener('keydown',ev=>{
   prefsSetTam(nuevo); UI.toast('Tamaño de texto: '+nuevo+' %','info');
 });
 async function prefsSetCarpeta(checked){ try{ await PY.call('config_set','abrir_carpeta_fin',!!checked); }catch(e){} }
+async function prefsSetUso(checked){
+  try{ await PY.call('config_set','senal_uso',!!checked); }catch(e){}
+  UI.toast(checked?'Señal de uso activada':'Señal de uso apagada: DEXIAE no avisa más que se usa','ok');
+}
 async function prefsSetApp(tipo,val){
   const sel=document.getElementById(tipo==='pdf'?'pref-pdf':'pref-html');
   if(val==='__elegir__'){
@@ -9906,9 +9942,9 @@ async function _init(){
     // Destino de originales: espejo por defecto (decisión de producto 14/07).
     setDestino('espejo'); syncDestinoTipo(); onOrgModo('mover');
     UI.renderRenameVars(r.columnas||[]);
-    document.getElementById('sb-version').textContent=`v${r.version||'2.9.1'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.9.2'}`;
     const ed=r.edicion||'—';
-    document.getElementById('sb-version').textContent=`v${r.version||'2.9.1'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.9.2'}`;
     document.getElementById('sb-edition').textContent=ed;
     document.getElementById('sb-uedicion').textContent='Licencia activa';
     document.getElementById('sb-client').textContent='DEXIAE · Producción';
@@ -9930,6 +9966,10 @@ async function _init(){
     cfgReparadaAvisar();
     // Novedades: también en segundo plano y con red (como mucho 1 vez por día).
     setTimeout(() => novChequear(false), 3500);
+    // (2.9.2) La señal de uso (1 vez por día, se apaga en Preferencias) y,
+    // en la prueba, el «¿te ayudo a arrancar?» si todavía no se ofreció.
+    setTimeout(() => { PY.call('uso_registrar').catch(() => {}); }, 5000);
+    setTimeout(regOfrecer, 6000);
   }catch(e){ console.error(e);UI.toast('Error de inicialización','err'); }
 }
 
@@ -10236,6 +10276,29 @@ async function obStartTrial(){
   OB.forzado=false; document.getElementById('onboarding').classList.remove('show');
   await refrescarLicencia();
   UI.toast(`Prueba activada · ${r.dias} días`,'ok');
+  setTimeout(regOfrecer, 1500);
+}
+
+// (2.9.2) «¿Te ayudo a arrancar?»: una sola vez, en la prueba. Opcional.
+async function regOfrecer(){
+  if(document.getElementById('onboarding').classList.contains('show')) return;
+  if(document.getElementById('modal-registro').classList.contains('show')) return;
+  let r; try{ r=await PY.call('registro_ofrecer', true); }catch(e){ return; }
+  if(!r||!r.ofrecer) return;
+  document.getElementById('reg-err').textContent='';
+  document.getElementById('modal-registro').classList.add('show');
+  setTimeout(()=>document.getElementById('reg-contacto').focus(),50);
+}
+async function regEnviar(omitir){
+  const nombre=omitir?'':document.getElementById('reg-nombre').value.trim();
+  const contacto=omitir?'':document.getElementById('reg-contacto').value.trim();
+  if(!omitir&&!contacto){ document.getElementById('reg-err').textContent='Dejá un mail o un WhatsApp, o tocá «Ahora no».'; return; }
+  const b=document.getElementById('reg-btn'); b.disabled=true;
+  let r; try{ r=await PY.call('registro_prueba',nombre,contacto); }catch(e){ r=null; }
+  b.disabled=false;
+  if(!omitir&&(!r||!r.ok)){ document.getElementById('reg-err').textContent=(r&&r.error)||'No se pudo enviar.'; return; }
+  document.getElementById('modal-registro').classList.remove('show');
+  if(!omitir) UI.toast('¡Gracias! Te escribo pronto','ok');
 }
 async function obActivar(){
   const clave=document.getElementById('ob-clave').value.trim();
@@ -10646,6 +10709,6 @@ window.addEventListener('load', () => {
 <script src="revision_lote.js?v=4121013244"></script>
 <script src="analitica.js?v=35ff20174c"></script>
 <script src="extractos.js?v=a5e0a1d9fa"></script>
-<script defer src="demo-web.js?v=d76196c541"></script>
+<script defer src="demo-web.js?v=682b09a561"></script>
 </body>
 </html>

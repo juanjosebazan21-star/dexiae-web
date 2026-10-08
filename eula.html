@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Acuerdo de Licencia de Usuario Final (EULA) de DEXIAE, versión 2.1.0.">
+<meta name="description" content="Acuerdo de Licencia de Usuario Final (EULA) de DEXIAE, versión 2.2.0.">
 <link rel="canonical" href="https://getdexiae.com/eula">
 <style>
 :root{--navy:#0B1120;--card:#17223A;--line:rgba(150,180,235,.14);--hi:#F3F6FC;--md:#A9B4C9;--ac:#60A5FA}
@@ -36,10 +36,10 @@ a{color:var(--ac)}
 <nav><a href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a></nav>
 <div class="wrap">
 <h1>Términos y EULA</h1>
-<div class="meta">Acuerdo de Licencia de Usuario Final · Versión 2.1.0</div>
+<div class="meta">Acuerdo de Licencia de Usuario Final · Versión 2.2.0</div>
 <pre class="b">ACUERDO DE LICENCIA DE USUARIO FINAL (EULA)
 DEXIAE - Document Extraction &amp; Intelligent Automation Engine
-Version 2.1.0
+Version 2.2.0
 
 IMPORTANTE: LEA ATENTAMENTE ESTE ACUERDO DE LICENCIA ANTES DE INSTALAR O UTILIZAR ESTE SOFTWARE.
 
@@ -193,18 +193,19 @@ vence, hasta que se active una clave renovada o llegue la renovacion por &quot;N
 <h2>6. Procesamiento Y Privacidad De Datos</h2>
 <pre class="b">El Software procesa documentos de forma ESTRICTAMENTE LOCAL en el equipo del usuario. El
 licenciante NO tiene acceso a los documentos procesados, a su contenido, ni a los datos
-extraidos. No existe transmision de archivos, datos personales, informacion de clientes ni
-ningun tipo de contenido documental hacia servidores externos.
+extraidos. No existe transmision de archivos, informacion de clientes ni ningun tipo de
+contenido documental hacia servidores externos, ni de datos personales salvo el contacto que
+el usuario elija dejar en el registro opcional de la prueba (Seccion 6.2).
 
 El Software tampoco recopila:
-   - Estadisticas de uso o telemetria.
-   - Informacion personal del usuario.
+   - Que funciones se usan ni cuantos documentos se procesan.
+   - Informacion personal del usuario (salvo el registro opcional de la Seccion 6.2).
    - Direcciones de red (IP) ni geolocalizacion.
    - Contenido de los documentos procesados.
    - Nombres, rutas o metadatos de archivos.
 
-La unica comunicacion externa que realiza el Software por su cuenta se describe en la
-Seccion 6.1. Aparte, solo se abren los enlaces que el usuario elige abrir (por ejemplo,
+La unica comunicacion externa que realiza el Software por su cuenta se describe en las
+Secciones 6.1 y 6.2. Aparte, solo se abren los enlaces que el usuario elige abrir (por ejemplo,
 WhatsApp o el correo al reportar un problema).</pre>
 <h2>6.1. Verificacion Remota De Licencia</h2>
 <pre class="b">El Software incluye un mecanismo de verificacion de licencia y de novedades mediante la
@@ -239,14 +240,16 @@ manera:
       (Seccion 4) si la respuesta del servidor confirma explicitamente que la licencia fue
       revocada.
 
-   f) ALCANCE: El Software NO envia ningun otro tipo de comunicacion a servidores
-      externos. No hay telemetria, no hay analiticas, no hay actualizacion automatica de
-      codigo, no hay sincronizacion de datos.
+   f) ALCANCE: Aparte de lo descripto en la Seccion 6.2 (la senal de uso, que el usuario
+      puede apagar, y el registro opcional de la prueba), el Software no envia ningun otro
+      tipo de comunicacion a servidores externos. No hay
+      analiticas de las funciones que se usan, no hay actualizacion automatica de codigo,
+      no hay sincronizacion de datos.
 
    g) DERECHO DE INSPECCION: El usuario puede, en cualquier momento, monitorear el
       trafico de red del Software mediante herramientas estandar (Wireshark, Fiddler,
       Windows Resource Monitor, etc.) para verificar que la unica comunicacion externa
-      es la consulta a los archivos publicos descriptos en este apartado.
+      es la descripta en este apartado y en la Seccion 6.2.
 
    h) NOVEDADES (desde DEXIAE 2.9.0): Con la misma frecuencia (o cuando el usuario elige
       &quot;Buscar novedades&quot;), el Software descarga un segundo archivo publico del mismo
@@ -258,6 +261,28 @@ manera:
       lleva datos del usuario, del equipo, de la licencia ni de los documentos (solo el
       nombre y la version del programa). Una renovacion emitida por el licenciante se
       aplica sola; lo demas se instala unicamente si el usuario lo elige.</pre>
+<h2>6.2. Senal De Uso (desde DEXIAE 2.9.2)</h2>
+<pre class="b">
+Como maximo una vez por dia, al abrirse con conexion a internet, el Software envia a
+getdexiae.com (si el envio no llega, lo vuelve a intentar la proxima vez que se abre):
+   a) un codigo de instalacion al azar, generado la primera vez que se usa y guardado en la
+      carpeta de datos del Software y en el Registro de Windows del usuario (se conserva si
+      se reinstala; no contiene datos del usuario ni del equipo, ni permite obtenerlos);
+   b) un codigo derivado de la clave de licencia (no la clave), o nada durante la prueba;
+   c) la version y la edicion del Software.
+Sirve para que el licenciante sepa si el Software se instalo y se usa, y pueda ofrecer
+ayuda a quien deja de usarlo. No incluye documentos, nombres de archivos, rutas, datos de
+clientes ni otra informacion del equipo. Por cada instalacion, el licenciante guarda la
+primera y la ultima fecha en que llego la senal, la cantidad de dias en que llego, la
+version, la edicion, el codigo de licencia y, si se dejo, el contacto del registro
+descripto abajo; no guarda la direccion IP. Los datos se guardan en el servidor del sitio
+web (Cloudflare) y solo el licenciante puede consultarlos.
+La senal viene encendida y el usuario puede apagarla en Preferencias (&quot;Avisarle a DEXIAE
+que el programa se usa&quot;); apagada, no se envia nada.
+Durante la prueba, el Software ofrece una sola vez dejar un nombre (opcional) y un mail o
+un WhatsApp para recibir ayuda. Es opcional: si se completa, se envia junto con el codigo
+de la instalacion, se guarda con los datos de esa instalacion y llega al licenciante por
+correo a traves del servicio Formspree. Con una licencia paga no se ofrece.</pre>
 <h2>7. Garantia Limitada</h2>
 <pre class="b">EL SOFTWARE SE PROPORCIONA &quot;TAL CUAL&quot;, SIN GARANTIAS DE NINGUN TIPO, EXPRESAS O IMPLICITAS,
 INCLUYENDO PERO NO LIMITADO A GARANTIAS DE COMERCIABILIDAD, IDONEIDAD PARA UN PROPOSITO
@@ -318,7 +343,7 @@ plena vigencia.</pre>
 lo comprende y acepta estar sujeto a sus terminos y condiciones.
 
 Vigente desde: 7 de octubre de 2026
-Version del EULA: 2.1.0
+Version del EULA: 2.2.0
 
 Copyright 2026 Juan Jose Bazan. Todos los derechos reservados.
 DEXIAE es una marca en uso comercial por el licenciante.</pre>

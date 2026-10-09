@@ -307,6 +307,14 @@
   /* Cada respuesta sale de algo verificable (FAQ de la home, /privacidad,
      la lista de bancos calibrados). Nada inventado. */
   var RAMAS = [
+    /* 08/10/2026: arriba de todo, el pedido que hizo avanzar a los contadores:
+       nos mandan un resumen y se lo devolvemos con asientos. */
+    { id: 'resumen', q: 'Quiero ver mi resumen convertido', k: 'Del PDF del banco al Excel con asientos',
+      t: 'Mandanos un resumen de un mes',
+      p: ['Mandanos por WhatsApp el PDF de un mes, tal como lo bajás del home banking, y te lo devolvemos en Excel con los movimientos, el saldo controlado y el borrador de asientos. Si nos pasás el plan de cuentas (Excel o .csv, con código y descripción), le asignamos una cuenta de tu plan a cada categoría y al banco; lo que no tenga una cuenta clara queda marcado para revisar.',
+          'Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo: el resumen, el plan y el Excel.'],
+      dest: 'wa',
+      wa: 'Hola! Vengo de la web de DEXIAE. Les mando un resumen del banco para que me lo devuelvan en Excel con los asientos.' },
     { id: 'pdfs', q: '¿Sirve para mis documentos?', k: 'Facturas, recibos, remitos…',
       t: 'Sí, si tus PDFs se repiten',
       p: ['Definís la plantilla una vez —CUIT, fecha, número, total— y después procesás la carpeta entera. Hay 11 estrategias de extracción, incluida marcar una zona visual sobre el documento.',
@@ -328,7 +336,7 @@
       dest: 'dl' },
     { id: 'banco', q: 'Mi banco no está en la lista', k: 'Extractos bancarios',
       t: 'Lo calibramos, sin costo',
-      p: ['Mandanos uno o dos resúmenes de muestra y sumamos tu banco en poco tiempo. <b>Podés tapar los datos</b>: al motor le sirve la estructura del PDF, no los valores.',
+      p: ['Mandanos uno o dos resúmenes de muestra y sumamos tu banco. <b>Podés tapar los datos</b>: al motor le sirve la estructura del PDF, no los valores.',
           'Es el único caso donde te conviene el chat: adjuntás el PDF ahí mismo.'],
       dest: 'wa',
       wa: 'Hola! Mi banco no está en la lista de DEXIAE y quiero que lo calibren. Les paso un resumen de muestra.' },
@@ -400,7 +408,7 @@
     /* La salida directa es una opción más de la lista, no un link al pie:
        ahí abajo se leía como letra chica y es justamente el camino que no
        hay que esconder. Verde sólido para que se lea "acá hablás con una
-       persona" y no se confunda con las cinco de arriba. */
+       persona" y no se confunda con las de arriba. */
     h += '<button type="button" class="pc-opt pc-opt-wa" data-accion="directo">' +
          WA_SVG + '<span>Prefiero escribir directamente' +
          '<span class="k">Te respondemos por WhatsApp</span></span></button>';

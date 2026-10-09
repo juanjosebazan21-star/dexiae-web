@@ -62,7 +62,8 @@ herramientas no cubren.
 El procesamiento es local y su tiempo depende del equipo y de los documentos: los
 PDF con texto seleccionable son mucho más rápidos que los escaneados, que pasan por
 OCR. Para trabajar no hace falta
-internet (la app consulta una vez por día la lista de licencias y el aviso de versión).
+internet (con conexión, la app baja una vez por día la lista de licencias, el aviso de versión y las
+novedades y, desde la 2.9.2, avisa una vez por día que se usa; esa señal se apaga en Preferencias).
 
 ## Planes
 

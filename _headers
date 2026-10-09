@@ -33,6 +33,9 @@
 /*.jpg
   Cache-Control: public, max-age=86400
 
+/*.webp
+  Cache-Control: public, max-age=86400
+
 # Endurecimiento basico (no afecta SEO, evita sorpresas).
 /*
   X-Content-Type-Options: nosniff

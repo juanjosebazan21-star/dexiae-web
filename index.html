@@ -29,19 +29,20 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getdexiae.com/">
 <meta property="og:site_name" content="DEXIAE">
-<meta property="og:title" content="DEXIAE — Auditá PDFs sin que un archivo salga a la nube">
-<meta property="og:description" content="Extractos bancarios a Excel, Organizar PDF, OCR, peritaje de firmas y deteccion de duplicados. 100% local. Proba gratis 14 dias.">
-<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<meta property="og:title" content="DEXIAE · Extraer datos de PDF a Excel en lote, 100% local">
+<meta property="og:description" content="Extraé datos de PDF a Excel en lote y convertí extractos bancarios, 100% local. Duplicados, firmas y reportes de auditoría. Probá gratis 14 días.">
+<meta property="og:image" content="https://getdexiae.com/og/home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Dexiae: extraer datos de PDF a Excel en lote, 100% local. Pantalla de Ejecución de DEXIAE.">
 <meta property="og:locale" content="es_AR">
 
 <!-- TWITTER -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@getdexiae">
-<meta name="twitter:title" content="DEXIAE · Auditoría PDF 100% local">
-<meta name="twitter:description" content="Auditá PDFs en lote sin subir nada a la nube. Excel + Organizar PDF + OCR + firmas digitales. 14 días gratis.">
-<meta name="twitter:image" content="https://getdexiae.com/og-image.png">
+<meta name="twitter:title" content="DEXIAE · Extraer datos de PDF a Excel en lote, 100% local">
+<meta name="twitter:description" content="Extraé datos de PDF a Excel en lote y convertí extractos bancarios, 100% local. Duplicados, firmas y reportes de auditoría. Probá gratis 14 días.">
+<meta name="twitter:image" content="https://getdexiae.com/og/home.png">
 
 <!-- JSON-LD -->
 <script type="application/ld+json">
@@ -54,7 +55,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Sans:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="ejecucion.png?v=5b99f330">
 
 <style>
 :root{
@@ -74,6 +74,8 @@
  --disp:'IBM Plex Sans','Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+/* Las capturas van en <picture> (WebP con PNG de respaldo): que no cuente como caja, así las reglas de img siguen valiendo igual */
+picture{display:contents}
 html{scroll-behavior:smooth;scroll-padding-top:76px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.012em;overflow-x:hidden}
@@ -1230,11 +1232,11 @@ html.fund-agotado .fund-off{display:revert}
      <li><span class="ck">✓</span> Modo Organizar: clasifica la carpeta por tipo de documento</li>
     </ul>
    </div>
-   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><img src="ejecucion.png?v=5b99f330" width="1600" height="900" alt="DEXIAE · pantalla de Ejecución con un lote de 10 facturas: 8 OK, 1 duplicada, 1 para revisar y la bitácora documento por documento" loading="lazy"></div>
+   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><picture><source type="image/webp" srcset="ejecucion.webp"><img src="ejecucion.png?v=5b99f330" width="1600" height="900" alt="DEXIAE · pantalla de Ejecución con un lote de 10 facturas: 8 OK, 1 duplicada, 1 para revisar y la bitácora documento por documento" loading="lazy"></picture></div>
   </div>
 
   <div class="feat rev">
-   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><img src="revision-lote.png?v=d7680b93" width="1600" height="900" alt="Revisión del lote en DEXIAE: el caso que bloquea el Excel, el documento con cada dato marcado donde lo leyó el motor y las tres decisiones posibles" loading="lazy"></div>
+   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><picture><source type="image/webp" srcset="revision-lote.webp"><img src="revision-lote.png?v=d7680b93" width="1600" height="900" alt="Revisión del lote en DEXIAE: el caso que bloquea el Excel, el documento con cada dato marcado donde lo leyó el motor y las tres decisiones posibles" loading="lazy"></picture></div>
    <div class="txt">
     <div class="k">Revisión del lote · nuevo</div>
     <h3>Antes del Excel, decidís sólo lo que necesita tu criterio</h3>
@@ -1261,11 +1263,11 @@ html.fund-agotado .fund-off{display:revert}
      <li><span class="ck">✓</span> Asistente que sugiere los campos (PRO)</li>
     </ul>
    </div>
-   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><img src="laboratorio.png?v=f68dcb56" width="1600" height="900" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy"></div>
+   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><picture><source type="image/webp" srcset="laboratorio.webp"><img src="laboratorio.png?v=f68dcb56" width="1600" height="900" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy"></picture></div>
   </div>
 
   <div class="feat rev">
-   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><img src="informe-lote.png?v=12e8b0b5" width="1039" height="876" alt="Informe del lote de DEXIAE: documentos sin observaciones, duplicados, para revisar, la validación por regla y los duplicados con su original" loading="lazy"></div>
+   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><picture><source type="image/webp" srcset="informe-lote.webp"><img src="informe-lote.png?v=12e8b0b5" width="1039" height="876" alt="Informe del lote de DEXIAE: documentos sin observaciones, duplicados, para revisar, la validación por regla y los duplicados con su original" loading="lazy"></picture></div>
    <div class="txt">
     <div class="k">Reportes auditables</div>
     <h3>Excel, HTML y PDF por cada lote</h3>
@@ -1291,11 +1293,11 @@ html.fund-agotado .fund-off{display:revert}
      <li><span class="ck">✓</span> Trazabilidad: lotes con huella, informes y peritaje</li>
     </ul>
    </div>
-   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><img src="analitica.png?v=3c8eced2" width="1600" height="900" alt="Analítica de DEXIAE: documentos, lotes, salieron OK, fueron a revisión, duplicados, dónde conviene actuar y volumen por semana" loading="lazy"></div>
+   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><picture><source type="image/webp" srcset="analitica.webp"><img src="analitica.png?v=3c8eced2" width="1600" height="900" alt="Analítica de DEXIAE: documentos, lotes, salieron OK, fueron a revisión, duplicados, dónde conviene actuar y volumen por semana" loading="lazy"></picture></div>
   </div>
 
   <div class="feat rev">
-   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><img src="herramientas.png?v=0c3c5360" width="1600" height="900" alt="Caja de 9 herramientas PDF de DEXIAE" loading="lazy"></div>
+   <div class="shotL"><div class="top"><span></span><span></span><span></span></div><picture><source type="image/webp" srcset="herramientas.webp"><img src="herramientas.png?v=0c3c5360" width="1600" height="900" alt="Caja de 9 herramientas PDF de DEXIAE" loading="lazy"></picture></div>
    <div class="txt">
     <div class="k">Caja de herramientas</div>
     <h3>9 herramientas PDF, dentro de la misma app</h3>
@@ -1373,7 +1375,7 @@ html.fund-agotado .fund-off{display:revert}
   </div>
   <div class="ct-grid">
    <div>
-    <div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" loading="lazy" decoding="async"><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div>
+    <div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><picture><source type="image/webp" srcset="/video/dexiae-contable-portada.webp"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" loading="lazy" decoding="async"></picture><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div>
     <div class="ct-cap ytv-cap">DEXIAE Contable en 2:28, con la interfaz real de la 2.8 y datos de ejemplo. <a href="https://www.youtube.com/watch?v=2OLKYAJxirM" target="_blank" rel="noopener">Verlo en YouTube</a></div>
     <ul class="ct-pts">
      <li><span class="ck">✓</span><div><b>7 bancos y Mercado Pago, calibrados</b>Chubut, Credicoop, Galicia, ICBC, Macro, Patagonia y Santander. Si falta el tuyo, con un resumen de muestra lo calibramos.</div></li>

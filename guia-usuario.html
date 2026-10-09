@@ -10,15 +10,20 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Guía de DEXIAE 2.8: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación y peritaje de firmas. Todo el procesamiento es local.">
+<meta name="description" content="Guía de DEXIAE 2.8: extractos bancarios a Excel, facturas por QR, plantillas de extracción, validación y peritaje de firmas. Todo el procesamiento es local.">
 <link rel="canonical" href="https://getdexiae.com/guia-usuario">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://getdexiae.com/guia-usuario">
 <meta property="og:site_name" content="DEXIAE">
 <meta property="og:title" content="Guía del usuario · DEXIAE 2.8">
-<meta property="og:description" content="Cómo convertir extractos bancarios y facturas por QR a Excel, armar plantillas de extracción, validar datos y auditar firmas con DEXIAE. Todo local.">
-<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<meta property="og:description" content="Guía de DEXIAE 2.8: extractos bancarios a Excel, facturas por QR, plantillas de extracción, validación y peritaje de firmas. Todo el procesamiento es local.">
+<meta property="og:image" content="https://getdexiae.com/og/guia-usuario.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Guía del usuario de DEXIAE, con el Laboratorio de plantillas y una factura de ejemplo.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://getdexiae.com/og/guia-usuario.png">
 <meta property="og:locale" content="es_AR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +31,8 @@
 <style>
 :root{--ink:#141c32;--ink2:#3d4660;--ink3:#78819b;--paper:#faf8f4;--card:#fff;--line:#e6e1d6;--ac:#2563EB;--ac-deep:#1D4ED8;--ok:#1d9e75;--warn:#b7791f;--navy:#0b1120;--mono:'JetBrains Mono',monospace}
 *{margin:0;padding:0;box-sizing:border-box}
+/* Las capturas van en <picture> (WebP con PNG de respaldo): que no cuente como caja, así las reglas de img siguen valiendo igual */
+picture{display:contents}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:15.5px}
 a{color:var(--ac);text-decoration:none}a:hover{text-decoration:underline}
 .top{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px}
@@ -64,7 +71,7 @@ td b{color:var(--ink)}
 @media(max-width:640px){table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
 
 figure{margin:30px 0}
-figure img{width:100%;display:block;border-radius:12px;border:1px solid var(--line)}
+figure img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--line)}
 figure.angosta{max-width:640px}
 figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 .tabla-plan{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
@@ -76,7 +83,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Guía del usuario","item":"https://getdexiae.com/guia-usuario"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía del usuario de DEXIAE 2.8","description":"Documentación de DEXIAE 2.8: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación de datos y peritaje de firmas.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-usuario","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-usuario"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og-image.png"}
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía del usuario de DEXIAE 2.8","description":"Documentación de DEXIAE 2.8: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación de datos y peritaje de firmas.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-usuario","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-usuario"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og/guia-usuario.png"}
 </script>
 </head>
 <body>
@@ -175,7 +182,7 @@ mes y el aviso de versión, en versión chica. Sirve cuando ya elegiste el módu
 y querés la pantalla para el trabajo. <b>La app se acuerda de cómo la dejaste</b>
 y vuelve a abrirse así.</p>
 <figure>
-<img src="/guia/guia_riel.png" alt="La barra lateral de DEXIAE achicada a un riel de 62 px, con el aviso de versión reducido a un punto azul" loading="lazy" width="1440" height="340">
+<picture><source type="image/webp" srcset="/guia/guia_riel.webp"><img src="/guia/guia_riel.png" alt="La barra lateral de DEXIAE achicada a un riel de 62 px, con el aviso de versión reducido a un punto azul" loading="lazy" width="1440" height="340"></picture>
 <figcaption>Con la barra achicada, la pastilla del aviso de versión queda como un
 punto azul: el aviso no se pierde por trabajar así.</figcaption>
 </figure>
@@ -209,7 +216,7 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <li>Mientras tanto, el Excel del lote ya sale marcado «sin revisar» en los casos pendientes. La revisión también se abre desde el <a href="#historial">Historial</a> (botón <b>Revisar</b>), con Detección automática y en el Centinela.</li>
 </ul>
 <figure>
-<img src="/revision-lote.png?v=d7680b93" alt="Revisión del lote en DEXIAE: el caso que bloquea el Excel, el documento con cada dato marcado y las tres decisiones posibles" loading="lazy" width="1600" height="900">
+<picture><source type="image/webp" srcset="/revision-lote.webp"><img src="/revision-lote.png?v=d7680b93" alt="Revisión del lote en DEXIAE: el caso que bloquea el Excel, el documento con cada dato marcado y las tres decisiones posibles" loading="lazy" width="1600" height="900"></picture>
 <figcaption>La revisión de un lote de facturas de ejemplo: un campo obligatorio vacío bloquea el Excel; a la derecha, los datos del documento y de dónde salió cada uno.</figcaption>
 </figure>
 
@@ -317,7 +324,7 @@ con cuál de los dos estás trabajando.</div>
 <h3 id="sugerir">Marcá el dato y DEXIAE te sugiere cómo sacarlo</h3>
 <p>En la vista <b>Visual</b> del Laboratorio arrastrás sobre un dato del documento y DEXIAE te sugiere cómo sacarlo: prueba las formas posibles con el motor en el documento de referencia y en una <b>Carpeta de prueba</b> (otros documentos del mismo tipo), y marca con ★ la que saca el dato en más documentos. Una de las formas es <b>ZONA</b>: el dato se lee siempre en ese lugar de la página (en un escaneado, con OCR).</p>
 <figure>
-<img src="/laboratorio.png?v=f68dcb56" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy" width="1600" height="900">
+<picture><source type="image/webp" srcset="/laboratorio.webp"><img src="/laboratorio.png?v=f68dcb56" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy" width="1600" height="900"></picture>
 <figcaption>El Laboratorio en la vista Visual, con una factura de ejemplo y el resultado de «Probar» abajo.</figcaption>
 </figure>
 <h3>Probar sin gastar cupo</h3>
@@ -418,7 +425,7 @@ devuelve la conducta vieja: el archivo entra con sus filas marcadas.</div>
 <h4>El tablero de lo convertido</h4>
 <p>Debajo de la zona para soltar los resúmenes queda todo lo convertido en 30 o 90 días, 12 meses o todo: resúmenes, movimientos, clasificados solos, para revisar, cadena de saldos y asientos; las últimas conversiones con su estado y su Excel; las cuentas de cada cliente con su último saldo; cómo se clasificó; y lo que conviene resolver (categorías sin cuenta, banco sin configurar, cadena cortada, revisiones sin terminar, resúmenes que no se pudieron leer). Con un cliente elegido arriba, muestra sólo lo suyo. Las conversiones hechas con versiones anteriores a la 2.8.0 muestran «—» en lo que antes no se guardaba.</p>
 <figure>
-<img src="/extractos-modulo.png?v=e015b599" alt="Pantalla Extractos de DEXIAE con la zona para soltar los resúmenes, los bancos calibrados y el tablero de lo convertido" loading="lazy" width="1696" height="860">
+<picture><source type="image/webp" srcset="/extractos-modulo.webp"><img src="/extractos-modulo.png?v=e015b599" alt="Pantalla Extractos de DEXIAE con la zona para soltar los resúmenes, los bancos calibrados y el tablero de lo convertido" loading="lazy" width="1696" height="860"></picture>
 <figcaption>La pantalla Extractos con los datos de ejemplo de la demo.</figcaption>
 </figure>
 
@@ -826,7 +833,7 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 <li>Podés renombrar o borrar lotes (borrar elimina también sus claves de deduplicación).</li>
 </ul>
 <figure>
-<img src="/analitica.png?v=3c8eced2" alt="Analítica de DEXIAE: documentos, lotes, salieron OK, fueron a revisión, duplicados, dónde conviene actuar y volumen por semana" loading="lazy" width="1600" height="900">
+<picture><source type="image/webp" srcset="/analitica.webp"><img src="/analitica.png?v=3c8eced2" alt="Analítica de DEXIAE: documentos, lotes, salieron OK, fueron a revisión, duplicados, dónde conviene actuar y volumen por semana" loading="lazy" width="1600" height="900"></picture>
 <figcaption>La Analítica con los datos de ejemplo de la demo.</figcaption>
 </figure>
 
@@ -838,7 +845,7 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 <li>Con el <a href="#peritaje">peritaje de firmas</a> activo, el informe es <b>pericial</b> y suma el detalle de cada firma.</li>
 </ul>
 <figure>
-<img src="/informe-lote.png?v=12e8b0b5" alt="Informe del lote de DEXIAE: documentos sin observaciones, duplicados, para revisar, la validación por regla y los duplicados con su original" loading="lazy" width="1039" height="876">
+<picture><source type="image/webp" srcset="/informe-lote.webp"><img src="/informe-lote.png?v=12e8b0b5" alt="Informe del lote de DEXIAE: documentos sin observaciones, duplicados, para revisar, la validación por regla y los duplicados con su original" loading="lazy" width="1039" height="876"></picture>
 <figcaption>El informe de un lote de facturas de ejemplo: los números son conteos, cada uno dice qué documentos son.</figcaption>
 </figure>
 
@@ -874,12 +881,12 @@ lo que hay que mandarnos en cada caso no es lo mismo.</p>
 <p>La ventana se cierra sola, un botón no responde, un archivo no se procesa. Está en
 <b>el pie de la barra lateral</b>, siempre a mano.</p>
 <figure>
-<img src="/guia/guia_reportar_problema.png" alt="El acceso «Reportar un problema» en el pie de la barra lateral de DEXIAE" loading="lazy" width="780" height="520">
+<picture><source type="image/webp" srcset="/guia/guia_reportar_problema.webp"><img src="/guia/guia_reportar_problema.png" alt="El acceso «Reportar un problema» en el pie de la barra lateral de DEXIAE" loading="lazy" width="780" height="520"></picture>
 <figcaption>Antes estaba adentro de Preferencias. Se movió acá porque cuando algo falla
 no es momento de buscar en un menú.</figcaption>
 </figure>
 <figure>
-<img src="/guia/guia_reportar_problema_panel.png" alt="El panel de reporte técnico, con la lista de qué se incluye en el archivo" loading="lazy" width="680" height="810">
+<picture><source type="image/webp" srcset="/guia/guia_reportar_problema_panel.webp"><img src="/guia/guia_reportar_problema_panel.png" alt="El panel de reporte técnico, con la lista de qué se incluye en el archivo" loading="lazy" width="680" height="810"></picture>
 <figcaption>Contás qué estabas haciendo y ves <b>exactamente qué va adentro</b> antes de
 generar nada. El identificador de tu equipo viene destildado: se tilda sólo si el
 problema es con la licencia.</figcaption>
@@ -892,11 +899,11 @@ a la cuenta equivocada, una categoría no detectó lo que tenía que detectar. V
 razón: <b>esa duda no aparece mientras procesás, aparece después, mirando el Excel</b>.
 El Historial es lo único que sigue sabiendo qué corrió.</p>
 <figure>
-<img src="/guia/guia_no_me_cierra.png" alt="El botón «Esto no me cierra» en el detalle de un lote del Historial" loading="lazy" width="1210" height="530">
+<picture><source type="image/webp" srcset="/guia/guia_no_me_cierra.webp"><img src="/guia/guia_no_me_cierra.png" alt="El botón «Esto no me cierra» en el detalle de un lote del Historial" loading="lazy" width="1210" height="530"></picture>
 <figcaption>Se abre el lote en el Historial y el botón está arriba, junto a los demás.</figcaption>
 </figure>
 <figure>
-<img src="/guia/guia_no_me_cierra_panel.png" alt="El panel de «Esto no me cierra» con la lista completa de lo que viaja en el archivo" loading="lazy" width="720" height="870">
+<picture><source type="image/webp" srcset="/guia/guia_no_me_cierra_panel.webp"><img src="/guia/guia_no_me_cierra_panel.png" alt="El panel de «Esto no me cierra» con la lista completa de lo que viaja en el archivo" loading="lazy" width="720" height="870"></picture>
 <figcaption>Con una línea alcanza. Abajo está la <b>lista completa</b> de lo que va
 adentro del .zip, con lo que es opcional destildable.</figcaption>
 </figure>
@@ -929,18 +936,18 @@ Contacto: <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a></di
 <p>Cuando hay una versión nueva publicada, la pastilla con el número de versión
 <b>se vuelve sólida</b>: azul lleno, texto blanco y un punto. Se puede hacer clic.</p>
 <figure>
-<img src="/guia/guia_pastilla_estados_2.png" alt="La pastilla de versión en sus dos estados: apagada sin novedades, azul llena con un punto cuando hay una versión nueva" loading="lazy" width="986" height="286">
+<picture><source type="image/webp" srcset="/guia/guia_pastilla_estados_2.webp"><img src="/guia/guia_pastilla_estados_2.png" alt="La pastilla de versión en sus dos estados: apagada sin novedades, azul llena con un punto cuando hay una versión nueva" loading="lazy" width="986" height="286"></picture>
 <figcaption>Los dos estados, uno al lado del otro. A la izquierda como se ve
 siempre; a la derecha, cuando hay una versión nueva para descargar.</figcaption>
 </figure>
 <figure>
-<img src="/guia/guia_aviso_version.png" alt="La pantalla de Ejecución con la pastilla de aviso y la franja ámbar arriba" loading="lazy" width="1440" height="640">
+<picture><source type="image/webp" srcset="/guia/guia_aviso_version.webp"><img src="/guia/guia_aviso_version.png" alt="La pantalla de Ejecución con la pastilla de aviso y la franja ámbar arriba" loading="lazy" width="1440" height="640"></picture>
 <figcaption>La <b>franja ámbar</b> de arriba aparece <b>sólo</b> cuando la versión nueva
 corrige resultados, o sea cuando cambia lo que salió en un Excel que ya generaste. Una
 mejora de pantalla no gana ese lugar.</figcaption>
 </figure>
 <figure>
-<img src="/guia/guia_aviso_version_panel.png" alt="El panel que se abre al hacer clic, con el resumen de qué cambió y el botón de descarga" loading="lazy" width="780" height="650">
+<picture><source type="image/webp" srcset="/guia/guia_aviso_version_panel.webp"><img src="/guia/guia_aviso_version_panel.png" alt="El panel que se abre al hacer clic, con el resumen de qué cambió y el botón de descarga" loading="lazy" width="780" height="650"></picture>
 <figcaption>Al hacer clic ves qué cambió y el botón para descargar. <b>No descarga
 nada sola</b>: el instalador pesa más de 120 MB y podrías estar con datos móviles.</figcaption>
 </figure>

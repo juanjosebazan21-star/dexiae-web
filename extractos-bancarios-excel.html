@@ -25,11 +25,28 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Convertir extracto bancario a Excel en segundos: la pantalla Extractos de DEXIAE con los bancos calibrados.">
+<meta property="og:locale" content="es_AR">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getdexiae.com/og/extractos-bancarios-excel.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Fuentes desde el propio sitio (antes, Google Fonts): una conexión menos antes de
+     pintar el texto y ninguna visita le avisa a Google. Archivos en /fonts/, licencia OFL. -->
+<link rel="preload" href="/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
 <style>
 :root{
  --navy:#0B1120;--navy2:#0F1729;--card:#17223A;--line:rgba(150,180,235,.12);--line2:rgba(150,180,235,.20);
@@ -352,7 +369,7 @@ html.fund-agotado .fund-off{display:revert}
 .ytv-dur{position:absolute;right:12px;top:12px;background:rgba(11,17,32,.85);color:#fff;font:600 13px/1 Inter,system-ui,sans-serif;padding:6px 9px;border-radius:6px}
 .ytv-b:focus-visible{outline:3px solid #2563EB;outline-offset:-3px}
 .ytv iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.ytv-cap a{color:#2563EB}
+.ytv-cap a{color:#2563EB;text-decoration:underline;text-underline-offset:2px}
 @media (max-width:640px){.ytv-play{width:64px;height:64px;margin:-32px 0 0 -32px}.ytv-play svg{width:24px;height:24px}}
 </style>
 <script type="application/ld+json">
@@ -409,7 +426,7 @@ html.fund-agotado .fund-off{display:revert}
  <section class="sec">
   <h2>Míralo en 2 minutos</h2>
   <p class="lead">Del resumen en PDF al borrador de asientos, con la interfaz real de DEXIAE Contable.</p>
-  <div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><picture><source type="image/webp" srcset="/video/dexiae-contable-portada.webp"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" decoding="async"></picture><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div>
+  <div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video de DEXIAE Contable: del PDF del banco al asiento, duración 2:28"><picture><source type="image/webp" srcset="/video/dexiae-contable-portada-800.webp 800w, /video/dexiae-contable-portada.webp 1280w" sizes="(max-width: 900px) calc(100vw - 64px), 1060px"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" decoding="async"></picture><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div>
   <p class="ytv-cap" style="font-size:13px;color:var(--md);margin-top:10px">Interfaz real de DEXIAE 2.8, con datos de ejemplo. <a href="https://www.youtube.com/watch?v=2OLKYAJxirM" target="_blank" rel="noopener">Verlo en YouTube</a></p>
  </section>
 
@@ -494,7 +511,7 @@ html.fund-agotado .fund-off{display:revert}
      <div><h3>Entra el PDF del banco</h3>
       <p>Tal como lo bajás del homebanking. Sin recortar ni convertir nada antes.</p></div>
     </div>
-    <figure><picture><source type="image/webp" srcset="/flujo-pdf.webp"><img src="/flujo-pdf.png" alt="Resumen bancario en PDF con los movimientos del mes" loading="lazy" width="1405" height="945"></picture></figure>
+    <figure><picture><source type="image/webp" srcset="/flujo-pdf-800.webp 800w, /flujo-pdf-1200.webp 1200w, /flujo-pdf.webp 1405w" sizes="(max-width: 1100px) calc(100vw - 96px), 1010px"><img src="/flujo-pdf.png" alt="Resumen bancario en PDF con los movimientos del mes" loading="lazy" width="1405" height="945"></picture></figure>
    </li>
    <li class="et-flecha" aria-hidden="true"><span></span></li>
    <li class="etapa" id="et2">
@@ -503,7 +520,7 @@ html.fund-agotado .fund-off{display:revert}
       <p>Una fila por movimiento, importes como número y la columna que confirma que la cadena de
        saldos cierra.</p></div>
     </div>
-    <figure><picture><source type="image/webp" srcset="/flujo-excel.webp"><img src="/flujo-excel.png" alt="Planilla Excel con los movimientos extraídos y la verificación de saldos" loading="lazy" width="1720" height="884"></picture></figure>
+    <figure><picture><source type="image/webp" srcset="/flujo-excel-800.webp 800w, /flujo-excel-1200.webp 1200w, /flujo-excel.webp 1720w" sizes="(max-width: 1100px) calc(100vw - 96px), 1010px"><img src="/flujo-excel.png" alt="Planilla Excel con los movimientos extraídos y la verificación de saldos" loading="lazy" width="1720" height="884"></picture></figure>
    </li>
    <li class="et-flecha" aria-hidden="true"><span></span></li>
    <li class="etapa" id="et3">
@@ -512,7 +529,7 @@ html.fund-agotado .fund-off{display:revert}
       <p>Las dos puntas de cada asiento, con cuenta, descripción, DEBE/HABER y el nivel de confianza
        de la contrapartida propuesta.</p></div>
     </div>
-    <figure><picture><source type="image/webp" srcset="/flujo-asientos.webp"><img src="/flujo-asientos.png" alt="Borrador de asientos contables con cuenta, debe, haber y nivel de confianza" loading="lazy" width="1800" height="1012"></picture></figure>
+    <figure><picture><source type="image/webp" srcset="/flujo-asientos-800.webp 800w, /flujo-asientos-1200.webp 1200w, /flujo-asientos.webp 1800w" sizes="(max-width: 1100px) calc(100vw - 96px), 1010px"><img src="/flujo-asientos.png" alt="Borrador de asientos contables con cuenta, debe, haber y nivel de confianza" loading="lazy" width="1800" height="1012"></picture></figure>
    </li>
   </ol>
  </section>
@@ -767,7 +784,7 @@ html.fund-agotado .fund-off{display:revert}
         captura de la salida de nadie. El de la derecha sale del xlsx que genera
         el propio sistema. -->
    <figure style="margin:16px 0 4px">
-     <picture><source type="image/webp" srcset="/conversor-vs-dexiae.webp"><img src="/conversor-vs-dexiae.png" width="2006" height="675" loading="lazy"
+     <picture><source type="image/webp" srcset="/conversor-vs-dexiae-800.webp 800w, /conversor-vs-dexiae-1200.webp 1200w, /conversor-vs-dexiae.webp 2006w" sizes="(max-width: 1100px) calc(100vw - 96px), 1010px"><img src="/conversor-vs-dexiae.png" width="2006" height="675" loading="lazy"
           alt="A la izquierda, el mismo extracto pasado por un conversor genérico: la fecha, el detalle y el importe quedan aplastados en una sola celda, los importes entran como texto alineados a la izquierda, una fecha aparece invertida y un movimiento queda partido en dos filas. A la derecha, la salida de DEXIAE: columnas Fecha, Detalle, CUIT, Importe y Saldo separadas, importes como números, y una columna Verif. Saldo con la tilde de cada fila comprobada."
           style="width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block"></picture>
      <figcaption style="font-size:13px;color:var(--md);margin-top:8px">
@@ -817,6 +834,8 @@ html.fund-agotado .fund-off{display:revert}
   <a href="/casos-de-uso">Casos de uso</a>
   <a href="/extractos-bancarios-excel">Extractos bancarios</a>
   <a href="/facturas-qr-excel">Facturas por QR</a>
+  <a href="/guia-contable">Guía Contable</a>
+  <a href="/guia-usuario">Guía del usuario</a>
   <a href="/#precios">Precios</a>
   <a href="mailto:contacto@getdexiae.com">Contacto</a>
  </div>

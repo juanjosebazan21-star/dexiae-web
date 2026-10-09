@@ -3,22 +3,27 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guía de DEXIAE Contable</title>
+<title>Guía DEXIAE Contable: extractos bancarios a Excel y asientos</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Guía de DEXIAE Contable, paso a paso: instalar, activar, configurar cada cliente, convertir los resúmenes del banco, revisar antes de generar el Excel y armar el borrador de asientos. Todo en tu computadora.">
+<meta name="description" content="Guía paso a paso de DEXIAE Contable: configurar cada cliente, convertir los resúmenes del banco, revisar antes del Excel y armar el borrador de asientos.">
 <link rel="canonical" href="https://getdexiae.com/guia-contable">
 <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://getdexiae.com/guia-contable">
 <meta property="og:site_name" content="DEXIAE">
-<meta property="og:title" content="Guía de DEXIAE Contable">
-<meta property="og:description" content="Del resumen del banco al borrador de asientos: la guía completa de DEXIAE Contable, de la instalación a la configuración de cada cliente.">
-<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<meta property="og:title" content="Guía DEXIAE Contable: extractos bancarios a Excel y asientos">
+<meta property="og:description" content="Guía paso a paso de DEXIAE Contable: configurar cada cliente, convertir los resúmenes del banco, revisar antes del Excel y armar el borrador de asientos.">
+<meta property="og:image" content="https://getdexiae.com/og/guia-contable.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Guía DEXIAE Contable: extractos bancarios a Excel y asientos, con la revisión antes de generar el Excel.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://getdexiae.com/og/guia-contable.png">
 <meta property="og:locale" content="es_AR">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,6 +31,8 @@
 <style>
 :root{--ink:#141c32;--ink2:#3d4660;--ink3:#78819b;--paper:#faf8f4;--card:#fff;--line:#e6e1d6;--ac:#2563EB;--ac-deep:#1D4ED8;--ok:#1d9e75;--warn:#b7791f;--navy:#0b1120;--mono:'JetBrains Mono',monospace}
 *{margin:0;padding:0;box-sizing:border-box}
+/* Las capturas van en <picture> (WebP con PNG de respaldo): que no cuente como caja, así las reglas de img siguen valiendo igual */
+picture{display:contents}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:15.5px}
 a{color:var(--ac);text-decoration:none}a:hover{text-decoration:underline}
 .top{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px}
@@ -83,7 +90,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:10px;line-height:1.6}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Guía de DEXIAE Contable","item":"https://getdexiae.com/guia-contable"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía de DEXIAE Contable","description":"Instalar, activar, configurar cada cliente, convertir resúmenes bancarios, revisar antes de generar el Excel y armar el borrador de asientos con DEXIAE Contable.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-contable","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-contable"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og-image.png"}
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía de DEXIAE Contable","description":"Instalar, activar, configurar cada cliente, convertir resúmenes bancarios, revisar antes de generar el Excel y armar el borrador de asientos con DEXIAE Contable.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-contable","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-contable"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og/guia-contable.png"}
 </script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Extracto bancario de PDF a Excel y asientos, en tu computadora | DEXIAE Contable","description":"Soltás los resúmenes del banco en PDF y DEXIAE Contable los pasa a Excel controlando la cadena de saldos, clasifica cada movimiento y arma el borrador de asientos con el plan de cuentas de cada cliente. Todo en tu computadora: los resúmenes no se suben a internet.","thumbnailUrl":["https://getdexiae.com/video/dexiae-contable-portada.jpg","https://i.ytimg.com/vi/2OLKYAJxirM/hqdefault.jpg"],"uploadDate":"2026-10-03T00:54:18-07:00","duration":"PT2M28S","inLanguage":"es-AR","embedUrl":"https://www.youtube.com/embed/2OLKYAJxirM","contentUrl":"https://www.youtube.com/watch?v=2OLKYAJxirM","publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"}}</script>
 </head>
@@ -100,7 +107,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:10px;line-height:1.6}
 <p style="margin-bottom:0">El plan de cuentas y las categorías de cada cliente los cargás <b>cuando quieras</b>: antes de procesar, mientras revisás o después. Y la conversión, la clasificación y los asientos <b>no tienen límite</b>.</p>
 </div>
 
-<figure style="margin:22px 0"><div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" loading="lazy" decoding="async"><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div><figcaption class="ytv-cap">Todo esto en 2:28, con la interfaz real de la 2.8 y datos de ejemplo. <a href="https://www.youtube.com/watch?v=2OLKYAJxirM" target="_blank" rel="noopener">Verlo en YouTube</a></figcaption></figure>
+<figure style="margin:22px 0"><div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><picture><source type="image/webp" srcset="/video/dexiae-contable-portada.webp"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" fetchpriority="high" decoding="async"></picture><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div><figcaption class="ytv-cap">Todo esto en 2:28, con la interfaz real de la 2.8 y datos de ejemplo. <a href="https://www.youtube.com/watch?v=2OLKYAJxirM" target="_blank" rel="noopener">Verlo en YouTube</a></figcaption></figure>
 
 <div class="toc"><b>Contenido</b>
 <ol>
@@ -165,7 +172,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <h2 id="pantalla">4. La pantalla Extractos</h2>
 <p>Con la licencia Contable, DEXIAE arranca directamente en <b>Extractos</b>. Todo el trabajo con los bancos pasa en esta pantalla:</p>
 <figure>
-<img src="/guia-contable-convertir.png?v=cd6abc8c" alt="La parte de arriba de la pantalla Extractos: el cliente elegido, Configurar clientes, la zona para soltar los resúmenes y Revisar antes de generar el Excel" loading="lazy" width="1214" height="298">
+<picture><source type="image/webp" srcset="/guia-contable-convertir.webp"><img src="/guia-contable-convertir.png?v=cd6abc8c" alt="La parte de arriba de la pantalla Extractos: el cliente elegido, Configurar clientes, la zona para soltar los resúmenes y Revisar antes de generar el Excel" loading="lazy" width="1214" height="298"></picture>
 <figcaption>Arriba de la pantalla Extractos, con los datos de ejemplo de la demo.</figcaption>
 </figure>
 <ul>
@@ -183,7 +190,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 
 <h3>Datos y banco</h3>
 <figure class="angosta">
-<img src="/guia-contable-datos.png?v=1415960f" alt="Configuración Contable, pestaña Datos y banco: ejercicio, asiento inicial, cómo se arman los asientos y la cuenta del banco" loading="lazy" width="778" height="685">
+<picture><source type="image/webp" srcset="/guia-contable-datos.webp"><img src="/guia-contable-datos.png?v=1415960f" alt="Configuración Contable, pestaña Datos y banco: ejercicio, asiento inicial, cómo se arman los asientos y la cuenta del banco" loading="lazy" width="778" height="685"></picture>
 <figcaption>La pestaña Datos y banco (datos de ejemplo).</figcaption>
 </figure>
 <ul>
@@ -208,7 +215,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 
 <h3>Cuentas por categoría</h3>
 <figure class="angosta">
-<img src="/guia-contable-categorias.png?v=56951071" alt="Configuración Contable, pestaña Cuentas por categoría con el botón Importar plan de cuentas" loading="lazy" width="778" height="685">
+<picture><source type="image/webp" srcset="/guia-contable-categorias.webp"><img src="/guia-contable-categorias.png?v=56951071" alt="Configuración Contable, pestaña Cuentas por categoría con el botón Importar plan de cuentas" loading="lazy" width="778" height="685"></picture>
 <figcaption>La pestaña Cuentas por categoría, todavía sin cuentas asignadas.</figcaption>
 </figure>
 <p>Acá decís a qué cuenta va cada tipo de movimiento: impuesto a los débitos y créditos, comisiones, IVA y percepciones, sueldos, tarjetas, transferencias… Cada tipo de movimiento puede quedar de tres maneras:</p>
@@ -260,7 +267,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <h2 id="revisar">7. Revisar antes de generar</h2>
 <p>Con <b>Revisar antes de generar el Excel</b> tildado, después de convertir se abre la revisión: lo que DEXIAE no pudo decidir solo, antes de que llegue al Excel. Si no hay nada para revisar, genera directo.</p>
 <figure>
-<img src="/guia-contable-revision.png?v=a5c0b35c" alt="La revisión antes de generar el Excel: la barra con sin cuenta, con la cuenta por defecto y resueltos, los grupos para revisar y el pie con los asientos para importar" loading="lazy" width="1440" height="810">
+<picture><source type="image/webp" srcset="/guia-contable-revision.webp"><img src="/guia-contable-revision.png?v=a5c0b35c" alt="La revisión antes de generar el Excel: la barra con sin cuenta, con la cuenta por defecto y resueltos, los grupos para revisar y el pie con los asientos para importar" loading="lazy" width="1440" height="810"></picture>
 <figcaption>La revisión de un lote de ejemplo: 469 movimientos, 5 para revisar.</figcaption>
 </figure>
 <h3>La barra de arriba</h3>
@@ -273,7 +280,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <h3>Qué revisar</h3>
 <p>Los movimientos agrupados por motivo, del más urgente al menos: transferencias entre tus cuentas sin la otra punta, un signo que no corresponde a su categoría, movimientos sin categoría, una categoría sin cuenta, y lo que se resolvió sólo por la categoría, para controlar. Cada grupo trae su botón: <b>Corregir…</b>, <b>Asignar cuenta a la categoría…</b>, <b>Agregar el resumen que falta</b>, <b>Está bien así</b>, <b>Dejar en Pendientes</b> o <b>Ver movimientos</b>.</p>
 <figure class="angosta">
-<img src="/guia-contable-corregir.png?v=a2e72dd1" alt="La ventana ¿A dónde va este movimiento?: elegir la cuenta y para cuáles movimientos aplicarla" loading="lazy" width="638" height="552">
+<picture><source type="image/webp" srcset="/guia-contable-corregir.webp"><img src="/guia-contable-corregir.png?v=a2e72dd1" alt="La ventana ¿A dónde va este movimiento?: elegir la cuenta y para cuáles movimientos aplicarla" loading="lazy" width="638" height="552"></picture>
 <figcaption>Corregir un movimiento: la cuenta y para cuáles.</figcaption>
 </figure>
 <p>Al corregir elegís la <b>cuenta</b> (la buscás por código o nombre, o escribís una nueva) y <b>para cuáles</b>:</p>
@@ -287,7 +294,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <p>Antes de aplicar te muestra cuántos movimientos del lote cambian. <b>Deshacer</b>, arriba, vuelve atrás la última corrección.</p>
 <h3>Cómo va a salir</h3>
 <figure>
-<img src="/guia-contable-como-sale.png?v=9ac08d55" alt="La pestaña Cómo va a salir: las cinco formas de armar los asientos con los números del lote y cada asiento abierto" loading="lazy" width="1440" height="810">
+<picture><source type="image/webp" srcset="/guia-contable-como-sale.webp"><img src="/guia-contable-como-sale.png?v=9ac08d55" alt="La pestaña Cómo va a salir: las cinco formas de armar los asientos con los números del lote y cada asiento abierto" loading="lazy" width="1440" height="810"></picture>
 <figcaption>Las cinco formas de armar los asientos, con los números del lote, y cada asiento con su saldo del día.</figcaption>
 </figure>
 <p>Comparás las formas de armar los asientos <b>con los números de este lote</b> —cuántos asientos, cuántas filas, el total del diario— y elegís una. Cada asiento se abre: ves sus líneas, el saldo del día según el resumen y, en las líneas que juntan varios movimientos, podés cambiarlos de cuenta, quitarlos del Excel o repartirlos, de a uno.</p>

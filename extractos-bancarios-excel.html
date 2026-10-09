@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Convertí extractos bancarios de PDF a Excel en segundos, y generá el borrador de asientos. Corre en tu computadora, no necesita internet. 7 bancos y Mercado Pago ya calibrados; si falta el tuyo, lo sumamos.">
+<meta name="description" content="Convertí extractos bancarios de PDF a Excel en segundos y generá el borrador de asientos. En tu computadora, sin internet. 7 bancos y Mercado Pago calibrados.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="DEXIAE">
 <meta name="language" content="es-AR">
@@ -20,8 +20,13 @@
 <meta property="og:url" content="https://getdexiae.com/extractos-bancarios-excel">
 <meta property="og:site_name" content="DEXIAE">
 <meta property="og:title" content="Convertir extracto bancario a Excel en segundos · DEXIAE">
-<meta property="og:description" content="Del PDF del banco a la planilla, y de la planilla al borrador de asientos. En tu computadora, sin necesidad de internet.">
-<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<meta property="og:description" content="Convertí extractos bancarios de PDF a Excel en segundos y generá el borrador de asientos. En tu computadora, sin internet. 7 bancos y Mercado Pago calibrados.">
+<meta property="og:image" content="https://getdexiae.com/og/extractos-bancarios-excel.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Convertir extracto bancario a Excel en segundos: la pantalla Extractos de DEXIAE con los bancos calibrados.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://getdexiae.com/og/extractos-bancarios-excel.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -37,6 +42,8 @@
  --sans:'Inter',system-ui,Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+/* Las capturas van en <picture> (WebP con PNG de respaldo): que no cuente como caja, así las reglas de img siguen valiendo igual */
+picture{display:contents}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.012em;overflow-x:hidden}
@@ -402,7 +409,7 @@ html.fund-agotado .fund-off{display:revert}
  <section class="sec">
   <h2>Míralo en 2 minutos</h2>
   <p class="lead">Del resumen en PDF al borrador de asientos, con la interfaz real de DEXIAE Contable.</p>
-  <div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" loading="lazy" decoding="async"><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div>
+  <div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><picture><source type="image/webp" srcset="/video/dexiae-contable-portada.webp"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" decoding="async"></picture><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div>
   <p class="ytv-cap" style="font-size:13px;color:var(--md);margin-top:10px">Interfaz real de DEXIAE 2.8, con datos de ejemplo. <a href="https://www.youtube.com/watch?v=2OLKYAJxirM" target="_blank" rel="noopener">Verlo en YouTube</a></p>
  </section>
 
@@ -487,7 +494,7 @@ html.fund-agotado .fund-off{display:revert}
      <div><h3>Entra el PDF del banco</h3>
       <p>Tal como lo bajás del homebanking. Sin recortar ni convertir nada antes.</p></div>
     </div>
-    <figure><img src="/flujo-pdf.png" alt="Resumen bancario en PDF con los movimientos del mes" loading="lazy" width="1405" height="945"></figure>
+    <figure><picture><source type="image/webp" srcset="/flujo-pdf.webp"><img src="/flujo-pdf.png" alt="Resumen bancario en PDF con los movimientos del mes" loading="lazy" width="1405" height="945"></picture></figure>
    </li>
    <li class="et-flecha" aria-hidden="true"><span></span></li>
    <li class="etapa" id="et2">
@@ -496,7 +503,7 @@ html.fund-agotado .fund-off{display:revert}
       <p>Una fila por movimiento, importes como número y la columna que confirma que la cadena de
        saldos cierra.</p></div>
     </div>
-    <figure><img src="/flujo-excel.png" alt="Planilla Excel con los movimientos extraídos y la verificación de saldos" loading="lazy" width="1720" height="884"></figure>
+    <figure><picture><source type="image/webp" srcset="/flujo-excel.webp"><img src="/flujo-excel.png" alt="Planilla Excel con los movimientos extraídos y la verificación de saldos" loading="lazy" width="1720" height="884"></picture></figure>
    </li>
    <li class="et-flecha" aria-hidden="true"><span></span></li>
    <li class="etapa" id="et3">
@@ -505,7 +512,7 @@ html.fund-agotado .fund-off{display:revert}
       <p>Las dos puntas de cada asiento, con cuenta, descripción, DEBE/HABER y el nivel de confianza
        de la contrapartida propuesta.</p></div>
     </div>
-    <figure><img src="/flujo-asientos.png" alt="Borrador de asientos contables con cuenta, debe, haber y nivel de confianza" loading="lazy" width="1800" height="1012"></figure>
+    <figure><picture><source type="image/webp" srcset="/flujo-asientos.webp"><img src="/flujo-asientos.png" alt="Borrador de asientos contables con cuenta, debe, haber y nivel de confianza" loading="lazy" width="1800" height="1012"></picture></figure>
    </li>
   </ol>
  </section>
@@ -760,9 +767,9 @@ html.fund-agotado .fund-off{display:revert}
         captura de la salida de nadie. El de la derecha sale del xlsx que genera
         el propio sistema. -->
    <figure style="margin:16px 0 4px">
-     <img src="/conversor-vs-dexiae.png" width="2006" height="675" loading="lazy"
+     <picture><source type="image/webp" srcset="/conversor-vs-dexiae.webp"><img src="/conversor-vs-dexiae.png" width="2006" height="675" loading="lazy"
           alt="A la izquierda, el mismo extracto pasado por un conversor genérico: la fecha, el detalle y el importe quedan aplastados en una sola celda, los importes entran como texto alineados a la izquierda, una fecha aparece invertida y un movimiento queda partido en dos filas. A la derecha, la salida de DEXIAE: columnas Fecha, Detalle, CUIT, Importe y Saldo separadas, importes como números, y una columna Verif. Saldo con la tilde de cada fila comprobada."
-          style="width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block">
+          style="width:100%;height:auto;border:1px solid var(--line);border-radius:8px;display:block"></picture>
      <figcaption style="font-size:13px;color:var(--md);margin-top:8px">
        El mismo extracto, procesado de las dos maneras. La columna
        <b>Verif. Saldo</b> es la comprobación fila por fila.

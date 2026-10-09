@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Pasá tus facturas a Excel leyendo el código QR: CUIT, tipo, punto de venta y número, fecha, importe y CAE, tal como el emisor se lo declaró a ARCA. Sin configurar nada por proveedor y sin que los archivos salgan de tu computadora.">
+<meta name="description" content="Pasá tus facturas a Excel leyendo el código QR: CUIT, tipo, número, fecha, importe y CAE, tal como el emisor los declaró a ARCA. Sin salir de tu computadora.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="DEXIAE">
 <meta name="language" content="es-AR">
@@ -19,10 +19,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getdexiae.com/facturas-qr-excel">
 <meta property="og:site_name" content="DEXIAE">
-<meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="Pasar facturas a Excel leyendo el código QR · DEXIAE">
-<meta property="og:description" content="El código QR sigue la misma norma en todas las facturas, aunque el diseño de cada una sea distinto.">
-<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<meta property="og:description" content="Pasá tus facturas a Excel leyendo el código QR: CUIT, tipo, número, fecha, importe y CAE, tal como el emisor los declaró a ARCA. Sin salir de tu computadora.">
+<meta property="og:image" content="https://getdexiae.com/og/facturas-qr-excel.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Pasar facturas a Excel leyendo el código QR: constatación de ARCA con CUIT, CAE, fecha, tipo e importe del comprobante.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://getdexiae.com/og/facturas-qr-excel.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -38,6 +42,8 @@
  --sans:'Inter',system-ui,Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
+/* Las capturas van en <picture> (WebP con PNG de respaldo): que no cuente como caja, así las reglas de img siguen valiendo igual */
+picture{display:contents}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.012em;overflow-x:hidden}
@@ -444,12 +450,12 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  coma decimal adentro del código.</p>
  <div class="duo">
   <div class="card">
-   <img src="arca_rechazo.png" alt="Constatación rechazada por ARCA" style="width:100%;border-radius:12px;display:block;border:1px solid var(--pline)">
+   <picture><source type="image/webp" srcset="arca_rechazo.webp"><img src="arca_rechazo.png" width="1640" height="1008" loading="lazy" alt="Constatación rechazada por ARCA" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid var(--pline)"></picture>
    <p style="margin-top:14px">Con el importe del código, ARCA rechaza y lista <b>diez</b>
    causas posibles. <b>No te dice cuál de las diez es.</b></p>
   </div>
   <div class="card">
-   <img src="arca_autorizada.png" alt="Constatación autorizada por ARCA" style="width:100%;border-radius:12px;display:block;border:1px solid var(--pline)">
+   <picture><source type="image/webp" srcset="arca_autorizada.webp"><img src="arca_autorizada.png" width="1640" height="824" loading="lazy" alt="Constatación autorizada por ARCA" style="width:100%;height:auto;border-radius:12px;display:block;border:1px solid var(--pline)"></picture>
    <p style="margin-top:14px">Con el importe impreso en la hoja, <b>la misma factura constata
    bien</b>. No estaba mal la factura: estaba mal el código.</p>
   </div>

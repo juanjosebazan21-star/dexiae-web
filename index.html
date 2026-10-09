@@ -932,6 +932,7 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
 /* ⚠️ NO usar la clase `.wa`: la tiene tomada el widget flotante de
    lead.js con position:fixed, y arranca el boton del flujo. */
 .mp-b.mp-wa{border-color:rgba(61,217,182,.42);background:rgba(61,217,182,.09)}
+.mp-tras{margin-top:16px}
 .mp-url{margin-top:12px;font-family:var(--mono);font-size:11.5px;color:var(--md);
   line-height:1.6}
 .mp-url b{color:var(--cta);font-weight:700;letter-spacing:.02em}
@@ -1110,7 +1111,7 @@ html.fund-agotado .fund-off{display:revert}
  <div class="movil-puente">
    <div class="mp-tit">Estás en el celular · DEXIAE se instala en Windows</div>
    <div class="mp-btns">
-    <a class="mp-b mp-wa" href="https://wa.me/5493516574188?text=Hola!%20Entr%C3%A9%20desde%20el%20celular%20y%20quiero%20probar%20DEXIAE.%20%C2%BFMe%20pas%C3%A1s%20el%20link%20para%20instalarlo%20en%20la%20compu%3F" target="_blank" rel="noopener">
+    <a class="mp-b mp-wa" data-evento="wa_movil" href="https://wa.me/5493516574188?text=Hola!%20Entr%C3%A9%20desde%20el%20celular%20y%20quiero%20probar%20DEXIAE.%20%C2%BFMe%20pas%C3%A1s%20el%20link%20para%20instalarlo%20en%20la%20compu%3F" target="_blank" rel="noopener">
      <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.1 14.1c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .1-1.6-.1-1.5-.6-3.3-1.7-4.6-3.6-.5-.7-1-1.6-1-2.5s.5-1.4.7-1.6c.2-.2.4-.2.6-.2h.4c.2 0 .4 0 .6.4l.7 1.7c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.5.8 1 1.3 1.7 1.8.3.2.5.2.7 0l.6-.7c.2-.2.3-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .2 0 .7-.1.9Z"></path></svg></span>
      <span>Que me lo manden por WhatsApp
       <em>Te llega el link y lo abrís cuando estés en la compu</em></span>
@@ -1119,6 +1120,16 @@ html.fund-agotado .fund-off{display:revert}
      <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg></span>
      <span>Ver un Excel de ejemplo
       <em>Se abre en tu teléfono · es la salida real del sistema</em></span>
+    </a>
+   </div>
+   <!-- Aparece al tocar «Ver un Excel de ejemplo» (el Excel se baja sin formulario:
+        es la prueba de que sirve). El texto prellenado dice que viene del Excel. -->
+   <div class="mp-tras" id="mp-tras" hidden>
+    <div class="mp-tit">¿Querés verlo con los movimientos de tu banco?</div>
+    <a class="mp-b mp-wa" data-evento="wa_tras_excel" href="https://wa.me/5493516574188?text=Hola%21%20Vi%20el%20Excel%20de%20ejemplo%20desde%20el%20celular.%20Les%20mando%20un%20resumen%20del%20banco%20para%20que%20me%20lo%20devuelvan%20en%20Excel%20con%20los%20asientos." target="_blank" rel="noopener">
+     <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.1 14.1c-.2.6-1.2 1.1-1.7 1.2-.5.1-1 .1-1.6-.1-1.5-.6-3.3-1.7-4.6-3.6-.5-.7-1-1.6-1-2.5s.5-1.4.7-1.6c.2-.2.4-.2.6-.2h.4c.2 0 .4 0 .6.4l.7 1.7c.1.2 0 .4-.1.5l-.4.5c-.1.2-.3.3-.1.6.5.8 1 1.3 1.7 1.8.3.2.5.2.7 0l.6-.7c.2-.2.3-.2.6-.1l1.6.8c.2.1.4.2.4.4 0 .2 0 .7-.1.9Z"></path></svg></span>
+     <span>Mandanos un resumen por WhatsApp
+      <em>Te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y después borramos todo.</em></span>
     </a>
    </div>
    <div class="mp-url">O desde tu computadora entrá a <b>getdexiae.com/pc</b></div>
@@ -1917,6 +1928,21 @@ function toggleCent(){
   en.forEach(function(x){ if(x.isIntersecting){ x.target.classList.add('in'); io.unobserve(x.target); } });
  },{threshold:.12,rootMargin:'0px 0px -50px 0px'});
  els.forEach(function(e,i){ e.classList.add('rv'); e.style.transitionDelay=((i%3)*80)+'ms'; io.observe(e); });
+})();
+</script>
+<script>
+/* === CELULAR: CONTAR Y, DESPUÉS DEL EXCEL DE EJEMPLO, OFRECER WHATSAPP ===
+   El Excel se baja sin formulario. La descarga la cuenta la función de
+   /app/ejemplos/; acá se cuentan los toques de WhatsApp (salen de la web y si
+   no, nadie se entera) y, al tocar el Excel, aparece la invitación a mandar un
+   resumen. No viaja nada del visitante: sólo el nombre del evento (/api/evento). */
+(function(){
+ function contar(e){ try{ if(navigator.sendBeacon) navigator.sendBeacon('/api/evento', e); }catch(_){} }
+ document.querySelectorAll('[data-evento]').forEach(function(a){
+  a.addEventListener('click', function(){ contar(a.getAttribute('data-evento')); });
+ });
+ var x = document.querySelector('.movil-puente a[download]'), t = document.getElementById('mp-tras');
+ if(x && t) x.addEventListener('click', function(){ t.hidden = false; });
 })();
 </script>
 <script src="/yt.js" defer></script>

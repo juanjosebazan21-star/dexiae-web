@@ -25,16 +25,35 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getdexiae.com/og/guia-contable.png">
 <meta property="og:locale" content="es_AR">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Fuentes desde el propio sitio (antes, Google Fonts): una conexión menos antes de
+     pintar el texto y ninguna visita le avisa a Google. Archivos en /fonts/, licencia OFL. -->
+<link rel="preload" href="/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-:root{--ink:#141c32;--ink2:#3d4660;--ink3:#78819b;--paper:#faf8f4;--card:#fff;--line:#e6e1d6;--ac:#2563EB;--ac-deep:#1D4ED8;--ok:#1d9e75;--warn:#b7791f;--navy:#0b1120;--mono:'JetBrains Mono',monospace}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<style>
+:root{--ink:#141c32;--ink2:#3d4660;--ink3:#636b82;--paper:#faf8f4;--card:#fff;--line:#e6e1d6;--ac:#2563EB;--ac-deep:#1D4ED8;--ok:#1d9e75;--warn:#b7791f;--navy:#0b1120;--mono:'JetBrains Mono',monospace}
 *{margin:0;padding:0;box-sizing:border-box}
 /* Las capturas van en <picture> (WebP con PNG de respaldo): que no cuente como caja, así las reglas de img siguen valiendo igual */
 picture{display:contents}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:15.5px}
-a{color:var(--ac);text-decoration:none}a:hover{text-decoration:underline}
+a{color:var(--ac);text-decoration:none}
+/* dentro de un texto el enlace va subrayado: sólo el color no alcanza (contraste 1,8:1 con el texto) */
+p a,li a,td a,figcaption a,.box a,.foot a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.toc a{text-decoration:none}a:hover{text-decoration:underline}
 .top{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px}
 .top .m{width:30px;height:30px;border-radius:8px;background:none;object-fit:cover;flex:0 0 auto}
 .top b{font-size:16px}.top a{color:#9fb2d4;margin-left:auto;font-size:13.5px}
@@ -55,13 +74,14 @@ code{font-family:var(--mono);font-size:12.5px;background:#efece4;padding:2px 6px
 .box.note{background:#eef2fb;border-color:#c4d4f2;color:#1e3a6e}
 .star{background:linear-gradient(135deg,#0b1120,#0e2148);color:#e7eefc;border:none;border-radius:16px;padding:26px 30px;margin:20px 0}
 .star h3{color:#4fd1b5;margin-top:0;font-size:20px}
+.star h2{color:#4fd1b5;margin:0 0 8px;padding:0;border:0;font-size:20px;letter-spacing:normal}
 .star p,.star li{color:#c3d0e8}.star ol,.star ul{color:#c3d0e8}
 .star b{color:#fff}
 table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 th{background:#f1ede3;text-align:left;padding:10px 12px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
 td{padding:9px 12px;border-top:1px solid var(--line);color:var(--ink2);vertical-align:top}
 td b{color:var(--ink)}
-.si{color:var(--ok);font-weight:700}.no{color:#b6aa92}
+.si{color:#17805F;font-weight:700}.no{color:#7d7260}
 .foot{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;color:var(--ink3);font-size:13.5px}
 .pasos{counter-reset:p;list-style:none;margin-left:0}
 .pasos>li{counter-increment:p;position:relative;padding-left:40px;margin-bottom:14px}
@@ -83,14 +103,14 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:10px;line-height:1.6}
 .ytv-dur{position:absolute;right:12px;top:12px;background:rgba(11,17,32,.85);color:#fff;font:600 13px/1 Inter,system-ui,sans-serif;padding:6px 9px;border-radius:6px}
 .ytv-b:focus-visible{outline:3px solid #2563EB;outline-offset:-3px}
 .ytv iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.ytv-cap a{color:#2563EB}
+.ytv-cap a{color:#2563EB;text-decoration:underline;text-underline-offset:2px}
 @media (max-width:640px){.ytv-play{width:64px;height:64px;margin:-32px 0 0 -32px}.ytv-play svg{width:24px;height:24px}}
 </style>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Guía de DEXIAE Contable","item":"https://getdexiae.com/guia-contable"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía de DEXIAE Contable","description":"Instalar, activar, configurar cada cliente, convertir resúmenes bancarios, revisar antes de generar el Excel y armar el borrador de asientos con DEXIAE Contable.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-contable","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-contable"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og/guia-contable.png"}
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía de DEXIAE Contable","description":"Instalar, activar, configurar cada cliente, convertir resúmenes bancarios, revisar antes de generar el Excel y armar el borrador de asientos con DEXIAE Contable.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-contable","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-contable"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"author":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"datePublished":"2026-10-02","dateModified":"2026-10-09","image":"https://getdexiae.com/og/guia-contable.png"}
 </script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Extracto bancario de PDF a Excel y asientos, en tu computadora | DEXIAE Contable","description":"Soltás los resúmenes del banco en PDF y DEXIAE Contable los pasa a Excel controlando la cadena de saldos, clasifica cada movimiento y arma el borrador de asientos con el plan de cuentas de cada cliente. Todo en tu computadora: los resúmenes no se suben a internet.","thumbnailUrl":["https://getdexiae.com/video/dexiae-contable-portada.jpg","https://i.ytimg.com/vi/2OLKYAJxirM/hqdefault.jpg"],"uploadDate":"2026-10-03T00:54:18-07:00","duration":"PT2M28S","inLanguage":"es-AR","embedUrl":"https://www.youtube.com/embed/2OLKYAJxirM","contentUrl":"https://www.youtube.com/watch?v=2OLKYAJxirM","publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"}}</script>
 </head>
@@ -102,12 +122,12 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:10px;line-height:1.6}
 <p class="sub">Válida para <b>DEXIAE 2.9.0</b> · octubre 2026 · todo el procesamiento ocurre en tu computadora</p>
 
 <div class="star">
-<h3>En una línea</h3>
-<p>Soltás los resúmenes del banco en PDF, DEXIAE los pasa a Excel controlando la cadena de saldos, clasifica cada movimiento y arma el <b>borrador de asientos con el plan de cuentas de cada cliente</b>. Lo que no puede decidir solo te lo muestra <b>antes</b> de generar el Excel, para que lo corrijas ahí mismo, y lo que corregís queda aprendido.</p>
+<h2>En una línea</h2>
+<p>Soltás <a href="/extractos-bancarios-excel">los resúmenes del banco en PDF</a>, DEXIAE los pasa a Excel controlando la cadena de saldos, clasifica cada movimiento y arma el <b>borrador de asientos con el plan de cuentas de cada cliente</b>. Lo que no puede decidir solo te lo muestra <b>antes</b> de generar el Excel, para que lo corrijas ahí mismo, y lo que corregís queda aprendido.</p>
 <p style="margin-bottom:0">El plan de cuentas y las categorías de cada cliente los cargás <b>cuando quieras</b>: antes de procesar, mientras revisás o después. Y la conversión, la clasificación y los asientos <b>no tienen límite</b>.</p>
 </div>
 
-<figure style="margin:22px 0"><div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video: DEXIAE Contable, del resumen del banco al asiento (2:28)"><picture><source type="image/webp" srcset="/video/dexiae-contable-portada.webp"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" fetchpriority="high" decoding="async"></picture><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div><figcaption class="ytv-cap">Todo esto en 2:28, con la interfaz real de la 2.8 y datos de ejemplo. <a href="https://www.youtube.com/watch?v=2OLKYAJxirM" target="_blank" rel="noopener">Verlo en YouTube</a></figcaption></figure>
+<figure style="margin:22px 0"><div class="ytv" data-yt="2OLKYAJxirM" data-titulo="DEXIAE Contable: del resumen del banco al asiento"><button type="button" class="ytv-b" aria-label="Reproducir el video de DEXIAE Contable: del PDF del banco al asiento, duración 2:28"><picture><source type="image/webp" srcset="/video/dexiae-contable-portada-800.webp 800w, /video/dexiae-contable-portada.webp 1280w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/video/dexiae-contable-portada.jpg" alt="Video de DEXIAE Contable: del PDF del banco al asiento" width="1280" height="720" fetchpriority="high" decoding="async"></picture><span class="ytv-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 4l15 8-15 8z"/></svg></span><span class="ytv-dur">2:28</span></button></div><figcaption class="ytv-cap">Todo esto en 2:28, con la interfaz real de la 2.8 y datos de ejemplo. <a href="https://www.youtube.com/watch?v=2OLKYAJxirM" target="_blank" rel="noopener">Verlo en YouTube</a></figcaption></figure>
 
 <div class="toc"><b>Contenido</b>
 <ol>
@@ -172,7 +192,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <h2 id="pantalla">4. La pantalla Extractos</h2>
 <p>Con la licencia Contable, DEXIAE arranca directamente en <b>Extractos</b>. Todo el trabajo con los bancos pasa en esta pantalla:</p>
 <figure>
-<picture><source type="image/webp" srcset="/guia-contable-convertir.webp"><img src="/guia-contable-convertir.png?v=cd6abc8c" alt="La parte de arriba de la pantalla Extractos: el cliente elegido, Configurar clientes, la zona para soltar los resúmenes y Revisar antes de generar el Excel" loading="lazy" width="1214" height="298"></picture>
+<picture><source type="image/webp" srcset="/guia-contable-convertir-800.webp 800w, /guia-contable-convertir.webp 1214w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/guia-contable-convertir.png?v=cd6abc8c" alt="La parte de arriba de la pantalla Extractos: el cliente elegido, Configurar clientes, la zona para soltar los resúmenes y Revisar antes de generar el Excel" loading="lazy" width="1214" height="298"></picture>
 <figcaption>Arriba de la pantalla Extractos, con los datos de ejemplo de la demo.</figcaption>
 </figure>
 <ul>
@@ -267,7 +287,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <h2 id="revisar">7. Revisar antes de generar</h2>
 <p>Con <b>Revisar antes de generar el Excel</b> tildado, después de convertir se abre la revisión: lo que DEXIAE no pudo decidir solo, antes de que llegue al Excel. Si no hay nada para revisar, genera directo.</p>
 <figure>
-<picture><source type="image/webp" srcset="/guia-contable-revision.webp"><img src="/guia-contable-revision.png?v=a5c0b35c" alt="La revisión antes de generar el Excel: la barra con sin cuenta, con la cuenta por defecto y resueltos, los grupos para revisar y el pie con los asientos para importar" loading="lazy" width="1440" height="810"></picture>
+<picture><source type="image/webp" srcset="/guia-contable-revision-800.webp 800w, /guia-contable-revision-1200.webp 1200w, /guia-contable-revision.webp 1440w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/guia-contable-revision.png?v=a5c0b35c" alt="La revisión antes de generar el Excel: la barra con sin cuenta, con la cuenta por defecto y resueltos, los grupos para revisar y el pie con los asientos para importar" loading="lazy" width="1440" height="810"></picture>
 <figcaption>La revisión de un lote de ejemplo: 469 movimientos, 5 para revisar.</figcaption>
 </figure>
 <h3>La barra de arriba</h3>
@@ -294,7 +314,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <p>Antes de aplicar te muestra cuántos movimientos del lote cambian. <b>Deshacer</b>, arriba, vuelve atrás la última corrección.</p>
 <h3>Cómo va a salir</h3>
 <figure>
-<picture><source type="image/webp" srcset="/guia-contable-como-sale.webp"><img src="/guia-contable-como-sale.png?v=9ac08d55" alt="La pestaña Cómo va a salir: las cinco formas de armar los asientos con los números del lote y cada asiento abierto" loading="lazy" width="1440" height="810"></picture>
+<picture><source type="image/webp" srcset="/guia-contable-como-sale-800.webp 800w, /guia-contable-como-sale-1200.webp 1200w, /guia-contable-como-sale.webp 1440w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/guia-contable-como-sale.png?v=9ac08d55" alt="La pestaña Cómo va a salir: las cinco formas de armar los asientos con los números del lote y cada asiento abierto" loading="lazy" width="1440" height="810"></picture>
 <figcaption>Las cinco formas de armar los asientos, con los números del lote, y cada asiento con su saldo del día.</figcaption>
 </figure>
 <p>Comparás las formas de armar los asientos <b>con los números de este lote</b> —cuántos asientos, cuántas filas, el total del diario— y elegís una. Cada asiento se abre: ves sus líneas, el saldo del día según el resumen y, en las líneas que juntan varios movimientos, podés cambiarlos de cuenta, quitarlos del Excel o repartirlos, de a uno.</p>
@@ -375,7 +395,7 @@ Escaneados → PDF con texto (OCR) y Fusionar reportes: las 2 herramientas que f
 <h3>Algo no me cierra.</h3>
 <p>En la revisión y en el Historial está <b>«Esto no me cierra»</b>: nos manda ese lote con lo que decidió el sistema. Los CUITs y nombres de terceros van destildados, salvo que la duda sea justamente sobre eso. Y si algo falla, <b>«Reportar un problema»</b>, abajo en la barra lateral. También nos encontrás en <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>.</p>
 
-<p class="foot">DEXIAE · Guía de DEXIAE Contable · válida para la versión 2.9.0. La guía completa de todos los módulos está en la <a href="/guia-usuario">Guía del usuario</a>.</p>
+<p class="foot">DEXIAE · Guía de DEXIAE Contable · válida para la versión 2.9.0. La guía completa de todos los módulos está en la <a href="/guia-usuario">Guía del usuario</a>.<br><a href="/">getdexiae.com</a> · <a href="/extractos-bancarios-excel">Extractos bancarios</a> · <a href="/facturas-qr-excel">Facturas por QR</a> · <a href="/casos-de-uso">Casos de uso</a></p>
 </div>
 <script src="/yt.js" defer></script>
 </body>

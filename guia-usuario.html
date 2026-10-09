@@ -25,16 +25,35 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://getdexiae.com/og/guia-usuario.png">
 <meta property="og:locale" content="es_AR">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Fuentes desde el propio sitio (antes, Google Fonts): una conexión menos antes de
+     pintar el texto y ninguna visita le avisa a Google. Archivos en /fonts/, licencia OFL. -->
+<link rel="preload" href="/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-:root{--ink:#141c32;--ink2:#3d4660;--ink3:#78819b;--paper:#faf8f4;--card:#fff;--line:#e6e1d6;--ac:#2563EB;--ac-deep:#1D4ED8;--ok:#1d9e75;--warn:#b7791f;--navy:#0b1120;--mono:'JetBrains Mono',monospace}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<style>
+:root{--ink:#141c32;--ink2:#3d4660;--ink3:#636b82;--paper:#faf8f4;--card:#fff;--line:#e6e1d6;--ac:#2563EB;--ac-deep:#1D4ED8;--ok:#1d9e75;--warn:#b7791f;--navy:#0b1120;--mono:'JetBrains Mono',monospace}
 *{margin:0;padding:0;box-sizing:border-box}
 /* Las capturas van en <picture> (WebP con PNG de respaldo): que no cuente como caja, así las reglas de img siguen valiendo igual */
 picture{display:contents}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:15.5px}
-a{color:var(--ac);text-decoration:none}a:hover{text-decoration:underline}
+a{color:var(--ac);text-decoration:none}
+/* dentro de un texto el enlace va subrayado: sólo el color no alcanza (contraste 1,8:1 con el texto) */
+p a,li a,td a,figcaption a,.box a,.foot a{text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px}
+.toc a{text-decoration:none}a:hover{text-decoration:underline}
 .top{background:var(--navy);color:#fff;padding:14px 24px;display:flex;align-items:center;gap:12px}
 .top .m{width:30px;height:30px;border-radius:8px;background:none;object-fit:cover;flex:0 0 auto}
 .top b{font-size:16px}.top a{color:#9fb2d4;margin-left:auto;font-size:13.5px}
@@ -57,11 +76,12 @@ code{font-family:var(--mono);font-size:12.5px;background:#efece4;padding:2px 6px
 .star h3{color:#4fd1b5;margin-top:0;font-size:20px}
 .star p,.star li{color:#c3d0e8}.star ol,.star ul{color:#c3d0e8}
 .star code{background:rgba(255,255,255,.12);color:#9fe8d5}
+.star .box code,.star table code{background:#efece4;color:inherit}
 table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden}
 th{background:#f1ede3;text-align:left;padding:10px 12px;font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--ink3)}
 td{padding:9px 12px;border-top:1px solid var(--line);color:var(--ink2);vertical-align:top}
 td b{color:var(--ink)}
-.si{color:var(--ok);font-weight:700}.no{color:#b6aa92}
+.si{color:#17805F;font-weight:700}.no{color:#7d7260}
 .kbd{display:inline-block;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 8px;font-family:var(--mono);font-size:12px;background:#fff}
 .foot{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;color:var(--ink3);font-size:13.5px}
 @media(max-width:640px){.toc ol{columns:1}h1{font-size:27px}}
@@ -83,7 +103,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Guía del usuario","item":"https://getdexiae.com/guia-usuario"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía del usuario de DEXIAE 2.8","description":"Documentación de DEXIAE 2.8: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación de datos y peritaje de firmas.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-usuario","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-usuario"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"image":"https://getdexiae.com/og/guia-usuario.png"}
+{"@context":"https://schema.org","@type":"TechArticle","headline":"Guía del usuario de DEXIAE 2.8","description":"Documentación de DEXIAE 2.8: extractos bancarios a Excel, facturas por código QR, plantillas de extracción, validación de datos y peritaje de firmas.","inLanguage":"es-AR","url":"https://getdexiae.com/guia-usuario","mainEntityOfPage":{"@type":"WebPage","@id":"https://getdexiae.com/guia-usuario"},"about":{"@type":"SoftwareApplication","name":"DEXIAE","operatingSystem":"Windows 10, Windows 11","applicationCategory":"BusinessApplication"},"publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"author":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"dateModified":"2026-10-09","image":"https://getdexiae.com/og/guia-usuario.png"}
 </script>
 </head>
 <body>
@@ -119,7 +139,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 </div>
 
 <h2 id="que-es">1. Qué es DEXIAE</h2>
-<p>DEXIAE extrae datos de PDFs en lote y los audita: convertís carpetas enteras de facturas, formularios, recibos o extractos bancarios en planillas de Excel estructuradas, con detección de duplicados, validación de reglas de negocio y peritaje de firmas digitales. Todo el procesamiento ocurre <b>en tu computadora</b>: ningún documento se sube a internet.</p>
+<p>DEXIAE extrae datos de PDFs en lote y los audita: convertís carpetas enteras de facturas, formularios, recibos o <a href="/extractos-bancarios-excel">extractos bancarios</a> en planillas de Excel estructuradas, con detección de duplicados, validación de reglas de negocio y peritaje de firmas digitales. Todo el procesamiento ocurre <b>en tu computadora</b>: ningún documento se sube a internet.</p>
 <p>Tres conceptos que vas a ver en toda la guía:</p>
 <ul>
 <li><b>Plantilla</b>: le enseña a DEXIAE qué datos extraer de un tipo de documento (CUIT, fecha, monto…). Se configura una vez y se reusa siempre.</li>
@@ -142,7 +162,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <div class="box note" style="margin-top:10px"><b>Al terminar la prueba</b>, si activás <b>CORE</b> o <b>DEXIAE Contable</b> vas a notar que algunas de esas funciones dejan de estar. CORE es el plan de extracción por plantilla en volumen; Contable, el de los bancos de tus clientes; y peritaje, Centinela, Validación y reportes HTML/PDF son de PRO. No es un error: la prueba te dejó ver PRO.</div></li>
 <li><b>Ya tengo una licencia</b>: pegás la clave que recibiste al contratar y listo.</li>
 </ul>
-<p><b>DEXIAE Contable</b> (desde la 2.8.0) es el plan para estudios que llevan los bancos de sus clientes: extractos, clasificación y borrador de asientos sin límite, la extracción de documentos para probar (30 por mes) y las herramientas PDF. Con esa licencia la app arranca en <a href="#extractos">Extractos</a>, y lo que el plan no trae aparece con un candado: al tocarlo te dice qué trae tu plan y qué suma PRO. Una licencia Contable necesita la versión 2.8.0 o posterior. La comparación completa está en la <a href="#ediciones">tabla de ediciones</a>.</p>
+<p><a href="/guia-contable"><b>DEXIAE Contable</b></a> (desde la 2.8.0) es el plan para estudios que llevan los bancos de sus clientes: extractos, clasificación y borrador de asientos sin límite, la extracción de documentos para probar (30 por mes) y las herramientas PDF. Con esa licencia la app arranca en <a href="#extractos">Extractos</a>, y lo que el plan no trae aparece con un candado: al tocarlo te dice qué trae tu plan y qué suma PRO. Una licencia Contable necesita la versión 2.8.0 o posterior. La comparación completa está en la <a href="#ediciones">tabla de ediciones</a>.</p>
 <p>Para pedir tu clave (o renovarla) usá el botón <b>"Copiar solicitud"</b> del panel de licencia: copia tu ID de equipo y tus datos en un mensaje listo para enviar a <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>. Cada licencia vale para una PC.</p>
 <p><b>Novedades (desde la 2.9.0).</b> La renovación de tu licencia y lo que te preparamos —una plantilla, un set de reglas, la configuración de un cliente de Contable, un diccionario del Asistente— te llegan a la campana de arriba a la derecha, sin mails ni archivos para importar: al abrir DEXIAE con internet (como mucho una vez por día) o al tocar <b>"Buscar novedades"</b>. La renovación se aplica sola; lo demás lo instalás vos desde ahí, con los mismos controles que al importarlo a mano. Viaja firmado por DEXIAE y, si es para vos, cifrado con tu clave de licencia. Si una licencia paga vence, DEXIAE queda en <b>sólo lectura</b>: ves el Historial y abrís tus Excels, pero no procesa hasta que llega la renovación.</p>
 <p><b>Señal de uso (desde la 2.9.2).</b> Una vez por día, al abrir, DEXIAE avisa que se está usando: un código de esa instalación, el de tu licencia (no la clave), la versión y la edición. Nada de tus documentos, archivos ni clientes. Sirve para ofrecerte ayuda si dejás de usarlo, y se apaga en <b>Preferencias</b> (la ruedita) › «Avisarle a DEXIAE que el programa se usa». Al empezar la prueba, DEXIAE te ofrece dejar un mail o un WhatsApp para ayudarte a arrancar; es opcional.</p>
@@ -182,7 +202,7 @@ mes y el aviso de versión, en versión chica. Sirve cuando ya elegiste el módu
 y querés la pantalla para el trabajo. <b>La app se acuerda de cómo la dejaste</b>
 y vuelve a abrirse así.</p>
 <figure>
-<picture><source type="image/webp" srcset="/guia/guia_riel.webp"><img src="/guia/guia_riel.png" alt="La barra lateral de DEXIAE achicada a un riel de 62 px, con el aviso de versión reducido a un punto azul" loading="lazy" width="1440" height="340"></picture>
+<picture><source type="image/webp" srcset="/guia/guia_riel-800.webp 800w, /guia/guia_riel-1200.webp 1200w, /guia/guia_riel.webp 1440w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/guia/guia_riel.png" alt="La barra lateral de DEXIAE achicada a un riel de 62 px, con el aviso de versión reducido a un punto azul" loading="lazy" width="1440" height="340"></picture>
 <figcaption>Con la barra achicada, la pastilla del aviso de versión queda como un
 punto azul: el aviso no se pierde por trabajar así.</figcaption>
 </figure>
@@ -216,7 +236,7 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <li>Mientras tanto, el Excel del lote ya sale marcado «sin revisar» en los casos pendientes. La revisión también se abre desde el <a href="#historial">Historial</a> (botón <b>Revisar</b>), con Detección automática y en el Centinela.</li>
 </ul>
 <figure>
-<picture><source type="image/webp" srcset="/revision-lote.webp"><img src="/revision-lote.png?v=d7680b93" alt="Revisión del lote en DEXIAE: el caso que bloquea el Excel, el documento con cada dato marcado y las tres decisiones posibles" loading="lazy" width="1600" height="900"></picture>
+<picture><source type="image/webp" srcset="/revision-lote-800.webp 800w, /revision-lote-1200.webp 1200w, /revision-lote.webp 1600w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/revision-lote.png?v=d7680b93" alt="Revisión del lote en DEXIAE: el caso que bloquea el Excel, el documento con cada dato marcado y las tres decisiones posibles" loading="lazy" width="1600" height="900"></picture>
 <figcaption>La revisión de un lote de facturas de ejemplo: un campo obligatorio vacío bloquea el Excel; a la derecha, los datos del documento y de dónde salió cada uno.</figcaption>
 </figure>
 
@@ -324,7 +344,7 @@ con cuál de los dos estás trabajando.</div>
 <h3 id="sugerir">Marcá el dato y DEXIAE te sugiere cómo sacarlo</h3>
 <p>En la vista <b>Visual</b> del Laboratorio arrastrás sobre un dato del documento y DEXIAE te sugiere cómo sacarlo: prueba las formas posibles con el motor en el documento de referencia y en una <b>Carpeta de prueba</b> (otros documentos del mismo tipo), y marca con ★ la que saca el dato en más documentos. Una de las formas es <b>ZONA</b>: el dato se lee siempre en ese lugar de la página (en un escaneado, con OCR).</p>
 <figure>
-<picture><source type="image/webp" srcset="/laboratorio.webp"><img src="/laboratorio.png?v=f68dcb56" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy" width="1600" height="900"></picture>
+<picture><source type="image/webp" srcset="/laboratorio-800.webp 800w, /laboratorio-1200.webp 1200w, /laboratorio.webp 1600w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/laboratorio.png?v=f68dcb56" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy" width="1600" height="900"></picture>
 <figcaption>El Laboratorio en la vista Visual, con una factura de ejemplo y el resultado de «Probar» abajo.</figcaption>
 </figure>
 <h3>Probar sin gastar cupo</h3>
@@ -425,7 +445,7 @@ devuelve la conducta vieja: el archivo entra con sus filas marcadas.</div>
 <h4>El tablero de lo convertido</h4>
 <p>Debajo de la zona para soltar los resúmenes queda todo lo convertido en 30 o 90 días, 12 meses o todo: resúmenes, movimientos, clasificados solos, para revisar, cadena de saldos y asientos; las últimas conversiones con su estado y su Excel; las cuentas de cada cliente con su último saldo; cómo se clasificó; y lo que conviene resolver (categorías sin cuenta, banco sin configurar, cadena cortada, revisiones sin terminar, resúmenes que no se pudieron leer). Con un cliente elegido arriba, muestra sólo lo suyo. Las conversiones hechas con versiones anteriores a la 2.8.0 muestran «—» en lo que antes no se guardaba.</p>
 <figure>
-<picture><source type="image/webp" srcset="/extractos-modulo.webp"><img src="/extractos-modulo.png?v=e015b599" alt="Pantalla Extractos de DEXIAE con la zona para soltar los resúmenes, los bancos calibrados y el tablero de lo convertido" loading="lazy" width="1696" height="860"></picture>
+<picture><source type="image/webp" srcset="/extractos-modulo-800.webp 800w, /extractos-modulo-1200.webp 1200w, /extractos-modulo.webp 1696w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/extractos-modulo.png?v=e015b599" alt="Pantalla Extractos de DEXIAE con la zona para soltar los resúmenes, los bancos calibrados y el tablero de lo convertido" loading="lazy" width="1696" height="860"></picture>
 <figcaption>La pantalla Extractos con los datos de ejemplo de la demo.</figcaption>
 </figure>
 
@@ -833,7 +853,7 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 <li>Podés renombrar o borrar lotes (borrar elimina también sus claves de deduplicación).</li>
 </ul>
 <figure>
-<picture><source type="image/webp" srcset="/analitica.webp"><img src="/analitica.png?v=3c8eced2" alt="Analítica de DEXIAE: documentos, lotes, salieron OK, fueron a revisión, duplicados, dónde conviene actuar y volumen por semana" loading="lazy" width="1600" height="900"></picture>
+<picture><source type="image/webp" srcset="/analitica-800.webp 800w, /analitica-1200.webp 1200w, /analitica.webp 1600w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/analitica.png?v=3c8eced2" alt="Analítica de DEXIAE: documentos, lotes, salieron OK, fueron a revisión, duplicados, dónde conviene actuar y volumen por semana" loading="lazy" width="1600" height="900"></picture>
 <figcaption>La Analítica con los datos de ejemplo de la demo.</figcaption>
 </figure>
 
@@ -845,7 +865,7 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 <li>Con el <a href="#peritaje">peritaje de firmas</a> activo, el informe es <b>pericial</b> y suma el detalle de cada firma.</li>
 </ul>
 <figure>
-<picture><source type="image/webp" srcset="/informe-lote.webp"><img src="/informe-lote.png?v=12e8b0b5" alt="Informe del lote de DEXIAE: documentos sin observaciones, duplicados, para revisar, la validación por regla y los duplicados con su original" loading="lazy" width="1039" height="876"></picture>
+<picture><source type="image/webp" srcset="/informe-lote-800.webp 800w, /informe-lote.webp 1039w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/informe-lote.png?v=12e8b0b5" alt="Informe del lote de DEXIAE: documentos sin observaciones, duplicados, para revisar, la validación por regla y los duplicados con su original" loading="lazy" width="1039" height="876"></picture>
 <figcaption>El informe de un lote de facturas de ejemplo: los números son conteos, cada uno dice qué documentos son.</figcaption>
 </figure>
 
@@ -899,7 +919,7 @@ a la cuenta equivocada, una categoría no detectó lo que tenía que detectar. V
 razón: <b>esa duda no aparece mientras procesás, aparece después, mirando el Excel</b>.
 El Historial es lo único que sigue sabiendo qué corrió.</p>
 <figure>
-<picture><source type="image/webp" srcset="/guia/guia_no_me_cierra.webp"><img src="/guia/guia_no_me_cierra.png" alt="El botón «Esto no me cierra» en el detalle de un lote del Historial" loading="lazy" width="1210" height="530"></picture>
+<picture><source type="image/webp" srcset="/guia/guia_no_me_cierra-800.webp 800w, /guia/guia_no_me_cierra.webp 1210w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/guia/guia_no_me_cierra.png" alt="El botón «Esto no me cierra» en el detalle de un lote del Historial" loading="lazy" width="1210" height="530"></picture>
 <figcaption>Se abre el lote en el Historial y el botón está arriba, junto a los demás.</figcaption>
 </figure>
 <figure>
@@ -941,7 +961,7 @@ Contacto: <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a></di
 siempre; a la derecha, cuando hay una versión nueva para descargar.</figcaption>
 </figure>
 <figure>
-<picture><source type="image/webp" srcset="/guia/guia_aviso_version.webp"><img src="/guia/guia_aviso_version.png" alt="La pantalla de Ejecución con la pastilla de aviso y la franja ámbar arriba" loading="lazy" width="1440" height="640"></picture>
+<picture><source type="image/webp" srcset="/guia/guia_aviso_version-800.webp 800w, /guia/guia_aviso_version-1200.webp 1200w, /guia/guia_aviso_version.webp 1440w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/guia/guia_aviso_version.png" alt="La pantalla de Ejecución con la pastilla de aviso y la franja ámbar arriba" loading="lazy" width="1440" height="640"></picture>
 <figcaption>La <b>franja ámbar</b> de arriba aparece <b>sólo</b> cuando la versión nueva
 corrige resultados, o sea cuando cambia lo que salió en un Excel que ya generaste. Una
 mejora de pantalla no gana ese lugar.</figcaption>
@@ -967,7 +987,7 @@ punto azul. No se pierde por trabajar así.</li>
 todavía no existe en tu equipo o se ve muy poco: esa actualización hay que avisarla a
 mano. De la 2.5.17 en adelante, la app avisa sola.</div>
 
-<div class="foot">DEXIAE 2.8 · Guía del usuario · octubre 2026 · <a href="/">getdexiae.com</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
+<div class="foot">DEXIAE 2.8 · Guía del usuario · octubre 2026 · <a href="/">getdexiae.com</a> · <a href="/extractos-bancarios-excel">Extractos bancarios</a> · <a href="/facturas-qr-excel">Facturas por QR</a> · <a href="/guia-contable">Guía Contable</a> · <a href="/casos-de-uso">Casos de uso</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
 </div>
 <!-- Pre-chat + modal. La guía no tenía ningún punto de contacto: quien llegaba
      acá con una duda no tenía dónde preguntar ni cómo empezar la prueba. -->

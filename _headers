@@ -36,6 +36,12 @@
 /*.webp
   Cache-Control: public, max-age=86400
 
+# Fuentes propias (antes, Google Fonts). El nombre lleva la versión
+# (inter-v20-…): un archivo nunca cambia con el mismo nombre, así que se
+# puede guardar un año. Si se actualiza una fuente, va con nombre nuevo.
+/fonts/*.woff2
+  Cache-Control: public, max-age=31536000, immutable
+
 # Endurecimiento basico (no afecta SEO, evita sorpresas).
 /*
   X-Content-Type-Options: nosniff

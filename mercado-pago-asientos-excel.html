@@ -169,7 +169,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Extractos bancarios a Excel","item":"https://getdexiae.com/extractos-bancarios-excel"},{"@type":"ListItem","position":3,"name":"Mercado Pago","item":"https://getdexiae.com/mercado-pago-asientos-excel"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Mercado Pago cuenta como un banco para DEXIAE?","acceptedAnswer":{"@type":"Answer","text":"Mercado Pago es una billetera virtual, no un banco, y DEXIAE tiene un lector propio para su resumen. Lo reconoce por el CVU y por la columna «ID de la operación» de su tabla, no por el nombre: sus movimientos nombran a otros bancos, por ejemplo «Ingreso de dinero Cuenta Banco Santander»."}},{"@type":"Question","name":"¿Cómo se descarga el resumen de cuenta de Mercado Pago?","acceptedAnswer":{"@type":"Answer","text":"La ayuda oficial indica dos rutas: Tu dinero > Consultar más movimientos > Generar Resumen de cuenta, o Informes > Reportes de conciliación contable > Resumen de cuenta. Se genera a mano y Mercado Pago avisa por mail o notificación cuando está listo. Dato oficial, a octubre de 2026."}},{"@type":"Question","name":"¿Por qué la descripción de un movimiento de Mercado Pago sale en una sola fila?","acceptedAnswer":{"@type":"Answer","text":"En el resumen, la descripción viene partida en varias filas alrededor del importe. DEXIAE la une en una sola y con ese texto clasifica el movimiento."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Mercado Pago cuenta como un banco para DEXIAE?","acceptedAnswer":{"@type":"Answer","text":"Mercado Pago es una billetera virtual, no un banco, y DEXIAE tiene un lector propio para su resumen. Lo reconoce por el CVU o por la columna «ID de la operación» de su tabla, no por el nombre: sus movimientos nombran a otros bancos, por ejemplo «Ingreso de dinero Cuenta Banco Santander»."}},{"@type":"Question","name":"¿Cómo se descarga el resumen de cuenta de Mercado Pago?","acceptedAnswer":{"@type":"Answer","text":"La ayuda oficial indica dos rutas: Tu dinero > Consultar más movimientos > Generar Resumen de cuenta, o Informes > Reportes de conciliación contable > Resumen de cuenta. Se genera a mano y Mercado Pago avisa por mail o notificación cuando está listo. Dato oficial, a octubre de 2026."}},{"@type":"Question","name":"¿Por qué la descripción de un movimiento de Mercado Pago sale en una sola fila?","acceptedAnswer":{"@type":"Answer","text":"En el resumen, la descripción viene partida en varias filas alrededor del importe. DEXIAE la une en una sola y con ese texto clasifica el movimiento."}}]}
 </script>
 </head>
 <body>
@@ -213,8 +213,8 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     <li><b>Tu dinero &gt; Consultar más movimientos &gt; Generar Resumen de cuenta</b></li>
     <li><b>Informes &gt; Reportes de conciliación contable &gt; Resumen de cuenta</b></li>
    </ul>
-   <p>Cada vez que termina un período podés generar un resumen nuevo. Se genera a mano, siempre desde la sección «Reportes de conciliación contable»: no se puede programar. Tarda unos minutos (mientras tanto figura «En preparación») y Mercado Pago avisa por mail o con una notificación cuando está listo.</p>
-   <p class="formato"><b>Qué PDF sirve.</b> El resumen digital que se baja del homebanking, con texto. Un escaneo o una foto no se convierte: DEXIAE lo deja afuera y lo muestra como «banco no reconocido». Encabezados, pies y páginas de letra chica no entran como movimientos.</p>
+   <p>Cada vez que termina un período podés generar un resumen nuevo. Se genera a mano, siempre desde la sección «Reportes de conciliación contable»: no se puede programar. Según Mercado Pago, la generación lleva unos minutos (mientras tanto figura «En preparación») y Mercado Pago avisa por mail o con una notificación cuando está listo.</p>
+   <p class="formato"><b>Qué PDF sirve.</b> El resumen digital que descargás de Mercado Pago, con texto. La ayuda de Mercado Pago no indica en qué formato sale el resumen; a DEXIAE le sirve el PDF con texto. Un escaneo o una foto no se convierte: DEXIAE lo deja afuera y lo muestra como «banco no reconocido». Encabezados, pies y páginas de letra chica no entran como movimientos.</p>
    <p class="fuente">Fuente, ayuda oficial de Mercado Pago, a octubre de 2026.<span>Ayuda de Mercado Pago: ¿Cómo puedo generar y descargar el resumen de Cuenta?: <a href="https://www.mercadopago.com.ar/ayuda/32978" target="_blank" rel="noopener">https://www.mercadopago.com.ar/ayuda/32978</a></span></p>
  </section>
 
@@ -222,7 +222,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <h2>Qué hace DEXIAE con el resumen de Mercado Pago</h2>
    <div class="card">
     <dl class="ficha">
-     <div><dt>Cómo reconoce que es Mercado Pago</dt><dd>Por el CVU y por la columna «ID de la operación» de su tabla, no por el nombre: sus movimientos nombran a otros bancos («Ingreso de dinero Cuenta Banco Santander»).</dd></div>
+     <div><dt>Cómo reconoce que es Mercado Pago</dt><dd>Por el CVU o por la columna «ID de la operación» de su tabla, no por el nombre: sus movimientos nombran a otros bancos («Ingreso de dinero Cuenta Banco Santander»).</dd></div>
      <div><dt>Fecha y descripción</dt><dd>La fecha viene con guiones y la descripción, partida en varias filas alrededor del importe. DEXIAE la une en una sola y, con ese texto, clasifica el movimiento.</dd></div>
      <div><dt>Cómo controla el saldo</dt><dd>Cada renglón trae importe y saldo, así que el control es fila por fila y señala la fila exacta donde no cierra.</dd></div>
     </dl>
@@ -236,7 +236,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     <li><b>Si cargás dos veces el mismo archivo,</b> lo procesa una vez y te avisa.</li>
     <li><b>Controla la cadena de saldos fila por fila y te dice dónde y de cuánto no cierra.</b> Si una cuarta parte o más de las filas controlables no cierra, ese archivo se aparta en vez de entrar al Excel, y la pantalla final lo dice.</li>
     <li><b>Clasifica y arma el borrador de asientos</b> cuando elegís un cliente y tenés una edición con asientos (Contable, PRO o la prueba gratis), con el plan de cuentas de ese cliente.</li>
-    <li><b>Si el cliente tiene cuentas en dos o más bancos</b> y convertís juntos los resúmenes del mismo período, la transferencia entre sus cuentas se cuenta una sola vez, de banco a banco, en el borrador de asientos (hace falta tener elegido el cliente y una edición con asientos). Dos cuentas del mismo banco no se aparean entre sí.</li>
+    <li><b>Si el cliente tiene cuentas en dos o más bancos</b> y convertís juntos los resúmenes del mismo período, cuando el importe coincide, la diferencia es de hasta un día y el detalle de alguna de las dos puntas nombra al otro banco o al propio cliente, la transferencia entre sus cuentas se cuenta una sola vez, de banco a banco, en el borrador de asientos (hace falta tener elegido el cliente y una edición con asientos). Dos cuentas del mismo banco no se aparean entre sí.</li>
     <li><b>Todo pasa en tu computadora:</b> el resumen no se sube a internet.</li>
    </ul>
   <p style="margin-top:18px">Cada resumen va a su hoja del Excel, con fecha (siempre dd/mm/aaaa), detalle, CUIT cuando el banco lo imprime en el detalle, importe con signo, tipo, saldo y «Verif. Saldo»: OK o DESFASE. BASE marca el saldo de arranque y «—» un renglón sin saldo. El detalle de las hojas, las capturas y el control de saldos están en <a class="t" href="/extractos-bancarios-excel">Extractos bancarios a Excel</a>, y el paso a paso con un cliente, en la <a class="t" href="/guia-contable">guía de DEXIAE Contable</a>.</p>
@@ -245,7 +245,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <section class="sec faq" id="preguntas">
   <h2>Preguntas frecuentes sobre Mercado Pago</h2>
   <details><summary>¿Mercado Pago cuenta como un banco para DEXIAE?</summary>
-   <p>Mercado Pago es una billetera virtual, no un banco, y DEXIAE tiene un lector propio para su resumen. Lo reconoce por el CVU y por la columna «ID de la operación» de su tabla, no por el nombre: sus movimientos nombran a otros bancos, por ejemplo «Ingreso de dinero Cuenta Banco Santander».</p></details>
+   <p>Mercado Pago es una billetera virtual, no un banco, y DEXIAE tiene un lector propio para su resumen. Lo reconoce por el CVU o por la columna «ID de la operación» de su tabla, no por el nombre: sus movimientos nombran a otros bancos, por ejemplo «Ingreso de dinero Cuenta Banco Santander».</p></details>
   <details><summary>¿Cómo se descarga el resumen de cuenta de Mercado Pago?</summary>
    <p>La ayuda oficial indica dos rutas: Tu dinero &gt; Consultar más movimientos &gt; Generar Resumen de cuenta, o Informes &gt; Reportes de conciliación contable &gt; Resumen de cuenta. Se genera a mano y Mercado Pago avisa por mail o notificación cuando está listo. Dato oficial, a octubre de 2026.</p></details>
   <details><summary>¿Por qué la descripción de un movimiento de Mercado Pago sale en una sola fila?</summary>
@@ -269,12 +269,12 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 
 <section class="cu-cta" id="llamado"><div class="wrap">
  <h2>Mandanos un resumen de Mercado Pago</h2>
- <p>Mandá el PDF de un mes, tal como lo bajás del home banking, y te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo.</p>
+ <p>Mandá el PDF de un mes, tal como lo recibís o lo bajás, y te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo.</p>
  <div class="row">
   <a class="btn btn-p" href="https://wa.me/5493516574188?text=Hola%21%20Vengo%20de%20la%20web%20de%20DEXIAE.%20Les%20mando%20un%20resumen%20del%20banco%20para%20que%20me%20lo%20devuelvan%20en%20Excel%20con%20los%20asientos." target="_blank" rel="noopener">Mandanos un resumen por WhatsApp</a>
   <button class="btn btn-o" type="button" onclick="openLead('TRIAL')">Probar PRO gratis · 14 días</button>
  </div>
- <p class="pie">La prueba es de PRO: 14 días, hasta 100 documentos y sin tarjeta. Los extractos no descuentan de ese cupo. <a href="/#contable">Ver DEXIAE Contable</a></p>
+ <p class="pie">La prueba es de PRO (salvo la Detección automática): 14 días, hasta 100 documentos y sin tarjeta. Los extractos no descuentan de ese cupo. <a href="/#contable">Ver DEXIAE Contable</a></p>
 </div></section>
 
 <footer><div class="foot-in">

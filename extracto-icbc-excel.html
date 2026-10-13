@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Cómo recibir el extracto de ICBC y pasarlo a Excel con DEXIAE: lee el resumen del homebanking, controla el saldo por tramos y arma el borrador de asientos.">
+<meta name="description" content="Cómo recibir el extracto de ICBC y pasarlo a Excel con DEXIAE: lee el resumen de cuenta de ICBC, controla el saldo por tramos y arma el borrador de asientos.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="DEXIAE">
 <meta name="language" content="es-AR">
@@ -20,7 +20,7 @@
 <meta property="og:url" content="https://getdexiae.com/extracto-icbc-excel">
 <meta property="og:site_name" content="DEXIAE">
 <meta property="og:title" content="Extracto ICBC a Excel y asientos · DEXIAE">
-<meta property="og:description" content="Cómo recibir el extracto de ICBC y pasarlo a Excel con DEXIAE: lee el resumen del homebanking, controla el saldo por tramos y arma el borrador de asientos.">
+<meta property="og:description" content="Cómo recibir el extracto de ICBC y pasarlo a Excel con DEXIAE: lee el resumen de cuenta de ICBC, controla el saldo por tramos y arma el borrador de asientos.">
 <meta property="og:image" content="https://getdexiae.com/og/extractos-bancarios-excel.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -169,7 +169,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Extractos bancarios a Excel","item":"https://getdexiae.com/extractos-bancarios-excel"},{"@type":"ListItem","position":3,"name":"ICBC","item":"https://getdexiae.com/extracto-icbc-excel"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo lee DEXIAE los importes negativos de ICBC, que llevan el signo al final?","acceptedAnswer":{"@type":"Answer","text":"Los toma tal como vienen (1.234,56-) y los pasa a importe con signo. La fecha viene como día y mes, y el año se toma del período que figura en el encabezado."}},{"@type":"Question","name":"¿Por qué el saldo de ICBC se controla por tramos y no fila por fila?","acceptedAnswer":{"@type":"Answer","text":"Porque ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota."}},{"@type":"Question","name":"¿Sirve la exportación de movimientos de ICBC?","acceptedAnswer":{"@type":"Answer","text":"La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee. Lo que lee DEXIAE es el resumen de cuenta que baja el homebanking."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo lee DEXIAE los importes negativos de ICBC, que llevan el signo al final?","acceptedAnswer":{"@type":"Answer","text":"Los toma tal como vienen (1.234,56-) y los pasa a importe con signo. La fecha viene como día y mes, y el año se toma del período que figura en el encabezado."}},{"@type":"Question","name":"¿Por qué el saldo de ICBC se controla por tramos y no fila por fila?","acceptedAnswer":{"@type":"Answer","text":"Porque ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota."}},{"@type":"Question","name":"¿Sirve la exportación de movimientos de ICBC?","acceptedAnswer":{"@type":"Answer","text":"La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee. DEXIAE está calibrado con el resumen mensual de ICBC."}}]}
 </script>
 </head>
 <body>
@@ -215,8 +215,8 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     <li><b>ICBC Mobile Banking:</b> en el menú de tres puntos de Cuentas, elegí e-resumen y seleccioná los productos.</li>
    </ul>
    <p>El resumen llega como PDF adjunto al mail y se abre con una contraseña: por defecto, los primeros 6 dígitos del DNI. Según los términos del servicio, el primer envío por mail llega con el primer o segundo resumen posterior a la adhesión. El banco indica que los resúmenes de cuenta también se pueden consultar en Access Banking.</p>
-   <p><b>Si el PDF llega con contraseña.</b> DEXIAE no puede abrir un PDF protegido con contraseña: lo muestra como «banco no reconocido» y no lo convierte. Abrilo con tu clave y guardá una copia sin contraseña antes de cargarlo.</p>
-   <p class="formato"><b>Qué PDF sirve.</b> El resumen digital que se baja del homebanking, con texto. Un escaneo o una foto no se convierte: DEXIAE lo deja afuera y lo muestra como «banco no reconocido». Encabezados, pies y páginas de letra chica no entran como movimientos.</p>
+   <p><b>Si el PDF llega con contraseña.</b> DEXIAE no puede abrir un PDF protegido con contraseña: en la pantalla de Extractos lo muestra como «banco no reconocido» y no lo convierte. Si el tuyo llega con clave, escribinos por WhatsApp.</p>
+   <p class="formato"><b>Qué PDF sirve.</b> El resumen digital que baja o te manda el banco, con texto. Un escaneo o una foto no se convierte: DEXIAE lo deja afuera y lo muestra como «banco no reconocido». Encabezados, pies y páginas de letra chica no entran como movimientos.</p>
    <p class="fuente">Fuente, ayuda oficial de ICBC, a octubre de 2026.<span>ICBC: Preguntas frecuentes sobre cuentas: <a href="https://icbc.com.ar/personas/preguntas-frecuentes?c=cuentas" target="_blank" rel="noopener">https://icbc.com.ar/personas/preguntas-frecuentes?c=cuentas</a></span><span>ICBC: e-Resumen: <a href="https://www.icbc.com.ar/personas/productos-servicios/tarjetas/e-resumen" target="_blank" rel="noopener">https://www.icbc.com.ar/personas/productos-servicios/tarjetas/e-resumen</a></span></p>
  </section>
 
@@ -224,7 +224,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <h2>Qué hace DEXIAE con el resumen de ICBC</h2>
    <div class="card">
     <dl class="ficha">
-     <div><dt>Qué lee</dt><dd>El resumen de cuenta que baja el homebanking. La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee.</dd></div>
+     <div><dt>Qué lee</dt><dd>Está calibrado con el resumen mensual de ICBC. La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee.</dd></div>
      <div><dt>Cómo reconoce que es ICBC</dt><dd>Por el encabezado de su tabla.</dd></div>
      <div><dt>Fecha y signo</dt><dd>La fecha viene como día y mes: el año se toma del período del encabezado. Los negativos llevan el signo al final (1.234,56-) y se leen bien.</dd></div>
      <div><dt>Diseño que se corre</dt><dd>El diseño se corre entre páginas, así que las columnas se toman del encabezado de cada página.</dd></div>
@@ -240,7 +240,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     <li><b>Si cargás dos veces el mismo archivo,</b> lo procesa una vez y te avisa.</li>
     <li><b>Controla la cadena de saldos por tramos, entre dos saldos impresos, y te dice dónde y de cuánto no cierra.</b> Si una cuarta parte o más de las filas controlables no cierra, ese archivo se aparta en vez de entrar al Excel, y la pantalla final lo dice.</li>
     <li><b>Clasifica y arma el borrador de asientos</b> cuando elegís un cliente y tenés una edición con asientos (Contable, PRO o la prueba gratis), con el plan de cuentas de ese cliente.</li>
-    <li><b>Si el cliente tiene cuentas en dos o más bancos</b> y convertís juntos los resúmenes del mismo período, la transferencia entre sus cuentas se cuenta una sola vez, de banco a banco, en el borrador de asientos (hace falta tener elegido el cliente y una edición con asientos). Dos cuentas del mismo banco no se aparean entre sí.</li>
+    <li><b>Si el cliente tiene cuentas en dos o más bancos</b> y convertís juntos los resúmenes del mismo período, cuando el importe coincide, la diferencia es de hasta un día y el detalle de alguna de las dos puntas nombra al otro banco o al propio cliente, la transferencia entre sus cuentas se cuenta una sola vez, de banco a banco, en el borrador de asientos (hace falta tener elegido el cliente y una edición con asientos). Dos cuentas del mismo banco no se aparean entre sí.</li>
     <li><b>Todo pasa en tu computadora:</b> el resumen no se sube a internet.</li>
    </ul>
   <p style="margin-top:18px">Cada resumen va a su hoja del Excel, con fecha (siempre dd/mm/aaaa), detalle, CUIT cuando el banco lo imprime en el detalle, importe con signo, tipo, saldo y «Verif. Saldo»: OK o DESFASE. BASE marca el saldo de arranque y «—» un renglón sin saldo. El detalle de las hojas, las capturas y el control de saldos están en <a class="t" href="/extractos-bancarios-excel">Extractos bancarios a Excel</a>, y el paso a paso con un cliente, en la <a class="t" href="/guia-contable">guía de DEXIAE Contable</a>.</p>
@@ -253,7 +253,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <details><summary>¿Por qué el saldo de ICBC se controla por tramos y no fila por fila?</summary>
    <p>Porque ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota.</p></details>
   <details><summary>¿Sirve la exportación de movimientos de ICBC?</summary>
-   <p>La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee. Lo que lee DEXIAE es el resumen de cuenta que baja el homebanking.</p></details>
+   <p>La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee. DEXIAE está calibrado con el resumen mensual de ICBC.</p></details>
  </section>
 
  <section class="sec" id="otros">
@@ -273,12 +273,12 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 
 <section class="cu-cta" id="llamado"><div class="wrap">
  <h2>Mandanos un resumen de ICBC</h2>
- <p>Mandá el PDF de un mes, tal como lo bajás del home banking, y te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo.</p>
+ <p>Mandá el PDF de un mes, tal como lo recibís o lo bajás, y te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo.</p>
  <div class="row">
   <a class="btn btn-p" href="https://wa.me/5493516574188?text=Hola%21%20Vengo%20de%20la%20web%20de%20DEXIAE.%20Les%20mando%20un%20resumen%20del%20banco%20para%20que%20me%20lo%20devuelvan%20en%20Excel%20con%20los%20asientos." target="_blank" rel="noopener">Mandanos un resumen por WhatsApp</a>
   <button class="btn btn-o" type="button" onclick="openLead('TRIAL')">Probar PRO gratis · 14 días</button>
  </div>
- <p class="pie">La prueba es de PRO: 14 días, hasta 100 documentos y sin tarjeta. Los extractos no descuentan de ese cupo. <a href="/#contable">Ver DEXIAE Contable</a></p>
+ <p class="pie">La prueba es de PRO (salvo la Detección automática): 14 días, hasta 100 documentos y sin tarjeta. Los extractos no descuentan de ese cupo. <a href="/#contable">Ver DEXIAE Contable</a></p>
 </div></section>
 
 <footer><div class="foot-in">

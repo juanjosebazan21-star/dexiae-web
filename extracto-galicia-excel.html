@@ -169,7 +169,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Extractos bancarios a Excel","item":"https://getdexiae.com/extractos-bancarios-excel"},{"@type":"ListItem","position":3,"name":"Banco Galicia","item":"https://getdexiae.com/extracto-galicia-excel"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Dónde encuentro el resumen de cuenta en el Online Banking de Galicia?","acceptedAnswer":{"@type":"Answer","text":"En Online Banking: Cuentas > Más opciones > Resúmenes de Cuentas. En la App Galicia: Cuentas > Resúmenes de cuenta, donde se filtra por fechas, moneda y tipo de cuenta. Es lo que indica la ayuda oficial del banco, a octubre de 2026."}},{"@type":"Question","name":"¿DEXIAE se confunde si el resumen de Galicia nombra a otros bancos?","acceptedAnswer":{"@type":"Answer","text":"No. En una transferencia, el resumen de Galicia imprime el banco de la otra parte, así que DEXIAE no se guía por los nombres de banco del detalle. Reconoce Galicia por el CBU de la portada (entidad 007) y, si no está, por la forma de la tabla."}},{"@type":"Question","name":"¿Cómo sé en qué renglón no cierra el saldo de un resumen de Galicia?","acceptedAnswer":{"@type":"Answer","text":"El resumen de Galicia trae el saldo en cada renglón, así que el control es fila por fila: la columna «Verif. Saldo» marca OK o DESFASE y te dice en qué fila y de cuánto no cierra."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Dónde encuentro el resumen de cuenta en el Online Banking de Galicia?","acceptedAnswer":{"@type":"Answer","text":"En Online Banking: Cuentas > Más opciones > Resúmenes de Cuentas. En la App Galicia: Cuentas > Resúmenes de cuenta, donde se filtra por fechas, moneda y tipo de cuenta. Es lo que indica la ayuda oficial del banco, a octubre de 2026."}},{"@type":"Question","name":"¿DEXIAE se confunde si el resumen de Galicia nombra a otros bancos?","acceptedAnswer":{"@type":"Answer","text":"En una transferencia, el resumen de Galicia imprime el banco de la otra parte. Reconoce Galicia primero por el CBU de la portada (entidad 007) y, si no está, por la forma de la tabla; los nombres de banco del detalle no cuentan para eso."}},{"@type":"Question","name":"¿Cómo sé en qué renglón no cierra el saldo de un resumen de Galicia?","acceptedAnswer":{"@type":"Answer","text":"El resumen de Galicia trae el saldo en cada renglón, así que el control es fila por fila: la columna «Verif. Saldo» marca OK o DESFASE y te dice en qué fila y de cuánto no cierra."}}]}
 </script>
 </head>
 <body>
@@ -222,7 +222,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     <li><span>Filtrá por fechas, moneda y tipo de cuenta.</span></li>
    </ol>
    <p>Por teléfono (Fonobanco), el banco te manda el resumen por mail.</p>
-   <p class="formato"><b>Qué PDF sirve.</b> El resumen digital que se baja del homebanking, con texto. Un escaneo o una foto no se convierte: DEXIAE lo deja afuera y lo muestra como «banco no reconocido». Encabezados, pies y páginas de letra chica no entran como movimientos.</p>
+   <p class="formato"><b>Qué PDF sirve.</b> El resumen digital que baja o te manda el banco, con texto. Un escaneo o una foto no se convierte: DEXIAE lo deja afuera y lo muestra como «banco no reconocido». Encabezados, pies y páginas de letra chica no entran como movimientos.</p>
    <p class="fuente">Fuente, ayuda oficial de Banco Galicia, a octubre de 2026.<span>Ayuda de Banco Galicia: ¿Dónde encuentro mis resúmenes de cuenta?: <a href="https://ayuda.bancogalicia.com.ar/n4/donde-veo-mis-resumenes-de-cuenta" target="_blank" rel="noopener">https://ayuda.bancogalicia.com.ar/n4/donde-veo-mis-resumenes-de-cuenta</a></span></p>
  </section>
 
@@ -230,7 +230,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <h2>Qué hace DEXIAE con el resumen del Banco Galicia</h2>
    <div class="card">
     <dl class="ficha">
-     <div><dt>Cómo reconoce que es Galicia</dt><dd>Por el CBU de la portada (los tres primeros dígitos, entidad 007) y, si no lo encuentra, por la forma de la tabla. No se guía por los nombres de banco que aparecen en el detalle: en una transferencia, el resumen de Galicia imprime el banco de la otra parte.</dd></div>
+     <div><dt>Cómo reconoce que es Galicia</dt><dd>Primero por el CBU de la portada (los tres primeros dígitos, entidad 007) y, si no lo encuentra, por la forma de la tabla. Los nombres de banco que aparecen en el detalle no cuentan para eso: en una transferencia, el resumen de Galicia imprime el banco de la otra parte.</dd></div>
      <div><dt>Qué columnas lee</dt><dd>Fecha · Descripción · Origen · Crédito · Débito · Saldo. Los importes salen con signo: el débito es negativo.</dd></div>
      <div><dt>Detalle de varias líneas</dt><dd>Si el detalle de un movimiento ocupa varias líneas, lo une en una sola fila.</dd></div>
      <div><dt>Cómo controla el saldo</dt><dd>El resumen trae el saldo en cada renglón, así que el control es fila por fila y señala la fila exacta donde no cierra.</dd></div>
@@ -245,7 +245,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     <li><b>Si cargás dos veces el mismo archivo,</b> lo procesa una vez y te avisa.</li>
     <li><b>Controla la cadena de saldos fila por fila y te dice dónde y de cuánto no cierra.</b> Si una cuarta parte o más de las filas controlables no cierra, ese archivo se aparta en vez de entrar al Excel, y la pantalla final lo dice.</li>
     <li><b>Clasifica y arma el borrador de asientos</b> cuando elegís un cliente y tenés una edición con asientos (Contable, PRO o la prueba gratis), con el plan de cuentas de ese cliente.</li>
-    <li><b>Si el cliente tiene cuentas en dos o más bancos</b> y convertís juntos los resúmenes del mismo período, la transferencia entre sus cuentas se cuenta una sola vez, de banco a banco, en el borrador de asientos (hace falta tener elegido el cliente y una edición con asientos). Dos cuentas del mismo banco no se aparean entre sí.</li>
+    <li><b>Si el cliente tiene cuentas en dos o más bancos</b> y convertís juntos los resúmenes del mismo período, cuando el importe coincide, la diferencia es de hasta un día y el detalle de alguna de las dos puntas nombra al otro banco o al propio cliente, la transferencia entre sus cuentas se cuenta una sola vez, de banco a banco, en el borrador de asientos (hace falta tener elegido el cliente y una edición con asientos). Dos cuentas del mismo banco no se aparean entre sí.</li>
     <li><b>Todo pasa en tu computadora:</b> el resumen no se sube a internet.</li>
    </ul>
   <p style="margin-top:18px">Cada resumen va a su hoja del Excel, con fecha (siempre dd/mm/aaaa), detalle, CUIT cuando el banco lo imprime en el detalle, importe con signo, tipo, saldo y «Verif. Saldo»: OK o DESFASE. BASE marca el saldo de arranque y «—» un renglón sin saldo. El detalle de las hojas, las capturas y el control de saldos están en <a class="t" href="/extractos-bancarios-excel">Extractos bancarios a Excel</a>, y el paso a paso con un cliente, en la <a class="t" href="/guia-contable">guía de DEXIAE Contable</a>.</p>
@@ -256,7 +256,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <details><summary>¿Dónde encuentro el resumen de cuenta en el Online Banking de Galicia?</summary>
    <p>En Online Banking: Cuentas &gt; Más opciones &gt; Resúmenes de Cuentas. En la App Galicia: Cuentas &gt; Resúmenes de cuenta, donde se filtra por fechas, moneda y tipo de cuenta. Es lo que indica la ayuda oficial del banco, a octubre de 2026.</p></details>
   <details><summary>¿DEXIAE se confunde si el resumen de Galicia nombra a otros bancos?</summary>
-   <p>No. En una transferencia, el resumen de Galicia imprime el banco de la otra parte, así que DEXIAE no se guía por los nombres de banco del detalle. Reconoce Galicia por el CBU de la portada (entidad 007) y, si no está, por la forma de la tabla.</p></details>
+   <p>En una transferencia, el resumen de Galicia imprime el banco de la otra parte. Reconoce Galicia primero por el CBU de la portada (entidad 007) y, si no está, por la forma de la tabla; los nombres de banco del detalle no cuentan para eso.</p></details>
   <details><summary>¿Cómo sé en qué renglón no cierra el saldo de un resumen de Galicia?</summary>
    <p>El resumen de Galicia trae el saldo en cada renglón, así que el control es fila por fila: la columna «Verif. Saldo» marca OK o DESFASE y te dice en qué fila y de cuánto no cierra.</p></details>
  </section>
@@ -278,12 +278,12 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 
 <section class="cu-cta" id="llamado"><div class="wrap">
  <h2>Mandanos un resumen del Banco Galicia</h2>
- <p>Mandá el PDF de un mes, tal como lo bajás del home banking, y te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo.</p>
+ <p>Mandá el PDF de un mes, tal como lo recibís o lo bajás, y te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo.</p>
  <div class="row">
   <a class="btn btn-p" href="https://wa.me/5493516574188?text=Hola%21%20Vengo%20de%20la%20web%20de%20DEXIAE.%20Les%20mando%20un%20resumen%20del%20banco%20para%20que%20me%20lo%20devuelvan%20en%20Excel%20con%20los%20asientos." target="_blank" rel="noopener">Mandanos un resumen por WhatsApp</a>
   <button class="btn btn-o" type="button" onclick="openLead('TRIAL')">Probar PRO gratis · 14 días</button>
  </div>
- <p class="pie">La prueba es de PRO: 14 días, hasta 100 documentos y sin tarjeta. Los extractos no descuentan de ese cupo. <a href="/#contable">Ver DEXIAE Contable</a></p>
+ <p class="pie">La prueba es de PRO (salvo la Detección automática): 14 días, hasta 100 documentos y sin tarjeta. Los extractos no descuentan de ese cupo. <a href="/#contable">Ver DEXIAE Contable</a></p>
 </div></section>
 
 <footer><div class="foot-in">

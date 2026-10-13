@@ -169,7 +169,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Extractos bancarios a Excel","item":"https://getdexiae.com/extractos-bancarios-excel"},{"@type":"ListItem","position":3,"name":"Banco Macro","item":"https://getdexiae.com/extracto-macro-excel"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo me llega el resumen de cuenta del Banco Macro?","acceptedAnswer":{"@type":"Answer","text":"El banco ofrece el E-Resumen: recibís por mail el resumen de tus cajas de ahorro y de tu cuenta corriente. Para adherirte: Banca Internet > Consultas y Solicitudes > E-resumen. Hace falta ser titular. Es lo que indica la ayuda oficial de Macro, a octubre de 2026."}},{"@type":"Question","name":"El resumen de Macro viene con lo más nuevo arriba: ¿cómo sale en el Excel?","acceptedAnswer":{"@type":"Answer","text":"Macro lista los movimientos del más nuevo al más viejo. DEXIAE los devuelve en orden cronológico, con el saldo de cada renglón para controlar la cadena."}},{"@type":"Question","name":"¿Cómo reconoce DEXIAE que un PDF es del Banco Macro?","acceptedAnswer":{"@type":"Answer","text":"Por el encabezado de su tabla: Fecha, Nro. Ref, Causal, Concepto, Importe y Saldo. No hace falta elegir el banco."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo me llega el resumen de cuenta del Banco Macro?","acceptedAnswer":{"@type":"Answer","text":"El banco ofrece el E-Resumen: recibís por mail el resumen de tus cajas de ahorro y de tu cuenta corriente. Para adherirte: Banca Internet > Consultas y Solicitudes > E-resumen. Hace falta ser titular. Es lo que indica la ayuda oficial de Macro, a octubre de 2026."}},{"@type":"Question","name":"El resumen de Macro viene con lo más nuevo arriba: ¿cómo sale en el Excel?","acceptedAnswer":{"@type":"Answer","text":"Macro lista los movimientos del más nuevo al más viejo. DEXIAE los devuelve en orden cronológico, con el saldo de cada renglón para controlar la cadena."}},{"@type":"Question","name":"¿Cómo reconoce DEXIAE que un PDF es del Banco Macro?","acceptedAnswer":{"@type":"Answer","text":"Por el encabezado de su tabla (Causal · Concepto · Importe · Saldo). No hace falta elegir el banco."}}]}
 </script>
 </head>
 <body>
@@ -214,8 +214,8 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     <li><span>Andá a <b>Consultas y Solicitudes &gt; E-resumen</b>.</span></li>
     <li><span>Elegí los productos que querés adherir y confirmá tu mail.</span></li>
    </ol>
-   <p>El E-Resumen alcanza a las cajas de ahorro en pesos y dólares y a la cuenta corriente en pesos, siempre que seas titular. También se puede pedir por teléfono, con tu clave de atención telefónica. Para abrir el archivo, el banco pide tener Acrobat Reader.</p>
-   <p class="formato"><b>Qué PDF sirve.</b> El resumen digital que se baja del homebanking, con texto. Un escaneo o una foto no se convierte: DEXIAE lo deja afuera y lo muestra como «banco no reconocido». Encabezados, pies y páginas de letra chica no entran como movimientos.</p>
+   <p>El E-Resumen alcanza a las cajas de ahorro en pesos y dólares y a la cuenta corriente en pesos, siempre que seas titular. También se puede pedir por teléfono, con tu clave de atención telefónica. El banco pide disponer de Acrobat Reader.</p>
+   <p class="formato"><b>Qué PDF sirve.</b> El resumen digital que baja o te manda el banco, con texto. Un escaneo o una foto no se convierte: DEXIAE lo deja afuera y lo muestra como «banco no reconocido». Encabezados, pies y páginas de letra chica no entran como movimientos.</p>
    <p class="fuente">Fuente, ayuda oficial de Banco Macro, a octubre de 2026.<span>Banco Macro: E-Resumen: <a href="https://www.macro.com.ar/operacionessimples/operacion/resumenes-cuenta" target="_blank" rel="noopener">https://www.macro.com.ar/operacionessimples/operacion/resumenes-cuenta</a></span></p>
  </section>
 
@@ -238,7 +238,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
     <li><b>Si cargás dos veces el mismo archivo,</b> lo procesa una vez y te avisa.</li>
     <li><b>Controla la cadena de saldos fila por fila y te dice dónde y de cuánto no cierra.</b> Si una cuarta parte o más de las filas controlables no cierra, ese archivo se aparta en vez de entrar al Excel, y la pantalla final lo dice.</li>
     <li><b>Clasifica y arma el borrador de asientos</b> cuando elegís un cliente y tenés una edición con asientos (Contable, PRO o la prueba gratis), con el plan de cuentas de ese cliente.</li>
-    <li><b>Si el cliente tiene cuentas en dos o más bancos</b> y convertís juntos los resúmenes del mismo período, la transferencia entre sus cuentas se cuenta una sola vez, de banco a banco, en el borrador de asientos (hace falta tener elegido el cliente y una edición con asientos). Dos cuentas del mismo banco no se aparean entre sí.</li>
+    <li><b>Si el cliente tiene cuentas en dos o más bancos</b> y convertís juntos los resúmenes del mismo período, cuando el importe coincide, la diferencia es de hasta un día y el detalle de alguna de las dos puntas nombra al otro banco o al propio cliente, la transferencia entre sus cuentas se cuenta una sola vez, de banco a banco, en el borrador de asientos (hace falta tener elegido el cliente y una edición con asientos). Dos cuentas del mismo banco no se aparean entre sí.</li>
     <li><b>Todo pasa en tu computadora:</b> el resumen no se sube a internet.</li>
    </ul>
   <p style="margin-top:18px">Cada resumen va a su hoja del Excel, con fecha (siempre dd/mm/aaaa), detalle, CUIT cuando el banco lo imprime en el detalle, importe con signo, tipo, saldo y «Verif. Saldo»: OK o DESFASE. BASE marca el saldo de arranque y «—» un renglón sin saldo. El detalle de las hojas, las capturas y el control de saldos están en <a class="t" href="/extractos-bancarios-excel">Extractos bancarios a Excel</a>, y el paso a paso con un cliente, en la <a class="t" href="/guia-contable">guía de DEXIAE Contable</a>.</p>
@@ -251,7 +251,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <details><summary>El resumen de Macro viene con lo más nuevo arriba: ¿cómo sale en el Excel?</summary>
    <p>Macro lista los movimientos del más nuevo al más viejo. DEXIAE los devuelve en orden cronológico, con el saldo de cada renglón para controlar la cadena.</p></details>
   <details><summary>¿Cómo reconoce DEXIAE que un PDF es del Banco Macro?</summary>
-   <p>Por el encabezado de su tabla: Fecha, Nro. Ref, Causal, Concepto, Importe y Saldo. No hace falta elegir el banco.</p></details>
+   <p>Por el encabezado de su tabla (Causal · Concepto · Importe · Saldo). No hace falta elegir el banco.</p></details>
  </section>
 
  <section class="sec" id="otros">
@@ -271,12 +271,12 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 
 <section class="cu-cta" id="llamado"><div class="wrap">
  <h2>Mandanos un resumen del Banco Macro</h2>
- <p>Mandá el PDF de un mes, tal como lo bajás del home banking, y te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo.</p>
+ <p>Mandá el PDF de un mes, tal como lo recibís o lo bajás, y te lo devolvemos en Excel con los asientos. Lo usamos sólo para armarte ese Excel y, cuando te lo devolvemos, borramos todo.</p>
  <div class="row">
   <a class="btn btn-p" href="https://wa.me/5493516574188?text=Hola%21%20Vengo%20de%20la%20web%20de%20DEXIAE.%20Les%20mando%20un%20resumen%20del%20banco%20para%20que%20me%20lo%20devuelvan%20en%20Excel%20con%20los%20asientos." target="_blank" rel="noopener">Mandanos un resumen por WhatsApp</a>
   <button class="btn btn-o" type="button" onclick="openLead('TRIAL')">Probar PRO gratis · 14 días</button>
  </div>
- <p class="pie">La prueba es de PRO: 14 días, hasta 100 documentos y sin tarjeta. Los extractos no descuentan de ese cupo. <a href="/#contable">Ver DEXIAE Contable</a></p>
+ <p class="pie">La prueba es de PRO (salvo la Detección automática): 14 días, hasta 100 documentos y sin tarjeta. Los extractos no descuentan de ese cupo. <a href="/#contable">Ver DEXIAE Contable</a></p>
 </div></section>
 
 <footer><div class="foot-in">

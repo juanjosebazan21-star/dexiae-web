@@ -80,7 +80,7 @@ https://getdexiae.com/#precios
 - [Casos de uso](https://getdexiae.com/casos-de-uso): cómo lo usan contadores, estudios jurídicos, organismos públicos, empresas y auditoría interna.
 - [Extracto bancario a Excel](https://getdexiae.com/extractos-bancarios-excel): qué bancos lee, qué hojas genera y cómo verifica la cadena de saldos.
 - [Extracto de Galicia a Excel y asientos](https://getdexiae.com/extracto-galicia-excel): cómo bajar el resumen de cuenta (según la ayuda del banco) y qué lee DEXIAE: columnas, reconocimiento por el CBU y control de saldos fila por fila.
-- [Extracto de Santander a Excel y asientos](https://getdexiae.com/extracto-santander-excel): cómo descargar el resumen y qué lee DEXIAE en sus dos presentaciones, incluida la cuenta en dólares.
+- [Extracto de Santander a Excel y asientos](https://getdexiae.com/extracto-santander-excel): cómo descargar el resumen y qué lee DEXIAE en sus dos presentaciones y qué pasa con la cuenta en dólares, cuyos movimientos quedan afuera del Excel.
 - [Extracto del Banco Macro a Excel y asientos](https://getdexiae.com/extracto-macro-excel): cómo recibir el resumen con el E-Resumen y cómo lo devuelve DEXIAE, en orden cronológico y con el saldo controlado fila por fila.
 - [Extracto de ICBC a Excel y asientos](https://getdexiae.com/extracto-icbc-excel): cómo recibir el resumen con el e-Resumen y qué lee DEXIAE: importes con el signo al final y control de saldos por tramos.
 - [Extracto de Credicoop a Excel y asientos](https://getdexiae.com/extracto-credicoop-excel): cómo adherirse al resumen electrónico y qué lee DEXIAE: la tabla de movimientos, con control de saldos por tramos.

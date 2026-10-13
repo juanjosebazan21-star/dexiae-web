@@ -1007,6 +1007,7 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
 .mp-b{display:flex;align-items:center;gap:10px;padding:13px 15px;border-radius:11px;
   font-size:14.5px;font-weight:600;text-decoration:none;border:1px solid var(--line2);
   color:var(--hi);background:rgba(150,180,235,.05)}
+button.mp-b{width:100%;text-align:left;font-family:inherit;cursor:pointer}
 .mp-b .ic{flex:0 0 18px;display:grid;place-items:center;color:var(--cta)}
 .mp-b em{font-style:normal;display:block;font-size:11.5px;font-weight:400;
   color:var(--md);margin-top:2px}
@@ -1197,14 +1198,17 @@ html.fund-agotado .fund-off{display:revert}
      <span>Que me lo manden por WhatsApp
       <em>Te llega el link y lo abrís cuando estés en la compu</em></span>
     </a>
-    <a class="mp-b" href="app/ejemplos/DEXIAE_ejemplo_extracto.xlsx" download>
+    <!-- 13/10/2026: antes el Excel se bajaba sin formulario y el que lo veía se
+         iba sin dejar contacto. Ahora pide un solo dato (mail o WhatsApp):
+         plan «EJEMPLO» de lead.js. -->
+    <button type="button" class="mp-b" data-evento="excel_form" onclick="openLead('EJEMPLO')">
      <span class="ic"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"></path><path d="M14 2v6h6"></path><path d="m9 15 2 2 4-4"></path></svg></span>
      <span>Ver un Excel de ejemplo
       <em>Se abre en tu teléfono · es la salida real del sistema</em></span>
-    </a>
+    </button>
    </div>
-   <!-- Aparece al tocar «Ver un Excel de ejemplo» (el Excel se baja sin formulario:
-        es la prueba de que sirve). El texto prellenado dice que viene del Excel. -->
+   <!-- Aparece después de pedir el Excel de ejemplo (lo muestra lead.js al
+        enviar el formulario). El texto prellenado dice que viene del Excel. -->
    <div class="mp-tras" id="mp-tras" hidden>
     <div class="mp-tit">¿Querés verlo con los movimientos de tu banco?</div>
     <a class="mp-b mp-wa" data-evento="wa_tras_excel" href="https://wa.me/5493516574188?text=Hola%21%20Vi%20el%20Excel%20de%20ejemplo%20desde%20el%20celular.%20Les%20mando%20un%20resumen%20del%20banco%20para%20que%20me%20lo%20devuelvan%20en%20Excel%20con%20los%20asientos." target="_blank" rel="noopener">
@@ -2032,18 +2036,17 @@ function toggleCent(){
 })();
 </script>
 <script>
-/* === CELULAR: CONTAR Y, DESPUÉS DEL EXCEL DE EJEMPLO, OFRECER WHATSAPP ===
-   El Excel se baja sin formulario. La descarga la cuenta la función de
-   /app/ejemplos/; acá se cuentan los toques de WhatsApp (salen de la web y si
-   no, nadie se entera) y, al tocar el Excel, aparece la invitación a mandar un
-   resumen. No viaja nada del visitante: sólo el nombre del evento (/api/evento). */
+/* === CELULAR: CONTAR LOS TOQUES ===
+   El Excel de ejemplo ahora pide mail o WhatsApp (plan «EJEMPLO» de lead.js,
+   13/10/2026) y la invitación a mandar un resumen aparece al enviarlo. La
+   descarga la cuenta la función de /app/ejemplos/; acá se cuentan los toques
+   (salen de la web y si no, nadie se entera). No viaja nada del visitante:
+   sólo el nombre del evento (/api/evento). */
 (function(){
  function contar(e){ try{ if(navigator.sendBeacon) navigator.sendBeacon('/api/evento', e); }catch(_){} }
  document.querySelectorAll('[data-evento]').forEach(function(a){
   a.addEventListener('click', function(){ contar(a.getAttribute('data-evento')); });
  });
- var x = document.querySelector('.movil-puente a[download]'), t = document.getElementById('mp-tras');
- if(x && t) x.addEventListener('click', function(){ t.hidden = false; });
 })();
 </script>
 <script src="/yt.js" defer></script>

@@ -160,6 +160,21 @@
       primaryUrl: function () { return mpUrlFor('PRO'); },
       isDownload: false
     },
+    /* (13/10/2026) «Ver un Excel de ejemplo» desde el celular: antes se bajaba
+       sin pedir nada y el que lo veía se iba sin dejar contacto. Formulario
+       mínimo: un solo dato, el mail o el WhatsApp (ver modoMinimo). */
+    EJEMPLO: {
+      pill: 'EXCEL DE EJEMPLO',
+      title: 'Mirá el Excel que arma DEXIAE',
+      sub: 'Dejanos tu mail o tu WhatsApp (con uno alcanza) y se baja en el acto. Es la salida real del sistema, con datos de ejemplo.',
+      submitBtn: 'Ver el Excel de ejemplo',
+      footNote: 'Datos de ejemplo · Se abre en tu teléfono',
+      successTitle: '¡Listo! El Excel se está bajando',
+      successSub: 'Si no se abre solo, tocá el botón. ¿Querés verlo con los movimientos de tu banco? Mandanos un resumen por WhatsApp y te lo devolvemos en Excel con los asientos.',
+      primaryLabel: 'Abrir el Excel de ejemplo',
+      primaryUrl: function () { return '/app/ejemplos/DEXIAE_ejemplo_extracto.xlsx'; },
+      isDownload: true
+    },
     SENTINEL: {
       pill: 'SENTINEL · ORGANIZACIONES',
       title: 'Cotización SENTINEL',
@@ -610,6 +625,32 @@
 
   var currentPlan = 'TRIAL';
 
+  /* Formulario mínimo (plan EJEMPLO): sólo mail o WhatsApp, uno de los dos.
+     Los demás campos se esconden y dejan de ser obligatorios. */
+  var CAMPOS_COMPLETOS = ['name', 'interes', 'perfil', 'volumen', 'como_llego'];
+  function modoMinimo(on) {
+    var f = document.getElementById('lead-form');
+    if (!f) return;
+    CAMPOS_COMPLETOS.forEach(function (n) {
+      var el = f.querySelector('[name="' + n + '"]');
+      if (!el) return;
+      var cont = el.closest('.field');
+      if (cont) cont.hidden = on;
+      if (n === 'name' || n === 'interes') el.required = !on;
+    });
+    var em = f.querySelector('[name="email"]');
+    if (em) {
+      em.required = !on;
+      /* El aviso «mail o WhatsApp» se borra al escribir en CUALQUIER campo: si
+         quedara puesto, el navegador frena el envío antes de llamar a submitLead. */
+      em.setCustomValidity('');
+      if (!f.dataset.minimo) {
+        f.dataset.minimo = '1';
+        f.addEventListener('input', function () { em.setCustomValidity(''); });
+      }
+    }
+  }
+
   window.openLead = function (plan) {
     currentPlan = planConfig[plan] ? plan : 'TRIAL';
     var c = planConfig[currentPlan];
@@ -627,6 +668,7 @@
     /* desde Contable lo que quiere resolver ya se sabe: va elegido */
     var sel = document.getElementById('lf-interes');
     if (sel) { sel.value = (currentPlan === 'CONTABLE') ? INTERES_BANCOS : ''; window.leadInteres(sel.value); }
+    modoMinimo(currentPlan === 'EJEMPLO');
     document.getElementById('lead-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   };
@@ -737,7 +779,14 @@
     e.preventDefault();
     var form = document.getElementById('lead-form');
     /* GATE REAL: sin datos válidos no se entrega nada */
+    var emMin = form && form.querySelector('[name="email"]');
+    if (emMin) emMin.setCustomValidity('');   /* el aviso de «mail o WhatsApp» se limpia en cada intento */
     if (form && !form.checkValidity()) { form.reportValidity(); return; }
+    if (currentPlan === 'EJEMPLO' && !campoLead(form, 'email') && !campoLead(form, 'whatsapp')) {
+      emMin.setCustomValidity('Dejanos tu mail o tu WhatsApp (con uno alcanza).');
+      emMin.reportValidity();
+      return;
+    }
     var c = planConfig[currentPlan] || planConfig.TRIAL;
     var btn = document.getElementById('m-submit');
     btn.textContent = 'Procesando...'; btn.disabled = true;
@@ -784,6 +833,10 @@
     }
     document.getElementById('m-success-note').style.display = (currentPlan === 'TRIAL') ? '' : 'none';
     if (c.isDownload && url) { try { primary.click(); } catch (_) {} }
+    if (currentPlan === 'EJEMPLO') {          /* la invitación a mandar un resumen, en la home */
+      var tras = document.getElementById('mp-tras');
+      if (tras) tras.hidden = false;
+    }
     btn.textContent = (fundAgotado() && c.submitBtnAgotado) || c.submitBtn; btn.disabled = false;
   };
 

@@ -246,18 +246,18 @@ main{padding:60px 0 20px}
 
 /* bancos: tarjetas, no píldoras planas — se leen como un listado de entidades */
 .bancos{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:26px}
-.bancos span{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:600;color:var(--ink);
+.bancos span,.bancos a.bk{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:600;color:var(--ink);
  background:#fff;border:1px solid var(--pline);border-radius:14px;padding:15px 17px;
  box-shadow:0 10px 26px -22px rgba(24,20,12,.7);transition:border-color .15s,transform .15s}
-.bancos span:hover{border-color:rgba(37,99,235,.5);transform:translateY(-2px)}
-.bancos span::before{content:"🏦";font-size:19px;line-height:1;flex:none;
+.bancos span:hover,.bancos a.bk:hover{border-color:rgba(37,99,235,.5);transform:translateY(-2px)}
+.bancos span::before,.bancos a.bk::before{content:"🏦";font-size:19px;line-height:1;flex:none;
  filter:drop-shadow(0 2px 5px rgba(37,99,235,.35))}
-.bancos span::after{content:"✓";margin-left:auto;font-size:13px;font-weight:800;color:var(--cta2)}
-.bancos a{display:flex;align-items:center;gap:11px;font-size:15px;font-weight:600;color:var(--ink2);
+.bancos span::after,.bancos a.bk::after{content:"✓";margin-left:auto;font-size:13px;font-weight:800;color:var(--cta2)}
+.bancos a:not(.bk){display:flex;align-items:center;gap:11px;font-size:15px;font-weight:600;color:var(--ink2);
  background:transparent;border:1.5px dashed var(--pline);border-radius:14px;padding:15px 17px;
  text-decoration:none;transition:border-color .15s,color .15s,transform .15s}
-.bancos a::before{content:"➕";font-size:16px;line-height:1;flex:none}
-.bancos a:hover{border-color:var(--ac);color:var(--ac-deep);transform:translateY(-2px)}
+.bancos a:not(.bk)::before{content:"➕";font-size:16px;line-height:1;flex:none}
+.bancos a:not(.bk):hover{border-color:var(--ac);color:var(--ac-deep);transform:translateY(-2px)}
 @media(max-width:900px){.bancos{grid-template-columns:1fr 1fr}}
 @media(max-width:460px){.bancos{grid-template-columns:1fr}}
 .calibra{background:#fff;border:1px solid var(--pline);border-left:4px solid var(--ac);border-radius:16px;padding:26px 28px;
@@ -445,17 +445,16 @@ html.fund-agotado .fund-off{display:revert}
  <section class="sec" id="bancos">
   <h2>Bancos que ya lee</h2>
   <p class="lead">Cada banco arma el PDF a su manera, así que el motor se calibra por banco. Estos ocho ya
-   están funcionando:</p>
+   están funcionando. Tocá el tuyo para ver qué lee DEXIAE de él y, cuando el banco lo explica, cómo se baja su resumen:</p>
   <div class="bancos">
-   <span>Banco del Chubut</span><span>Credicoop</span><span>Santander</span><span>Patagonia</span>
-   <span>Macro</span><span>ICBC</span><span>Galicia</span>
-   <span>Mercado Pago</span><a href="#calibra">¿Falta el tuyo?</a>
+   <a class="bk" href="/extracto-banco-chubut-excel">Banco del Chubut</a><a class="bk" href="/extracto-credicoop-excel">Credicoop</a><a class="bk" href="/extracto-santander-excel">Santander</a><a class="bk" href="/extracto-patagonia-excel">Patagonia</a>
+   <a class="bk" href="/extracto-macro-excel">Macro</a><a class="bk" href="/extracto-icbc-excel">ICBC</a><a class="bk" href="/extracto-galicia-excel">Galicia</a>
+   <a class="bk" href="/mercado-pago-asientos-excel">Mercado Pago</a><a href="#calibra">¿Falta el tuyo?</a>
   </div>
   <div class="calibra" id="calibra">
    <div>
     <h3>¿Tu banco no está en la lista? Lo calibramos.</h3>
-    <p>Mandanos uno o dos resúmenes de muestra y sumamos tu banco. <b>Podés tapar los
-     datos</b>: al motor le sirve la estructura del PDF, no los valores. No es un trámite ni tiene costo:
+    <p>Mandanos uno o dos resúmenes de muestra y sumamos tu banco. No es un trámite ni tiene costo:
      es parte de poner el sistema a funcionar con tus documentos.</p>
    </div>
    <!-- CTA por WhatsApp, no mailto: abrir el cliente de correo agrega un paso
@@ -732,7 +731,7 @@ html.fund-agotado .fund-off{display:revert}
   <p class="lead">Cualquiera que reciba resúmenes bancarios en PDF y hoy los pase a mano.</p>
   <div class="quien">
    <div class="q"><span class="e">📊</span><h3>Estudios contables</h3><p>Varios clientes, varios bancos, todos los meses. La conversión no descuenta cupo, así que el volumen no es el problema.</p></div>
-   <div class="q"><span class="e">🏢</span><h3>Empresas</h3><p>Conciliación de cuentas propias sin cargar movimiento por movimiento en la planilla de tesorería.</p></div>
+   <div class="q"><span class="e">🏢</span><h3>Empresas</h3><p>Transferencias entre cuentas propias sin cargar movimiento por movimiento en la planilla de tesorería.</p></div>
    <div class="q"><span class="e">📑</span><h3>Auditorías</h3><p>La cadena de saldos verificada deja constancia de que el período está completo, sin cortes ni páginas faltantes.</p></div>
    <div class="q"><span class="e">🏛️</span><h3>Administraciones</h3><p>Documentación financiera que no puede salir de la red interna: el archivo se procesa en el propio equipo.</p></div>
   </div>

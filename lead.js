@@ -842,4 +842,11 @@
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', montar);
   else montar();
+
+  /* (13/10/2026) el desplegable de bancos del menú vive en /nav-bancos.js */
+  if (!document.querySelector('script[src="/nav-bancos.js"]')) {
+    var nb = document.createElement('script');
+    nb.src = '/nav-bancos.js'; nb.defer = true;
+    document.head.appendChild(nb);
+  }
 })();

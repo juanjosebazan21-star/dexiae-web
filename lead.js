@@ -351,7 +351,7 @@
       dest: 'dl' },
     { id: 'banco', q: 'Mi banco no está en la lista', k: 'Extractos bancarios',
       t: 'Lo calibramos, sin costo',
-      p: ['Mandanos uno o dos resúmenes de muestra y sumamos tu banco. <b>Podés tapar los datos</b>: al motor le sirve la estructura del PDF, no los valores.',
+      p: ['Mandanos uno o dos resúmenes de muestra y sumamos tu banco. Los usamos sólo para eso, no los compartimos ni los usamos en publicaciones.',
           'Es el único caso donde te conviene el chat: adjuntás el PDF ahí mismo.'],
       dest: 'wa',
       wa: 'Hola! Mi banco no está en la lista de DEXIAE y quiero que lo calibren. Les paso un resumen de muestra.' },

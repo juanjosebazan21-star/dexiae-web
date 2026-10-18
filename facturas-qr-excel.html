@@ -312,26 +312,46 @@ details p{max-width:660px;margin:0 36px 18px 0;font-size:16px;line-height:1.75;c
   .lead{display:block;width:100%;max-width:100%;white-space:normal;overflow-wrap:anywhere}
 }
 @media(max-width:380px){.nav-actions .btn-primary{max-width:128px;padding-inline:7px;font-size:11px}}
+/* Identidad compartida con la landing principal: papel, navegación, pie y WhatsApp */
+:root{--paper:#F7F5EF;--white:#FBFAF6;--ink:#151721;--ink2:#565C6B;--ink3:#8A8F9C;--pline:rgba(24,20,12,.10);--pline2:rgba(24,20,12,.16);--navy:#0B1120;--navy2:#0F1729;--hi:#F3F6FC;--md:#A9B4C9;--ac:#60A5FA;--ac-deep:#1D4ED8;--cta:#3DD9B6;--cta2:#1D9E75;--cta3:#17805F;--cta-ink:#04211A;--disp:Inter,system-ui,sans-serif}
+.section.white,.strip,.road{background:var(--paper)!important}
+.anuncio{display:block;background:#060A14;border-bottom:1px solid rgba(37,99,235,.38);color:var(--md);font-size:13.5px;line-height:1.45}
+.anuncio-in{max-width:1300px;margin:0 auto;padding:9px 32px;display:flex;align-items:center;justify-content:center;gap:6px 12px;flex-wrap:wrap;text-align:center}
+.an-chip{font:700 10px var(--mono);letter-spacing:.1em;text-transform:uppercase;padding:2px 8px;border-radius:20px;background:rgba(37,99,235,.24);color:#DBEAFE;border:1px solid rgba(96,165,250,.45)}
+.anuncio b{color:var(--hi);font-weight:600}.an-q{font:12px var(--mono);color:#93C5FD}.an-ir{color:var(--teal);font-weight:600;white-space:nowrap}.anuncio:hover .an-ir{color:var(--hi)}.an-cel{display:none}
+.nav .wrap,.foot .wrap{width:auto;max-width:none;margin:0}
+.nav-in{height:auto;max-width:1300px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.logo{display:inline-flex;align-items:center;gap:10px;font:600 18px var(--sans);color:var(--hi)}.logo .m{width:28px;height:28px;border-radius:8px;background:var(--ac);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.nav-l{display:flex;align-items:center;gap:24px}.nav-l a{font-size:14px;font-weight:500;color:var(--md)}.nav-l a:hover,.nav-l a[aria-current=page]{color:var(--hi)}.nav-l a[aria-current=page]{border-bottom:2px solid var(--teal);padding-bottom:7px}
+.nav-chevron{font-size:14px;color:var(--md);margin-left:2px}.nav-demo{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:9px;border:1px solid rgba(150,180,235,.2);background:rgba(243,246,252,.05);color:var(--hi)!important}.nav-demo:hover{border-color:var(--blue);background:rgba(37,99,235,.14)}
+.nav-l .btn-p{border:0;background:linear-gradient(135deg,#3DD9B6,#1D9E75);color:#04211A;font-weight:700;box-shadow:0 6px 18px -6px rgba(29,158,117,.5)}
+.foot{background:var(--navy);border-top:1px solid var(--line);color:#7D88A1;font-size:13.5px;padding:30px 0}.foot-in{max-width:1300px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap}.foot-links{display:flex;gap:20px;flex-wrap:wrap;font-size:13.5px}.foot-links a:hover{color:var(--hi)}.foot-legal{max-width:1300px;margin:16px auto 0;padding:16px 32px 0;border-top:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:12.5px}.foot-legal a{color:#7D88A1}.foot-legal a:hover{color:var(--md)}.foot-legal-links{display:flex;gap:18px;flex-wrap:wrap}
+@media(max-width:980px){.nav-demo{display:none}.nav-l{gap:15px}}
+@media(max-width:760px){.an-sec,.an-q.an-sec{display:none}.an-cel{display:inline}.anuncio-in{padding:8px 16px;gap:4px 8px;font-size:13px}.nav-l a{display:none}.nav-l{gap:0}.nav-in{padding:12px 16px}.foot-in,.foot-legal{padding-left:20px;padding-right:20px}}
 </style>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
 
-<nav class="nav" aria-label="Navegación principal"><div class="wrap nav-in">
-  <a class="brand" href="https://getdexiae.com/" aria-label="DEXIAE, inicio">
-    <svg viewBox="0 0 36 36" aria-hidden="true"><defs><linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#82c4ff"/><stop offset="1" stop-color="#56dec0"/></linearGradient></defs><path d="M18 2 32 10v16L18 34 4 26V10z" fill="none" stroke="url(#mg)" stroke-width="2"/><path d="M12 11h7a7 7 0 0 1 0 14h-7z" fill="none" stroke="url(#mg)" stroke-width="2.4"/><path d="M13 18h8" stroke="#56dec0" stroke-width="2"/></svg>
-    <span>DEXIAE<small>DOCUMENT INTELLIGENCE</small></span></a>
-  <div class="nav-links" id="menu">
-    <a href="https://getdexiae.com/casos-de-uso">Casos de uso</a>
-    <a href="https://getdexiae.com/extractos-bancarios-excel">Extractos bancarios</a>
-    <a href="https://getdexiae.com/facturas-qr-excel" aria-current="page">Facturas y QR</a>
-    <a href="https://getdexiae.com/#precios">Precios</a>
-  </div>
-  <div class="nav-actions">
-    <a class="btn btn-ghost btn-sm" href="https://getdexiae.com/app/">Ver demo ↗</a>
-    <a class="btn btn-primary btn-sm" href="https://getdexiae.com/#precios">Probar PRO gratis</a>
-    <button class="menu-btn" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span></button>
-  </div>
+<a class="anuncio" href="/#contable"><span class="anuncio-in">
+ <span class="an-chip">Nuevo</span>
+ <span><b>DEXIAE Contable</b><span class="an-sec"> · los extractos de tus clientes, clasificados y con borrador de asientos</span></span>
+ <span class="fund-on"><span class="an-sec">· Precio fundador para los primeros 10 estudios</span><span class="an-cel">· precio fundador</span><span class="an-q an-sec" data-quedan=" · quedan {q} de {t}" hidden></span></span>
+ <span class="an-ir">Ver →</span>
+</span></a>
+<nav aria-label="Navegación principal"><div class="nav-in">
+ <a class="logo" href="/" aria-label="Dexiae, inicio"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
+ <span class="nav-l">
+  <a href="/casos-de-uso">Casos de uso</a>
+  <a href="/extractos-bancarios-excel" aria-label="Extractos bancarios">Extractos bancarios <span class="nav-chevron" aria-hidden="true">⌄</span></a>
+  <a href="/facturas-qr-excel" aria-current="page">Facturas por QR</a>
+  <a href="#demostracion">La interfaz</a>
+  <a href="/#demo">Centinela</a>
+  <a href="/#precios">Precios</a>
+  <a href="#faq">FAQ</a>
+  <a href="/app/" class="nav-demo"><span class="pl" aria-hidden="true">▶</span> Demo online</a>
+  <button class="btn btn-p" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
+ </span>
 </div></nav>
 
 <header class="hero"><div class="wrap hero-grid">
@@ -480,11 +500,32 @@ details p{max-width:660px;margin:0 36px 18px 0;font-size:16px;line-height:1.75;c
 </div></section>
 </main>
 
-<footer class="foot"><div class="wrap foot-in">
-  <a class="brand" href="https://getdexiae.com/"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M18 2 32 10v16L18 34 4 26V10z" fill="none" stroke="#70c5ee" stroke-width="2"/><path d="M12 11h7a7 7 0 0 1 0 14h-7z" fill="none" stroke="#70c5ee" stroke-width="2.4"/></svg><span>DEXIAE<small>DOCUMENT INTELLIGENCE</small></span></a>
-  <div class="foot-links"><a href="https://getdexiae.com/">Inicio</a><a href="https://getdexiae.com/casos-de-uso">Casos de uso</a><a href="https://getdexiae.com/extractos-bancarios-excel">Extractos bancarios</a><a href="https://getdexiae.com/#precios">Precios</a><a href="mailto:contacto@getdexiae.com">Contacto</a></div>
-  <span class="copy">© 2026 DEXIAE</span>
-</div></footer>
+<footer class="foot">
+ <div class="foot-in">
+  <a class="logo" href="#" aria-label="Dexiae, volver al inicio" style="font-size:16px"><img class="m" src="/logo-marca.svg" alt="" width="24" height="24" decoding="async" style="width:24px;height:24px">Dexiae</a>
+  <div class="foot-links">
+   <a href="/casos-de-uso">Casos de uso</a>
+   <a href="/extractos-bancarios-excel">Extractos bancarios</a>
+   <a href="/facturas-qr-excel">Facturas por QR</a>
+   <a href="#demostracion">La interfaz</a>
+   <a href="/#precios">Precios</a>
+   <a href="#faq">FAQ</a>
+   <a href="mailto:contacto@getdexiae.com">Contacto</a>
+   <a href="https://instagram.com/get.dexiae" target="_blank" rel="noopener">Instagram</a>
+   <a href="https://www.youtube.com/@DEXIAE" target="_blank" rel="noopener">YouTube</a>
+  </div>
+  <div>© 2026 DEXIAE · Córdoba, AR</div>
+ </div>
+ <div class="foot-legal">
+  <div class="foot-legal-links">
+   <a href="/guia-usuario">Guía del usuario</a>
+   <a href="/guia-contable">Guía de DEXIAE Contable</a>
+   <a href="/eula">Términos y EULA</a>
+   <a href="/privacidad">Política de privacidad</a>
+  </div>
+  <div>© 2026 DEXIAE · Todos los derechos reservados</div>
+ </div>
+</footer>
 
 <script>
 (function(){
@@ -543,5 +584,6 @@ details p{max-width:660px;margin:0 36px 18px 0;font-size:16px;line-height:1.75;c
   var s=document.createElement('script');s.type='application/ld+json';s.text=JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:qa});document.head.appendChild(s);
 })();
 </script>
+<script src="/lead.js" defer></script>
 </body>
 </html>

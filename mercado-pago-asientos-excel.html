@@ -171,19 +171,28 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Mercado Pago cuenta como un banco para DEXIAE?","acceptedAnswer":{"@type":"Answer","text":"Mercado Pago es una billetera virtual, no un banco, y DEXIAE tiene un lector propio para su resumen. Lo reconoce por el CVU o por la columna «ID de la operación» de su tabla, no por el nombre: sus movimientos nombran a otros bancos, por ejemplo «Ingreso de dinero Cuenta Banco Santander»."}},{"@type":"Question","name":"¿Cómo se descarga el resumen de cuenta de Mercado Pago?","acceptedAnswer":{"@type":"Answer","text":"La ayuda oficial indica dos rutas: Tu dinero > Consultar más movimientos > Generar Resumen de cuenta, o Informes > Reportes de conciliación contable > Resumen de cuenta. Se genera a mano y Mercado Pago avisa por mail o notificación cuando está listo. Dato oficial, a octubre de 2026."}},{"@type":"Question","name":"¿Por qué la descripción de un movimiento de Mercado Pago sale en una sola fila?","acceptedAnswer":{"@type":"Answer","text":"En el resumen, la descripción viene partida en varias filas alrededor del importe. DEXIAE la une en una sola y con ese texto clasifica el movimiento."}}]}
 </script>
+<link rel="stylesheet" href="/site-header.css?v=20261018">
 </head>
 <body>
+<a class="anuncio" href="/#contable"><span class="anuncio-in">
+ <span class="an-chip">Nuevo</span>
+ <span><b>DEXIAE Contable</b><span class="an-sec"> &#183; los extractos de tus clientes, clasificados y con borrador de asientos</span></span>
+ <span class="fund-on"><span class="an-sec">&#183; Precio fundador para los primeros 10 estudios</span><span class="an-cel">&#183; precio fundador</span><span class="an-q an-sec" data-quedan=" &#183; quedan {q} de {t}" hidden></span></span>
+ <span class="an-ir">Ver &#8594;</span>
+</span></a>
 
-<nav aria-label="Principal"><div class="nav-in">
- <a class="logo" href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
+<nav class="site-nav" aria-label="Principal"><div class="nav-in">
+ <a class="logo" href="/" aria-label="Dexiae, volver al inicio"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
  <span class="nav-l">
   <a href="/casos-de-uso">Casos de uso</a>
-  <a href="/extractos-bancarios-excel" class="on">Extractos bancarios</a>
+  <a href="/extractos-bancarios-excel" aria-current="page">Extractos bancarios</a>
   <a href="/facturas-qr-excel">Facturas por QR</a>
   <a href="/#capturas">La interfaz</a>
+  <a href="/#demo">Centinela</a>
   <a href="/#precios">Precios</a>
-  <a href="/app/" class="nav-demo">Demo online</a>
-  <button class="btn btn-p" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
+  <a href="/#faq">FAQ</a>
+  <a href="/app/" class="nav-demo"><span class="pl">&#9654;</span> Demo online</a>
+  <button class="btn btn-p navcta" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
  </span>
 </div></nav>
 

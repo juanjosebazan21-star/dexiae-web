@@ -171,19 +171,28 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Dónde encuentro el resumen de cuenta en el Online Banking de Galicia?","acceptedAnswer":{"@type":"Answer","text":"En Online Banking: Cuentas > Más opciones > Resúmenes de Cuentas. En la App Galicia: Cuentas > Resúmenes de cuenta, donde se filtra por fechas, moneda y tipo de cuenta. Es lo que indica la ayuda oficial del banco, a octubre de 2026."}},{"@type":"Question","name":"¿DEXIAE se confunde si el resumen de Galicia nombra a otros bancos?","acceptedAnswer":{"@type":"Answer","text":"En una transferencia, el resumen de Galicia imprime el banco de la otra parte. Reconoce Galicia primero por el CBU de la portada (entidad 007) y, si no está, por la forma de la tabla; los nombres de banco del detalle no cuentan para eso."}},{"@type":"Question","name":"¿Cómo sé en qué renglón no cierra el saldo de un resumen de Galicia?","acceptedAnswer":{"@type":"Answer","text":"El resumen de Galicia trae el saldo en cada renglón, así que el control es fila por fila: la columna «Verif. Saldo» marca OK o DESFASE y te dice en qué fila y de cuánto no cierra."}}]}
 </script>
+<link rel="stylesheet" href="/site-header.css?v=20261018">
 </head>
 <body>
+<a class="anuncio" href="/#contable"><span class="anuncio-in">
+ <span class="an-chip">Nuevo</span>
+ <span><b>DEXIAE Contable</b><span class="an-sec"> &#183; los extractos de tus clientes, clasificados y con borrador de asientos</span></span>
+ <span class="fund-on"><span class="an-sec">&#183; Precio fundador para los primeros 10 estudios</span><span class="an-cel">&#183; precio fundador</span><span class="an-q an-sec" data-quedan=" &#183; quedan {q} de {t}" hidden></span></span>
+ <span class="an-ir">Ver &#8594;</span>
+</span></a>
 
-<nav aria-label="Principal"><div class="nav-in">
- <a class="logo" href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
+<nav class="site-nav" aria-label="Principal"><div class="nav-in">
+ <a class="logo" href="/" aria-label="Dexiae, volver al inicio"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
  <span class="nav-l">
   <a href="/casos-de-uso">Casos de uso</a>
-  <a href="/extractos-bancarios-excel" class="on">Extractos bancarios</a>
+  <a href="/extractos-bancarios-excel" aria-current="page">Extractos bancarios</a>
   <a href="/facturas-qr-excel">Facturas por QR</a>
   <a href="/#capturas">La interfaz</a>
+  <a href="/#demo">Centinela</a>
   <a href="/#precios">Precios</a>
-  <a href="/app/" class="nav-demo">Demo online</a>
-  <button class="btn btn-p" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
+  <a href="/#faq">FAQ</a>
+  <a href="/app/" class="nav-demo"><span class="pl">&#9654;</span> Demo online</a>
+  <button class="btn btn-p navcta" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
  </span>
 </div></nav>
 

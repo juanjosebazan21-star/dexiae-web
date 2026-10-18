@@ -171,19 +171,28 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo lee DEXIAE los importes negativos de ICBC, que llevan el signo al final?","acceptedAnswer":{"@type":"Answer","text":"Los toma tal como vienen (1.234,56-) y los pasa a importe con signo. La fecha viene como día y mes, y el año se toma del período que figura en el encabezado."}},{"@type":"Question","name":"¿Por qué el saldo de ICBC se controla por tramos y no fila por fila?","acceptedAnswer":{"@type":"Answer","text":"Porque ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota."}},{"@type":"Question","name":"¿Sirve la exportación de movimientos de ICBC?","acceptedAnswer":{"@type":"Answer","text":"La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee. DEXIAE está calibrado con el resumen mensual de ICBC."}}]}
 </script>
+<link rel="stylesheet" href="/site-header.css?v=20261018">
 </head>
 <body>
+<a class="anuncio" href="/#contable"><span class="anuncio-in">
+ <span class="an-chip">Nuevo</span>
+ <span><b>DEXIAE Contable</b><span class="an-sec"> &#183; los extractos de tus clientes, clasificados y con borrador de asientos</span></span>
+ <span class="fund-on"><span class="an-sec">&#183; Precio fundador para los primeros 10 estudios</span><span class="an-cel">&#183; precio fundador</span><span class="an-q an-sec" data-quedan=" &#183; quedan {q} de {t}" hidden></span></span>
+ <span class="an-ir">Ver &#8594;</span>
+</span></a>
 
-<nav aria-label="Principal"><div class="nav-in">
- <a class="logo" href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
+<nav class="site-nav" aria-label="Principal"><div class="nav-in">
+ <a class="logo" href="/" aria-label="Dexiae, volver al inicio"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
  <span class="nav-l">
   <a href="/casos-de-uso">Casos de uso</a>
-  <a href="/extractos-bancarios-excel" class="on">Extractos bancarios</a>
+  <a href="/extractos-bancarios-excel" aria-current="page">Extractos bancarios</a>
   <a href="/facturas-qr-excel">Facturas por QR</a>
   <a href="/#capturas">La interfaz</a>
+  <a href="/#demo">Centinela</a>
   <a href="/#precios">Precios</a>
-  <a href="/app/" class="nav-demo">Demo online</a>
-  <button class="btn btn-p" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
+  <a href="/#faq">FAQ</a>
+  <a href="/app/" class="nav-demo"><span class="pl">&#9654;</span> Demo online</a>
+  <button class="btn btn-p navcta" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
  </span>
 </div></nav>
 

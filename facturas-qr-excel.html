@@ -574,8 +574,10 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
   /* Menú móvil */
   var mb=document.querySelector('.menu-btn'),menu=document.getElementById('menu');
-  mb.addEventListener('click',function(){var o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});
-  menu.addEventListener('click',function(e){if(e.target.tagName==='A'){menu.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
+  if(mb&&menu){
+    mb.addEventListener('click',function(){var o=menu.classList.toggle('open');mb.setAttribute('aria-expanded',String(o))});
+    menu.addEventListener('click',function(e){if(e.target.tagName==='A'){menu.classList.remove('open');mb.setAttribute('aria-expanded','false')}});
+  }
 
   /* Demo interactiva */
   var D={

@@ -302,7 +302,15 @@ details p{max-width:660px;margin:0 36px 18px 0;font-size:16px;line-height:1.75;c
   .src-card,.rc,.who-card{padding:24px}.merge{flex-direction:column;align-items:flex-start}
   .xl-foot{flex-direction:column}
 }
-</style>
+@media(max-width:560px){
+  .nav-in{gap:10px;min-width:0}.nav-actions{gap:8px;flex:none}.brand{min-width:0;flex:0 1 auto}
+  .nav-actions .btn-primary{max-width:156px;padding:8px 10px;font-size:12px;white-space:nowrap}
+  .nav-actions .menu-btn{flex:none}
+  .hero-grid{grid-template-columns:minmax(0,1fr)}.hero-grid>*{min-width:0;width:100%}
+  .hero h1{font-size:clamp(38px,10vw,46px);overflow-wrap:anywhere}
+  .lead{max-width:100%;overflow-wrap:anywhere}.hero-grid>div:last-child{min-width:0;max-width:100%}
+}
+@media(max-width:380px){.nav-actions .btn-primary{max-width:128px;padding-inline:7px;font-size:11px}}</style>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>

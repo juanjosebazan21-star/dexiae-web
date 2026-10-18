@@ -171,7 +171,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo lee DEXIAE los importes negativos de ICBC, que llevan el signo al final?","acceptedAnswer":{"@type":"Answer","text":"Los toma tal como vienen (1.234,56-) y los pasa a importe con signo. La fecha viene como día y mes, y el año se toma del período que figura en el encabezado."}},{"@type":"Question","name":"¿Por qué el saldo de ICBC se controla por tramos y no fila por fila?","acceptedAnswer":{"@type":"Answer","text":"Porque ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota."}},{"@type":"Question","name":"¿Sirve la exportación de movimientos de ICBC?","acceptedAnswer":{"@type":"Answer","text":"La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee. DEXIAE está calibrado con el resumen mensual de ICBC."}}]}
 </script>
-<link rel="stylesheet" href="/site-header.css?v=20261018">
+<link rel="stylesheet" href="/site-header.css?v=20261018-mobile1">
 </head>
 <body>
 <a class="anuncio" href="/#contable"><span class="anuncio-in">
@@ -305,6 +305,6 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <span>© 2026 DEXIAE</span>
 </div></footer>
 
-<script src="/lead.js" defer></script>
+<script src="/lead.js?v=20261018-mobile1" defer></script>
 </body>
 </html>

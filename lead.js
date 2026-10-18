@@ -193,7 +193,8 @@
   var CSS = '' +
 '.lm-overlay{position:fixed;inset:0;background:rgba(11,17,32,.66);backdrop-filter:blur(4px);z-index:100;display:none;align-items:center;justify-content:center;padding:20px}' +
 '.lm-overlay.open{display:flex}' +
-'.lm-box{background:#fff;border-radius:16px;width:480px;max-width:100%;max-height:92vh;overflow:auto;box-shadow:0 40px 90px rgba(0,0,0,.4);text-align:left}' +
+'.lm-box{box-sizing:border-box;background:#fff;border-radius:16px;width:480px;max-width:100%;max-height:92vh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;box-shadow:0 40px 90px rgba(0,0,0,.4);text-align:left}' +
+'.lm-box *{box-sizing:border-box}' +
 '.lm-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:24px 24px 0}' +
 '.lm-pill{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--ac-bg);color:var(--ac-deep);border:1px solid rgba(46,109,219,.25);padding:4px 10px;border-radius:100px;margin-bottom:10px}' +
 '.lm-title{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1.15;margin-bottom:6px}' +
@@ -201,10 +202,11 @@
 '.lm-close{flex-shrink:0;width:32px;height:32px;border-radius:8px;background:var(--paper);color:var(--ink2);font-size:18px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer}' +
 '.lm-close:hover{background:var(--pline)}' +
 '.lm-body{padding:20px 24px 24px}' +
-'.f-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}' +
-'.field{margin-bottom:12px}' +
+'.f-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px}' +
+'.f-row>*{min-width:0}' +
+'.field{min-width:0;margin-bottom:12px}' +
 '.field label{display:block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2);margin-bottom:6px}' +
-'.field input,.field select{width:100%;height:42px;padding:0 12px;border:1px solid var(--pline2);border-radius:9px;font-size:14px;font-family:var(--sans);color:var(--ink);background:#fff;outline:none;transition:border-color .15s}' +
+'.field input,.field select{box-sizing:border-box;min-width:0;max-width:100%;width:100%;height:42px;padding:0 12px;border:1px solid var(--pline2);border-radius:9px;font-size:14px;font-family:var(--sans);color:var(--ink);background:#fff;outline:none;transition:border-color .15s}' +
 '.field input:focus,.field select:focus{border-color:var(--ac)}' +
 '.lm-submit{width:100%;padding:13px;border-radius:10px;background:var(--ac);color:#fff;font-weight:600;font-size:14.5px;margin-top:6px;transition:background .18s;border:none;cursor:pointer}' +
 '.lm-submit:hover{background:var(--ac2)}' +
@@ -217,7 +219,9 @@
 '.lm-primary{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border-radius:10px;background:var(--ac);color:#fff;font-weight:600;font-size:14.5px}' +
 '.lm-primary:hover{background:var(--ac2)}' +
 '.lm-steps{margin-top:16px;padding:14px;background:var(--paper);border:1px solid var(--pline);border-radius:10px;font-size:13px;color:var(--ink2);line-height:1.55}' +
-'.lm-steps b{color:var(--ink)}.lm-steps ol{margin:6px 0 0 18px}';
+'.lm-steps b{color:var(--ink)}.lm-steps ol{margin:6px 0 0 18px}' +
+ '@media(max-width:520px){.lm-overlay{padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 12px);align-items:center}.lm-box{width:100%;max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px);border-radius:14px}.lm-head{padding:18px 18px 0;gap:10px}.lm-body{padding:16px 18px 18px}.f-row{grid-template-columns:minmax(0,1fr);gap:0}.field input,.field select{font-size:16px}.lm-title{font-size:20px}.lm-success{padding:8px 18px 20px}}' +
+ '@supports not (height:100dvh){@media(max-width:520px){.lm-box{max-height:calc(100vh - 24px)}}}';
 
   var OPC = '<span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span>';
   var INTERES_BANCOS = 'Pasar resúmenes bancarios a Excel y asientos';

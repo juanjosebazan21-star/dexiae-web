@@ -321,7 +321,7 @@ details p{max-width:660px;margin:0 36px 18px 0;font-size:16px;line-height:1.75;c
 .anuncio b{color:var(--hi);font-weight:600}.an-q{font:12px var(--mono);color:#93C5FD}.an-ir{color:var(--teal);font-weight:600;white-space:nowrap}.anuncio:hover .an-ir{color:var(--hi)}.an-cel{display:none}
 .nav .wrap,.foot .wrap{width:auto;max-width:none;margin:0}
 .nav-in{height:auto;max-width:1300px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
-.logo{display:inline-flex;align-items:center;gap:10px;font:600 18px var(--sans);color:var(--hi)}.logo .m{width:28px;height:28px;border-radius:8px;background:var(--ac);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.logo{display:inline-flex;align-items:center;gap:10px;font:600 18px var(--sans);color:var(--hi)}.logo .m{width:28px;height:28px;border-radius:0;background:transparent;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
 .nav-l{display:flex;align-items:center;gap:24px}.nav-l a{font-size:14px;font-weight:500;color:var(--md)}.nav-l a:hover,.nav-l a[aria-current=page]{color:var(--hi)}.nav-l a[aria-current=page]{border-bottom:2px solid var(--teal);padding-bottom:7px}
 .nav-chevron{font-size:14px;color:var(--md);margin-left:2px}.nav-demo{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:9px;border:1px solid rgba(150,180,235,.2);background:rgba(243,246,252,.05);color:var(--hi)!important}.nav-demo:hover{border-color:var(--blue);background:rgba(37,99,235,.14)}
 .nav-l .btn-p{border:0;background:linear-gradient(135deg,#3DD9B6,#1D9E75);color:#04211A;font-weight:700;box-shadow:0 6px 18px -6px rgba(29,158,117,.5)}
@@ -333,7 +333,7 @@ details p{max-width:660px;margin:0 36px 18px 0;font-size:16px;line-height:1.75;c
 nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-in{max-width:1300px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .logo{display:inline-flex;align-items:center;gap:10px;font-size:18px;font-weight:600;color:var(--hi)}
-.logo .m{width:28px;height:28px;border-radius:8px;background:var(--ac);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.logo .m{width:28px;height:28px;border-radius:0;background:transparent;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
 .nav-l{display:flex;align-items:center;gap:24px}
 .nav-l a{font-size:14px;font-weight:500;color:var(--md)}.nav-l a:hover{color:var(--hi)}
 .nav-demo{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:9px;border:1px solid var(--line2);background:rgba(243,246,252,.05);color:var(--hi)!important}
@@ -359,7 +359,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  <span class="an-ir">Ver →</span>
 </span></a>
 <nav><div class="nav-in">
- <a class="logo" href="#"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
+ <a class="logo" href="/" aria-label="Dexiae, inicio"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
  <span class="nav-l">
   <a href="/casos-de-uso">Casos de uso</a>
   <a href="/extractos-bancarios-excel">Extractos bancarios</a>
@@ -380,7 +380,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
     <p class="lead">DEXIAE combina la lectura del QR con la extracción del texto impreso y te devuelve una planilla donde cada valor indica de qué fuente salió y qué conviene revisar.</p>
     <ul class="proof"><li>QR y texto del comprobante, en una sola pasada</li><li>Origen visible en cada campo</li><li>Diferencias señaladas para revisión</li></ul>
     <div class="actions">
-      <a class="btn btn-primary" href="https://getdexiae.com/#precios">Probar gratis <span aria-hidden="true">↗</span></a>
+      <button class="btn btn-primary" type="button" onclick="openLead('TRIAL')">Probar gratis <span aria-hidden="true">↗</span></button>
       <a class="btn btn-ghost" href="#como-funciona">Ver cómo funciona <span aria-hidden="true">↓</span></a>
     </div>
     <p class="micro">Para Windows · procesamiento local</p>
@@ -515,7 +515,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
 <section class="cta"><div class="wrap cta-in">
   <div class="reveal"><h2>Del comprobante a los datos. Con la fuente a la vista.</h2><p>Probá las funciones disponibles de DEXIAE con tus propios comprobantes argentinos compatibles.</p></div>
-  <div class="cta-act reveal"><a class="btn btn-primary" href="https://getdexiae.com/#precios">Probar PRO gratis ↗</a><a class="btn btn-ghost" href="https://getdexiae.com/app/">Ver demo online</a></div>
+  <div class="cta-act reveal"><button class="btn btn-primary" type="button" onclick="openLead('TRIAL')">Probar PRO gratis ↗</button><a class="btn btn-ghost" href="https://getdexiae.com/app/">Ver demo online</a></div>
 </div></section>
 </main>
 
@@ -523,7 +523,7 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
  <div class="foot-in">
   <!-- clickeable como el de la barra: era un <span> y la gente igual le hacía
        click esperando volver arriba. Mismo href="#" que el de arriba. -->
-  <a class="logo" href="#" aria-label="Dexiae, volver al inicio" style="font-size:16px"><img class="m" src="/logo-marca.svg" alt="" width="24" height="24" decoding="async" style="width:24px;height:24px">Dexiae</a>
+  <a class="logo" href="/" aria-label="Dexiae, ir al inicio" style="font-size:16px"><img class="m" src="/logo-marca.svg" alt="" width="24" height="24" decoding="async" style="width:24px;height:24px">Dexiae</a>
   <div class="foot-links">
    <a href="/casos-de-uso">Casos de uso</a>
    <a href="/extractos-bancarios-excel">Extractos bancarios</a>

@@ -63,6 +63,10 @@ export async function onRequestPost(context) {
   if (RE_VER.test(String(d.version || ''))) f.version = d.version;
   if (RE_ED.test(String(d.edicion || ''))) f.edicion = d.edicion;
   if (RE_LIC.test(String(d.licencia || ''))) f.licencia = d.licencia;
+  /* (20/10/2026) La persona apagó la señal y ELIGIÓ avisarlo (una sola vez):
+     así el Centro no lo confunde con «dejó de usarlo». Si la vuelve a
+     prender, la próxima señal normal lo borra. Sin esto, no se sabe. */
+  if (d.apagada === true) f.apagada = hoy; else delete f.apagada;
 
   const reg = d.registro && typeof d.registro === 'object' ? d.registro : null;
   const contacto = reg ? texto(reg.contacto, 120) : '';

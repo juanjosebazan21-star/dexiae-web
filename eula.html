@@ -48,10 +48,10 @@ a{color:var(--ac)}
 <nav><a href="/"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a></nav>
 <div class="wrap">
 <h1>Términos y EULA</h1>
-<div class="meta">Acuerdo de Licencia de Usuario Final · Versión 2.2.0</div>
+<div class="meta">Acuerdo de Licencia de Usuario Final · Versión 2.3.0</div>
 <pre class="b">ACUERDO DE LICENCIA DE USUARIO FINAL (EULA)
 DEXIAE - Document Extraction &amp; Intelligent Automation Engine
-Version 2.2.0
+Version 2.3.0
 
 IMPORTANTE: LEA ATENTAMENTE ESTE ACUERDO DE LICENCIA ANTES DE INSTALAR O UTILIZAR ESTE SOFTWARE.
 
@@ -218,7 +218,12 @@ El Software tampoco recopila:
 
 La unica comunicacion externa que realiza el Software por su cuenta se describe en las
 Secciones 6.1 y 6.2. Aparte, solo se abren los enlaces que el usuario elige abrir (por ejemplo,
-WhatsApp o el correo al reportar un problema).</pre>
+WhatsApp o el correo al reportar un problema, o los del menu &quot;Ayuda&quot;).
+
+Codigos QR que el Software no sabe interpretar: cuando el Software lee un codigo QR que no
+corresponde a ningun formato que conoce, lo deja escrito en el Excel y lo anota en la carpeta
+de datos del Software, en el equipo. No lo envia a ningun lado: el usuario puede verlo en
+&quot;Ayuda&quot; y, si quiere, copiarlo y mandarlo el mismo al licenciante para que se sume ese formato.</pre>
 <h2>6.1. Verificacion Remota De Licencia</h2>
 <pre class="b">El Software incluye un mecanismo de verificacion de licencia y de novedades mediante la
 descarga periodica de archivos publicos alojados en GitHub. Este mecanismo funciona de la siguiente
@@ -267,12 +272,17 @@ manera:
       &quot;Buscar novedades&quot;), el Software descarga un segundo archivo publico del mismo
       repositorio con paquetes firmados digitalmente por el licenciante: renovaciones de
       licencia, plantillas, sets de reglas, configuraciones de clientes, diccionarios del
-      Asistente y avisos. Un paquete cuya firma no coincide se ignora. Los paquetes
+      Asistente, formatos de lectura de codigos QR y avisos. Un paquete cuya firma no
+      coincide se ignora. Los paquetes
       dirigidos a una licencia viajan cifrados con una llave que sale de la clave de esa
       licencia: sin esa clave no se pueden leer. El Software solo descarga: el pedido no
       lleva datos del usuario, del equipo, de la licencia ni de los documentos (solo el
       nombre y la version del programa). Una renovacion emitida por el licenciante se
-      aplica sola; lo demas se instala unicamente si el usuario lo elige.</pre>
+      aplica sola; lo demas se instala unicamente si el usuario lo elige.
+
+   i) TRANSPORTE: Las descargas de esta seccion y el envio de la Seccion 6.2 van por
+      HTTPS con el certificado del servidor verificado. Si el certificado no se puede
+      verificar, el Software no descarga ni envia nada y sigue como sin internet.</pre>
 <h2>6.2. Senal De Uso (desde DEXIAE 2.9.2)</h2>
 <pre class="b">
 Como maximo una vez por dia, al abrirse con conexion a internet, el Software envia a
@@ -290,7 +300,10 @@ version, la edicion, el codigo de licencia y, si se dejo, el contacto del regist
 descripto abajo; no guarda la direccion IP. Los datos se guardan en el servidor del sitio
 web (Cloudflare) y solo el licenciante puede consultarlos.
 La senal viene encendida y el usuario puede apagarla en Preferencias (&quot;Avisarle a DEXIAE
-que el programa se usa&quot;); apagada, no se envia nada.
+que el programa se usa&quot;); apagada, no se envia nada. Al apagarla, el Software pregunta si el
+usuario quiere avisar UNA sola vez que la apago (con los mismos datos de a), b) y c), mas la
+marca de que se apago), para que el licenciante no lo confunda con que dejo de usarlo. Si el
+usuario elige no avisar, no se envia nada.
 Durante la prueba, el Software ofrece una sola vez dejar un nombre (opcional) y un mail o
 un WhatsApp para recibir ayuda. Es opcional: si se completa, se envia junto con el codigo
 de la instalacion, se guarda con los datos de esa instalacion y llega al licenciante por

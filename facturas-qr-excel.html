@@ -3,15 +3,24 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Facturas por QR y extracción documental | DEXIAE</title>
-<meta name="description" content="DEXIAE extrae datos de comprobantes leyendo el QR y el texto de la hoja, y te muestra de dónde sale cada dato. ARCA disponible; DGI Uruguay en desarrollo.">
+<title>Pasar facturas a Excel leyendo el código QR · DEXIAE</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Pasá tus facturas a Excel leyendo el código QR: CUIT, tipo, número, fecha, importe y CAE, tal como el emisor los declaró a ARCA, sin configurar nada por proveedor. Y estamos trabajando en el QR de Uruguay (DGI).">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="DEXIAE">
 <meta name="theme-color" content="#07111f">
 <link rel="canonical" href="https://getdexiae.com/facturas-qr-excel">
+<meta property="og:locale" content="es_AR">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="DEXIAE">
-<meta property="og:title" content="Del QR al dato. De la hoja al control. | DEXIAE">
-<meta property="og:description" content="Extracción documental, lectura QR y controles para trabajar con comprobantes en lote.">
-<meta property="og:image" content="https://getdexiae.com/og/facturas-qr-excel.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="DEXIAE: extracción documental y lectura QR de comprobantes, con ARCA disponible y DGI Uruguay en desarrollo."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://getdexiae.com/og/facturas-qr-excel.png">
+<meta property="og:title" content="Pasar facturas a Excel leyendo el código QR | DEXIAE">
+<meta property="og:description" content="Los datos del comprobante tal como el emisor los declaró a ARCA, con el importe controlado contra la hoja. Y un lector de QR universal en desarrollo.">
+<meta property="og:image" content="https://getdexiae.com/og/facturas-qr-excel.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Pasar facturas a Excel leyendo el código QR: constatación de ARCA con el importe que dice la hoja (datos de ejemplo)."><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://getdexiae.com/og/facturas-qr-excel.png">
 <meta property="og:url" content="https://getdexiae.com/facturas-qr-excel">
 <link rel="preload" href="/fonts/ibm-plex-sans-v23-latin.woff2" as="font" type="font/woff2" crossorigin>
 
@@ -357,6 +366,12 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 .hero h1 em{font-weight:700;color:#60A5FA;background:linear-gradient(rgba(96,165,250,.55),rgba(96,165,250,.55)) 0 100%/100% 1.5px no-repeat;padding-bottom:5px}
 </style>
 <link rel="stylesheet" href="/site-header.css?v=20261018-mobile1">
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://getdexiae.com/"}, {"@type": "ListItem", "position": 2, "name": "Facturas por QR a Excel", "item": "https://getdexiae.com/facturas-qr-excel"}]}
+</script>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "es-AR", "mainEntity": [{"@type": "Question", "name": "¿DEXIAE extrae datos solamente a través del QR?", "acceptedAnswer": {"@type": "Answer", "text": "No. El QR trae la identidad del comprobante sin configurar nada por proveedor. Lo que sólo está impreso en la hoja —el IVA discriminado, el subtotal, los ítems— se extrae con una plantilla del Laboratorio."}}, {"@type": "Question", "name": "¿Qué formatos de QR lee hoy?", "acceptedAnswer": {"@type": "Answer", "text": "El de las facturas electrónicas argentinas (ARCA). El de Uruguay (DGI) está en desarrollo y todavía no está en la versión disponible."}}, {"@type": "Question", "name": "¿Qué pasa si la factura no trae QR o no se puede leer?", "acceptedAnswer": {"@type": "Answer", "text": "La página no desaparece: queda en una lista de páginas para revisar a mano, que separa las que parecen un comprobante de las que son una transferencia o una carátula. Lo impreso se puede extraer con una plantilla."}}, {"@type": "Question", "name": "¿DEXIAE valida la factura ante ARCA?", "acceptedAnswer": {"@type": "Answer", "text": "No. Lee el código y arma el enlace de constatación de ARCA con los datos ya cargados, para que la consulta la hagas vos. Leer un dato no es verificarlo fiscalmente."}}, {"@type": "Question", "name": "¿DEXIAE ya lee facturas uruguayas?", "acceptedAnswer": {"@type": "Answer", "text": "Todavía no. Estamos trabajando en el QR de DGI. Si tenés facturas uruguayas y querés probarlo cuando esté, escribinos."}}, {"@type": "Question", "name": "¿Suben mis facturas a algún lado?", "acceptedAnswer": {"@type": "Answer", "text": "No. Todo corre en tu computadora, incluida la lectura del código. A internet sólo van, como mucho una vez por día al abrir DEXIAE, la consulta de la lista de licencias revocadas, del aviso de versión nueva y de las novedades que te manda DEXIAE (sólo se descargan: sin datos tuyos ni de tus facturas), desde la 2.9.2 una señal diaria de que el programa se usa (sin facturas, archivos ni datos de tus clientes; se apaga en Preferencias) y, si vos lo abrís, el enlace de constatación de ARCA. Si en la prueba completás el registro opcional, viaja también el contacto que dejaste."}}]}
+</script>
 </head>
 <body>
 <a class="skip" href="#contenido">Saltar al contenido</a>
@@ -384,15 +399,15 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
 <header class="hero"><div class="wrap hero-grid">
   <div>
-    <div class="eyebrow"><span class="pulse"></span> Document intelligence · Facturas</div>
-    <h1>Facturas a datos,<span class="l2">con <em>trazabilidad.</em></span></h1>
-    <p class="lead">DEXIAE combina la lectura del QR con la extracción del texto impreso y te devuelve una planilla donde cada valor indica de qué fuente salió y qué conviene revisar.</p>
-    <ul class="proof"><li>QR y texto del comprobante, en una sola pasada</li><li>Origen visible en cada campo</li><li>Diferencias señaladas para revisión</li></ul>
+    <div class="eyebrow"><span class="pulse"></span> Facturas por QR · lector universal en desarrollo</div>
+    <h1>Facturas a Excel,<span class="l2">desde el <em>código QR.</em></span></h1>
+    <p class="lead">DEXIAE lee el código QR de cada factura y pasa a Excel los datos del comprobante tal como el emisor los declaró a ARCA, sin configurar nada por proveedor. Controla el importe contra lo impreso en la hoja y te dice qué páginas hay que mirar a mano.</p>
+    <ul class="proof"><li>CUIT, tipo, número, fecha, importe y CAE, del código</li><li>El importe controlado contra la hoja</li><li>Las páginas sin código, señaladas para revisar</li></ul>
     <div class="actions">
       <button class="btn btn-primary" type="button" onclick="openLead('TRIAL')">Probar gratis <span aria-hidden="true">↗</span></button>
       <a class="btn btn-ghost" href="#como-funciona">Ver cómo funciona <span aria-hidden="true">↓</span></a>
     </div>
-    <p class="micro">Para Windows · procesamiento local</p>
+    <p class="micro">Para Windows · tus facturas no salen de tu equipo</p>
     <div class="chips"><span class="chip"><i></i> ARCA · disponible</span><span class="chip dev"><i></i> DGI Uruguay · en desarrollo</span></div>
   </div>
 
@@ -417,14 +432,14 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
           <div class="grp"><div class="grp-h"><span class="src qr">QR</span> Datos del código</div>
             <div class="fr r d1"><span>Comprobante</span><strong>Factura A</strong></div>
             <div class="fr r d2"><span>Importe</span><strong>$ 125.430,00</strong></div></div>
-          <div class="grp"><div class="grp-h"><span class="src pdf">PDF</span> Datos de la hoja</div>
+          <div class="grp"><div class="grp-h"><span class="src pdf">PDF</span> Con plantilla</div>
             <div class="fr r d3"><span>IVA discriminado</span><strong>$ 21.770,24</strong></div>
-            <div class="fr r d4"><span>Ítems</span><strong>3 líneas</strong></div></div>
+            <div class="fr r d4"><span>Subtotal</span><strong>$ 103.659,76</strong></div></div>
         </div>
-        <div class="pf r d5"><i></i> 1 diferencia señalada para revisión</div>
+        <div class="pf r d5"><i></i> Importe impreso en la hoja: verificado</div>
       </div>
-      <div class="xlmini r d6"><div class="xm-top"><span class="xl-ic">X</span> resultado.xlsx</div><div class="xm-row"><span>0001-001284</span><span class="t both">QR + hoja</span><span>$ 125.430,00</span><span class="rv">Revisar</span></div></div>
-      <div class="tag t-qr"><i></i> QR leído</div><div class="tag t-txt"><i></i> Texto + plantilla</div>
+      <div class="xlmini r d6"><div class="xm-top"><span class="xl-ic">X</span> resultado.xlsx</div><div class="xm-row"><span>0001-001284</span><span class="t both">QR</span><span>$ 125.430,00</span><span class="rv">Verificado</span></div></div>
+      <div class="tag t-qr"><i></i> QR leído</div><div class="tag t-txt"><i></i> Plantilla</div>
      </div></div></div>
     </div>
     <figcaption class="note">Ilustración de proceso · datos ficticios</figcaption>
@@ -435,37 +450,37 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
   <div class="strip-item"><i>AR</i><span>ARCA<small>Disponible hoy</small></span></div>
   <div class="strip-item"><i>UY</i><span>DGI Uruguay<small>En desarrollo</small></span></div>
   <div class="strip-item"><i>⌂</i><span>Procesamiento local<small>En tu equipo Windows</small></span></div>
-  <div class="strip-item"><i>⇄</i><span>Origen visible<small>QR, texto o ambos</small></span></div>
+  <div class="strip-item"><i>⇄</i><span>Constatación<small>Enlace a ARCA por comprobante</small></span></div>
 </div></div>
 
 <main id="contenido">
 <section class="section" id="como-funciona"><div class="wrap">
-  <div class="sec-head reveal"><p class="overline">Cómo funciona</p><h2>De la factura al Excel, en tres pasos.</h2><p>Cada comprobante se lee con todas las vías disponibles y se devuelve ordenado, con su procedencia.</p></div>
+  <div class="sec-head reveal"><p class="overline">Cómo funciona</p><h2>De la factura al Excel, en tres pasos.</h2><p>El QR de las facturas electrónicas argentinas sigue un formato común, aunque cada proveedor diseñe distinto la hoja.</p></div>
   <div class="steps reveal">
-    <div class="step"><h3>Cargá tus comprobantes</h3><p>PDF o imágenes, de a uno o en lote. No hace falta configurar una plantilla para cada proveedor.</p></div>
-    <div class="step"><h3>DEXIAE lee y extrae</h3><p>Lee el QR cuando es compatible y completa con texto, importes e ítems mediante plantillas y otras estrategias.</p></div>
-    <div class="step"><h3>Revisá y exportá</h3><p>Ves el origen de cada dato, las diferencias señaladas y obtenés una planilla lista para trabajar.</p></div>
+    <div class="step"><h3>Cargá tus comprobantes</h3><p>En PDF, de a uno o en lote, también un compilado con muchas facturas adentro. Para leer el QR no hace falta configurar nada por proveedor.</p></div>
+    <div class="step"><h3>DEXIAE lee el código</h3><p>Del QR salen CUIT, tipo, punto de venta y número, fecha, importe y CAE. Lo que sólo está impreso —IVA, subtotal, ítems— sale con una plantilla.</p></div>
+    <div class="step"><h3>Revisá y exportá</h3><p>Una fila por comprobante: el importe controlado contra la hoja, el comprobante repetido en varias páginas del PDF una sola vez y las páginas sin código señaladas.</p></div>
   </div>
 </div></section>
 
 <section class="section white"><div class="wrap">
-  <div class="sec-head reveal"><p class="overline">Dos fuentes. Un control.</p><h2>El QR aporta una parte. La hoja completa el resto.</h2><p>El código recupera la identidad y los datos que contiene su formato, pero no incluye necesariamente todo lo que necesitás de una factura.</p></div>
+  <div class="sec-head reveal"><p class="overline">Dos fuentes. Un control.</p><h2>El QR aporta una parte. La hoja completa el resto.</h2><p>El código trae la identidad del comprobante y el total, pero no la composición: el IVA discriminado, el subtotal y los ítems no están en el QR.</p></div>
   <div class="src-grid reveal">
     <article class="src-card qr"><span class="badge qr">Fuente estructurada</span><h3>Cuando el QR se puede leer</h3><p>Una vía rápida para identificar comprobantes sin configurar nada por proveedor.</p>
-      <ul><li>Campos disponibles en el código compatible</li><li>Identificación directa del comprobante</li><li>Lectura sin depender del diseño de la factura</li></ul></article>
-    <article class="src-card pdf"><span class="badge pdf">Fuente documental</span><h3>Cuando necesitás lo que está impreso</h3><p>Texto, plantillas y lectura documental para lo que el QR no trae, o cuando no alcanza.</p>
-      <ul><li>Subtotales, impuestos e ítems</li><li>Facturas sin QR legible</li><li>Información fuera del formato del código</li></ul></article>
+      <ul><li>CUIT, tipo, número, fecha, importe y CAE</li><li>Funciona con un proveedor que nunca procesaste</li><li>No le afecta que cambie el diseño de la factura</li></ul></article>
+    <article class="src-card pdf"><span class="badge pdf">Fuente documental</span><h3>Cuando necesitás lo que está impreso</h3><p>Para lo que el QR no trae, una plantilla del Laboratorio lee lo impreso en la hoja.</p>
+      <ul><li>IVA discriminado, subtotal e ítems</li><li>Facturas que no traen el código impreso</li><li>Datos propios de cada proveedor</li></ul></article>
   </div>
-  <div class="merge reveal"><i aria-hidden="true">⇄</i><div><b>Cuando las fuentes no coinciden, lo ves.</b><span>Los valores se contrastan y las diferencias quedan señaladas. Leer un dato no es verificarlo fiscalmente.</span></div></div>
+  <div class="merge reveal"><i aria-hidden="true">⇄</i><div><b>El importe, controlado contra la hoja.</b><span>DEXIAE compara el importe del QR con los impresos en esa página: si está, queda verificado; si no lo puede confirmar, lo dice. Leer un dato no es verificarlo fiscalmente.</span></div></div>
 </div></section>
 
 <section class="section dark" id="demostracion"><div class="wrap">
-  <div class="sec-head reveal"><p class="overline">Vista ilustrativa del producto</p><h2>Una lectura clara. Un resultado que podés revisar.</h2><p>Elegí un escenario para ver cómo cambian la interpretación y las advertencias. La maqueta usa datos ficticios y no ejecuta lecturas reales.</p></div>
+  <div class="sec-head reveal"><p class="overline">En qué estamos trabajando</p><h2>Hacia un lector de QR universal.</h2><p>Hoy DEXIAE lee el QR de ARCA. Estamos trabajando para que lea el de DGI (Uruguay) y para que un código de otro formato no se pierda. Elegí un escenario: es una maqueta con datos ficticios, no el programa.</p></div>
   <div class="wb reveal">
     <div class="wb-top"><div>DEXIAE <span>/ Extracción documental</span></div><div class="st"><span>Procesamiento local</span></div></div>
     <div class="wb-grid">
-      <div class="wb-l"><div class="kicker">Escenario de demostración</div><h3 id="s-title">QR argentino reconocido</h3><p id="s-copy"></p>
-        <div class="tabs" role="group" aria-label="Elegir escenario"><button class="tab" type="button" aria-pressed="true" data-s="arca">Argentina · ARCA</button><button class="tab" type="button" aria-pressed="false" data-s="dgi">Uruguay · DGI</button><button class="tab" type="button" aria-pressed="false" data-s="unknown">QR desconocido</button></div>
+      <div class="wb-l"><div class="kicker">Escenario de demostración</div><h3 id="s-title">QR de ARCA</h3><p id="s-copy"></p>
+        <div class="tabs" role="group" aria-label="Elegir escenario"><button class="tab" type="button" aria-pressed="true" data-s="arca">Argentina · disponible</button><button class="tab" type="button" aria-pressed="false" data-s="dgi">Uruguay · en desarrollo</button><button class="tab" type="button" aria-pressed="false" data-s="unknown">Otro formato · en desarrollo</button></div>
         <p class="cap" id="s-cap"></p></div>
       <div class="wb-r" aria-live="polite">
         <div class="res-top"><span id="r-label"></span><span class="pill" id="r-pill"></span></div>
@@ -478,27 +493,27 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 </div></section>
 
 <section class="section white"><div class="wrap detail">
-  <div class="reveal"><p class="overline">Del documento a una planilla útil</p><h2>No dependas de una sola forma de extraer.</h2>
-    <p class="intro">Las facturas cambian de diseño, calidad y estructura. Un QR compatible resuelve parte de la lectura; otras estrategias recuperan lo que queda fuera del código o los documentos sin QR legible.</p>
+  <div class="reveal"><p class="overline">Del documento a una planilla útil</p><h2>El código y la plantilla, juntos.</h2>
+    <p class="intro">Las facturas cambian de diseño de un proveedor a otro. El QR resuelve la identidad del comprobante sin configurar nada; la plantilla trae lo que sólo está impreso en la hoja.</p>
     <div class="points">
-      <div class="point"><span>01</span><div><b>Campos que vienen del QR</b><p>Identidad y valores disponibles en el formato que se pudo interpretar.</p></div></div>
-      <div class="point"><span>02</span><div><b>Campos obtenidos de la hoja</b><p>Texto, subtotales, IVA e ítems cuando el documento y la estrategia lo permiten.</p></div></div>
-      <div class="point"><span>03</span><div><b>Controles para revisar diferencias</b><p>Cada dato conserva su fuente y los casos dudosos se señalan, sin afirmar que extraer equivale a validar.</p></div></div>
+      <div class="point"><span>01</span><div><b>Campos que vienen del QR</b><p>CUIT, tipo, número, fecha, importe, moneda y CAE, tal como el emisor los declaró a ARCA. Las notas de crédito, con su tipo y en negativo en «Importe computado».</p></div></div>
+      <div class="point"><span>02</span><div><b>Campos obtenidos de la hoja</b><p>IVA, subtotal e ítems, con una plantilla del Laboratorio.</p></div></div>
+      <div class="point"><span>03</span><div><b>Controles para revisar</b><p>El importe contra la hoja, el comprobante repetido en varias páginas del PDF una sola vez y las páginas sin código, en una hoja aparte.</p></div></div>
     </div></div>
   <div class="reveal"><div class="xl"><div class="xl-top"><span class="xl-ic">X</span>DEXIAE · Resultado de extracción.xlsx</div>
-    <div class="xl-body"><table><thead><tr><th>Comprobante</th><th>Origen</th><th>Importe</th><th>Control</th></tr></thead><tbody>
-      <tr><td>0001-001284</td><td><span class="t qr">QR</span></td><td>$ 125.430,00</td><td class="ok">Leído</td></tr>
-      <tr><td>0001-001285</td><td><span class="t pdf">Texto / plantilla</span></td><td>$ 89.200,00</td><td class="ok">Extraído</td></tr>
-      <tr><td>0001-001286</td><td><span class="t both">QR + hoja</span></td><td>$ 42.810,00</td><td class="rv">Revisar</td></tr></tbody></table></div>
-    <div class="xl-foot"><span>Datos ficticios · hoja ilustrativa</span><span>Fuente identificada en cada fila</span></div></div></div>
+    <div class="xl-body"><table><thead><tr><th>Comprobante</th><th>Tipo</th><th>Importe</th><th>Control del importe</th></tr></thead><tbody>
+      <tr><td>0001-001284</td><td><span class="t qr">Factura A</span></td><td>$ 125.430,00</td><td class="ok">Verificado: está en la hoja</td></tr>
+      <tr><td>0001-001285</td><td><span class="t pdf">Factura B</span></td><td>$ 89.200,00</td><td class="ok">Verificado: está en la hoja</td></tr>
+      <tr><td>0001-001286</td><td><span class="t both">Nota de crédito A</span></td><td>$ 42.810,00</td><td class="rv">No se pudo confirmar</td></tr></tbody></table></div>
+    <div class="xl-foot"><span>Datos ficticios · hoja ilustrativa</span><span>Una fila por comprobante</span></div></div></div>
 </div></section>
 
 <section class="section"><div class="wrap">
   <div class="sec-head reveal"><p class="overline">Para quién</p><h2>Pensado para quien trabaja con comprobantes todos los días.</h2><p>Menos tipeo y más control sobre lo que entra a la planilla.</p></div>
   <div class="who reveal">
-    <article class="who-card"><i aria-hidden="true">▤</i><h3>Estudios contables</h3><p>Pasá lotes de facturas de clientes a una planilla ordenada, con el origen de cada dato a la vista.</p></article>
-    <article class="who-card"><i aria-hidden="true">◫</i><h3>Administración y compras</h3><p>Cargá comprobantes de proveedores sin armar una plantilla por cada diseño de factura.</p></article>
-    <article class="who-card"><i aria-hidden="true">◎</i><h3>Control y auditoría</h3><p>Detectá diferencias entre el QR y la hoja y dejá señalado lo que requiere revisión.</p></article>
+    <article class="who-card"><i aria-hidden="true">▤</i><h3>Estudios contables</h3><p>Pasá lotes de facturas de clientes a una planilla ordenada, con el CAE y el importe controlado.</p></article>
+    <article class="who-card"><i aria-hidden="true">◫</i><h3>Administración y compras</h3><p>Los datos del QR de cualquier proveedor, sin armar una plantilla para cada uno.</p></article>
+    <article class="who-card"><i aria-hidden="true">◎</i><h3>Control y auditoría</h3><p>Mirá si el importe del QR está impreso en la hoja y qué páginas no traen código.</p></article>
   </div>
 </div></section>
 
@@ -506,19 +521,20 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
   <div class="sec-head reveal"><p class="overline">Compatibilidad transparente</p><h2>Lo que funciona hoy. Lo que estamos ampliando.</h2><p>La disponibilidad de cada formato se comunica por separado. No prometemos compatibilidad antes de probarla.</p></div>
   <div class="road-grid reveal">
     <article class="rc"><span class="s">● Disponible</span><h3>Argentina · ARCA</h3><p>Lectura de códigos QR de comprobantes argentinos compatibles en la versión comercial actual.</p><small>El QR aporta los campos que contiene. La extracción documental completa el resto cuando se necesita.</small></article>
-    <article class="rc dev"><span class="s">◷ En desarrollo</span><h3>Uruguay · DGI</h3><p>Se realizó una prueba técnica aislada con una factura real. La interpretación completa y las validaciones siguen en desarrollo.</p><small>Todavía no disponible comercialmente.</small></article>
-    <article class="rc fut"><span class="s">◎ En evaluación</span><h3>Otros formatos</h3><p>La arquitectura evoluciona para ampliar la lectura y conservar contenidos que aún no tengan un intérprete compatible.</p><small>¿Necesitás un país u organismo en particular? Contanos cuál.</small><a class="lnk" href="https://wa.me/5493516574188?text=Hola%21%20Quiero%20consultar%20por%20la%20compatibilidad%20de%20un%20formato%20QR%20con%20DEXIAE." target="_blank" rel="noopener">Sugerir un formato por WhatsApp</a></article>
+    <article class="rc dev"><span class="s">◷ En desarrollo</span><h3>Uruguay · DGI</h3><p>Estamos trabajando en la lectura del QR de las facturas electrónicas de Uruguay: los datos que pide la consulta oficial de DGI (RUC del emisor, tipo, serie, número, fecha de firma y monto total).</p><small>Todavía no está en la versión disponible. ¿Tenés facturas uruguayas? Escribinos: nos sirven para probarlo.</small></article>
+    <article class="rc fut"><span class="s">◎ En evaluación</span><h3>Otros formatos</h3><p>Queremos que un código de un formato que todavía no interpretamos no se pierda: que quede en la planilla para revisarlo y sumar ese formato después.</p><small>¿Necesitás un país u organismo en particular? Contanos cuál.</small><a class="lnk" href="https://wa.me/5493516574188?text=Hola%21%20Quiero%20consultar%20por%20la%20compatibilidad%20de%20un%20formato%20QR%20con%20DEXIAE." target="_blank" rel="noopener">Sugerir un formato por WhatsApp</a></article>
   </div>
 </div></section>
 
 <section class="section white"><div class="wrap faq-grid">
   <div class="side reveal"><p class="overline">Preguntas frecuentes</p><h2>Una lectura más clara empieza por explicar sus límites.</h2><p>DEXIAE distingue entre leer, extraer, interpretar y verificar. No son lo mismo.</p></div>
   <div class="reveal" id="faq">
-    <details><summary>¿DEXIAE extrae datos solamente a través del QR?</summary><p>No. La lectura QR es una de las vías más directas cuando el código es compatible y legible. Los datos impresos en la hoja también pueden extraerse mediante plantillas y otras estrategias documentales.</p></details>
-    <details><summary>¿Qué formatos QR están disponibles hoy?</summary><p>La versión comercial contempla comprobantes argentinos compatibles con el formato de ARCA. La compatibilidad con DGI Uruguay está en desarrollo y todavía no se ofrece comercialmente.</p></details>
-    <details><summary>¿Qué ocurre si el QR no está o no se puede leer?</summary><p>La extracción documental puede recuperar información desde el texto o la imagen de la factura cuando la estrategia y la calidad del documento lo permiten. No todos los campos pueden garantizarse en todos los archivos.</p></details>
-    <details><summary>¿Un dato extraído significa que la factura está verificada?</summary><p>No. La extracción recupera información. La comparación con el documento ayuda a detectar discrepancias, pero no demuestra por sí sola autenticidad o validez fiscal.</p></details>
-    <details><summary>¿DEXIAE ya procesa facturas uruguayas en la versión comercial?</summary><p>Todavía no. Se realizó una prueba técnica aislada con un QR de DGI, pero faltan completar la interpretación, la validación y las pruebas antes de ofrecer esa compatibilidad comercialmente.</p></details>
+    <details><summary>¿DEXIAE extrae datos solamente a través del QR?</summary><p>No. El QR trae la identidad del comprobante sin configurar nada por proveedor. Lo que sólo está impreso en la hoja —el IVA discriminado, el subtotal, los ítems— se extrae con una plantilla del Laboratorio.</p></details>
+    <details><summary>¿Qué formatos de QR lee hoy?</summary><p>El de las facturas electrónicas argentinas (ARCA). El de Uruguay (DGI) está en desarrollo y todavía no está en la versión disponible.</p></details>
+    <details><summary>¿Qué pasa si la factura no trae QR o no se puede leer?</summary><p>La página no desaparece: queda en una lista de páginas para revisar a mano, que separa las que parecen un comprobante de las que son una transferencia o una carátula. Lo impreso se puede extraer con una plantilla.</p></details>
+    <details><summary>¿DEXIAE valida la factura ante ARCA?</summary><p>No. Lee el código y arma el enlace de constatación de ARCA con los datos ya cargados, para que la consulta la hagas vos. Leer un dato no es verificarlo fiscalmente.</p></details>
+    <details><summary>¿DEXIAE ya lee facturas uruguayas?</summary><p>Todavía no. Estamos trabajando en el QR de DGI. Si tenés facturas uruguayas y querés probarlo cuando esté, escribinos.</p></details>
+    <details><summary>¿Suben mis facturas a algún lado?</summary><p>No. Todo corre en tu computadora, incluida la lectura del código. A internet sólo van, como mucho una vez por día al abrir DEXIAE, la consulta de la lista de licencias revocadas, del aviso de versión nueva y de las novedades que te manda DEXIAE (sólo se descargan: sin datos tuyos ni de tus facturas), desde la 2.9.2 una señal diaria de que el programa se usa (sin facturas, archivos ni datos de tus clientes; se apaga en Preferencias) y, si vos lo abrís, el enlace de constatación de ARCA. Si en la prueba completás el registro opcional, viaja también el contacto que dejaste.</p></details>
   </div>
 </div></section>
 
@@ -590,11 +606,11 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
 
   /* Demo interactiva */
   var D={
-    arca:{t:'QR argentino reconocido',c:'Un comprobante compatible permite recuperar los campos disponibles en su estructura y compararlos con los datos impresos.',cap:'Disponible hoy para comprobantes argentinos compatibles. La maqueta no consulta ARCA.',l:'Campos recuperados del QR',p:'EJEMPLO FICTICIO',q:'Formato ARCA',s:'Estado ilustrativo: formato reconocido',a:'Ejemplo ficticio. La lectura QR no certifica autenticidad ni reemplaza la revisión documental.',w:0,f:[['CUIT emisor','30-00000000-0','QR · leído'],['Comprobante','Factura A · 0001-001284','QR · leído'],['Importe','$ 125.430,00','QR · leído'],['Control documental','Coincidencia ilustrativa','Ejemplo · no verificado']]},
-    dgi:{t:'Lectura DGI en validación',c:'Se probó la decodificación de una factura uruguaya. La interpretación de los campos y las validaciones todavía requieren trabajo.',cap:'Uruguay/DGI continúa en desarrollo y no está disponible comercialmente.',l:'Campos candidatos',p:'PERFIL EN DESARROLLO',q:'Formato DGI · provisional',s:'Estado ilustrativo: interpretación provisional',a:'La lectura y la separación de campos no equivalen a una validación fiscal. La fecha, el número y el código de seguridad requieren comprobaciones específicas.',w:1,f:[['Identificación','RUT · valor ficticio','Candidato'],['Tipo / serie / número','Campos del perfil de prueba','Provisional'],['Importe / fecha','Normalización pendiente','Por confirmar'],['Código de seguridad','Presente en la muestra','No verificado']]},
-    unknown:{t:'QR leído, formato no reconocido',c:'El objetivo es conservar el contenido decodificado aunque todavía no exista un perfil que explique el significado de cada campo.',cap:'Comportamiento objetivo en desarrollo; esta pantalla es solo ilustrativa.',l:'Estructura detectada',p:'SIN PERFIL COMPATIBLE',q:'Contenido conservado · ejemplo',s:'Estado ilustrativo: interpretación pendiente',a:'Los nombres de los campos son candidatos sintéticos. No se atribuye significado fiscal ni se afirma compatibilidad comercial.',w:1,f:[['ref','ABC-123','Candidato'],['total','1250.00','Sin confirmar'],['fecha','2026-10-17','Sin confirmar'],['Perfil','No identificado','Pendiente']]}
+    arca:{t:'QR de ARCA',c:'Del QR salen los datos del comprobante tal como el emisor los declaró a ARCA, y el importe se controla contra lo impreso en la hoja.',cap:'Disponible hoy. La maqueta no consulta ARCA.',l:'Datos del código',p:'EJEMPLO FICTICIO',q:'Formato ARCA',s:'Disponible',a:'Ejemplo ficticio. Leer el código no certifica la factura: el enlace de constatación arma la consulta para que la hagas vos.',w:0,f:[['CUIT emisor','30-00000000-0','Del QR'],['Comprobante','Factura A · 0001-001284','Del QR'],['Importe','$ 125.430,00','Del QR'],['Control del importe','Impreso en la hoja','Verificado']]},
+    dgi:{t:'QR de DGI (Uruguay)',c:'El QR de las facturas electrónicas uruguayas lleva a la consulta del comprobante en DGI. Estamos trabajando para pasar esos datos a Excel como hoy pasamos los de ARCA.',cap:'En desarrollo: todavía no está en la versión disponible.',l:'Lo que pide la consulta de DGI',p:'EN DESARROLLO',q:'Formato DGI',s:'En desarrollo',a:'Maqueta con datos ficticios. Leer el código tampoco va a validar el comprobante ante DGI.',w:1,f:[['RUC emisor','valor ficticio','En desarrollo'],['Tipo / serie / número','valor ficticio','En desarrollo'],['Fecha de firma','valor ficticio','En desarrollo'],['Monto total','valor ficticio','En desarrollo']]},
+    unknown:{t:'Un QR de otro formato',c:'Si DEXIAE lee un código que todavía no sabe interpretar, el objetivo es conservarlo en la planilla en vez de descartarlo, y sumar ese formato después.',cap:'En desarrollo. Hoy esa página queda en la hoja «Páginas sin comprobante».',l:'Contenido del código',p:'EN DESARROLLO',q:'Formato no reconocido',s:'En desarrollo',a:'Maqueta con datos ficticios. Conservar el contenido no le da significado fiscal.',w:1,f:[['Contenido','ABC-123 · ficticio','Conservado'],['Formato','No reconocido','Pendiente'],['Página','3','Para revisar']]}
   };
-  var $=function(id){return document.getElementById(id)},warnRe=/candidato|provisional|confirmar|pendiente|no verificado/i;
+  var $=function(id){return document.getElementById(id)},warnRe=/desarrollo|pendiente|revisar/i;
   function show(k){var d=D[k];
     $('s-title').textContent=d.t;$('s-copy').textContent=d.c;$('s-cap').textContent=d.cap;$('r-label').textContent=d.l;$('r-pill').textContent=d.p;$('r-qr').textContent=d.q;$('r-state').textContent=d.s;
     var al=$('r-alert');al.textContent=d.a;al.className='alert'+(d.w?' warn':'');
@@ -611,9 +627,6 @@ nav{position:sticky;top:0;z-index:60;background:rgba(11,17,32,.9);backdrop-filte
   if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.12});els.forEach(function(e){io.observe(e)})}
   else els.forEach(function(e){e.classList.add('visible')});
 
-  /* Datos estructurados (FAQPage) generados desde el FAQ visible */
-  var qa=[].map.call(document.querySelectorAll('#faq details'),function(d){return{'@type':'Question',name:d.querySelector('summary').textContent,acceptedAnswer:{'@type':'Answer',text:d.querySelector('p').textContent}}});
-  var s=document.createElement('script');s.type='application/ld+json';s.text=JSON.stringify({'@context':'https://schema.org','@type':'FAQPage',mainEntity:qa});document.head.appendChild(s);
 })();
 </script>
 <script src="/lead.js?v=20261018-mobile1" defer></script>

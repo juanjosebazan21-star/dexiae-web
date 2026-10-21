@@ -313,66 +313,158 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <li><b>Copiar</b> el texto de un caso para pegarlo donde lo necesites.</li>
 </ul>
 <h2 id="plantillas">Laboratorio: plantillas</h2>
-<div class="ficha"><dl><dt>Para qué</dt><dd>Enseñarle a DEXIAE un tipo de documento: qué dato va en cada columna del Excel y cómo encontrarlo en la hoja.</dd><dt>Cómo</dt><dd>Cargás un PDF de muestra, marcás cada dato y elegís su estrategia (al lado de un texto, en una zona, una tabla, el QR…). Probás en una carpeta sin gastar cupo.</dd><dt>Qué sale</dt><dd>Una plantilla que usás en Ejecución y en el Centinela. Se exporta e importa como archivo .json.</dd><dt>Tené en cuenta</dt><dd>El Asistente (arma plantillas solo, mirando tus PDFs) y la Detección automática: sólo PRO y SENTINEL, sólo PDF. El instalador trae sólo el diccionario GENERICO; los demás llegan por Novedades.</dd><dt>Edición</dt><dd>Todas. Hasta 3 plantillas en la prueba, CORE y CONTABLE; sin tope en PRO y SENTINEL.</dd></dl></div>
-<h3>La mesa de trabajo</h3>
-<p>En el Laboratorio cargás un <b>PDF de muestra</b> (el documento de referencia) y armás la plantilla mirándolo: seleccionás un texto en el documento y con el menú contextual lo usás directamente como <b>etiqueta</b> del campo o como <b>freno</b>. Cada campo que agregás queda en la lista de la izquierda; "Limpiar todo" vacía la mesa (plantilla y documento de referencia).</p>
-<p id="recop"><b>Si la muestra es un escaneo: RECOP.</b> Un PDF escaneado no trae texto, y sin texto no hay nada que marcar como etiqueta o freno. Tocá <b>RECOP</b> (arriba a la derecha, al lado de «Cargar documento»; al pasar el mouse dice «Forzar OCR del documento»), o <b>Reconocer con OCR (RECOP)</b>, que aparece en el panel del texto cuando el documento no trae texto. DEXIAE reconoce con OCR la <b>primera página</b> del documento de referencia y muestra ese texto para que marques los datos. No cambia el PDF ni procesa el lote: es sólo para armar la plantilla; al procesar, cada documento escaneado se reconoce por su cuenta.</p>
+<div class="ficha"><dl><dt>Para qué</dt><dd>Enseñarle a DEXIAE un tipo de documento: qué dato va en cada columna del Excel y cómo encontrarlo en la hoja.</dd><dt>Cómo</dt><dd>Cargás un documento de muestra, armás cada campo (marcando el dato en la página, eligiéndolo del texto o a mano), lo probás sobre la muestra sin gastar cupo y guardás la plantilla.</dd><dt>Qué sale</dt><dd>Una plantilla que usás en Ejecución y en el Centinela. Queda en tu equipo y se exporta e importa como archivo .json.</dd><dt>Tené en cuenta</dt><dd>El Asistente (arma plantillas mirando tus PDF) y la Detección automática: sólo PRO y SENTINEL, sólo PDF. «Probar» trabaja sobre el documento de muestra, no sobre una carpeta (ver <a href="#lab-probar">qué prueba y qué no</a>).</dd><dt>Edición</dt><dd>Todas. Hasta 3 plantillas en la prueba, CORE y CONTABLE (editar las que tenés no tiene límite); sin tope en PRO y SENTINEL.</dd></dl></div>
+
+<h3 id="lab-primera">Tu primera plantilla, paso a paso</h3>
+<ol>
+<li><b>Empezá de cero.</b> En el desplegable <b>Plantilla</b>, arriba, elegí «— Nueva plantilla —». «Limpiar todo» vacía la mesa (los campos sin guardar y el documento de referencia).</li>
+<li><b>Cargá una muestra.</b> «Cargar documento» acepta PDF y también imágenes JPG, PNG o TIFF. Elegí un documento típico: el que más se parece a los que vas a procesar. Si es un escaneo, mirá el paso siguiente.</li>
+<li><b>Si la muestra es un escaneo, tocá «RECOP»</b> (ver <a href="#recop">abajo</a>) para ver su texto y poder marcar etiquetas.</li>
+<li><b>Opcional: sumá una «Carpeta de prueba»</b> con otros documentos del mismo tipo. Sirve para que las sugerencias de «marcá el dato» se prueben también en otros diseños.</li>
+<li><b>Armá cada campo</b>, de una de estas tres formas:
+<ul>
+<li><b>Marcando el dato</b> en la vista <b>Visual</b>: arrastrás un recuadro sobre el dato y DEXIAE te sugiere cómo sacarlo (<a href="#sugerir">cómo funciona</a>). «Usar esta» lo deja listo en el editor.</li>
+<li><b>Desde el texto</b>, en la vista <b>Texto</b>: seleccionás un texto con el mouse y aparece una barrita con «→ Etiqueta», «→ Freno», «→ Columna» (lo pasa a mayúsculas con _ como nombre de columna) y copiar.</li>
+<li><b>A mano</b>, completando el editor de abajo.</li>
+</ul></li>
+<li><b>Tocá «Agregar».</b> El campo pasa a la lista de la izquierda.</li>
+<li><b>Tocá «Probar»</b> y mirá cómo sale cada columna. Ajustá etiqueta, estrategia o freno hasta que salga bien.</li>
+<li><b>Revisá las opciones de la plantilla</b> en la fila de arriba (<a href="#lab-opciones">qué hace cada una</a>).</li>
+<li><b>«Guardar»</b> (o «Guardar como», para una plantilla nueva a partir de la que tenés en pantalla).</li>
+</ol>
+
+<p id="recop"><b>RECOP: cuando la muestra es un escaneo.</b> Un PDF escaneado no trae texto, y sin texto no hay nada que marcar como etiqueta o freno. Tocá <b>RECOP</b> (arriba a la derecha, al lado de «Cargar documento»; al pasar el mouse dice «Forzar OCR del documento»), o <b>Reconocer con OCR (RECOP)</b>, que aparece en el panel del texto cuando el documento no trae texto. DEXIAE reconoce con OCR la <b>primera página</b> del documento de referencia y la muestra en la vista Texto para que marques los datos. Las demás páginas siguen sin texto en el visor. No cambia el PDF ni procesa nada: es sólo para armar la plantilla. Tampoco hace falta para que «Probar» ande: si la muestra casi no trae texto, el motor reconoce la página 1 por su cuenta, y al procesar un lote cada documento escaneado se reconoce solo.</p>
+
+<h3 id="lab-pantalla">La pantalla, parte por parte</h3>
+<table>
+<tr><th>Lo que ves</th><th>Qué hace</th></tr>
+<tr><td><b>Plantilla</b> (desplegable)</td><td>Elegís la plantilla a editar, o «— Nueva plantilla —». Con más de 20 plantillas aparece «Filtrar…» para buscarla.</td></tr>
+<tr><td><b>Guardar</b> · <b>Guardar como</b></td><td>Guardar pisa la plantilla elegida (sin plantilla elegida, actúa como «Guardar como»). «Guardar como» pide un nombre nuevo; si ya existe, no la pisa.</td></tr>
+<tr><td>Lápiz · papelera</td><td><b>Renombrar</b> y <b>Eliminar</b>. Eliminar borra el archivo de la plantilla y no se puede deshacer.</td></tr>
+<tr><td>Importar · exportar</td><td>Traer una plantilla desde un archivo .json, o guardarla como archivo para pasársela a alguien (<a href="#lab-guardar">detalle</a>).</td></tr>
+<tr><td><b>Limpiar todo</b></td><td>Vacía la mesa: los campos que no guardaste y el documento de referencia.</td></tr>
+<tr><td>Estado</td><td>«Sin cambios», «Cambios sin guardar» (en ámbar), «Guardada ✓»… Al cambiar de pantalla la mesa no se borra, pero tampoco hay un aviso de cambios sin guardar: guardá antes de cerrar DEXIAE.</td></tr>
+<tr><td><b>RECOP</b></td><td>Reconoce con OCR la página 1 de la muestra (<a href="#recop">ver arriba</a>).</td></tr>
+<tr><td><b>Cargar documento</b></td><td>Abre la muestra. Lee la capa de texto de todas sus páginas (sin OCR), cuántas páginas tiene, si está firmada y si trae archivos adentro.</td></tr>
+<tr><td><b>Carpeta de prueba</b></td><td>Otros documentos del mismo tipo para las sugerencias de «marcá el dato». Lee hasta 30 PDF de la carpeta (sin subcarpetas) y saltea los informes que armó DEXIAE. Queda un chip con la ✕ para quitarla.</td></tr>
+<tr><td><b>Asistente inteligente</b></td><td>Arma plantillas a partir de varios PDF (<a href="#lab-asistente">ver abajo</a>). PRO y SENTINEL.</td></tr>
+<tr><td><b>Texto</b> · <b>Visual</b> · Pág N/M</td><td>Las dos vistas del documento y el cambio de página. En Texto, «Buscar en el documento…» resalta lo que escribas.</td></tr>
+<tr><td><b>Campos · N</b> (izquierda)</td><td>La lista de campos: un clic lo selecciona y lo prueba, doble clic lo edita; lápiz, papelera, «Subir» y «Bajar». Cada fila muestra íconos: ✱ obligatorio, llave clave única, ancla, ojo tachado (sólo ancla, sin columna), zona dibujada.</td></tr>
+</table>
+
 <h3>Anatomía de un campo</h3>
 <ul>
-<li><b>Columna</b>: el nombre que va a tener en el Excel (p. ej. <code>CUIT</code>).</li>
-<li><b>Etiqueta / tag</b>: el texto del PDF que sirve de referencia para encontrar el dato (p. ej. <code>CUIT:</code>).</li>
-<li><b>Estrategia</b>: cómo capturar el valor a partir de la etiqueta (ver tabla).</li>
-<li><b>Freno</b> (opcional): un texto donde cortar la captura, para que no se lleve texto de más.</li>
-<li><b>Ancla</b>: marca el campo como identificador estructural del documento — se usa para reconocer el tipo de documento (clave en la Autodetección).</li>
-<li><b>Obligatorio</b>: si el campo falta, el documento va a <code>_REVISAR_</code> en vez de darse por bueno.</li>
-<li><b>Clave única</b>: los campos marcados forman la identidad del documento para <b>deduplicar</b> (p. ej. CUIT + número de comprobante), incluso contra lotes anteriores.</li>
+<li><b>Columna Excel</b>: el nombre de la columna (p. ej. <code>CUIT</code>). No puede llamarse como una de las que escribe DEXIAE (Archivo, ESTADO_PROCESO, ORIGEN, ID_ORIGINAL, VALIDACION…): al guardar te lo avisa.</li>
+<li><b>Etiqueta / Tag</b>: el texto del documento que sirve de referencia para encontrar el dato (p. ej. <code>CUIT:</code>). Se busca sin distinguir mayúsculas ni tildes. En algunas estrategias la etiqueta es otra cosa (en «Patrón», la expresión; en «Columna de tabla», el encabezado; en «Comprobante (QR)», qué dato del comprobante).</li>
+<li><b>Estrategia</b>: cómo sacar el valor a partir de la etiqueta (<a href="#lab-estrategias">ver tabla</a>).</li>
+<li><b>Freno</b> (opcional): dónde cortar la lectura para no llevarse texto de más. Acepta varias alternativas separadas por <code>|</code>, respeta palabras enteras e ignora tildes. Sin freno, la lectura corta al final del renglón.</li>
+<li><b>Otras formas de escribir la etiqueta</b>, separadas por <code>|</code> (p. ej. <code>Nombre y Apellido: | Apellido y Nombre:</code>): si el mismo dato aparece escrito distinto en otros documentos. Se prueba primero la etiqueta principal y después cada una, en orden. También cuentan para el ancla.</li>
+<li><b>Obligatorio</b>: si queda vacío, el Excel marca ese documento «DATOS FALTANTES» en <code>ESTADO_PROCESO</code> y queda para revisar.</li>
+<li><b>Clave única</b>: todos los campos tildados forman juntos la identidad del documento (p. ej. CUIT + número de comprobante). DEXIAE la compara con el resto del lote y con los lotes anteriores del Historial, y marca el repetido como «DUPLICADO» con <code>ID_ORIGINAL</code> y <code>ORIGEN_DUP</code> («Este lote» o el lote y la fecha). Si a una fila le falta una parte de la clave, esa fila no se compara.</li>
+<li><b>Ancla</b>: el campo sirve para reconocer el tipo de documento (<a href="#lab-anclas">cómo deciden las anclas</a>). Tiene tres modos: <b>Score</b> (suma puntaje), <b>Obligatoria</b> (si falta, la plantilla no corresponde) y <b>Excluyente</b> (si aparece, la plantilla no corresponde).</li>
+<li><b>Solo ancla (sin columna)</b>: el campo se usa para reconocer el documento pero no genera columna en el Excel.</li>
+<li><b>Puede faltar (columna de tabla)</b>: sólo en las estrategias de tabla. Si la tabla no trae esa columna, las filas se leen igual y ese campo queda vacío. Al menos una columna tiene que seguir siendo obligatoria: es la que reconoce la tabla.</li>
 </ul>
-<h3>Las estrategias de extracción</h3>
+
+<h3 id="lab-estrategias">Las estrategias de extracción</h3>
 <table>
-<tr><th>Estrategia</th><th>Qué captura</th></tr>
-<tr><td><b>Texto (Derecha)</b></td><td>El texto a la derecha de la etiqueta — el caso más común: <code>CUIT: 30-12345678-9</code>.</td></tr>
-<tr><td><b>Texto (Izquierda)</b></td><td>El texto a la izquierda de la etiqueta.</td></tr>
-<tr><td><b>Texto (Cerca)</b></td><td>El texto más próximo a la etiqueta, cuando el dato no está alineado de forma fija.</td></tr>
-<tr><td><b>Entre A y B</b></td><td>Lo que está entre dos textos que definís — útil para valores en medio de una frase.</td></tr>
-<tr><td><b>ZONA</b></td><td>Lee una región fija del documento que marcás visualmente. Si la zona es imagen (sello, escaneo), el motor OCR lee ahí adentro. Disponible en todas las ediciones.</td></tr>
-<tr><td><b>Número</b></td><td>El primer número después de la etiqueta (comprobantes, remitos…).</td></tr>
-<tr><td><b>Moneda ($)</b></td><td>Un importe monetario, entendiendo miles y decimales.</td></tr>
-<tr><td><b>Fecha</b></td><td>Una fecha en los formatos habituales.</td></tr>
-<tr><td><b>CUIT / DNI</b></td><td>Identificador fiscal con validación de formato.</td></tr>
-<tr><td><b>Email</b></td><td>Una dirección de correo.</td></tr>
-<tr><td><b>Texto (Arriba)</b> · <b>Texto (Abajo)</b></td><td>El texto que está encima o debajo de la etiqueta — para los datos que van en columna y no en línea.</td></tr>
-<tr><td><b>Texto (Multilínea)</b></td><td>Un valor que ocupa varios renglones (una dirección, un domicilio, un detalle largo).</td></tr>
-<tr><td><b>Fecha (dd/mm/aaaa)</b></td><td>Igual que <b>Fecha</b>, pero fuerza el formato de salida. Útil cuando el destino es un sistema que no tolera otro.</td></tr>
-<tr><td><b>Patrón (Regex)</b></td><td>Expresión regular propia, para casos que ninguna otra estrategia resuelve.</td></tr>
-<tr><td colspan="2" style="background:#f7f4ec"><b>Miran adentro de los archivos adjuntos</b> — ver <a href="#adjuntos">más abajo</a></td></tr>
-<tr><td><b>Columna de tabla</b></td><td>Lee una <b>tabla que viene adentro de un PDF adjunto</b> y saca <b>una fila por renglón</b> de esa tabla. Es la estrategia que convierte un documento en muchas filas.</td></tr>
-<tr><td><b>Texto del adjunto</b></td><td>Trae un dato suelto de adentro de un adjunto.</td></tr>
-<tr><td><b>Fecha del adjunto (dd/mm/aaaa)</b></td><td>Lo mismo, para fechas, con el formato forzado.</td></tr>
-<tr><td><b>Archivo embebido de la tabla</b><br><b>Archivo embebido del texto</b></td><td>No extraen un dato: dicen <b>de cuál de los adjuntos salió</b> lo que extrajeron las otras. Sin esto, las filas de un documento con siete adjuntos dicen todas el nombre del PDF madre y no hay forma de saber de dónde vino cada una.</td></tr>
-<tr><td colspan="2" style="background:#f7f4ec"><b>Lee el código de barras de las facturas</b> — ver <a href="#qr">sección 10</a></td></tr>
-<tr><td><b>Comprobante (QR)</b></td><td>Una fila por factura electrónica que el documento tenga adentro, leída del código QR. La etiqueta no es texto libre: elegís <b>qué campo</b> del comprobante va a esa columna.</td></tr>
+<tr><th>Estrategia</th><th>Qué pide</th><th>Qué saca</th></tr>
+<tr><td><b>Texto (Derecha)</b></td><td>Etiqueta; freno opcional</td><td>Lo que sigue a la etiqueta en ese renglón, hasta el freno. El caso más común: <code>CUIT: 30-12345678-9</code>.</td></tr>
+<tr><td><b>Texto (Izquierda)</b></td><td>Etiqueta</td><td>Hasta 60 caracteres (letras, números, espacios y . , % -) justo antes de la etiqueta. No usa el freno.</td></tr>
+<tr><td><b>Texto (Arriba)</b> · <b>Texto (Abajo)</b></td><td>Etiqueta</td><td>El renglón entero anterior o siguiente al de la etiqueta.</td></tr>
+<tr><td><b>Texto (Cerca)</b></td><td>Etiqueta</td><td><b>Una sola palabra</b> (sin espacios) a menos de 20 caracteres de la etiqueta.</td></tr>
+<tr><td><b>Texto (Multilínea)</b></td><td>Etiqueta y <b>freno obligatorio</b></td><td>Todo lo que hay desde la etiqueta hasta el freno, aunque ocupe varios renglones (un domicilio, un detalle largo).</td></tr>
+<tr><td><b>Entre A y B</b></td><td>A = etiqueta, B = <b>freno obligatorio</b></td><td>Lo que queda en el medio.</td></tr>
+<tr><td><b>ZONA</b></td><td>Un recuadro dibujado en la vista Visual</td><td>Lo que hay en ese lugar de la <b>página 1</b>. Si ahí no hay texto (un sello, un escaneo, una imagen), lo lee con OCR. Se rompe si cambia el diseño del documento.</td></tr>
+<tr><td><b>Número</b></td><td>Etiqueta</td><td>El primer número a menos de 20 caracteres de la etiqueta (puede estar en el renglón siguiente).</td></tr>
+<tr><td><b>Moneda ($)</b></td><td>Etiqueta</td><td>El primer importe en el mismo renglón, tal como está escrito.</td></tr>
+<tr><td><b>Fecha</b></td><td>Etiqueta</td><td>La primera fecha día/mes/año (con /, . o -) cerca de la etiqueta, tal como está.</td></tr>
+<tr><td><b>Fecha (dd/mm/aaaa)</b></td><td>Etiqueta</td><td>Además entiende «28 de julio de 2026» y aaaa-mm-dd, y siempre la devuelve como dd/mm/aaaa.</td></tr>
+<tr><td><b>CUIT / DNI</b></td><td>Etiqueta (opcional)</td><td>Un CUIT o CUIL de 11 dígitos (prefijo 20, 23, 24, 26, 27, 30, 33 o 34), sólo los dígitos. Lo busca cerca de la etiqueta y, si no, toma el primero del documento. No valida el dígito verificador y no lee DNI.</td></tr>
+<tr><td><b>Email</b></td><td>Nada (no usa la etiqueta)</td><td>El primer email del documento.</td></tr>
+<tr><td><b>Patrón (Regex)</b></td><td>La expresión regular, <b>en la etiqueta</b></td><td>Lo que encuentra la expresión (o lo que está entre paréntesis, si los tiene). Para casos que ninguna otra estrategia resuelve.</td></tr>
+<tr><td colspan="3" style="background:#f7f4ec"><b>Tablas y archivos adjuntos</b> — ver <a href="#adjuntos">más abajo</a></td></tr>
+<tr><td><b>Columna de tabla</b></td><td>Etiqueta = el encabezado de la columna</td><td><b>Una fila de Excel por renglón</b> de la tabla. Busca la tabla primero en el propio documento y, si no está, en sus adjuntos. Los demás campos se repiten en cada fila. <code>A|B</code> une dos columnas (acá <code>|</code> no son alternativas: esas van en «Otras formas»).</td></tr>
+<tr><td><b>Título de grupo de la tabla</b></td><td>Etiqueta = los títulos de ese nivel, separados por <code>|</code></td><td>Esas filas no entran como datos: su texto se repite en esta columna en las filas que siguen.</td></tr>
+<tr><td><b>Texto del adjunto</b> · <b>Fecha del adjunto (dd/mm/aaaa)</b></td><td>Etiqueta = rótulo; el freno, acá, son las palabras que identifican el adjunto</td><td>Un dato suelto de adentro de un adjunto (si en lo que sigue al rótulo hay una fecha, la fecha). Si varios adjuntos cumplen, gana el último.</td></tr>
+<tr><td><b>Archivo embebido de la tabla</b> · <b>del texto</b></td><td>Nada</td><td>No sacan un dato: dicen de cuál adjunto salió lo que leyeron las otras.</td></tr>
+<tr><td colspan="3" style="background:#f7f4ec"><b>Facturas con código QR</b> — ver <a href="#qr">Facturas por código QR</a></td></tr>
+<tr><td><b>Comprobante (QR)</b></td><td>Etiqueta = qué dato del comprobante (se elige con los chips de la vista Texto)</td><td>Una fila por comprobante. Con esta estrategia aparece el botón del <b>Criterio</b> de la plantilla.</td></tr>
 </table>
+<p>«Modo Listado», en Ejecución, trabaja sin plantilla: no es una estrategia del Laboratorio.</p>
+
+<h3 id="sugerir">Marcá el dato y DEXIAE te sugiere cómo sacarlo</h3>
+<p>En la vista <b>Visual</b> arrastrás un recuadro sobre un dato. DEXIAE mira qué quedó adentro (si es un importe, una fecha, un CUIT, un número o un texto) y qué rótulo tiene pegado a la izquierda, y prueba con el motor real varias formas de sacarlo, de la más simple a la más frágil: la estrategia que corresponde a ese tipo de dato, un patrón armado con el rótulo y, al final, <b>ZONA</b> (siempre en ese lugar; sólo si marcaste en la página 1).</p>
 <ul>
-<li><b>Modo Extractor</b>: un dato por campo → una fila por documento (facturas, formularios, recibos).</li>
-<li><b>Modo Listado</b>: documentos tabulares → una fila por ítem del PDF.</li>
+<li>Cada forma se prueba en el documento de referencia y en la <b>Carpeta de prueba</b>: en la referencia cuenta como bien sólo si lee exactamente lo que marcaste y en ese lugar; en los otros documentos, si trae un valor del mismo tipo.</li>
+<li>Primero van las que leen bien la referencia, después las que sacan el dato en más documentos y, si empatan, la más simple. La ★ marca la primera, sólo si lee bien la referencia.</li>
+<li>Cada tarjeta dice en cuántos documentos funcionó y qué pasó en cada uno («lo lee bien», «no encontró nada», «lee otro valor», «lo lee de otro lugar»…). Sin carpeta de prueba se prueban sólo en la referencia, y la pantalla te sugiere sumar una.</li>
+<li><b>«Usar esta»</b> llena el editor (y, si la columna estaba vacía, la nombra a partir del rótulo: «Importe Total» → <code>IMPORTE_TOTAL</code>). Revisá el nombre y tocá «Agregar».</li>
+<li>Si el recuadro no tiene texto adentro (un escaneo o una imagen), va directo a ZONA, que se lee con OCR.</li>
 </ul>
+<figure>
+<picture><source type="image/webp" srcset="/laboratorio-800.webp 800w, /laboratorio-1200.webp 1200w, /laboratorio.webp 1600w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/laboratorio.png?v=f68dcb56" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy" width="1600" height="900"></picture>
+<figcaption>El Laboratorio en la vista Visual, con una factura de ejemplo y el resultado de «Probar» abajo.</figcaption>
+</figure>
+
+<h3 id="lab-probar">«Probar»: qué prueba y qué no</h3>
+<p><b>«Probar»</b> corre la extracción sobre el <b>documento de referencia</b> con los campos que tenés en pantalla, sin guardar y <b>sin consumir cupo</b>, y muestra cómo sale cada columna. En la vista Visual marca cada dato donde lo leyó el motor (tocar una marca selecciona su campo); lo que no se puede ubicar se nombra aparte («Leídos sin ubicación», «En otra página», «Sin dato»).</p>
+<ul>
+<li>Con el panel de prueba abierto, «Agregar» o «Actualizar» un campo lo vuelve a probar solo, salvo que la plantilla use «Comprobante (QR)» (ahí tocás «Probar» cuando termines, porque tarda unos segundos).</li>
+<li>De una tabla o de los comprobantes QR muestra sólo la primera fila; el QR se prueba con una muestra de hasta 20 páginas y 3 comprobantes.</li>
+<li>Dice si el documento está firmado y si el filtro de «Firma digital» lo dejaría afuera. Con «Auditar firmas» tildado (en las ediciones con peritaje) muestra primero el firmante, la fecha y el estado.</li>
+<li><b>No aplica</b> «Leer todas las páginas», las anclas, las opciones de «Cómo se lee la tabla», el Criterio ni las plantillas compañeras. La Carpeta de prueba tampoco: es sólo para las sugerencias. Para ver el resultado completo, procesá unos pocos documentos en Ejecución.</li>
+</ul>
+
+<h3 id="lab-opciones">Las opciones de la plantilla</h3>
+<p>Van en la fila de arriba de la mesa y se guardan con la plantilla:</p>
+<table>
+<tr><th>Opción</th><th>Qué hace</th></tr>
+<tr><td><b>🛡️ Auditar firmas</b></td><td>Hace el <a href="#peritaje">peritaje de firmas</a> de los documentos que entran. Sólo en las ediciones con peritaje (la prueba, PRO y SENTINEL).</td></tr>
+<tr><td><b>Anclas en todo el doc</b></td><td>Busca las anclas en todas las páginas, no sólo en la primera.</td></tr>
+<tr><td><b>Leer todas las páginas</b></td><td>Pasa OCR a cada página (hasta 15). Hace falta en documentos escaneados de varias páginas; en un PDF con texto, los campos ya se buscan en todas las páginas. Cuando el lote avisa que un documento «está ESCANEADO» y la plantilla no tiene «OCR todas las páginas», es esta casilla.</td></tr>
+<tr><td><b>Firma digital</b></td><td>Qué documentos entran según tengan o no firma digital (<a href="#firma">detalle</a>). Se pinta en ámbar cuando filtra.</td></tr>
+<tr><td><b>También aplicar (N)</b></td><td>Las <a href="#lab-companeras">plantillas compañeras</a>.</td></tr>
+<tr><td><b>Criterio</b></td><td>Sólo con «Comprobante (QR)»: qué considera DEXIAE un importe que no cierra y cómo clasifica las hojas sin QR (<a href="#lab-criterio">ver abajo</a>).</td></tr>
+<tr><td>Clip «N adjunto(s)»</td><td>Aparece si la muestra trae archivos adentro: los lista y te deja abrir uno para leer su tabla (<a href="#adjuntos">ver abajo</a>).</td></tr>
+</table>
+<p>Si algún campo usa una estrategia de tabla, aparece además la fila <b>«Cómo se lee la tabla»</b>:</p>
+<ul>
+<li><b>Sigue en las páginas siguientes</b>: para tablas largas que imprimen los encabezados una sola vez. Ojo: si más adelante hay otra tabla del mismo ancho, sus filas entrarían como parte de ésta. Cuando el lote ve filas que parecen la continuación y quedaron afuera, te sugiere tildarla.</li>
+<li><b>No tomar filas que empiecen con</b> (p. ej. <code>Total|Subtotal</code>): subtotales o títulos que no son datos.</li>
+<li><b>Mínimo de columnas con dato</b>: una fila con menos columnas con dato no es un renglón de la tabla (0 = no filtrar).</li>
+<li><b>Números del documento</b> (argentino 1.199,94 o americano 1,199.94) y <b>Fechas del documento</b> (día/mes o mes/día): declarándolos, los números llegan al Excel como números y las fechas como dd/mm/aaaa.</li>
+</ul>
+
 <h3 id="adjuntos">Los archivos que vienen adentro del PDF</h3>
 <p>Un PDF puede traer <b>otros archivos adentro</b>. Pasa todo el tiempo y no se
 ve: una resolución con sus anexos, un expediente con los PDF que lo acompañan,
 una factura con su detalle. Windows no los muestra y el visor tampoco.</p>
 <p>DEXIAE los lee. Cuando cargás el documento de referencia en el Laboratorio,
 si trae adjuntos aparece un <b>clip con el número</b> arriba de la mesa: lo
-tocás y ves cómo se llaman y qué tienen adentro. <b>Es el único momento en que
+tocás y ves cómo se llaman. Abrís uno para ver su contenido y los encabezados de su tabla
+(en la vista Texto aparecen como chips: un clic los usa como etiqueta), y
+«← Volver al documento» te devuelve. <b>Es el único momento en que
 podés descubrir esos nombres</b>, y por eso está ahí.</p>
 <ul>
-<li>Con <b>Columna de tabla</b>, una tabla que viene en un adjunto se abre en
+<li>Con <b>Columna de tabla</b>, una tabla se abre en
 <b>una fila por renglón</b>: un documento puede aportar decenas de filas al Excel.
 En el Historial, esos documentos muestran cuántas filas aportaron.</li>
 <li>No hay que declarar <b>en cuál</b> de los adjuntos está la tabla: los
-encabezados que pide la plantilla ya la identifican. El nombre del adjunto cambia
-en cada documento y era la única parte que se podía configurar mal.</li>
+encabezados que pide la plantilla ya la identifican (gana el primero que los tenga todos).</li>
 <li>Si el documento tiene varios adjuntos, agregá un campo con
 <b>Archivo embebido de la tabla</b> para que cada fila diga de dónde salió.</li>
+</ul>
+
+<h3 id="lab-companeras">Plantillas compañeras («También aplicar»)</h3>
+<p>Para documentos que traen <b>más de una tabla</b>: las plantillas que elijas en «También aplicar» se aplican al mismo documento y <b>cada una deja su propia hoja</b> en el Excel. Sólo aparecen para elegir las plantillas que leen una tabla o un adjunto. Se aplica un solo nivel (las compañeras de una compañera no corren), y si una compañera no encuentra su tabla, no aporta filas y el lote lo avisa. En Ejecución, el aviso «Este lote también aplica…» trae la casilla «Aplicarlas en este lote», que vale sólo para esa corrida.</p>
+
+<h3 id="lab-anclas">Las anclas: cómo reconoce DEXIAE el tipo de documento</h3>
+<ul>
+<li>Las anclas se buscan en la página 1 (o en todo el documento con «Anclas en todo el doc»), sin mayúsculas ni tildes y por palabra entera. Cuentan también las «Otras formas». En un escaneo, sobre el texto del OCR.</li>
+<li>Si la plantilla filtra por firma y el documento no cumple, queda descartada antes de mirar las anclas.</li>
+<li><b>Con Detección automática</b> (PRO y SENTINEL, sólo PDF): una plantilla sin anclas que cuenten no reconoce nada (la lista de campos te lo avisa). La ganadora necesita 60 % o más y sacarle 15 puntos a la segunda; si la diferencia es menor a 5 gana la que encontró más anclas, y en el medio el documento queda «ambiguo». Si el nombre de la plantilla empieza con un CUIT, suma puntos cuando coincide con el del documento y resta cuando no.</li>
+<li><b>Con una plantilla elegida a mano</b>, las anclas también cuentan: por debajo del 60 %, o si falta una obligatoria o aparece una excluyente, el documento va a revisión.</li>
 </ul>
 
 <h3 id="firma">Procesar sólo los firmados (o sólo los que no)</h3>
@@ -391,27 +483,54 @@ firmas de los que sí entraron. Se pueden usar juntas.</div>
 el texto de un PDF firmado y el del mismo PDF sin firmar son idénticos carácter por
 carácter. No hay ninguna palabra que buscar — hay que preguntarle a la estructura
 del archivo, y eso es lo que hace este selector. Cuando cargás un documento de
-referencia que está firmado, DEXIAE te lo marca con un cartelito, para que sepas
+referencia que está firmado, DEXIAE te lo marca con el chip «Firmado», para que sepas
 con cuál de los dos estás trabajando.</div>
 
-<h3>Asistente inteligente (PRO)</h3>
-<p>Le das un PDF de muestra y te <b>sugiere los campos automáticamente</b>, en lugar de armar la plantilla desde cero. Importante entender cómo funciona: el Asistente reconoce los campos <b>a partir de diccionarios</b> de términos, así que rinde en serio cuando los diccionarios activos se corresponden con tus documentos:</p>
+<h3 id="lab-criterio">El Criterio de comprobantes (plantillas con QR)</h3>
+<p>Con un campo «Comprobante (QR)» aparece el botón <b>Criterio</b> («de fábrica», «N propios» o «sin controlar importes»). Se guarda con la plantilla y viaja con ella: podés tener un criterio para rendiciones escaneadas y otro para facturas.</p>
 <ul>
-<li><b>GENERICO y PRIORITARIOS</b>: los diccionarios base, siempre activos — cubren los campos típicos (CUIT, fecha, totales…) y marcan cuáles priorizar.</li>
-<li><b>Sectoriales</b> (p. ej. <code>AR_AFIP</code>): términos específicos de un rubro. Se agregan como archivos JSON en <code>%APPDATA%\DEXIAE\diccionarios\</code>.</li>
-<li><b>LOCAL</b>: tu diccionario propio — tus términos y tus <b>exclusiones</b> (valores que el Asistente debe ignorar, p. ej. el CUIT de tu propio estudio, que aparece en todos los documentos pero no es el dato a extraer).</li>
+<li><b>Controlar los importes contra la hoja</b>: encendido, compara el importe del QR con los impresos en la hoja y avisa si no coinciden (con cuánta diferencia se perdona y si avisa cuando falta la coma decimal). Apagado, DEXIAE extrae y no opina.</li>
+<li><b>Cómo se clasifican las hojas sin QR</b>: el mínimo de texto para no mandarla a mirar y qué delata un comprobante o una transferencia.</li>
+<li><b>Comprobantes sin QR</b> (apagado de fábrica): leer de la hoja el total, el número, la fecha y el CAE de los comprobantes que no traen QR, con sus rótulos.</li>
 </ul>
-<div class="box tip"><b>No tenés que armar los diccionarios solo:</b> el equipo de DEXIAE los ajusta con vos — nos mandás 2 o 3 archivos de prueba de tus documentos habituales y te dejamos los diccionarios afinados para tu rubro (<a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>).Es una configuración que se hace una vez — y con los diccionarios bien estructurados, el Asistente brilla.</div>
+<p>Lo que dejás vacío usa el valor de fábrica. «Aplicar» lo deja en la plantilla, pero recién queda grabado cuando tocás «Guardar». El detalle de cada dato está en <a href="#qr">Facturas por código QR</a>.</p>
+
+<h3 id="lab-guardar">Dónde se guarda y cómo pasarla a otra PC</h3>
+<ul>
+<li>Cada plantilla es un archivo en <code>%APPDATA%\DEXIAE\plantillas\</code>. Antes de pisarla, DEXIAE guarda una copia de la versión anterior en <code>%APPDATA%\DEXIAE\_respaldo\</code> (una sola copia, no un historial).</li>
+<li><b>Exportar</b> copia el archivo <b>guardado</b> adonde elijas: guardá antes, porque los cambios sin guardar no viajan.</li>
+<li><b>Importar</b> revisa que el archivo sea una plantilla y nunca pisa una que ya tenés: si el nombre existe, la guarda aparte con «(2)». Las plantillas también pueden llegar por <a href="#novedades">Novedades</a>.</li>
+<li>No viajan con la plantilla: tu diccionario (las exclusiones que usan «Número», «Moneda», «Email» y «CUIT / DNI»), el criterio de comprobantes de tu equipo, las plantillas compañeras (viaja sólo su nombre: exportalas también) ni los duplicados de tu Historial.</li>
+</ul>
+
+<h3 id="lab-asistente">Asistente inteligente (PRO)</h3>
+<p>Le das <b>varios PDF de muestra</b> (archivos sueltos o una carpeta), los agrupa por tipo y te <b>sugiere los campos</b> de cada grupo, en lugar de armar la plantilla desde cero. De cada grupo ves los archivos y los campos detectados, con dos interruptores por campo: <b>Match</b> (sirve para reconocer el documento) y <b>Excel</b> (sale como columna). Por grupo: «Descartar», «Editar en Studio» (lo abre en el Laboratorio sin guardar) o «Aprobar»; abajo, «Guardar N aprobada(s)». Después abrí cada plantilla en el Laboratorio y revisá sus opciones.</p>
+<p>El Asistente reconoce los campos <b>a partir de diccionarios</b> de términos, así que rinde en serio cuando los diccionarios activos se corresponden con tus documentos:</p>
+<ul>
+<li><b>GENERICO</b>: viene con el instalador y cubre los campos típicos (CUIT, fecha, totales…). <b>PRIORITARIOS</b> se usa si está instalado.</li>
+<li><b>Sectoriales</b> (p. ej. <code>AR_AFIP</code>): términos específicos de un rubro. Se agregan como archivos JSON en <code>%APPDATA%\DEXIAE\diccionarios\</code> o llegan por Novedades.</li>
+<li><b>LOCAL</b>: tu diccionario propio — tus términos y tus <b>exclusiones</b> (valores a ignorar, p. ej. el CUIT de tu propio estudio, que aparece en todos los documentos pero no es el dato a extraer).</li>
+</ul>
+<div class="box tip"><b>No tenés que armar los diccionarios solo:</b> nos mandás 2 o 3 archivos de prueba de tus documentos habituales y te dejamos los diccionarios afinados para tu rubro (<a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>). Es una configuración que se hace una vez.</div>
 <p>Si el Asistente no detecta un campo que necesitás, lo agregás a mano en la misma plantilla — las sugerencias son un punto de partida, no un límite.</p>
-<h3 id="sugerir">Marcá el dato y DEXIAE te sugiere cómo sacarlo</h3>
-<p>En la vista <b>Visual</b> del Laboratorio arrastrás sobre un dato del documento y DEXIAE te sugiere cómo sacarlo: prueba las formas posibles con el motor en el documento de referencia y en una <b>Carpeta de prueba</b> (otros documentos del mismo tipo), y marca con ★ la que saca el dato en más documentos. Una de las formas es <b>ZONA</b>: el dato se lee siempre en ese lugar de la página (en un escaneado, con OCR).</p>
-<figure>
-<picture><source type="image/webp" srcset="/laboratorio-800.webp 800w, /laboratorio-1200.webp 1200w, /laboratorio.webp 1600w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/laboratorio.png?v=f68dcb56" alt="Laboratorio de DEXIAE en modo Visual con una factura de ejemplo y el resultado de la prueba de la plantilla" loading="lazy" width="1600" height="900"></picture>
-<figcaption>El Laboratorio en la vista Visual, con una factura de ejemplo y el resultado de «Probar» abajo.</figcaption>
-</figure>
-<h3>Probar sin gastar cupo</h3>
-<p>El Laboratorio tiene el botón <b>Probar</b>: ejecuta la extracción contra el documento de referencia y te muestra al instante <b>cómo va a salir cada campo en el Excel</b> (columna → valor). Así afinás etiquetas, estrategias y frenos hasta que todo capture bien, <b>sin consumir tu cupo de documentos</b> — el cupo solo cuenta cuando procesás lotes reales en Ejecución. Con el panel de prueba abierto, cada cambio que hagas en un campo se re-prueba automáticamente. En la vista <b>Visual</b>, «Probar» además marca cada dato sobre el documento donde lo leyó el motor; lo que no se puede ubicar se nombra, no se inventa.</p>
-<p>Cada plantilla define su <b>clave única</b> (para deduplicar), campos obligatorios y, si querés, su set de <a href="#validacion">reglas de validación</a> y peritaje de firmas.</p>
+
+<h3 id="lab-limites">Límites que conviene saber</h3>
+<ul>
+<li><b>RECOP</b> y <b>ZONA</b> trabajan sobre la <b>página 1</b>.</li>
+<li>La <b>Carpeta de prueba</b> lee hasta 30 PDF; <b>Leer todas las páginas</b> pasa OCR a hasta 15 páginas.</li>
+<li><b>Probar</b> trabaja sobre el documento de referencia (<a href="#lab-probar">qué no aplica</a>).</li>
+<li>Hasta <b>3 plantillas</b> en la prueba, CORE y CONTABLE (se cuentan al crear o importar una nueva; editar no tiene límite).</li>
+<li>El <b>set de reglas</b> de validación de una plantilla se asigna en <a href="#validacion">Validación</a>, no en el Laboratorio (el Laboratorio lo conserva al guardar).</li>
+</ul>
+
+<h3 id="lab-avisos">Avisos del lote que te mandan al Laboratorio</h3>
+<table>
+<tr><th>El lote dice</th><th>Qué hacer en el Laboratorio</th></tr>
+<tr><td>«… está ESCANEADO … y la plantilla no tiene «OCR todas las páginas»»</td><td>Tildá <b>Leer todas las páginas</b>, guardá y volvé a procesar.</td></tr>
+<tr><td>«… fila(s) de páginas que parecen la continuación de la tabla quedaron afuera…»</td><td>Tildá <b>Sigue en las páginas siguientes</b> en «Cómo se lee la tabla».</td></tr>
+<tr><td>«la plantilla pide comprobantes y no se encontró ninguno»</td><td>El documento no trae un QR que DEXIAE lea: mirá <a href="#qr">Facturas por código QR</a> y, si es un formato que no conoce, <a href="#qr-desconocido">cómo mandárnoslo</a>.</td></tr>
+<tr><td>«la plantilla compañera «X» no encontró su tabla en este documento»</td><td>Revisá los encabezados de esa compañera, o sacala de «También aplicar» si ese tipo de documento no la trae.</td></tr>
+</table>
 
 <h2 id="qr">Facturas por código QR</h2>
 <div class="ficha"><dl><dt>Para qué</dt><dd>Pasar a Excel los datos del comprobante que trae el código QR, sin armar una plantilla por proveedor, con el importe controlado contra lo impreso en la hoja.</dd><dt>Cómo</dt><dd>Es una estrategia del Laboratorio: en la plantilla, campos con la estrategia <b>Comprobante (QR)</b>.</dd><dt>Qué sale</dt><dd>Una fila por comprobante, las columnas que elegís y la hoja «Paginas sin comprobante».</dd><dt>Formatos</dt><dd>ARCA (Argentina) y DGI (Uruguay) <span class="nuevo">Nuevo</span>.</dd><dt>Tené en cuenta</dt><dd>No consulta a ARCA ni a DGI (arma el enlace para que la consulta la hagas vos) y no trae la razón social. El IVA discriminado no está en el código: sale de la hoja, con plantilla.</dd><dt>Edición</dt><dd>Todas.</dd></dl></div>

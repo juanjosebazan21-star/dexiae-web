@@ -146,13 +146,13 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <ol>
 <li>Descargá el instalador desde <a href="https://getdexiae.com">getdexiae.com</a>.</li>
 <li>Ejecutá <code>DEXIAE_Setup_V__VERSION__.exe</code> y seguí el asistente.</li>
-<li>Requisitos: Windows 10/11 de 64 bits. El instalador incluye todo lo necesario.</li>
+<li>Requisitos: Windows 10/11 de 64 bits con Microsoft Edge WebView2 (viene en Windows 11 y en la mayoría de los Windows 10). Lo demás lo trae el instalador.</li>
 </ol>
 <div class="box warn"><b>Si Windows muestra "Windows protegió tu equipo":</b> es el aviso estándar de SmartScreen para software de desarrolladores independientes — no significa que sea malicioso. Hacé clic en <b>"Más información"</b> → <b>"Ejecutar de todos modos"</b>. Podés verificar el instalador con tu antivirus o en VirusTotal.</div>
 <h3 id="instalacion-administrada">Para organizaciones: instalación administrada <span class="nuevo">Nuevo</span></h3>
-<p>Si el área de sistemas evalúa y aprueba cada versión, puede instalar DEXIAE como <b>administrado</b>: en ese equipo DEXIAE no busca versiones nuevas ni la lista de licencias revocadas, no baja Novedades y no manda la señal de uso. Las versiones nuevas se instalan cuando la organización las instala.</p>
+<p>Si el área de sistemas evalúa y aprueba cada versión, puede instalar DEXIAE como <b>administrado</b>: en ese equipo DEXIAE no busca versiones nuevas ni la lista de licencias revocadas, no baja Novedades y no manda la señal de uso. Las versiones nuevas se instalan cuando la organización las instala. Sin Novedades tampoco llega sola la renovación de la licencia (para recibirla, permitir <code>Novedades</code>), ni una baja de licencia; la licencia vence igual en su fecha.</p>
 <pre><code>DEXIAE_Setup_V__VERSION__.exe /ALLUSERS /ADMINISTRADA=1</code></pre>
-<p><code>/ALLUSERS</code> instala para todos los usuarios, en Archivos de programa (pide permisos de administrador): así quien usa el equipo no puede cambiar la política. También se puede repartir por directiva de grupo, en el Registro de Windows: <code>HKLM\SOFTWARE\Policies\DEXIAE</code>, valor DWORD <code>Administrada</code> en 1 y, para permitir alguna conexión, <code>BuscarVersiones</code>, <code>Novedades</code> o <code>SenalDeUso</code> en 1. En Preferencias y en Novedades, DEXIAE muestra «Lo administra tu organización».</p>
+<p><code>/ALLUSERS</code> instala para todos los usuarios, en Archivos de programa (pide permisos de administrador): así quien usa el equipo no puede cambiar la política. También se puede repartir por directiva de grupo, en el Registro de Windows: <code>HKLM\SOFTWARE\Policies\DEXIAE</code>, valor DWORD <code>Administrada</code> en 1 y, para permitir alguna conexión, <code>BuscarVersiones</code>, <code>Novedades</code> o <code>SenalDeUso</code> en 1. En Preferencias, la señal de uso aparece apagada con «Lo administra tu organización: en este equipo no se manda»; en Novedades, «Buscar novedades» responde «Las novedades las administra tu organización: en este equipo no se buscan.»</p>
 
 <h2 id="licencia">Licencia y ediciones</h2>
 <p>Al abrir DEXIAE por primera vez elegís:</p>
@@ -365,7 +365,7 @@ con cuál de los dos estás trabajando.</div>
 <p>Cada plantilla define su <b>clave única</b> (para deduplicar), campos obligatorios y, si querés, su set de <a href="#validacion">reglas de validación</a> y peritaje de firmas.</p>
 
 <h2 id="qr">Facturas por código QR</h2>
-<div class="ficha"><dl><dt>Para qué</dt><dd>Pasar a Excel los datos del comprobante que trae el código QR, sin armar una plantilla por proveedor, con el importe controlado contra lo impreso en la hoja.</dd><dt>Cómo</dt><dd>Es una estrategia del Laboratorio: en la plantilla, campos con la estrategia <b>Comprobante (QR)</b>.</dd><dt>Qué sale</dt><dd>Una fila por comprobante, las columnas que elegís y la hoja «Páginas sin comprobante».</dd><dt>Formatos</dt><dd>ARCA (Argentina) y DGI (Uruguay) <span class="nuevo">Nuevo</span>.</dd><dt>Tené en cuenta</dt><dd>No consulta a ARCA ni a DGI (arma el enlace para que la consulta la hagas vos) y no trae la razón social. El IVA discriminado no está en el código: sale de la hoja, con plantilla.</dd><dt>Edición</dt><dd>Todas.</dd></dl></div>
+<div class="ficha"><dl><dt>Para qué</dt><dd>Pasar a Excel los datos del comprobante que trae el código QR, sin armar una plantilla por proveedor, con el importe controlado contra lo impreso en la hoja.</dd><dt>Cómo</dt><dd>Es una estrategia del Laboratorio: en la plantilla, campos con la estrategia <b>Comprobante (QR)</b>.</dd><dt>Qué sale</dt><dd>Una fila por comprobante, las columnas que elegís y la hoja «Paginas sin comprobante».</dd><dt>Formatos</dt><dd>ARCA (Argentina) y DGI (Uruguay) <span class="nuevo">Nuevo</span>.</dd><dt>Tené en cuenta</dt><dd>No consulta a ARCA ni a DGI (arma el enlace para que la consulta la hagas vos) y no trae la razón social. El IVA discriminado no está en el código: sale de la hoja, con plantilla.</dd><dt>Edición</dt><dd>Todas.</dd></dl></div>
 <p>Una factura electrónica tiene <b>dos fuentes de datos</b>: lo que está impreso en la
 hoja y lo que el emisor le declaró a ARCA. DEXIAE lee las dos, y sirven para cosas
 distintas.</p>
@@ -445,13 +445,13 @@ usan juntas.</div>
 <div class="box note">Probado con una factura real. Si usás facturas uruguayas, contanos cómo te va: es la forma de afinarlo. Leer el código no valida el comprobante ante DGI: el enlace es para que la consulta la hagas vos.</div>
 
 <h3 id="qr-desconocido">Un QR que DEXIAE todavía no lee <span class="nuevo">Nuevo</span></h3>
-<p>Si una hoja trae un código QR de un formato que DEXIAE no conoce, ya no se pierde: en la hoja «Páginas sin comprobante» del Excel aparece con su contenido, en la columna «QR QUE NO SE INTERPRETA», y queda anotado en tu equipo. En <b>Ayuda › QR que DEXIAE todavía no lee</b> lo ves, elegís cuáles y, si querés, nos lo mandás vos por WhatsApp o por correo: ves el texto exacto antes de mandarlo. <b>No se manda nada solo.</b></p>
+<p>Si una hoja trae un código QR de un formato que DEXIAE no conoce, ya no se pierde: en la hoja «Paginas sin comprobante» del Excel aparece con su contenido, en la columna «QR QUE NO SE INTERPRETA», y queda anotado en tu equipo. En <b>Ayuda › QR que DEXIAE todavía no lee</b> lo ves, elegís cuáles y, si querés, nos lo mandás vos por WhatsApp o por correo: ves el texto exacto antes de mandarlo. <b>No se manda nada solo.</b></p>
 <p>Cuando sumamos un formato, te llega por <a href="#novedades">Novedades</a>, firmado, sin instalar otra versión.</p>
 
 <h3 id="qr-sin-qr">Comprobantes sin QR, leídos de la hoja <span class="nuevo">Nuevo</span></h3>
 <p>En <b>Criterio</b> está «Leer de la hoja los comprobantes que no tienen QR» (apagado de fábrica; se prende por plantilla). Prendido, una hoja que parece un comprobante y no tiene QR legible sale como fila con lo que se lee impreso: número, CUIT del emisor, fecha y total. La columna <b>Leído de</b> dice «QR» o «OCR (sin QR)», y el control de esas filas nunca dice «verificado»: dice que hay que confirmarlo contra la planilla. Lo que no se pudo leer queda vacío y avisado.</p>
 <h2 id="extractos">Extractos bancarios y asientos</h2>
-<div class="ficha"><dl><dt>Para qué</dt><dd>Pasar los resúmenes del banco a Excel controlando los saldos, clasificar cada movimiento y armar el borrador de asientos con el plan de cuentas de cada cliente.</dd><dt>Cómo</dt><dd>Módulo Extractos: elegís el cliente, soltás los resúmenes en PDF, revisás y generás. Paso a paso en la <a href="/guia-contable">guía de DEXIAE Contable</a>.</dd><dt>Qué sale</dt><dd>El Excel con los movimientos y el control de saldos y, con la clasificación, «Asientos (borrador)», «Para importar» (en el formato de tu sistema contable <span class="nuevo">Nuevo</span>), «Pendientes», «A revisar» y «Categorías». Si lo activás, el informe para el cliente en PDF <span class="nuevo">Nuevo</span>.</dd><dt>Bancos</dt><dd>Chubut, Galicia, Credicoop, Santander, ICBC, Patagonia y Macro, y Mercado Pago. BBVA se reconoce pero todavía no está calibrado. Un resumen escaneado se rechaza: pasalo antes por «Escaneados → PDF con texto».</dd><dt>Edición</dt><dd>Pasar extractos a Excel: todas, sin límite. Clasificación, asientos, «Para importar» e informe para el cliente: CONTABLE, PRO, SENTINEL y la prueba.</dd></dl></div>
+<div class="ficha"><dl><dt>Para qué</dt><dd>Pasar los resúmenes del banco a Excel controlando los saldos, clasificar cada movimiento y armar el borrador de asientos con el plan de cuentas de cada cliente.</dd><dt>Cómo</dt><dd>Módulo Extractos: elegís el cliente, soltás los resúmenes en PDF, revisás y generás. Paso a paso en la <a href="/guia-contable">guía de DEXIAE Contable</a>.</dd><dt>Qué sale</dt><dd>El Excel con los movimientos y el control de saldos y, con la clasificación, «Asientos (borrador)», «Para importar» (en el formato de tu sistema contable <span class="nuevo">Nuevo</span>), «Pendientes», «A revisar» y «Categorías». El informe para el cliente en PDF, al terminar o después, desde el resultado o el Historial <span class="nuevo">Nuevo</span>.</dd><dt>Bancos</dt><dd>Chubut, Galicia, Credicoop, Santander, ICBC, Patagonia y Macro, y Mercado Pago. BBVA se reconoce pero todavía no está calibrado. Un resumen escaneado se rechaza: pasalo antes por «Escaneados → PDF con texto».</dd><dt>Edición</dt><dd>Pasar extractos a Excel: todas, sin límite. Clasificación, asientos, «Para importar» e informe para el cliente: CONTABLE, PRO, SENTINEL y la prueba.</dd></dl></div>
 <div class="star">
 <h3>Extractos: del resumen del banco al Excel (ilimitado)</h3>
 <p>Convertí el PDF del resumen bancario en una planilla de movimientos, sin cargar nada
@@ -579,10 +579,10 @@ devuelve la conducta vieja: el archivo entra con sus filas marcadas.</div>
       <td><b>Contable y PRO</b> · y la <b>prueba gratis</b> — <u>además</u> hay que elegir un
           cliente configurado</td></tr>
   <tr><td><b>Para importar</b></td>
-      <td>Todos los asientos, <b>enteros</b>, en 9 columnas: <code>EJERCICIO</code>,
+      <td>Todos los asientos, <b>enteros</b>. Con Nacional Gestión, en 9 columnas: <code>EJERCICIO</code>,
           <code>FECHA</code>, <code>ASIENTO</code>, <code>LEYENDA</code>,
           <code>MOVIMIENTO</code>, <code>CUENTA</code>, <code>DESCRIPCION</code>,
-          <code>DEBE</code>, <code>HABER</code>. Es la que va a tu sistema contable. Los que
+          <code>DEBE</code>, <code>HABER</code> (con otro sistema, las de ese sistema: ver <a href="#sistema-contable">El sistema contable de cada cliente</a>). Es la que va a tu sistema contable. Los que
           quedaron sin cuenta van con la celda <code>CUENTA</code> vacía, para completarla ahí.</td>
       <td>ídem</td></tr>
   <tr><td><b>Pendientes</b></td>
@@ -656,7 +656,7 @@ del encabezado, sin distinguir mayúsculas. Alcanza con que el encabezado
 <table class="tabla-plan">
  <thead><tr><th>Columna</th><th>¿Obligatoria?</th><th>Encabezados que reconoce</th></tr></thead>
  <tbody>
-  <tr><td><b>Código de cuenta</b></td><td><b>Sí</b></td>
+  <tr><td><b>Código de cuenta</b></td><td><b>Sí</b> (no, si el cliente importa en un sistema que va por nombre, como Xubio)</td>
       <td><code>Cuenta</code> · <code>Código</code> · <code>Codigo</code> · <code>Cta</code> ·
           <code>Nro</code> · <code>Número</code> · <code>Numero</code> · <code>Code</code></td></tr>
   <tr><td><b>Descripción</b></td><td><b>Sí</b></td>
@@ -669,8 +669,9 @@ del encabezado, sin distinguir mayúsculas. Alcanza con que el encabezado
  </tbody>
 </table>
 
-<p><b>Si falta el código o la descripción, la importación no se hace</b> — y DEXIAE te
+<p><b>Si falta la descripción, o el código cuando el formato va por código, la importación no se hace</b> — y DEXIAE te
 muestra los encabezados que sí encontró en tu archivo, para que veas cuál renombrar.</p>
+<p><b>Sistemas que van por nombre</b> <span class="nuevo">Nuevo</span>. Si el sistema contable del cliente identifica la cuenta por su nombre (hoy, Xubio), el código no hace falta: una cuenta sin código entra con su nombre, y si el archivo trae una sola columna «Cuenta», esa columna es el nombre. Una cuenta sin código cuyo nombre ya está más arriba se descarta. El panel dice cuántas se tomaron por el nombre. Elegí el sistema contable del cliente antes de importar el plan.</p>
 
 <h4>La columna Imputable</h4>
 <p>Sirve para separar las cuentas de movimiento de los rubros de agrupación (los
@@ -683,7 +684,7 @@ van a aparecer en la lista junto a las cuentas reales.</p>
 
 <h4>Qué filas se descartan, y por qué te lo dice</h4>
 <ul>
- <li><b>Sin código de cuenta</b> — típicamente las filas de totales o los separadores.</li>
+ <li><b>Sin código de cuenta</b> — típicamente las filas de totales o los separadores (con un sistema que va por nombre, sólo si tampoco tiene nombre).</li>
  <li><b>Código repetido</b> — se queda la primera y se descarta la segunda.</li>
 </ul>
 <p>Cada fila descartada se informa <b>con su número de fila tal como se ve en Excel</b>,
@@ -812,22 +813,23 @@ por defecto. La columna <b>ORIGEN DE LA DECISIÓN</b> de la hoja
 <b>Asientos (borrador)</b> te dice cuál es la categoría a la que le falta cuenta.</p>
 <div class="box warn"><b>Ojo con esto, que es fácil que se escape.</b> Un movimiento
 en la cuenta por defecto <b>igual entra a «Para importar»</b> y ahí se ve como una
-línea más: esa hoja tiene 9 columnas y ninguna es CONFIANZA. Y si agrupás por día,
+línea más: esa hoja no tiene una columna de confianza. Y si agrupás por día,
 el importe queda sumado con otros. Esos asientos están listados en la hoja <b>«A
 revisar»</b> y marcados en el borrador: miralos antes de importar un mes nuevo.</div>
 
 <h3 id="sistema-contable">El sistema contable de cada cliente <span class="nuevo">Nuevo</span></h3>
 <p>En la configuración del cliente, <b>Sistema contable (hoja «Para importar»)</b> elige en qué formato sale esa hoja:</p>
 <table><thead><tr><th>Sistema</th><th>Qué sale</th><th>Estado</th></tr></thead><tbody>
-<tr><td><b>Nacional Gestión</b></td><td>La hoja de siempre: EJERCICIO, FECHA, ASIENTO, LEYENDA, MOVIMIENTO, CUENTA, DESCRIPCION, DEBE, HABER.</td><td>Verificado: una contadora lo importa en su sistema.</td></tr>
+<tr><td><b>Nacional Gestión</b></td><td>La hoja de siempre: EJERCICIO, FECHA, ASIENTO, LEYENDA, MOVIMIENTO, CUENTA, DESCRIPCION, DEBE, HABER.</td><td>Verificado: una contadora lo importó en su sistema (agosto de 2026).</td></tr>
 <tr><td><b>Colppy</b></td><td>La hoja con las columnas de Colppy, y además un <code>.csv</code> al lado del Excel.</td><td>Según la documentación de Colppy; todavía sin probar con un usuario.</td></tr>
-<tr><td><b>Xubio</b></td><td>Una fila de cabecera por asiento y sus líneas debajo, con la cuenta por nombre (tiene que llamarse igual que en Xubio).</td><td>Según la documentación de Xubio; todavía sin probar con un usuario.</td></tr>
+<tr><td><b>Xubio</b></td><td>Una fila de cabecera por asiento y sus líneas debajo, con la cuenta por nombre (tiene que llamarse igual que en Xubio). Si tu plan de Xubio no trae códigos, se importa igual (ver <a href="#plan-cuentas">Importar tu plan de cuentas</a>).</td><td>Según la documentación de Xubio; todavía sin probar con un usuario.</td></tr>
 <tr><td><b>Holistor</b></td><td>Un <code>.txt</code> separado por «;», con el asiento numerado dentro de cada fecha. El orden tiene que coincidir con el «diseño de registros» de Holistor.</td><td>Según una documentación incompleta; revisá el ajuste antes de importar.</td></tr>
 </tbody></table>
 <p>En ningún formato cambia un importe ni una cuenta: cambian el orden, los encabezados y cómo se escribe cada dato. La hoja «Acerca de este archivo» dice en qué formato salió. Si importás con uno que todavía no está probado, contanos cómo te fue.</p>
 
 <h3 id="informe-cliente">Informe para el cliente (PDF) <span class="nuevo">Nuevo</span></h3>
-<p>En la configuración del cliente, <b>Informe para el cliente (PDF)</b> hace que, junto con el Excel, salga un resumen para mandarle: ingresos, egresos y resultado del período; los saldos por cuenta; lo que se llevó el banco (impuesto al cheque, SIRCREB y comisiones); los egresos e ingresos por categoría, y lo que quedó sin clasificar. Elegís qué secciones lleva; el resumen y el aviso de lo sin clasificar van siempre.</p>
+<p>El <b>Informe para el cliente (PDF)</b> es un resumen para mandarle: ingresos, egresos y resultado del período; los saldos por cuenta; lo que se llevó el banco (impuesto al cheque, SIRCREB y comisiones); los egresos e ingresos por categoría, y lo que quedó sin clasificar. Elegís qué secciones lleva en la configuración del cliente; el resumen y el aviso de lo sin clasificar van siempre.</p>
+<p>Con <b>«Generarlo automáticamente al terminar, junto con el Excel»</b> sale solo. Si no, lo generás después con el botón <b>Informe para el cliente</b> en el resultado o en el detalle del lote en el Historial: usa los números de ese lote y las secciones y el nombre del estudio de hoy. Sirve para los lotes de extractos de un cliente hechos con esta versión (se guardan los datos de los últimos 60); «Eliminar lote» los borra.</p>
 <ul>
 <li>Cada categoría va por su neto: lo que se devolvió o se anuló resta de su propia categoría.</li>
 <li>Las transferencias entre cuentas propias no cuentan como ingreso ni como egreso.</li>
@@ -941,7 +943,7 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 <tr><td><b>Abrir reportes PDF / HTML con</b></td><td>Con qué programa se abren los reportes.</td></tr>
 <tr><td><b>Abrir carpeta al terminar</b></td><td>Muestra la carpeta de salida cuando termina un lote.</td></tr>
 <tr><td><b>Nombre del estudio</b> <span class="nuevo">Nuevo</span></td><td>Sale arriba a la derecha en el <a href="#informe-cliente">informe para el cliente</a>. Vacío: no sale nada.</td></tr>
-<tr><td><b>Reducir carga durante el procesamiento</b> <span class="nuevo">Nuevo</span></td><td>Limita el procesamiento en paralelo de las imágenes, agrega una pausa breve entre documentos y desactiva las animaciones. El lote puede tardar más.</td></tr>
+<tr><td><b>Reducir carga durante el procesamiento</b> <span class="nuevo">Nuevo</span></td><td>Limita el procesamiento en paralelo de las imágenes, agrega una pausa breve entre los documentos de un lote y desactiva las animaciones. El lote puede tardar más.</td></tr>
 <tr><td><b>Compartir la señal de uso</b></td><td>La señal de uso (una vez por día, al abrir: un código de esta instalación, el de tu licencia, la versión y la edición; nada de tus documentos). Al apagarla, DEXIAE te pregunta si querés avisarnos una sola vez que la apagaste <span class="nuevo">Nuevo</span>; si elegís no avisar, no se manda nada.</td></tr>
 </tbody></table>
 <p>El tema claro u oscuro se cambia con el interruptor de la barra de arriba.</p>
@@ -950,7 +952,7 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 <h3 id="ayuda-menu">El menú «?» <span class="nuevo">Nuevo</span></h3>
 <p>El «?» de la barra de arriba junta todo lo que sirve cuando tenés una duda:</p>
 <ul>
-<li><b>Buscar un tema</b> de esta guía: escribís y te lleva a la parte que lo explica.</li>
+<li><b>Buscar un tema</b> de la guía: escribís y te lleva a la parte que lo explica.</li>
 <li><b>Guía del usuario completa</b> y <b>Videos y capacitaciones</b>.</li>
 <li><b>Quiero que me llamen</b> y <b>Soporte por WhatsApp</b>: abren WhatsApp con un mensaje listo, que mandás vos.</li>
 <li><b>Contanos tus sugerencias</b>.</li>
@@ -1075,7 +1077,7 @@ mano. De la 2.5.17 en adelante, la app avisa sola.</div>
 </table>
 <p>Precios y contratación: <a href="/#precios">getdexiae.com/#precios</a>. Planes en pesos, pago por Mercado Pago.</p>
 
-<div class="foot">DEXIAE 2.8 · Guía del usuario · octubre 2026 · <a href="/">getdexiae.com</a> · <a href="/extractos-bancarios-excel">Extractos bancarios</a> · <a href="/facturas-qr-excel">Facturas por QR</a> · <a href="/guia-contable">Guía Contable</a> · <a href="/casos-de-uso">Casos de uso</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
+<div class="foot">DEXIAE __VERSION__ · Guía del usuario · octubre 2026 · <a href="/">getdexiae.com</a> · <a href="/extractos-bancarios-excel">Extractos bancarios</a> · <a href="/facturas-qr-excel">Facturas por QR</a> · <a href="/guia-contable">Guía Contable</a> · <a href="/casos-de-uso">Casos de uso</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
 </div>
 <!-- Pre-chat + modal. La guía no tenía ningún punto de contacto: quien llegaba
      acá con una duda no tenía dónde preguntar ni cómo empezar la prueba. -->

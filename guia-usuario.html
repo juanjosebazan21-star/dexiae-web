@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guía del usuario · DEXIAE 2.8</title>
+<title>Guía del usuario · DEXIAE 2.10.0</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
@@ -16,7 +16,7 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://getdexiae.com/guia-usuario">
 <meta property="og:site_name" content="DEXIAE">
-<meta property="og:title" content="Guía del usuario · DEXIAE 2.8">
+<meta property="og:title" content="Guía del usuario · DEXIAE 2.10.0">
 <meta property="og:description" content="Guía de DEXIAE 2.8: extractos bancarios a Excel, facturas por QR, plantillas de extracción, validación y peritaje de firmas. Todo el procesamiento es local.">
 <meta property="og:image" content="https://getdexiae.com/og/guia-usuario.png">
 <meta property="og:image:width" content="1200">
@@ -43,6 +43,45 @@
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+
+/* (21/10/2026) Índice lateral con buscador */
+.guia{display:grid;grid-template-columns:276px minmax(0,1fr);max-width:1200px;margin:0 auto}
+.guia .wrap{margin:0;padding-left:44px}
+.indice{position:sticky;top:0;align-self:start;height:100vh;overflow:auto;padding:22px 14px 48px 20px;border-right:1px solid var(--line);font-size:14px;background:var(--paper)}
+.ind-cab{display:flex;align-items:center;justify-content:space-between;margin:0 0 10px;font-size:15px}
+.ind-cerrar{display:none;border:0;background:none;font-size:26px;line-height:1;color:var(--ink2);cursor:pointer;padding:0 4px}
+.ind-buscar{position:relative;display:block}
+.ind-buscar svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink3)}
+.ind-buscar input{width:100%;padding:9px 10px 9px 33px;border:1px solid var(--line);border-radius:9px;background:var(--card);font:inherit;font-size:14px;color:var(--ink)}
+.ind-buscar input:focus{outline:2px solid rgba(37,99,235,.22);border-color:var(--ac)}
+.ind-g{display:block;font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink3);margin:18px 0 6px 8px}
+.indice ol{list-style:none;margin:0;padding:0}
+.indice li a{display:block;padding:5px 8px;border-radius:7px;color:var(--ink2);text-decoration:none;line-height:1.35}
+.indice li a:hover{background:#efebe3;color:var(--ink)}
+.indice li a.activo{background:rgba(37,99,235,.09);color:var(--ac-deep);font-weight:600}
+.ind-sub{display:none;margin:2px 0 6px 12px;border-left:2px solid var(--line)}
+.ind-sub.abierto{display:block}
+.indice .ind-sub a{font-size:13px;padding:3px 8px 3px 10px}
+.ind-res{margin-top:12px}
+.ind-res a{display:block;padding:8px;border-radius:8px;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--line)}
+.ind-res a:hover,.ind-res a.sel{background:#efebe3}
+.ind-res b{display:block;font-size:14px;line-height:1.3}
+.ind-res small{display:block;color:var(--ink3);font-size:12px}
+.ind-res span{display:block;color:var(--ink2);font-size:12.5px;line-height:1.45;margin-top:2px}
+.ind-res mark{background:#fde68a;color:inherit;border-radius:2px}
+.ind-res .ind-nada{color:var(--ink3);font-size:13px;padding:8px}
+.ind-abrir,.ind-velo{display:none}
+@media(max-width:1000px){
+  .guia{display:block}
+  .guia .wrap{margin:0 auto;padding-left:24px}
+  .indice{position:fixed;top:0;left:0;bottom:0;height:auto;width:min(330px,88vw);background:var(--card);z-index:60;transform:translateX(-105%);transition:transform .2s ease;box-shadow:0 10px 40px rgba(11,17,32,.2)}
+  body.ind-on .indice{transform:none}
+  body.ind-on{overflow:hidden}
+  .ind-cerrar{display:block}
+  .ind-abrir{display:flex;align-items:center;gap:7px;position:fixed;left:14px;bottom:14px;z-index:55;border:0;border-radius:22px;padding:10px 16px;background:var(--navy);color:#fff;font:600 14px 'Inter',system-ui,sans-serif;box-shadow:0 6px 20px rgba(11,17,32,.28);cursor:pointer}
+  body.ind-on .ind-velo{display:block;position:fixed;inset:0;background:rgba(11,17,32,.42);z-index:58}
+}
+@media print{.indice,.ind-abrir,.ind-velo{display:none}.guia{display:block}.guia .wrap{padding-left:24px}}
 </style>
 <style>
 :root{--ink:#141c32;--ink2:#3d4660;--ink3:#636b82;--paper:#faf8f4;--card:#fff;--line:#e6e1d6;--ac:#2563EB;--ac-deep:#1D4ED8;--ok:#1d9e75;--warn:#b7791f;--navy:#0b1120;--mono:'JetBrains Mono',monospace}
@@ -115,22 +154,31 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 </head>
 <body>
 <div class="top"><img class="m" src="/logo-marca.svg" alt="" width="30" height="30" decoding="async"><b>DEXIAE · Guía del usuario</b><a href="/">← getdexiae.com</a></div>
+<div class="guia">
+<nav class="indice" id="indice" aria-label="Índice de la guía">
+<div class="ind-cab"><b>Índice</b><button type="button" class="ind-cerrar" onclick="indCerrar()" aria-label="Cerrar el índice">×</button></div>
+<label class="ind-buscar"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="M20 20l-4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input type="search" id="ind-q" placeholder="Buscar en la guía…" autocomplete="off" aria-label="Buscar en la guía"></label>
+<div id="ind-res" class="ind-res" hidden></div>
+<div id="ind-lista">
+<b class="ind-g">Para empezar</b><ol><li><a href="#que-es">Qué es DEXIAE</a></li><li><a href="#instalacion">Instalación</a></li><li><a href="#licencia">Licencia y ediciones</a></li>
+<li><a href="#limite">Qué consume tu límite</a></li><li><a href="#interfaz">La pantalla</a></li><li><a href="#ediciones">Tabla de ediciones</a></li></ol>
+<b class="ind-g">Módulos</b><ol><li><a href="#lote">Ejecución: procesar un lote</a></li><li><a href="#revisar">Revisar el lote</a></li><li><a href="#plantillas">Laboratorio: plantillas</a></li>
+<li><a href="#qr">Facturas por código QR</a></li><li><a href="#extractos">Extractos bancarios y asientos</a></li><li><a href="#validacion">Validación de datos</a></li>
+<li><a href="#peritaje">Peritaje de firmas digitales</a></li><li><a href="#centinela">Modo Centinela</a></li><li><a href="#historial">Historial y Analítica</a></li>
+<li><a href="#herramientas">Herramientas PDF</a></li><li><a href="#reportes">Los reportes</a></li><li><a href="#novedades">Novedades</a></li>
+<li><a href="#preferencias">Preferencias</a></li><li><a href="#soporte">Ayuda y soporte</a></li><li><a href="#version">El aviso de versión nueva</a></li></ol>
+</div>
+</nav>
+<button type="button" class="ind-abrir" onclick="indAbrir()" aria-controls="indice"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Índice</button>
+<div class="ind-velo" onclick="indCerrar()"></div>
 <div class="wrap">
 
 <h1>Guía del usuario</h1>
 <p class="sub">Válida para <b>DEXIAE 2.10.0</b> · actualizada octubre 2026 · procesamiento 100% local en tu equipo</p>
 
 <div class="toc"><b>Cómo está organizada</b>
-<p style="margin:0 0 10px;font-size:14px">Primero lo básico; después, <b>un módulo por vez</b>. Cada módulo arranca con una ficha (para qué sirve, cómo se usa, qué sale, qué tener en cuenta y en qué edición está) y debajo va el detalle. Lo nuevo de esta versión dice <span class="nuevo">Nuevo</span>.</p>
-<div class="toc-g"><div><b>Para empezar</b><ol>
-<li><a href="#que-es">Qué es DEXIAE</a></li><li><a href="#instalacion">Instalación</a></li><li><a href="#licencia">Licencia y ediciones</a></li>
-<li><a href="#limite">Qué consume tu límite</a></li><li><a href="#interfaz">La pantalla</a></li><li><a href="#ediciones">Tabla de ediciones</a></li></ol></div>
-<div><b>Módulos</b><ol>
-<li><a href="#lote">Ejecución: procesar un lote</a></li><li><a href="#revisar">Revisar el lote</a></li><li><a href="#plantillas">Laboratorio: plantillas</a></li>
-<li><a href="#qr">Facturas por código QR</a></li><li><a href="#extractos">Extractos bancarios y asientos</a></li><li><a href="#validacion">Validación de datos</a></li>
-<li><a href="#peritaje">Peritaje de firmas digitales</a></li><li><a href="#centinela">Modo Centinela</a></li><li><a href="#historial">Historial y Analítica</a></li>
-<li><a href="#herramientas">Herramientas PDF</a></li><li><a href="#reportes">Los reportes</a></li><li><a href="#novedades">Novedades</a></li>
-<li><a href="#preferencias">Preferencias</a></li><li><a href="#soporte">Ayuda y soporte</a></li><li><a href="#version">El aviso de versión nueva</a></li></ol></div></div>
+<p style="margin:0 0 10px;font-size:14px">Primero lo básico; después, <b>un módulo por vez</b>. Cada módulo arranca con una ficha (para qué sirve, cómo se usa, qué sale, qué tener en cuenta y en qué edición está) y debajo va el detalle. Lo nuevo de esta versión dice <span class="nuevo">Nuevo</span>. Todas las secciones están en el <b>índice</b> de la izquierda (en el celular, en el botón «Índice»), con un buscador que encuentra las palabras en el texto de cada sección.</p>
+
 </div>
 
 <h2 id="que-es">Qué es DEXIAE</h2>
@@ -1081,6 +1129,96 @@ mano. De la 2.5.17 en adelante, la app avisa sola.</div>
 
 <div class="foot">DEXIAE 2.10.0 · Guía del usuario · octubre 2026 · <a href="/">getdexiae.com</a> · <a href="/extractos-bancarios-excel">Extractos bancarios</a> · <a href="/facturas-qr-excel">Facturas por QR</a> · <a href="/guia-contable">Guía Contable</a> · <a href="/casos-de-uso">Casos de uso</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
 </div>
+</div><!-- /guia -->
+<script>
+/* (21/10/2026) Índice lateral: buscador sobre el TEXTO de cada sección y la sección activa marcada. */
+(function(){
+  var nav=document.getElementById('indice'), q=document.getElementById('ind-q'),
+      res=document.getElementById('ind-res'), lista=document.getElementById('ind-lista');
+  if(!nav||!q) return;
+  function norm(t){return (t||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+  function esc(t){return t.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  var hs=[].slice.call(document.querySelectorAll('.wrap h2[id], .wrap h3[id]'));
+  var idx=[], padre=null;
+  hs.forEach(function(h){
+    if(h.tagName==='H2') padre=h;
+    var txt='', n=h.nextElementSibling;
+    while(n && !(n.tagName==='H2' || (h.tagName==='H3' && n.tagName==='H3'))){ txt+=' '+n.textContent; n=n.nextElementSibling; }
+    var tit=h.textContent.replace(/\s*Nuevo\s*$/,'').trim();
+    idx.push({h:h, id:h.id, tit:tit, padre:(h.tagName==='H3'&&padre)?padre.textContent.replace(/\s*Nuevo\s*$/,'').trim():'',
+              txt:txt.replace(/\s+/g,' ').trim(), nt:norm(tit), nx:norm(txt)});
+  });
+  // subtemas (h3) debajo de cada sección del índice
+  var links={};
+  [].forEach.call(lista.querySelectorAll('a[href^="#"]'), function(a){ links[a.getAttribute('href').slice(1)]=a; });
+  var actual=null;
+  var grupos={}, cur=null;
+  idx.forEach(function(e){ if(e.h.tagName==='H2'){ cur=e.id; grupos[cur]=[]; } else if(cur){ grupos[cur].push(e); } });
+  Object.keys(grupos).forEach(function(id){
+    var a=links[id], subs=grupos[id]; if(!a||!subs.length) return;
+    var ol=document.createElement('ol'); ol.className='ind-sub'; ol.dataset.de=id;
+    subs.forEach(function(x){ var li=document.createElement('li'), b=document.createElement('a');
+      b.href='#'+x.id; b.textContent=x.tit; b.dataset.de=id; li.appendChild(b); ol.appendChild(li); links[x.id]=b; });
+    a.parentNode.appendChild(ol);
+  });
+  function marcar(id){
+    if(actual===id) return; actual=id;
+    [].forEach.call(nav.querySelectorAll('a.activo'),function(a){a.classList.remove('activo');});
+    var a=links[id]; if(!a) return;
+    a.classList.add('activo');
+    var de=a.dataset.de||id;
+    [].forEach.call(nav.querySelectorAll('.ind-sub'),function(o){o.classList.toggle('abierto',o.dataset.de===de);});
+    if(links[de]&&links[de]!==a) links[de].classList.add('activo');
+    if(window.innerWidth>1000 && res.hidden){
+      var r=a.getBoundingClientRect(), rn=nav.getBoundingClientRect();
+      if(r.top<rn.top+80||r.bottom>rn.bottom-40) nav.scrollTop+=r.top-rn.top-rn.height/3;
+    }
+  }
+  if('IntersectionObserver' in window){
+    var vis={};
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ vis[e.target.id]=e.isIntersecting; });
+      var arriba=null;
+      for(var i=0;i<hs.length;i++){ var t=hs[i].getBoundingClientRect().top; if(t<window.innerHeight*0.3) arriba=hs[i].id; else break; }
+      if(arriba) marcar(arriba);
+    },{rootMargin:'0px 0px -60% 0px'});
+    hs.forEach(function(h){io.observe(h);});
+  }
+  function buscar(){
+    var t=norm(q.value).trim();
+    if(!t){ res.hidden=true; lista.hidden=false; res.innerHTML=''; return; }
+    // palabras largas sin su terminación: «escaneo» encuentra «escaneado», «facturas» encuentra «factura»
+    var ps=t.split(/\s+/).map(function(w){ return w.length>4 ? w.replace(/(es|os|as|o|a|e|s)$/,'') : w; });
+    var hit=idx.filter(function(e){ var todo=e.nt+' '+e.nx; return ps.every(function(p){return todo.indexOf(p)>=0;}); });
+    hit.sort(function(a,b){ var at=ps.every(function(p){return a.nt.indexOf(p)>=0;}), bt=ps.every(function(p){return b.nt.indexOf(p)>=0;});
+      return (bt-at) || (a.h.tagName==='H3') - (b.h.tagName==='H3'); });
+    lista.hidden=true; res.hidden=false;
+    if(!hit.length){ res.innerHTML='<div class="ind-nada">No encontré «'+esc(q.value.trim())+'». Probá con otra palabra, o escribinos a <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a>.</div>'; return; }
+    res.innerHTML=hit.slice(0,30).map(function(e){
+      var p=e.nx.indexOf(ps[0]), frag='';
+      if(p>=0){ var d=Math.max(0,p-50); frag=(d?'… ':'')+e.txt.substr(d,150)+'…'; }
+      var f=esc(frag);
+      ps.forEach(function(w){ if(w.length<2) return;
+        var re=new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&').split('').map(function(c){
+          var m={a:'[aáà]',e:'[eéè]',i:'[iíì]',o:'[oóò]',u:'[uúüù]',n:'[nñ]'}; return m[c]||c; }).join('')+')','gi');
+        f=f.replace(re,'<mark>$1</mark>'); });
+      return '<a href="#'+e.id+'"><b>'+esc(e.tit)+'</b>'+(e.padre?'<small>'+esc(e.padre)+'</small>':'')+(f?'<span>'+f+'</span>':'')+'</a>';
+    }).join('');
+  }
+  q.addEventListener('input',buscar);
+  q.addEventListener('keydown',function(ev){
+    if(ev.key==='Enter'){ var a=res.querySelector('a'); if(a){ ev.preventDefault(); a.click(); } }
+    if(ev.key==='Escape'){ if(q.value){ q.value=''; buscar(); } else indCerrar(); }
+  });
+  nav.addEventListener('click',function(ev){ var a=ev.target.closest('a[href^="#"]'); if(a && window.innerWidth<=1000) indCerrar(); });
+  document.addEventListener('keydown',function(ev){
+    if(ev.key==='/' && document.activeElement.tagName!=='INPUT' && document.activeElement.tagName!=='TEXTAREA'){ ev.preventDefault(); if(window.innerWidth<=1000) indAbrir(); q.focus(); }
+    if(ev.key==='Escape' && document.body.classList.contains('ind-on')) indCerrar();
+  });
+  window.indAbrir=function(){ document.body.classList.add('ind-on'); setTimeout(function(){q.focus();},150); };
+  window.indCerrar=function(){ document.body.classList.remove('ind-on'); };
+})();
+</script>
 <!-- Pre-chat + modal. La guía no tenía ningún punto de contacto: quien llegaba
      acá con una duda no tenía dónde preguntar ni cómo empezar la prueba. -->
 <script src="/lead.js?v=20261018-mobile1" defer></script>

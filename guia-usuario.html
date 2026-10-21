@@ -268,6 +268,7 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <div class="ficha"><dl><dt>Para qué</dt><dd>Enseñarle a DEXIAE un tipo de documento: qué dato va en cada columna del Excel y cómo encontrarlo en la hoja.</dd><dt>Cómo</dt><dd>Cargás un PDF de muestra, marcás cada dato y elegís su estrategia (al lado de un texto, en una zona, una tabla, el QR…). Probás en una carpeta sin gastar cupo.</dd><dt>Qué sale</dt><dd>Una plantilla que usás en Ejecución y en el Centinela. Se exporta e importa como archivo .json.</dd><dt>Tené en cuenta</dt><dd>El Asistente (arma plantillas solo, mirando tus PDFs) y la Detección automática: sólo PRO y SENTINEL, sólo PDF. El instalador trae sólo el diccionario GENERICO; los demás llegan por Novedades.</dd><dt>Edición</dt><dd>Todas. Hasta 3 plantillas en la prueba, CORE y CONTABLE; sin tope en PRO y SENTINEL.</dd></dl></div>
 <h3>La mesa de trabajo</h3>
 <p>En el Laboratorio cargás un <b>PDF de muestra</b> (el documento de referencia) y armás la plantilla mirándolo: seleccionás un texto en el documento y con el menú contextual lo usás directamente como <b>etiqueta</b> del campo o como <b>freno</b>. Cada campo que agregás queda en la lista de la izquierda; "Limpiar todo" vacía la mesa (plantilla y documento de referencia).</p>
+<p id="recop"><b>Si la muestra es un escaneo: RECOP.</b> Un PDF escaneado no trae texto, y sin texto no hay nada que marcar como etiqueta o freno. Tocá <b>RECOP</b> (arriba a la derecha, al lado de «Cargar documento»; al pasar el mouse dice «Forzar OCR del documento»), o <b>Reconocer con OCR (RECOP)</b>, que aparece en el panel del texto cuando el documento no trae texto. DEXIAE reconoce con OCR la <b>primera página</b> del documento de referencia y muestra ese texto para que marques los datos. No cambia el PDF ni procesa el lote: es sólo para armar la plantilla; al procesar, cada documento escaneado se reconoce por su cuenta.</p>
 <h3>Anatomía de un campo</h3>
 <ul>
 <li><b>Columna</b>: el nombre que va a tener en el Excel (p. ej. <code>CUIT</code>).</li>
@@ -862,12 +863,12 @@ revisar»</b> y marcados en el borrador: miralos antes de importar un mes nuevo.
 <div class="box note">El Centinela <b>mueve los archivos por diseño</b> (los clasifica en subcarpetas de resultado): es su forma de marcar qué ya procesó de la carpeta vigilada.</div>
 
 <h2 id="historial">Historial y Analítica</h2>
-<div class="ficha"><dl><dt>Para qué</dt><dd>Volver a cualquier lote: qué se procesó, cuándo, con qué plantilla y con qué resultado, y reabrir sus reportes. La Analítica muestra qué se repite y dónde conviene actuar.</dd><dt>Cómo</dt><dd>Módulo Historial: filtrás y abrís el lote. Desde ahí, <b>Revisar</b> y «Esto no me cierra».</dd><dt>Qué sale</dt><dd>Nada nuevo: es lo que ya procesaste, con sus Excel y reportes.</dd></dl></div>
+<div class="ficha"><dl><dt>Para qué</dt><dd>Volver a cualquier lote: qué se procesó, cuándo, con qué plantilla y con qué resultado, y reabrir sus reportes. La Analítica muestra qué se repite y dónde conviene actuar.</dd><dt>Cómo</dt><dd>Módulo Historial: filtrás y abrís el lote. Desde ahí, <b>Revisar</b> y «Esto no me cierra».</dd><dt>Qué sale</dt><dd>Lo que ya procesaste, con sus Excel y reportes. En un lote de extractos de un cliente, además, el <a href="#informe-cliente">informe para el cliente</a> <span class="nuevo">Nuevo</span>.</dd></dl></div>
 <ul>
 <li>Todos los lotes con fecha, plantilla, resultados, tiempo de proceso y sus reportes (Excel/HTML/PDF) para reabrir.</li>
 <li>Filtros por modo (manual/centinela/espejo) y por hallazgos de validación; detalle por documento con su estado.</li>
 <li><b>Analítica</b> (su propia pantalla desde la 2.8.0): documentos y lotes del período, cuántos salieron bien y cuántos fueron a revisión, por semana y por plantilla, y una lista de <b>dónde conviene actuar</b> —la plantilla que más manda a revisión, los lotes sin huella, los documentos asignados con puntaje bajo— con el botón que te lleva a resolverlo. Los umbrales se cambian en <b>Ajustes</b>. El puntaje es el de la asignación de la plantilla, no un porcentaje de exactitud. Las conversiones de extractos no entran: tienen su tablero en Extractos.</li>
-<li>Podés renombrar o borrar lotes (borrar elimina también sus claves de deduplicación).</li>
+<li>Podés renombrar o borrar lotes (borrar elimina también sus claves de deduplicación y lo que DEXIAE guardó de ese lote para el informe para el cliente; tus Excel y reportes en disco no se tocan).</li>
 </ul>
 <figure>
 <picture><source type="image/webp" srcset="/analitica-800.webp 800w, /analitica-1200.webp 1200w, /analitica.webp 1600w" sizes="(max-width: 860px) calc(100vw - 48px), 812px"><img src="/analitica.png?v=3c8eced2" alt="Analítica de DEXIAE: documentos, lotes, salieron OK, fueron a revisión, duplicados, dónde conviene actuar y volumen por semana" loading="lazy" width="1600" height="900"></picture>
@@ -948,11 +949,11 @@ más rápida, pero se pierde lo que sólo está en una imagen.</li>
 </tbody></table>
 <p>El tema claro u oscuro se cambia con el interruptor de la barra de arriba.</p>
 <h2 id="soporte">Ayuda y soporte</h2>
-<div class="ficha"><dl><dt>Para qué</dt><dd>Encontrar la respuesta o escribirnos con lo que necesitamos para ayudarte.</dd><dt>Cómo</dt><dd>El menú «?» de arriba <span class="nuevo">Nuevo</span>, «Reportar un problema» abajo en la barra lateral, y «Esto no me cierra» en el Historial.</dd><dt>Tené en cuenta</dt><dd>No se manda nada solo: cada mensaje o archivo lo mandás vos.</dd></dl></div>
+<div class="ficha"><dl><dt>Para qué</dt><dd>Encontrar la respuesta o escribirnos con lo que necesitamos para ayudarte.</dd><dt>Cómo</dt><dd>El menú «?» de arriba <span class="nuevo">Nuevo</span>, «Reportar un problema» abajo en la barra lateral, y «Esto no me cierra» en el Historial.</dd><dt>Tené en cuenta</dt><dd>Estos mensajes y reportes no se envían automáticamente: cada uno lo mandás vos.</dd></dl></div>
 <h3 id="ayuda-menu">El menú «?» <span class="nuevo">Nuevo</span></h3>
 <p>El «?» de la barra de arriba junta todo lo que sirve cuando tenés una duda:</p>
 <ul>
-<li><b>Buscar un tema</b> de la guía: escribís y te lleva a la parte que lo explica.</li>
+<li><b>Buscar un tema</b>: busca en los títulos y las palabras clave de los temas de la guía y te lleva a la parte que lo explica.</li>
 <li><b>Guía del usuario completa</b> y <b>Videos y capacitaciones</b>.</li>
 <li><b>Quiero que me llamen</b> y <b>Soporte por WhatsApp</b>: abren WhatsApp con un mensaje listo, que mandás vos.</li>
 <li><b>Contanos tus sugerencias</b>.</li>
@@ -972,7 +973,7 @@ no es momento de buscar en un menú.</figcaption>
 </figure>
 <figure>
 <picture><source type="image/webp" srcset="/guia/guia_reportar_problema_panel.webp"><img src="/guia/guia_reportar_problema_panel.png" alt="El panel de reporte técnico, con la lista de qué se incluye en el archivo" loading="lazy" width="680" height="810"></picture>
-<figcaption>Contás qué estabas haciendo y ves <b>exactamente qué va adentro</b> antes de
+<figcaption>Contás qué estabas haciendo y ves <b>qué grupos de datos van adentro</b> (y destildás los opcionales) antes de
 generar nada. El identificador de tu equipo viene destildado: se tilda sólo si el
 problema es con la licencia.</figcaption>
 </figure>
@@ -995,7 +996,7 @@ adentro del .zip, con lo que es opcional destildable.</figcaption>
 
 <h3>Lo que los dos tienen en común</h3>
 <ul>
-<li><b>No se manda nada solo.</b> Se arma un <code>.zip</code>, se abre la carpeta donde
+<li><b>Este reporte no se envía automáticamente.</b> Se arma un <code>.zip</code>, se abre la carpeta donde
 quedó, y lo mandás vos por donde quieras. Un canal automático para esto contradiría
 que tus documentos y tus archivos no salen de tu computadora.</li>
 <li><b>Ves la lista antes de generar</b>, y destildás lo que no quieras que salga.</li>
@@ -1008,8 +1009,9 @@ confunden al dictarlos (no hay I, O, S, B ni Z).</li>
 puesto. ⚠️ <b>El archivo lo arrastrás vos</b>: ni WhatsApp ni el mail pueden adjuntar
 desde un enlace. Por eso el botón dice «Abrir» y no «Enviar».</li>
 </ul>
-<div class="box note">Toda la actividad queda en registros locales con fecha y hash de
-los reportes. <b>¿Sin internet?</b> DEXIAE funciona igual: la licencia se verifica una
+<div class="box note">Al generar el <code>.zip</code> queda un registro local de la exportación, y el <code>.zip</code>
+lleva un manifiesto con la fecha y la huella SHA-256 de cada archivo. DEXIAE no sabe si después lo mandaste.
+<b>¿Sin internet?</b> DEXIAE funciona igual: la licencia se verifica una
 vez por día y se recuerda 24 horas. El procesamiento nunca depende de la conexión.
 Contacto: <a href="mailto:contacto@getdexiae.com">contacto@getdexiae.com</a></div>
 

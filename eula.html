@@ -286,7 +286,18 @@ manera:
 
    i) TRANSPORTE: Las descargas de esta seccion y el envio de la Seccion 6.2 van por
       HTTPS con el certificado del servidor verificado. Si el certificado no se puede
-      verificar, el Software no descarga ni envia nada y sigue como sin internet.</pre>
+      verificar, el Software no descarga ni envia nada y sigue como sin internet.
+
+   j) INSTALACION ADMINISTRADA (desde DEXIAE __VERSION_NUEVA__): una organizacion puede
+      instalar el Software como administrado, con el parametro del instalador
+      /ADMINISTRADA=1 (que deja el archivo politica.json en la carpeta del programa) o con
+      la politica del Registro de Windows HKLM\SOFTWARE\Policies\DEXIAE. En ese equipo el
+      Software no realiza por su cuenta ninguna de las comunicaciones de esta Seccion ni de
+      la Seccion 6.2, salvo las que la organizacion permita expresamente en esa politica:
+      no consulta la ultima version ni la lista de licencias revocadas, no descarga
+      novedades y no envia la senal de uso. Las versiones nuevas se instalan solo cuando la
+      organizacion las instala. Sin la consulta de b), una revocacion no llega a ese
+      equipo; la licencia vence igual en su fecha.</pre>
 <h2>6.2. Senal De Uso (desde DEXIAE 2.9.2)</h2>
 <pre class="b">
 Como maximo una vez por dia, al abrirse con conexion a internet, el Software envia a

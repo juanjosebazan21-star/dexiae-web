@@ -118,7 +118,7 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <div class="wrap">
 
 <h1>Guía del usuario</h1>
-<p class="sub">Válida para <b>DEXIAE __VERSION__</b> · actualizada octubre 2026 · procesamiento 100% local en tu equipo</p>
+<p class="sub">Válida para <b>DEXIAE 2.10.0</b> · actualizada octubre 2026 · procesamiento 100% local en tu equipo</p>
 
 <div class="toc"><b>Cómo está organizada</b>
 <p style="margin:0 0 10px;font-size:14px">Primero lo básico; después, <b>un módulo por vez</b>. Cada módulo arranca con una ficha (para qué sirve, cómo se usa, qué sale, qué tener en cuenta y en qué edición está) y debajo va el detalle. Lo nuevo de esta versión dice <span class="nuevo">Nuevo</span>.</p>
@@ -145,13 +145,13 @@ figcaption{font-size:13.5px;color:var(--ink3);margin-top:12px;line-height:1.6}
 <h2 id="instalacion">Instalación</h2>
 <ol>
 <li>Descargá el instalador desde <a href="https://getdexiae.com">getdexiae.com</a>.</li>
-<li>Ejecutá <code>DEXIAE_Setup_V__VERSION__.exe</code> y seguí el asistente.</li>
+<li>Ejecutá <code>DEXIAE_Setup_V2.10.0.exe</code> y seguí el asistente.</li>
 <li>Requisitos: Windows 10/11 de 64 bits con Microsoft Edge WebView2 (viene en Windows 11 y en la mayoría de los Windows 10). Lo demás lo trae el instalador.</li>
 </ol>
 <div class="box warn"><b>Si Windows muestra "Windows protegió tu equipo":</b> es el aviso estándar de SmartScreen para software de desarrolladores independientes — no significa que sea malicioso. Hacé clic en <b>"Más información"</b> → <b>"Ejecutar de todos modos"</b>. Podés verificar el instalador con tu antivirus o en VirusTotal.</div>
 <h3 id="instalacion-administrada">Para organizaciones: instalación administrada <span class="nuevo">Nuevo</span></h3>
 <p>Si el área de sistemas evalúa y aprueba cada versión, puede instalar DEXIAE como <b>administrado</b>: en ese equipo DEXIAE no busca versiones nuevas ni la lista de licencias revocadas, no baja Novedades y no manda la señal de uso. Las versiones nuevas se instalan cuando la organización las instala. Sin Novedades tampoco llega sola la renovación de la licencia (para recibirla, permitir <code>Novedades</code>), ni una baja de licencia; la licencia vence igual en su fecha.</p>
-<pre><code>DEXIAE_Setup_V__VERSION__.exe /ALLUSERS /ADMINISTRADA=1</code></pre>
+<pre><code>DEXIAE_Setup_V2.10.0.exe /ALLUSERS /ADMINISTRADA=1</code></pre>
 <p><code>/ALLUSERS</code> instala para todos los usuarios, en Archivos de programa (x86) (pide permisos de administrador): así quien usa el equipo no puede cambiar la política. También se puede repartir por directiva de grupo, en el Registro de Windows: <code>HKLM\SOFTWARE\Policies\DEXIAE</code>, valor DWORD <code>Administrada</code> en 1 y, para permitir alguna conexión, <code>BuscarVersiones</code>, <code>Novedades</code> o <code>SenalDeUso</code> en 1. En Preferencias, la señal de uso aparece apagada con «Lo administra tu organización: en este equipo no se manda»; en Novedades, «Buscar novedades» responde «Las novedades las administra tu organización: en este equipo no se buscan.»</p>
 
 <h2 id="licencia">Licencia y ediciones</h2>
@@ -1079,7 +1079,7 @@ mano. De la 2.5.17 en adelante, la app avisa sola.</div>
 </table>
 <p>Precios y contratación: <a href="/#precios">getdexiae.com/#precios</a>. Planes en pesos, pago por Mercado Pago.</p>
 
-<div class="foot">DEXIAE __VERSION__ · Guía del usuario · octubre 2026 · <a href="/">getdexiae.com</a> · <a href="/extractos-bancarios-excel">Extractos bancarios</a> · <a href="/facturas-qr-excel">Facturas por QR</a> · <a href="/guia-contable">Guía Contable</a> · <a href="/casos-de-uso">Casos de uso</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
+<div class="foot">DEXIAE 2.10.0 · Guía del usuario · octubre 2026 · <a href="/">getdexiae.com</a> · <a href="/extractos-bancarios-excel">Extractos bancarios</a> · <a href="/facturas-qr-excel">Facturas por QR</a> · <a href="/guia-contable">Guía Contable</a> · <a href="/casos-de-uso">Casos de uso</a> · <a href="/eula">EULA</a> · <a href="/privacidad">Privacidad</a></div>
 </div>
 <!-- Pre-chat + modal. La guía no tenía ningún punto de contacto: quien llegaba
      acá con una duda no tenía dónde preguntar ni cómo empezar la prueba. -->

@@ -170,3 +170,79 @@
 .rx-iguales .nota{color:var(--txt2);font-size:11px;margin-top:6px}
 .rx-lab{display:inline-flex;gap:6px;align-items:center;margin-top:4px;font-size:12px;color:var(--teal-l);cursor:pointer}
 .rx-lab:hover{text-decoration:underline}
+/* (15/10/2026) Comparar: otro documento al lado del que está a la vista */
+.rx-lienzos{flex:1;min-height:0;display:flex}
+.rx-lienzos>.rx-lienzo{flex:1;min-width:0}
+.rx-cmp{flex:1;min-width:0;display:flex;flex-direction:column;border-left:2px solid var(--teal)}
+.rx-cmp[hidden]{display:none}
+.rx-cmp .rx-lienzo{cursor:grab}
+.rx-doc{display:flex;align-items:center;gap:6px;min-width:0}
+.rx-doc a{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis}
+.rx-al-lado{flex:none;border:1px solid var(--border);background:transparent;border-radius:5px;height:22px;min-width:26px;color:var(--txt2);cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.rx-al-lado:hover{color:var(--teal-l);border-color:var(--teal)}
+.rx-al-lado.act{color:#fff;background:var(--teal);border-color:var(--teal)}
+.rx-docs-t{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.04em;margin:4px 0 -4px}
+/* Casos iguales: cada uno con lo que dice */
+.rx-igual-f{display:flex;align-items:flex-start;gap:6px;padding:2px 0}
+.rx-igual-f .rx-radio{flex:1;min-width:0}
+.rx-igual-v{display:block;color:var(--txt2);font-size:11px;word-break:normal;overflow-wrap:anywhere}
+/* (15/10/2026) la cuenta del cruce, copiar y «para después»; el texto del panel se puede seleccionar */
+.rx-cuenta{margin:6px 0 4px;padding:7px 10px;border-radius:var(--r-sm);background:rgba(37,99,235,.12);border:1px solid rgba(37,99,235,.35);font-size:12px;color:var(--txt);font-variant-numeric:tabular-nums}
+.rx-acc{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 8px}
+#rx-panel,#rx-panel *,#rx-lista .rx-item .nom,#rx-lista .rx-item .sub{-webkit-user-select:text!important;user-select:text!important}
+/* (16/10/2026) Auditoría más clara: «Dónde mirar», qué cambió al volver a
+   controlar, «para después» guardado, dato verificado / no aplica, comparar con
+   zoom y manito. Violeta = para después (también en el Excel). */
+.rx-chip.desp{color:#7c3aed;background:rgba(124,58,237,.10);border-color:rgba(124,58,237,.35)}
+.rx-chip[hidden]{display:none}
+.rx-ico-desp{color:#8b5cf6}
+.rx-sub-desp{color:#8b5cf6;display:flex;gap:4px;align-items:center}
+.rx-vista.comparando .rx-cuerpo{grid-template-columns:minmax(150px,13vw) minmax(0,1fr) minmax(300px,25vw)}
+.rx-mini{border:1px solid var(--border);background:transparent;border-radius:5px;min-height:22px;padding:0 7px;color:var(--txt2);cursor:pointer;display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-family:inherit}
+.rx-mini:hover{color:var(--teal-l);border-color:var(--teal)}
+.rx-mini.act{color:#fff;background:var(--teal);border-color:var(--teal)}
+.rx-noubico{display:inline-flex;gap:5px;align-items:center;font-size:11.5px;color:var(--rev-fg);background:var(--rev-bg);border:1px solid var(--rev-bd);border-radius:12px;padding:1px 4px 1px 8px;margin-left:8px;max-width:420px;overflow:hidden;white-space:nowrap}
+.rx-noubico b{font-family:var(--mono);font-weight:600}
+.rx-donde{margin:10px 0 4px;border:1px solid var(--border);border-radius:var(--r);background:var(--bg);overflow:hidden}
+.rx-donde-cab{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 10px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt2);border-bottom:1px solid var(--border)}
+.rx-donde-cab>span{display:inline-flex;gap:5px;align-items:center}
+.rx-auto{font-size:11px;text-transform:none;letter-spacing:0;color:var(--txt3);display:inline-flex;gap:4px;align-items:center;cursor:pointer}
+.rx-ev-t{font-size:10.5px;color:var(--txt3);text-transform:uppercase;letter-spacing:.04em;padding:7px 10px 2px}
+.rx-ev{padding:4px 10px 6px;border-left:3px solid transparent}
+.rx-ev.vista{border-left-color:var(--teal);background:var(--teal-dim)}
+.rx-ev.lado{border-left-color:rgba(37,99,235,.7)}
+.rx-ev .doc{display:flex;gap:6px;align-items:center;min-width:0}
+.rx-ev .doc a{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--teal-l);cursor:pointer;font-size:12px}
+.rx-ev-tag{flex:none;font-size:10.5px;color:var(--txt3)}
+.rx-ev .vals{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.rx-ev-v{border:1px solid var(--border);background:var(--input-bg);border-radius:5px;padding:2px 7px;cursor:pointer;display:inline-flex;gap:6px;align-items:baseline;min-width:0;font-family:inherit;color:var(--txt);max-width:100%}
+.rx-ev-v span{font-size:10.5px;color:var(--txt3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:120px;flex:none}
+.rx-ev-v b{font-family:var(--mono);font-size:12px;font-weight:600;font-variant-numeric:tabular-nums;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rx-ev-v b.vacio{font-family:var(--font);font-style:italic;font-weight:400;color:var(--txt3)}
+.rx-ev-v:hover,.rx-ev-v.act{border-color:var(--teal)}
+.rx-ev-v.act{background:var(--teal-dim)}
+.rx-desp{display:flex;gap:8px;align-items:flex-start;margin:6px 0 4px;padding:7px 10px;border-radius:var(--r-sm);border:1px solid rgba(124,58,237,.35);background:rgba(124,58,237,.08);font-size:12px}
+.rx-desp>i{color:#8b5cf6;margin-top:2px}
+.rx-desp>div{flex:1;min-width:0}
+.rx-desp .rastro{color:var(--txt3);font-size:11px;margin:2px 0 6px}
+.rx-como{margin:4px 0;font-size:12px;color:var(--txt2)}
+.rx-como summary{cursor:pointer;color:var(--teal-l)}
+.rx-como p{margin:4px 0 0}
+.rx-cambios{margin:10px 16px 0;border:1px solid var(--border);border-radius:var(--r);background:var(--bg);font-size:12px;overflow:hidden}
+.rx-cambios .t{display:flex;justify-content:space-between;align-items:center;padding:5px 8px 5px 10px;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt2);border-bottom:1px solid var(--border)}
+.rx-cambios>div:not(.t){display:flex;gap:7px;padding:6px 10px;align-items:flex-start}
+.rx-cambios>div>i{margin-top:2px}
+.rx-cambios span{display:block;color:var(--txt2);font-size:11.5px;font-variant-numeric:tabular-nums}
+.rx-cambios .ok{background:var(--ok-bg)}.rx-cambios .ok>i{color:var(--ok-fg)}
+.rx-cambios .sigue{background:var(--rev-bg)}.rx-cambios .sigue>i{color:var(--rev-fg)}
+.rx-cambios .igual>i{color:var(--txt3)}
+.rx-cambios .nuevo{background:var(--err-bg)}.rx-cambios .nuevo>i{color:var(--err-fg)}
+.rx-pista{margin:8px 0 4px;padding:6px 9px;border-radius:var(--r-sm);background:var(--teal-dim);font-size:11.5px;color:var(--txt);display:flex;gap:6px;align-items:flex-start}
+.rx-pista a{color:var(--teal-l);cursor:pointer;margin-left:4px}
+.rx-cambiar{margin-top:8px}
+.rx-campo-acc{display:flex;gap:5px;flex-wrap:wrap;padding:2px 16px 8px 19px}
+.rx-d-ok{color:var(--ok-fg)}
+.rx-na{font-size:10px;font-weight:700;color:var(--txt3);border:1px solid var(--border);border-radius:4px;padding:0 3px;text-align:center}
+.rx-fila.na .v{color:var(--txt3);text-decoration:line-through}
+.rx-tit-n{text-transform:none;letter-spacing:0;color:var(--ok-fg);margin-left:6px}
+.rx-res-t.desp b{color:#8b5cf6}

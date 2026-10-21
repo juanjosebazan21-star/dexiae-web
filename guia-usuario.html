@@ -345,7 +345,7 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <tr><td><b>Limpiar todo</b></td><td>Vacía la mesa: los campos que no guardaste y el documento de referencia.</td></tr>
 <tr><td>Estado</td><td>«Sin cambios», «Cambios sin guardar» (en ámbar), «Guardada ✓»… Al cambiar de pantalla la mesa no se borra, pero tampoco hay un aviso de cambios sin guardar: guardá antes de cerrar DEXIAE.</td></tr>
 <tr><td><b>RECOP</b></td><td>Reconoce con OCR la página 1 de la muestra (<a href="#recop">ver arriba</a>).</td></tr>
-<tr><td><b>Cargar documento</b></td><td>Abre la muestra. Lee la capa de texto de todas sus páginas (sin OCR), cuántas páginas tiene, si está firmada y si trae archivos adentro.</td></tr>
+<tr><td><b>Cargar documento</b></td><td>Abre la muestra. De un PDF lee la capa de texto de todas sus páginas (sin OCR); una imagen la reconoce con OCR al cargarla. También ve cuántas páginas tiene, si está firmada y si trae archivos adentro.</td></tr>
 <tr><td><b>Carpeta de prueba</b></td><td>Otros documentos del mismo tipo para las sugerencias de «marcá el dato». Lee hasta 30 PDF de la carpeta (sin subcarpetas) y saltea los informes que armó DEXIAE. Queda un chip con la ✕ para quitarla.</td></tr>
 <tr><td><b>Asistente inteligente</b></td><td>Arma plantillas a partir de varios PDF (<a href="#lab-asistente">ver abajo</a>). PRO y SENTINEL.</td></tr>
 <tr><td><b>Texto</b> · <b>Visual</b> · Pág N/M</td><td>Las dos vistas del documento y el cambio de página. En Texto, «Buscar en el documento…» resalta lo que escribas.</td></tr>
@@ -360,26 +360,26 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <li><b>Freno</b> (opcional): dónde cortar la lectura para no llevarse texto de más. Acepta varias alternativas separadas por <code>|</code>, respeta palabras enteras e ignora tildes. Sin freno, la lectura corta al final del renglón.</li>
 <li><b>Otras formas de escribir la etiqueta</b>, separadas por <code>|</code> (p. ej. <code>Nombre y Apellido: | Apellido y Nombre:</code>): si el mismo dato aparece escrito distinto en otros documentos. Se prueba primero la etiqueta principal y después cada una, en orden. También cuentan para el ancla.</li>
 <li><b>Obligatorio</b>: si queda vacío, el Excel marca ese documento «DATOS FALTANTES» en <code>ESTADO_PROCESO</code> y queda para revisar.</li>
-<li><b>Clave única</b>: todos los campos tildados forman juntos la identidad del documento (p. ej. CUIT + número de comprobante). DEXIAE la compara con el resto del lote y con los lotes anteriores del Historial, y marca el repetido como «DUPLICADO» con <code>ID_ORIGINAL</code> y <code>ORIGEN_DUP</code> («Este lote» o el lote y la fecha). Si a una fila le falta una parte de la clave, esa fila no se compara.</li>
+<li><b>Clave única</b>: todos los campos tildados forman juntos la identidad del documento (p. ej. CUIT + número de comprobante). DEXIAE la compara con el resto del lote y con los lotes anteriores del Historial, y marca el repetido como «DUPLICADO» con <code>ID_ORIGINAL</code> y <code>ORIGEN_DUP</code> («Este lote» o «Histórico · lote · fecha»). Si a una fila le falta una parte de la clave, esa fila no se compara.</li>
 <li><b>Ancla</b>: el campo sirve para reconocer el tipo de documento (<a href="#lab-anclas">cómo deciden las anclas</a>). Tiene tres modos: <b>Score</b> (suma puntaje), <b>Obligatoria</b> (si falta, la plantilla no corresponde) y <b>Excluyente</b> (si aparece, la plantilla no corresponde).</li>
 <li><b>Solo ancla (sin columna)</b>: el campo se usa para reconocer el documento pero no genera columna en el Excel.</li>
-<li><b>Puede faltar (columna de tabla)</b>: sólo en las estrategias de tabla. Si la tabla no trae esa columna, las filas se leen igual y ese campo queda vacío. Al menos una columna tiene que seguir siendo obligatoria: es la que reconoce la tabla.</li>
+<li><b>Puede faltar (columna de tabla)</b>: sólo con «Columna de tabla». Si la tabla no trae esa columna, las filas se leen igual y ese campo queda vacío. Al menos una columna tiene que seguir siendo obligatoria: es la que reconoce la tabla.</li>
 </ul>
 
 <h3 id="lab-estrategias">Las estrategias de extracción</h3>
 <table>
 <tr><th>Estrategia</th><th>Qué pide</th><th>Qué saca</th></tr>
 <tr><td><b>Texto (Derecha)</b></td><td>Etiqueta; freno opcional</td><td>Lo que sigue a la etiqueta en ese renglón, hasta el freno. El caso más común: <code>CUIT: 30-12345678-9</code>.</td></tr>
-<tr><td><b>Texto (Izquierda)</b></td><td>Etiqueta</td><td>Hasta 60 caracteres (letras, números, espacios y . , % -) justo antes de la etiqueta. No usa el freno.</td></tr>
+<tr><td><b>Texto (Izquierda)</b></td><td>Etiqueta</td><td>Hasta 60 caracteres justo antes de la etiqueta: letras sin tilde ni ñ, números, espacios (también saltos de renglón) y . , % -. No usa el freno.</td></tr>
 <tr><td><b>Texto (Arriba)</b> · <b>Texto (Abajo)</b></td><td>Etiqueta</td><td>El renglón entero anterior o siguiente al de la etiqueta.</td></tr>
-<tr><td><b>Texto (Cerca)</b></td><td>Etiqueta</td><td><b>Una sola palabra</b> (sin espacios) a menos de 20 caracteres de la etiqueta.</td></tr>
+<tr><td><b>Texto (Cerca)</b></td><td>Etiqueta</td><td>La <b>palabra</b> que sigue a la etiqueta, separada sólo por espacios o «:», «.», «-» (hasta 20). Toma letras sin tilde, números, puntos y comas: corta en un guion, una barra o una tilde (de <code>CUIT: 30-12345678-9</code> saca «30»).</td></tr>
 <tr><td><b>Texto (Multilínea)</b></td><td>Etiqueta y <b>freno obligatorio</b></td><td>Todo lo que hay desde la etiqueta hasta el freno, aunque ocupe varios renglones (un domicilio, un detalle largo).</td></tr>
 <tr><td><b>Entre A y B</b></td><td>A = etiqueta, B = <b>freno obligatorio</b></td><td>Lo que queda en el medio.</td></tr>
 <tr><td><b>ZONA</b></td><td>Un recuadro dibujado en la vista Visual</td><td>Lo que hay en ese lugar de la <b>página 1</b>. Si ahí no hay texto (un sello, un escaneo, una imagen), lo lee con OCR. Se rompe si cambia el diseño del documento.</td></tr>
 <tr><td><b>Número</b></td><td>Etiqueta</td><td>El primer número a menos de 20 caracteres de la etiqueta (puede estar en el renglón siguiente).</td></tr>
-<tr><td><b>Moneda ($)</b></td><td>Etiqueta</td><td>El primer importe en el mismo renglón, tal como está escrito.</td></tr>
+<tr><td><b>Moneda ($)</b></td><td>Etiqueta</td><td>El primer grupo de cifras (con . y ,) que sigue a la etiqueta en su renglón, o en el siguiente si la etiqueta cierra el renglón, tal como está escrito.</td></tr>
 <tr><td><b>Fecha</b></td><td>Etiqueta</td><td>La primera fecha día/mes/año (con /, . o -) cerca de la etiqueta, tal como está.</td></tr>
-<tr><td><b>Fecha (dd/mm/aaaa)</b></td><td>Etiqueta</td><td>Además entiende «28 de julio de 2026» y aaaa-mm-dd, y siempre la devuelve como dd/mm/aaaa.</td></tr>
+<tr><td><b>Fecha (dd/mm/aaaa)</b></td><td>Etiqueta</td><td>Además entiende «28 de julio de 2026» y aaaa-mm-dd, y la devuelve como dd/mm/aaaa (un año de 2 cifras se completa como 20xx).</td></tr>
 <tr><td><b>CUIT / DNI</b></td><td>Etiqueta (opcional)</td><td>Un CUIT o CUIL de 11 dígitos (prefijo 20, 23, 24, 26, 27, 30, 33 o 34), sólo los dígitos. Lo busca cerca de la etiqueta y, si no, toma el primero del documento. No valida el dígito verificador y no lee DNI.</td></tr>
 <tr><td><b>Email</b></td><td>Nada (no usa la etiqueta)</td><td>El primer email del documento.</td></tr>
 <tr><td><b>Patrón (Regex)</b></td><td>La expresión regular, <b>en la etiqueta</b></td><td>Lo que encuentra la expresión (o lo que está entre paréntesis, si los tiene). Para casos que ninguna otra estrategia resuelve.</td></tr>
@@ -412,7 +412,7 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 <ul>
 <li>Con el panel de prueba abierto, «Agregar» o «Actualizar» un campo lo vuelve a probar solo, salvo que la plantilla use «Comprobante (QR)» (ahí tocás «Probar» cuando termines, porque tarda unos segundos).</li>
 <li>De una tabla o de los comprobantes QR muestra sólo la primera fila; el QR se prueba con una muestra de hasta 20 páginas y 3 comprobantes.</li>
-<li>Dice si el documento está firmado y si el filtro de «Firma digital» lo dejaría afuera. Con «Auditar firmas» tildado (en las ediciones con peritaje) muestra primero el firmante, la fecha y el estado.</li>
+<li>Dice si el documento está firmado y si el filtro de «Firma digital» lo dejaría afuera. Con «Auditar firmas» tildado (en las ediciones con peritaje) y el documento firmado, muestra primero el firmante, la fecha y el estado.</li>
 <li><b>No aplica</b> «Leer todas las páginas», las anclas, las opciones de «Cómo se lee la tabla», el Criterio ni las plantillas compañeras. La Carpeta de prueba tampoco: es sólo para las sugerencias. Para ver el resultado completo, procesá unos pocos documentos en Ejecución.</li>
 </ul>
 
@@ -437,9 +437,8 @@ no es el que esperabas. Son dos cosas distintas y por eso son dos botones.</p>
 </ul>
 
 <h3 id="adjuntos">Los archivos que vienen adentro del PDF</h3>
-<p>Un PDF puede traer <b>otros archivos adentro</b>. Pasa todo el tiempo y no se
-ve: una resolución con sus anexos, un expediente con los PDF que lo acompañan,
-una factura con su detalle. Windows no los muestra y el visor tampoco.</p>
+<p>Un PDF puede traer <b>otros archivos adentro</b> (una resolución con sus anexos, una factura con su detalle)
+que no se ven en la página ni en el Explorador de Windows.</p>
 <p>DEXIAE los lee. Cuando cargás el documento de referencia en el Laboratorio,
 si trae adjuntos aparece un <b>clip con el número</b> arriba de la mesa: lo
 tocás y ves cómo se llaman. Abrís uno para ver su contenido y los encabezados de su tabla
@@ -461,9 +460,9 @@ encabezados que pide la plantilla ya la identifican (gana el primero que los ten
 
 <h3 id="lab-anclas">Las anclas: cómo reconoce DEXIAE el tipo de documento</h3>
 <ul>
-<li>Las anclas se buscan en la página 1 (o en todo el documento con «Anclas en todo el doc»), sin mayúsculas ni tildes y por palabra entera. Cuentan también las «Otras formas». En un escaneo, sobre el texto del OCR.</li>
+<li>Las anclas se buscan en la página 1 (o en todo el documento con «Anclas en todo el doc»), sin mayúsculas ni tildes y por palabra entera. Cuentan también las «Otras formas». En un escaneo, sobre el texto del OCR (con Detección automática, si está tildada «Reconocer documentos escaneados (OCR)» en Ejecución, que viene tildada).</li>
 <li>Si la plantilla filtra por firma y el documento no cumple, queda descartada antes de mirar las anclas.</li>
-<li><b>Con Detección automática</b> (PRO y SENTINEL, sólo PDF): una plantilla sin anclas que cuenten no reconoce nada (la lista de campos te lo avisa). La ganadora necesita 60 % o más y sacarle 15 puntos a la segunda; si la diferencia es menor a 5 gana la que encontró más anclas, y en el medio el documento queda «ambiguo». Si el nombre de la plantilla empieza con un CUIT, suma puntos cuando coincide con el del documento y resta cuando no.</li>
+<li><b>Con Detección automática</b> (PRO y SENTINEL, sólo PDF): una plantilla sin anclas, o con todas en «no usar para reconocer», no reconoce nada (la lista de campos te lo avisa). Ojo: si sólo tiene anclas <b>excluyentes</b>, se queda con todo documento que no las traiga. La ganadora necesita 60 % o más. Si otra también pasa el 60 %, tiene que sacarle 15 puntos; si la diferencia es menor a 5, gana la que encontró más anclas (salvo que declaren la misma cantidad: ahí queda «ambiguo»), y entre 5 y 15 el documento queda «ambiguo». Si el nombre de la plantilla empieza con un CUIT, se compara con el primer CUIT del documento que no esté en tus exclusiones: suma 20 puntos si coincide y resta 30 si es otro; si el documento no trae CUIT, resta 15 y queda con un tope de 55 %, así que esa plantilla no gana.</li>
 <li><b>Con una plantilla elegida a mano</b>, las anclas también cuentan: por debajo del 60 %, o si falta una obligatoria o aparece una excluyente, el documento va a revisión.</li>
 </ul>
 
@@ -480,8 +479,8 @@ con tres opciones, y queda guardado en la plantilla:</p>
 La condición <b>separa</b> el lote antes de extraer; el peritaje <b>analiza</b> las
 firmas de los que sí entraron. Se pueden usar juntas.</div>
 <div class="box warn"><b>Por qué no se puede resolver con una plantilla normal:</b>
-el texto de un PDF firmado y el del mismo PDF sin firmar son idénticos carácter por
-carácter. No hay ninguna palabra que buscar — hay que preguntarle a la estructura
+la firma digital no cambia el texto de la página: en el par que medimos (el mismo documento
+firmado y sin firmar), los 2049 caracteres son idénticos. No hay ninguna palabra que buscar — hay que preguntarle a la estructura
 del archivo, y eso es lo que hace este selector. Cuando cargás un documento de
 referencia que está firmado, DEXIAE te lo marca con el chip «Firmado», para que sepas
 con cuál de los dos estás trabajando.</div>
@@ -500,10 +499,10 @@ con cuál de los dos estás trabajando.</div>
 <li>Cada plantilla es un archivo en <code>%APPDATA%\DEXIAE\plantillas\</code>. Antes de pisarla, DEXIAE guarda una copia de la versión anterior en <code>%APPDATA%\DEXIAE\_respaldo\</code> (una sola copia, no un historial).</li>
 <li><b>Exportar</b> copia el archivo <b>guardado</b> adonde elijas: guardá antes, porque los cambios sin guardar no viajan.</li>
 <li><b>Importar</b> revisa que el archivo sea una plantilla y nunca pisa una que ya tenés: si el nombre existe, la guarda aparte con «(2)». Las plantillas también pueden llegar por <a href="#novedades">Novedades</a>.</li>
-<li>No viajan con la plantilla: tu diccionario (las exclusiones que usan «Número», «Moneda», «Email» y «CUIT / DNI»), el criterio de comprobantes de tu equipo, las plantillas compañeras (viaja sólo su nombre: exportalas también) ni los duplicados de tu Historial.</li>
+<li>No viajan con la plantilla: tu diccionario (las exclusiones que usan «Número», «Email» y «CUIT / DNI»), el criterio de comprobantes de tu equipo, las plantillas compañeras (viaja sólo su nombre: exportalas también) ni los duplicados de tu Historial.</li>
 </ul>
 
-<h3 id="lab-asistente">Asistente inteligente (PRO)</h3>
+<h3 id="lab-asistente">Asistente inteligente (PRO y SENTINEL)</h3>
 <p>Le das <b>varios PDF de muestra</b> (archivos sueltos o una carpeta), los agrupa por tipo y te <b>sugiere los campos</b> de cada grupo, en lugar de armar la plantilla desde cero. De cada grupo ves los archivos y los campos detectados, con dos interruptores por campo: <b>Match</b> (sirve para reconocer el documento) y <b>Excel</b> (sale como columna). Por grupo: «Descartar», «Editar en Studio» (lo abre en el Laboratorio sin guardar) o «Aprobar»; abajo, «Guardar N aprobada(s)». Después abrí cada plantilla en el Laboratorio y revisá sus opciones.</p>
 <p>El Asistente reconoce los campos <b>a partir de diccionarios</b> de términos, así que rinde en serio cuando los diccionarios activos se corresponden con tus documentos:</p>
 <ul>

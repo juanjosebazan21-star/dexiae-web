@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Control documental por proyecto · DEXIAE</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Servicio por proyecto: cotejo de comprobantes declarados con sus respaldos, con planilla, casos observados e informe de hallazgos con referencias de origen.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<link rel="canonical" href="https://getdexiae.com/control-documental">
+<meta name="theme-color" content="#0B1120">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getdexiae.com/control-documental">
+<meta property="og:site_name" content="DEXIAE">
+<meta property="og:locale" content="es_AR">
+<meta property="og:title" content="Control documental por proyecto · DEXIAE">
+<meta property="og:description" content="Servicio por proyecto: cotejo de comprobantes declarados con sus respaldos, con planilla, casos observados e informe de hallazgos con referencias de origen.">
+<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<link rel="preload" href="/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<style>
+:root{
+ --navy:#0B1120;--navy2:#0F1729;--card:#17223A;--line:rgba(150,180,235,.12);--line2:rgba(150,180,235,.20);
+ --hi:#F3F6FC;--md:#A9B4C9;--lo:#6C7791;
+ --ac:#60A5FA;--ac2:#2563EB;--ac-deep:#1D4ED8;--ac-bg:rgba(37,99,235,.14);
+ --ok:#39C07C;--warn:#E3A33F;
+ --cta:#3DD9B6;--cta2:#1D9E75;--cta3:#17805F;--cta-ink:#04211A;
+ --paper:#F7F5EF;--paper2:#FBFAF6;--ink:#151721;--ink2:#565C6B;--ink3:#8A8F9C;
+ --pline:rgba(24,20,12,.10);--pline2:rgba(24,20,12,.16);
+ --sans:'Inter',system-ui,Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.012em;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:11px;cursor:pointer;border:none;transition:all .15s}
+.btn-p{background:linear-gradient(135deg,var(--cta),var(--cta2));color:var(--cta-ink);font-weight:700;box-shadow:0 6px 18px -6px rgba(29,158,117,.5),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-p:hover{background:linear-gradient(135deg,#63E7C9,var(--cta3));transform:translateY(-1px)}
+.btn-o{background:rgba(243,246,252,.055);color:var(--hi);border:1px solid var(--line2)}
+.btn-o:hover{border-color:var(--ac);background:var(--ac-bg)}
+.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+nav{position:sticky;top:0;z-index:50;background:rgba(11,17,32,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1300px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:var(--hi)}
+.logo img.m{border-radius:8px;object-fit:cover;flex:0 0 auto}
+.nav-l{display:flex;align-items:center;gap:26px}
+.nav-l a{color:var(--md);font-size:14.5px;font-weight:500}.nav-l a:hover,.nav-l a[aria-current]{color:var(--hi)}
+.nav-l .btn{padding:9px 16px;font-size:14px}
+@media(max-width:820px){.nav-l a{display:none}.nav-in{padding:12px 16px}}
+/* hero */
+.hero{background:var(--navy);color:var(--hi);padding:76px 0 82px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:820px;height:540px;background:radial-gradient(circle,rgba(37,99,235,.20),transparent 66%);pointer-events:none}
+.hero-in{position:relative;display:grid;grid-template-columns:1fr 1.08fr;gap:48px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--md);background:var(--ac-bg);border:1px solid var(--line2);padding:6px 14px;border-radius:100px;margin-bottom:22px}
+.hero h1{font-size:clamp(32px,4.2vw,50px);font-weight:700;line-height:1.08;letter-spacing:-.038em;margin-bottom:18px}
+.hero h1 span{color:var(--ac)}
+.hero p.lead{font-size:17.5px;color:var(--md);max-width:520px}
+.hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.hero .small{font-size:13px;color:var(--lo);margin-top:16px;max-width:480px}
+/* visual lote -> renglones -> excepción */
+.viz{background:var(--navy2);border:1px solid var(--line2);border-radius:18px;padding:18px;box-shadow:0 30px 70px -40px rgba(0,0,0,.8)}
+.viz-cap{font-size:11.5px;color:var(--lo);margin-top:10px;text-align:center}
+.viz-top{display:flex;align-items:center;gap:9px;padding:0 4px 13px;font-size:12.5px;color:var(--md);font-weight:600}
+.viz-top svg{flex:none}
+.viz-lot{display:flex;flex-wrap:wrap;gap:6px;padding:0 4px 14px}
+.viz-lot i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--md);background:rgba(150,180,235,.08);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
+.viz-arrow{text-align:center;color:var(--lo);font-size:12px;padding:2px 0 10px}
+.viz-tbl{border:1px solid var(--line2);border-radius:12px;overflow:hidden;font-size:12.5px}
+.vr{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:10px;padding:9px 13px;border-top:1px solid var(--line);color:var(--md);align-items:center}
+.vr:first-child{border-top:0}
+.vr.h{background:rgba(150,180,235,.07);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--lo);font-weight:700}
+.vr b{color:var(--hi);font-weight:600;font-family:var(--mono);font-size:11.5px}
+.vr .ok{color:var(--ok)}
+.vr.ex{background:rgba(61,217,182,.09);box-shadow:inset 3px 0 0 var(--cta)}
+.vr.ex .flag{color:var(--cta);font-weight:700}
+.viz-ref{margin-top:11px;padding:11px 13px;border:1px dashed rgba(61,217,182,.5);border-radius:10px;background:rgba(61,217,182,.06);font-size:12px;color:var(--md);line-height:1.5}
+.viz-ref b{color:var(--cta);font-weight:700}
+.viz-ref code{font-family:var(--mono);font-size:11px;color:var(--hi)}
+/* secciones */
+section{padding:72px 0}
+.k{color:var(--ac-deep);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.st{font-size:clamp(26px,3.3vw,38px);line-height:1.13;letter-spacing:-.034em;margin:8px 0 12px;font-weight:700}
+.si{color:var(--ink2);max-width:700px;font-size:17px}
+.grid{display:grid;gap:15px;margin-top:28px}
+.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}.g5{grid-template-columns:repeat(5,1fr)}
+.card{background:#fff;border:1px solid var(--pline);border-radius:16px;padding:22px}
+.card h3{font-size:16.5px;letter-spacing:-.02em;margin-bottom:6px;line-height:1.25}
+.card p{font-size:14.5px;color:var(--ink2);line-height:1.55}
+.n{font-family:var(--mono);font-size:12px;color:var(--ac-deep);font-weight:600;margin-bottom:10px;display:block}
+.alt{background:var(--paper2);border-top:1px solid var(--pline);border-bottom:1px solid var(--pline)}
+.exp{margin-top:26px;padding:20px 24px;background:#fff;border:1px solid var(--pline);border-radius:16px;font-size:16px;color:var(--ink);max-width:820px}
+.exp b{display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
+.dark{background:var(--navy);color:var(--hi)}
+.dark .k{color:#7FCAB8}.dark .si{color:var(--md)}
+.dark .card{background:var(--navy2);border-color:var(--line)}.dark .card p{color:var(--md)}.dark .n{color:var(--ac)}
+.lim li,.dat li{margin:0 0 9px 18px;color:var(--ink2);font-size:15.5px}
+.lim li b,.dat li b{color:var(--ink)}
+.box{background:#fff;border:1px solid var(--pline);border-radius:16px;padding:24px}
+.box h3{font-size:18px;letter-spacing:-.02em;margin-bottom:12px}
+.callout{margin-top:18px;padding:15px 18px;border-radius:12px;background:rgba(61,217,182,.1);border:1px solid rgba(29,158,117,.3);font-size:15px;color:var(--ink)}
+.faq details{background:#fff;border:1px solid var(--pline);border-radius:12px;padding:16px 19px;margin-top:10px}
+.faq summary{font-weight:600;cursor:pointer}
+.faq details p{color:var(--ink2);margin-top:9px;font-size:15px}
+.cta{background:var(--navy);color:var(--hi);text-align:center;padding:76px 0;border-radius:36px 36px 0 0}
+.cta h2{font-size:clamp(27px,3.3vw,38px);letter-spacing:-.03em;margin-bottom:12px}
+.cta p{color:var(--md);max-width:600px;margin:0 auto 26px;font-size:17px}
+footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
+.foot-in{max-width:1300px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap}.foot-links a:hover{color:var(--hi)}
+@media(max-width:1000px){.g5{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:900px){.hero-in{grid-template-columns:1fr;gap:34px}.g3,.g5{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.wrap,.foot-in{padding:0 16px}.g3,.g5,.g2{grid-template-columns:1fr}section{padding:54px 0}.hero{padding:52px 0 58px}
+ .vr{grid-template-columns:1fr 1fr;gap:4px 10px}.vr.h span:nth-child(3){display:none}.vr span:nth-child(3){grid-column:1/-1}.btn{width:100%;justify-content:center}.cta{border-radius:26px 26px 0 0}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Control documental por proyecto","provider":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"description":"Servicio por proyecto: cotejo de comprobantes declarados con sus respaldos, con planilla, casos observados e informe de hallazgos con referencias de origen.","areaServed":"AR"}</script>
+</head>
+<body>
+<nav aria-label="Principal"><div class="nav-in">
+ <a class="logo" href="/" aria-label="Dexiae, volver al inicio"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
+ <span class="nav-l">
+  <a href="/casos-de-uso">Casos de uso</a>
+  <a href="/extractos-bancarios-excel">Extractos bancarios</a>
+  <a href="/control-documental" aria-current="page">Control documental</a>
+  <a href="/#precios">Precios</a>
+  <button class="btn btn-p" type="button" onclick="openControlDoc()">Contar mi caso</button>
+ </span>
+</div></nav>
+
+<header class="hero"><div class="wrap hero-in">
+ <div>
+  <span class="eyebrow">Servicio por proyecto · DEXIAE</span>
+  <h1>Control documental por proyecto: <span>cotejo de comprobantes con sus respaldos.</span></h1>
+  <p class="lead">Cuando el volumen es alto, relacionar lo declarado con sus respaldos a mano no escala. Armamos ese cotejo con reglas acordadas y te devolvemos los casos observados con la referencia para volver a cada archivo.</p>
+  <div class="row">
+   <button class="btn btn-p" type="button" onclick="openControlDoc()">Contar mi caso</button>
+   <a class="btn btn-o" href="#como-funciona">Cómo funciona</a>
+  </div>
+  <p class="small">Es un servicio por proyecto, distinto del software de DEXIAE. Se cotiza según el alcance.</p>
+ </div>
+ <div>
+  <div class="viz" role="img" aria-label="Esquema ilustrativo: un lote de archivos se relaciona renglón por renglón y una fila queda marcada como respaldo no recibido, con la referencia al archivo.">
+   <div class="viz-top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="1.8" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Lote recibido</div>
+   <div class="viz-lot"><i>comprobantes/</i><i>planilla_detalle.xlsx</i><i>respaldos/</i></div>
+   <div class="viz-arrow">↓ renglones relacionados</div>
+   <div class="viz-tbl">
+    <div class="vr h"><span>Comprobante</span><span>Planilla</span><span>Respaldo</span></div>
+    <div class="vr"><b>Ejemplo-001</b><span>fila 12 · coincide</span><span class="ok">● recibido</span></div>
+    <div class="vr"><b>Ejemplo-002</b><span>fila 13 · coincide</span><span class="ok">● recibido</span></div>
+    <div class="vr ex"><b>Ejemplo-003</b><span>fila 14 · declarado</span><span class="flag">▲ no recibido</span></div>
+    <div class="vr"><b>Ejemplo-004</b><span>fila 15 · coincide</span><span class="ok">● recibido</span></div>
+   </div>
+   <div class="viz-ref"><b>Caso observado.</b> El respaldo no estaba entre los archivos recibidos. <code>planilla_detalle.xlsx › fila 14</code></div>
+  </div>
+  <p class="viz-cap">Esquema ilustrativo con datos inventados.</p>
+ </div>
+</div></header>
+
+<main>
+<section><div class="wrap">
+ <div class="k">El problema</div>
+ <h2 class="st">Lo declarado y lo respaldado, en archivos distintos</h2>
+ <p class="si">Una rendición, una carpeta de proveedores o un cierre llegan como cientos o miles de PDF, planillas y listados. Comprobar que cada renglón declarado tenga su comprobante, con el mismo importe e identificador, es un trabajo repetitivo donde lo difícil es no perder el rastro.</p>
+ <div class="exp"><b>Qué se hace</b>Cotejo de comprobantes declarados con sus respaldos, revisión de importes e identificadores, y detección de faltantes y posibles duplicados, con la referencia para volver a cada archivo.</div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+ <div class="k">Qué se controla</div>
+ <h2 class="st">Los controles se acuerdan antes de empezar</h2>
+ <p class="si">No hay una lista fija. Según tu caso, definimos juntos cuáles aplican. Algunos ejemplos típicos:</p>
+ <div class="grid g3">
+  <div class="card"><h3>Faltantes</h3><p>Renglones declarados cuyo respaldo no está entre los archivos recibidos.</p></div>
+  <div class="card"><h3>Posibles duplicados</h3><p>Comprobantes que aparecen más de una vez o se imputan en más de un renglón.</p></div>
+  <div class="card"><h3>Importes</h3><p>Diferencias entre el importe declarado y el que figura en el comprobante.</p></div>
+  <div class="card"><h3>Identificadores</h3><p>Números de comprobante, fechas y datos del emisor que no coinciden entre fuentes.</p></div>
+  <div class="card"><h3>Datos dudosos</h3><p>Documentos ilegibles o ambiguos, separados para que una persona los revise.</p></div>
+  <div class="card"><h3>Reglas propias</h3><p>Controles específicos de tu proceso, si se pueden expresar con claridad.</p></div>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <div class="k">Qué recibís</div>
+ <h2 class="st">Un resultado que permite volver al archivo de origen</h2>
+ <div class="grid g2">
+  <div class="card"><span class="n">01</span><h3>Planilla con referencias de origen</h3><p>Los datos acordados, ordenados en Excel, cada uno con el archivo y la ubicación de donde salió.</p></div>
+  <div class="card"><span class="n">02</span><h3>Casos observados</h3><p>El listado de excepciones según las reglas definidas, separado de lo que coincide.</p></div>
+  <div class="card"><span class="n">03</span><h3>Informe de hallazgos</h3><p>Resumen del alcance aplicado, las observaciones principales y cómo leerlas.</p></div>
+  <div class="card"><span class="n">04</span><h3>Registro de límites</h3><p>Qué no se pudo leer, qué quedó fuera del alcance y qué supuestos se usaron.</p></div>
+ </div>
+ <div class="callout"><b>Un faltante no prueba una irregularidad.</b> Solo indica que el respaldo no estaba entre los archivos recibidos. Qué hacer con cada caso lo decidís vos.</div>
+</div></section>
+
+<section class="alt"><div class="wrap">
+ <div class="k">Cuándo puede servir</div>
+ <h2 class="st">Casos que podemos evaluar</h2>
+ <div class="grid g2" style="margin-top:22px">
+  <div class="box"><ul class="lim">
+   <li>Rendiciones con múltiples comprobantes y planillas.</li>
+   <li>Verificación documental de proveedores.</li>
+   <li>Comprobantes faltantes o posibles duplicados.</li>
+   <li>Cruces entre facturas, listados y respaldos.</li>
+   <li>Organización y extracción de grandes lotes de PDF.</li>
+  </ul></div>
+  <div class="box"><h3>Definimos el límite profesional</h3><ul class="lim">
+   <li>Es un control documental asistido por tecnología.</li>
+   <li>No es una auditoría contable independiente certificada.</li>
+   <li>No certifica la validez fiscal ante organismos externos.</li>
+   <li>Los hallazgos orientan la revisión; el cliente decide las acciones.</li>
+   <li>El alcance, las fuentes y las exclusiones se acuerdan antes de empezar.</li>
+  </ul></div>
+ </div>
+</div></section>
+
+<section class="dark" id="como-funciona"><div class="wrap">
+ <div class="k">Cómo se trabaja</div>
+ <h2 class="st">Primero se acota. Después se procesa.</h2>
+ <p class="si">Nada se cotiza ni se procesa sin que el alcance esté escrito.</p>
+ <div class="grid g5">
+  <div class="card"><span class="n">01</span><h3>Consulta</h3><p>Contás el caso con el formulario, sin enviar archivos.</p></div>
+  <div class="card"><span class="n">02</span><h3>Alcance</h3><p>Acordamos fuentes, controles, entregables y qué queda afuera.</p></div>
+  <div class="card"><span class="n">03</span><h3>Muestra</h3><p>Si hace falta, probamos con una muestra que vos autorizás.</p></div>
+  <div class="card"><span class="n">04</span><h3>Presupuesto</h3><p>Con el alcance claro, se cotiza el proyecto.</p></div>
+  <div class="card"><span class="n">05</span><h3>Ejecución y entrega</h3><p>Se procesa el lote y se entrega lo acordado.</p></div>
+ </div>
+</div></section>
+
+<section><div class="wrap">
+ <div class="g2 grid" style="margin-top:0;gap:22px">
+  <div class="box lim">
+   <h3>Límites del servicio</h3>
+   <ul>
+    <li><b>No es una auditoría certificada</b> ni un dictamen contable.</li>
+    <li><b>No valida comprobantes ante ARCA</b> ni certifica su validez fiscal.</li>
+    <li><b>No garantiza encontrar todo:</b> depende de la calidad y completitud de los archivos recibidos.</li>
+    <li>Los hallazgos orientan la revisión; la decisión y la responsabilidad son tuyas.</li>
+    <li>Si necesitás una opinión profesional regulada, debe quedar a cargo de un profesional habilitado.</li>
+   </ul>
+  </div>
+  <div class="box dat">
+   <h3>Manejo de los datos</h3>
+   <p style="color:var(--ink2);font-size:15.5px;margin-bottom:8px"><b style="color:var(--ink)">El software DEXIAE</b> lo instalás y lo usás vos, en tu computadora: los documentos que procesás no salen de tu organización.</p>
+   <p style="color:var(--ink2);font-size:15.5px;margin-bottom:10px"><b style="color:var(--ink)">Este servicio es distinto:</b> nos entregás los documentos y los procesamos nosotros. Por eso, antes de recibir cualquier archivo, acordamos por escrito:</p>
+   <ul>
+    <li>el <b>canal de entrega</b> y quién puede enviar y recibir;</li>
+    <li>quién <b>accede</b> a los archivos y cómo se resguardan;</li>
+    <li>cuánto tiempo se <b>conservan</b> y cómo se eliminan al cerrar el proyecto;</li>
+    <li>que <b>no se usan</b> para otros fines sin tu autorización por separado.</li>
+   </ul>
+   <p style="color:var(--ink3);font-size:13.5px;margin-top:6px">Por el formulario de consulta no se reciben archivos.</p>
+  </div>
+ </div>
+</div></section>
+
+<section class="alt faq"><div class="wrap">
+ <div class="k">Preguntas frecuentes</div>
+ <h2 class="st">Antes de empezar</h2>
+ <details><summary>¿Cuánto cuesta?</summary><p>Depende del alcance: volumen, cantidad de fuentes, controles y calidad de los archivos. Se presupuesta después de la consulta y de definir el alcance. No hay un precio de lista.</p></details>
+ <details><summary>¿Tengo que mandar archivos para consultar?</summary><p>No. La consulta es una descripción del caso. Si hace falta una muestra, se acuerda aparte, con tu autorización y por un canal definido.</p></details>
+ <details><summary>¿Reemplaza a una auditoría?</summary><p>No. Es un control documental asistido por tecnología. No es una auditoría certificada ni un dictamen.</p></details>
+ <details><summary>¿Es lo mismo que comprar DEXIAE?</summary><p>No. DEXIAE es un software que se instala y se usa por cuenta propia. Este es un servicio por proyecto, y el producto no requiere entregarnos documentos.</p></details>
+</div></section>
+</main>
+
+<section class="cta"><div class="wrap">
+ <h2>¿Tenés un lote para controlar?</h2>
+ <p>Contanos qué querés cruzar, el volumen aproximado y qué resultado esperás. Sin adjuntos y sin compromiso.</p>
+ <button class="btn btn-p" type="button" onclick="openControlDoc()">Contar mi caso</button>
+</div></section>
+
+<footer><div class="foot-in">
+ <span class="logo" style="font-size:16px;color:var(--md)"><img class="m" src="/logo-marca.svg" alt="" width="24" height="24" decoding="async">Dexiae</span>
+ <div class="foot-links">
+  <a href="/">Inicio</a>
+  <a href="/casos-de-uso">Casos de uso</a>
+  <a href="/extractos-bancarios-excel">Extractos bancarios</a>
+  <a href="/privacidad">Privacidad</a>
+  <a href="#" onclick="openControlDoc();return false">Contar mi caso</a>
+ </div>
+ <span>© 2026 DEXIAE</span>
+</div></footer>
+<script src="/lead.js?v=20261023-cd1" defer></script>
+</body>
+</html>

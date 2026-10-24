@@ -844,6 +844,116 @@
     btn.textContent = (fundAgotado() && c.submitBtnAgotado) || c.submitBtn; btn.disabled = false;
   };
 
+  /* ── CONTROL DOCUMENTAL POR PROYECTO (23/10/2026) ───────────────
+     Consulta de un servicio puntual: modal propio (no toca los planes ni
+     a SENTINEL), mismas clases lm-*. Sin adjuntos y sin casillas marcadas.
+     Llega por el mismo Formspree, con _utm y _origen. Si falla, el intento
+     queda encolado como los demás (nombre, email y tipo de trabajo).
+     El éxito NO promete un plazo de respuesta. */
+  var CD_PLAN = 'CONTROL_DOCUMENTAL';
+  var CD_TIPOS = ['Rendición de cuentas', 'Proveedores', 'Cruce de facturas y planillas', 'Otro'];
+  var CD_VOL = ['Hasta 200 documentos', 'Entre 200 y 1.000', 'Entre 1.000 y 5.000', 'Más de 5.000', 'No lo sé'];
+  function cdOpts(a) { return a.map(function (x) { return '<option>' + x + '</option>'; }).join(''); }
+
+  function cdMontar() {
+    if (document.getElementById('cd-modal')) return;
+    var st = document.createElement('style');
+    st.textContent = '.cd-ta{box-sizing:border-box;width:100%;min-height:74px;padding:10px 12px;border:1px solid var(--pline2);border-radius:9px;font-size:14px;font-family:inherit;color:var(--ink);background:#fff;resize:vertical;outline:none}' +
+      '.cd-ta:focus{border-color:var(--ac)}' +
+      '.cd-warn{margin:2px 0 14px;padding:11px 13px;border-radius:10px;background:var(--paper);border:1px solid var(--pline);font-size:12.5px;color:var(--ink2);line-height:1.5}' +
+      '.cd-warn b{color:var(--ink)}';
+    document.head.appendChild(st);
+    var ov = document.createElement('div');
+    ov.className = 'lm-overlay'; ov.id = 'cd-modal';
+    ov.setAttribute('role', 'dialog'); ov.setAttribute('aria-modal', 'true'); ov.setAttribute('aria-labelledby', 'cd-title');
+    ov.innerHTML =
+'<div class="lm-box">' +
+'  <div class="lm-head"><div>' +
+'    <span class="lm-pill">Control documental</span>' +
+'    <div class="lm-title" id="cd-title">Contanos tu caso</div>' +
+'    <div class="lm-sub">Con estos datos vemos si el trabajo encaja y qué hace falta definir antes de presupuestar. No es una compra ni un compromiso.</div>' +
+'  </div><button type="button" class="lm-close" onclick="closeControlDoc()" aria-label="Cerrar">✕</button></div>' +
+'  <div class="lm-body" id="cd-wrap">' +
+'    <div class="cd-warn"><b>No envíes comprobantes ni datos sensibles por este formulario.</b> No hay adjuntos: alcanza con describir el caso. Los archivos se acuerdan más adelante, por un canal que se define juntos.</div>' +
+'    <form id="cd-form" onsubmit="submitControlDoc(event)" novalidate>' +
+'      <div class="f-row">' +
+'        <div class="field"><label for="cd-name">Nombre</label><input id="cd-name" name="name" type="text" required autocomplete="name"></div>' +
+'        <div class="field"><label for="cd-email">Email</label><input id="cd-email" name="email" type="email" required autocomplete="email"></div>' +
+'      </div>' +
+'      <div class="f-row">' +
+'        <div class="field"><label for="cd-org">Organización ' + OPC + '</label><input id="cd-org" name="organizacion" type="text" autocomplete="organization"></div>' +
+'        <div class="field"><label for="cd-rol">Rol ' + OPC + '</label><input id="cd-rol" name="rol" type="text" autocomplete="organization-title"></div>' +
+'      </div>' +
+'      <div class="f-row">' +
+'        <div class="field"><label for="cd-tipo">Tipo de trabajo</label><select id="cd-tipo" name="interes"><option value="">Elegí una opción</option>' + cdOpts(CD_TIPOS) + '</select></div>' +
+'        <div class="field"><label for="cd-vol">Volumen aproximado</label><select id="cd-vol" name="volumen"><option value="">Elegí una opción</option>' + cdOpts(CD_VOL) + '</select></div>' +
+'      </div>' +
+'      <div class="field"><label for="cd-fuentes">Fuentes a cruzar ' + OPC + '</label><textarea class="cd-ta" id="cd-fuentes" name="fuentes" maxlength="1200" placeholder="Por ejemplo: facturas en PDF, planilla de detalle, órdenes de pago…"></textarea></div>' +
+'      <div class="field"><label for="cd-espera">Qué esperás recibir ' + OPC + '</label><textarea class="cd-ta" id="cd-espera" name="espera" maxlength="1200" placeholder="Por ejemplo: una planilla con los cruces y un listado de casos para revisar."></textarea></div>' +
+'      <div class="field"><label for="cd-plazo">Plazo ' + OPC + '</label><input id="cd-plazo" name="plazo" type="text" maxlength="200" placeholder="Fecha objetivo o urgencia, si la hay"></div>' +
+'      <button type="submit" class="lm-submit" id="cd-submit">Enviar consulta</button>' +
+'      <div class="lm-note">Usamos estos datos para responder tu consulta. Más en la <a href="/privacidad" style="text-decoration:underline">política de privacidad</a>.</div>' +
+'    </form>' +
+'  </div>' +
+'  <div class="lm-success" id="cd-success">' +
+'    <div class="lm-ok-ic">✓</div>' +
+'    <div class="lm-ok-t" id="cd-ok-t">Consulta enviada</div>' +
+'    <div class="lm-ok-s" id="cd-ok-s">Revisamos lo que contaste y te escribimos al email que dejaste para seguir con el alcance. Todavía no hace falta que envíes ningún archivo.</div>' +
+'    <button type="button" class="lm-primary" onclick="closeControlDoc()">Cerrar</button>' +
+'  </div>' +
+'</div>';
+    document.body.appendChild(ov);
+    ov.addEventListener('click', function (e) { if (e.target === ov) closeControlDoc(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeControlDoc(); });
+  }
+
+  window.openControlDoc = function () {
+    cdMontar();
+    var f = document.getElementById('cd-form'); if (f) f.reset();
+    document.getElementById('cd-wrap').style.display = '';
+    document.getElementById('cd-success').style.display = 'none';
+    var b = document.getElementById('cd-submit'); b.disabled = false; b.textContent = 'Enviar consulta';
+    document.getElementById('cd-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function () { var n = document.getElementById('cd-name'); if (n) n.focus(); }, 60);
+  };
+
+  window.closeControlDoc = function () {
+    var m = document.getElementById('cd-modal');
+    if (!m || !m.classList.contains('open')) return;
+    m.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.submitControlDoc = async function (e) {
+    e.preventDefault();
+    var form = document.getElementById('cd-form');
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+    var btn = document.getElementById('cd-submit');
+    btn.textContent = 'Enviando...'; btn.disabled = true;
+    var fallo = null;
+    try {
+      var fd = new FormData(form);
+      fd.append('_plan', CD_PLAN);
+      fd.append('_origen', location.pathname);
+      fd.append('_utm', origenCampana());
+      fd.append('_subject', 'Nuevo lead DEXIAE — Control documental' +
+        (campoLead(form, 'interes') ? ' · ' + campoLead(form, 'interes') : ''));
+      var res = await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+      if (!res.ok) fallo = 'HTTP ' + res.status;
+    } catch (err) {
+      fallo = 'network-error: ' + ((err && (err.name || err.message)) || 'desconocido');
+    }
+    if (fallo) registrarFallo(fallo, CD_PLAN, form);
+    document.getElementById('cd-wrap').style.display = 'none';
+    document.getElementById('cd-success').style.display = 'block';
+    /* sólo se dice «enviada» si Formspree respondió OK; si no, se dice lo que pasó */
+    document.getElementById('cd-ok-t').textContent = fallo ? 'No pudimos enviarla ahora' : 'Consulta enviada';
+    document.getElementById('cd-ok-s').textContent = fallo
+      ? 'Guardamos tu consulta en este navegador y se reintenta sola la próxima vez que abras el sitio. Si querés, volvé a intentarlo más tarde.'
+      : 'Revisamos lo que contaste y te escribimos al email que dejaste para seguir con el alcance. Todavía no hace falta que envíes ningún archivo.';
+  };
+
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', montar);
   else montar();
 

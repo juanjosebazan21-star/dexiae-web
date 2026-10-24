@@ -33,9 +33,15 @@
        parte en dos renglones, se achica el aire y la demo sale del menú
        (sigue en el hero) en anchos medianos */
     '.nav-l>a,.nav-dd>a{white-space:nowrap}.nav-dd{flex:none}' +
-    '@media(max-width:1440px){.nav-l{gap:18px!important}.nav-l>a:not(.btn),.nav-dd>a{font-size:14px!important}}' +
+    /* el contenedor del menú mide 1300 px como máximo: el compacto va en todos los anchos */
+    '@media(min-width:821px){.nav-l{gap:13px!important}.nav-l>a:not(.btn),.nav-dd>a{font-size:13.5px!important}.nav-l .navcta{padding:10px 16px!important;font-size:14px!important}}' +
     '@media(max-width:1300px){.nav-l .nav-demo{display:none!important}}' +
-    '@media(max-width:1160px){.nav-l a[href="/#capturas"],.nav-l a[href="/#demo"],.nav-l a[href="/#faq"]{display:none!important}}';
+    '@media(max-width:1160px){.nav-l a[href="/#capturas"],.nav-l a[href="/#demo"],.nav-l a[href="/#faq"]{display:none!important}}' +
+    /* (24/10/2026) «Control documental» es un servicio, no una parte del
+       software: va separado por un filete y con la marca «Servicio» */
+    '.nav-l a[href="/control-documental"]{display:inline-flex;align-items:center;gap:7px;padding-left:14px;border-left:1px solid var(--line2,rgba(150,180,235,.2))}' +
+    '.nav-l a[href="/control-documental"]::after{content:"Servicio";font:600 9.5px/1 var(--mono,ui-monospace,monospace);letter-spacing:.08em;text-transform:uppercase;' +
+      'padding:3px 6px;border-radius:5px;color:#9FE8D4;background:rgba(61,217,182,.1);border:1px solid rgba(61,217,182,.35)}';
 
   function montar() {
     var a = document.querySelector('.nav-l a[href="/extractos-bancarios-excel"]');

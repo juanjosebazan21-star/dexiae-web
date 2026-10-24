@@ -960,7 +960,7 @@
   /* (13/10/2026) el desplegable de bancos del menú vive en /nav-bancos.js */
   if (!document.querySelector('script[src^="/nav-bancos.js"]')) {
     var nb = document.createElement('script');
-    nb.src = '/nav-bancos.js?v=20261023'; nb.defer = true;
+    nb.src = '/nav-bancos.js?v=20261024'; nb.defer = true;
     document.head.appendChild(nb);
   }
 })();

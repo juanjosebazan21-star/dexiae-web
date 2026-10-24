@@ -28,7 +28,14 @@
     '.nav-l .nav-dd-g a:hover,.nav-l .nav-dd-g a.on{background:rgba(37,99,235,.16);color:var(--hi,#F3F6FC)}' +
     '.nav-l .nav-dd-todos{display:block;margin:10px 4px 0;padding-top:10px;border-top:1px solid var(--line2,rgba(150,180,235,.2));' +
       'font-size:13px;color:var(--ac,#60A5FA)}' +
-    '.nav-l .nav-dd-todos:hover{color:var(--hi,#F3F6FC)}';
+    '.nav-l .nav-dd-todos:hover{color:var(--hi,#F3F6FC)}' +
+    /* (23/10/2026) con «Control documental» el menú no entra a 1366: nada se
+       parte en dos renglones, se achica el aire y la demo sale del menú
+       (sigue en el hero) en anchos medianos */
+    '.nav-l>a,.nav-dd>a{white-space:nowrap}.nav-dd{flex:none}' +
+    '@media(max-width:1440px){.nav-l{gap:18px!important}.nav-l>a:not(.btn),.nav-dd>a{font-size:14px!important}}' +
+    '@media(max-width:1300px){.nav-l .nav-demo{display:none!important}}' +
+    '@media(max-width:1160px){.nav-l a[href="/#capturas"],.nav-l a[href="/#demo"],.nav-l a[href="/#faq"]{display:none!important}}';
 
   function montar() {
     var a = document.querySelector('.nav-l a[href="/extractos-bancarios-excel"]');

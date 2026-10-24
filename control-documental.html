@@ -35,6 +35,12 @@
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 @font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-v23-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/ibm-plex-sans-v23-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/ibm-plex-sans-v23-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/ibm-plex-sans-v23-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/ibm-plex-sans-v23-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/ibm-plex-sans-v23-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
 </style>
 <style>
 :root{
@@ -46,6 +52,7 @@
  --paper:#F7F5EF;--paper2:#FBFAF6;--ink:#151721;--ink2:#565C6B;--ink3:#8A8F9C;
  --pline:rgba(24,20,12,.10);--pline2:rgba(24,20,12,.16);
  --sans:'Inter',system-ui,Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+ --disp:'IBM Plex Sans','Inter',system-ui,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
@@ -53,168 +60,341 @@ html{scroll-behavior:smooth}
 body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.012em;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit}
-.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 32px}
 .btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:11px;cursor:pointer;border:none;transition:all .15s}
 .btn-p{background:linear-gradient(135deg,var(--cta),var(--cta2));color:var(--cta-ink);font-weight:700;box-shadow:0 6px 18px -6px rgba(29,158,117,.5),inset 0 1px 0 rgba(255,255,255,.5)}
 .btn-p:hover{background:linear-gradient(135deg,#63E7C9,var(--cta3));transform:translateY(-1px)}
 .btn-o{background:rgba(243,246,252,.055);color:var(--hi);border:1px solid var(--line2)}
 .btn-o:hover{border-color:var(--ac);background:var(--ac-bg)}
-.btn:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+.btn .pl{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:50%;background:var(--ac);color:#fff;font-size:8.5px;padding-left:2px;flex:none}
+.btn:focus-visible,a:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--ac);outline-offset:3px}
+/* NAV (igual que las demás páginas dedicadas) */
 nav{position:sticky;top:0;z-index:50;background:rgba(11,17,32,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
 .nav-in{max-width:1300px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:var(--hi)}
-.logo img.m{border-radius:8px;object-fit:cover;flex:0 0 auto}
 .nav-l{display:flex;align-items:center;gap:26px}
 .nav-l a{color:var(--md);font-size:14.5px;font-weight:500}.nav-l a:hover,.nav-l a[aria-current]{color:var(--hi)}
-.nav-l .btn{padding:9px 16px;font-size:14px}
-@media(max-width:820px){.nav-l a{display:none}.nav-in{padding:12px 16px}}
-/* hero */
-.hero{background:var(--navy);color:var(--hi);padding:76px 0 82px;position:relative;overflow:hidden}
-.hero::before{content:"";position:absolute;top:-180px;left:50%;transform:translateX(-50%);width:820px;height:540px;background:radial-gradient(circle,rgba(37,99,235,.20),transparent 66%);pointer-events:none}
-.hero-in{position:relative;display:grid;grid-template-columns:1fr 1.08fr;gap:48px;align-items:center}
-.eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--md);background:var(--ac-bg);border:1px solid var(--line2);padding:6px 14px;border-radius:100px;margin-bottom:22px}
-.hero h1{font-size:clamp(32px,4.2vw,50px);font-weight:700;line-height:1.08;letter-spacing:-.038em;margin-bottom:18px}
-.hero h1 span{color:var(--ac)}
-.hero p.lead{font-size:17.5px;color:var(--md);max-width:520px}
-.hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
-.hero .small{font-size:13px;color:var(--lo);margin-top:16px;max-width:480px}
-/* visual lote -> renglones -> excepción */
-.viz{background:var(--navy2);border:1px solid var(--line2);border-radius:18px;padding:18px;box-shadow:0 30px 70px -40px rgba(0,0,0,.8)}
-.viz-cap{font-size:11.5px;color:var(--lo);margin-top:10px;text-align:center}
-.viz-top{display:flex;align-items:center;gap:9px;padding:0 4px 13px;font-size:12.5px;color:var(--md);font-weight:600}
-.viz-top svg{flex:none}
-.viz-lot{display:flex;flex-wrap:wrap;gap:6px;padding:0 4px 14px}
-.viz-lot i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--md);background:rgba(150,180,235,.08);border:1px solid var(--line);border-radius:6px;padding:3px 8px}
-.viz-arrow{text-align:center;color:var(--lo);font-size:12px;padding:2px 0 10px}
-.viz-tbl{border:1px solid var(--line2);border-radius:12px;overflow:hidden;font-size:12.5px}
-.vr{display:grid;grid-template-columns:1.1fr 1fr 1fr;gap:10px;padding:9px 13px;border-top:1px solid var(--line);color:var(--md);align-items:center}
-.vr:first-child{border-top:0}
-.vr.h{background:rgba(150,180,235,.07);font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--lo);font-weight:700}
-.vr b{color:var(--hi);font-weight:600;font-family:var(--mono);font-size:11.5px}
-.vr .ok{color:var(--ok)}
-.vr.ex{background:rgba(61,217,182,.09);box-shadow:inset 3px 0 0 var(--cta)}
-.vr.ex .flag{color:var(--cta);font-weight:700}
-.viz-ref{margin-top:11px;padding:11px 13px;border:1px dashed rgba(61,217,182,.5);border-radius:10px;background:rgba(61,217,182,.06);font-size:12px;color:var(--md);line-height:1.5}
-.viz-ref b{color:var(--cta);font-weight:700}
-.viz-ref code{font-family:var(--mono);font-size:11px;color:var(--hi)}
-/* secciones */
-section{padding:72px 0}
-.k{color:var(--ac-deep);font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase}
-.st{font-size:clamp(26px,3.3vw,38px);line-height:1.13;letter-spacing:-.034em;margin:8px 0 12px;font-weight:700}
-.si{color:var(--ink2);max-width:700px;font-size:17px}
-.grid{display:grid;gap:15px;margin-top:28px}
-.g3{grid-template-columns:repeat(3,1fr)}.g2{grid-template-columns:1fr 1fr}.g5{grid-template-columns:repeat(5,1fr)}
-.card{background:#fff;border:1px solid var(--pline);border-radius:16px;padding:22px}
-.card h3{font-size:16.5px;letter-spacing:-.02em;margin-bottom:6px;line-height:1.25}
-.card p{font-size:14.5px;color:var(--ink2);line-height:1.55}
-.n{font-family:var(--mono);font-size:12px;color:var(--ac-deep);font-weight:600;margin-bottom:10px;display:block}
+.nav-demo{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:9px;border:1px solid var(--line2);background:rgba(243,246,252,.05);color:var(--hi)!important}
+.nav-demo:hover{border-color:var(--ac);background:var(--ac-bg)}
+@media(max-width:1180px){.nav-l{gap:20px}}
+@media(max-width:1080px){.nav-demo{display:none}}
+@media(max-width:820px){.nav-l a:not(.navcta){display:none}}
+.logo img.m{background:none!important;padding:0;object-fit:cover;border-radius:8px;flex:0 0 auto}
+/* HERO */
+.hero{background:var(--navy);color:var(--hi);padding:72px 0 84px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;top:-220px;right:-120px;width:900px;height:620px;background:radial-gradient(circle,rgba(37,99,235,.18),transparent 64%);pointer-events:none}
+.hero::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(150,180,235,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(150,180,235,.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 70%);mask-image:radial-gradient(ellipse at 70% 40%,#000 20%,transparent 70%);pointer-events:none}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:.86fr 1.14fr;gap:52px;align-items:center}
+.spec{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-family:var(--mono);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--lo)}
+.spec .bar{width:26px;height:1px;background:var(--line2)}
+.spec b{color:var(--cta);font-weight:500}.spec .sep{color:#3B4557}
+.hero h1{font-family:var(--disp);font-size:clamp(34px,3.7vw,50px);font-weight:600;line-height:1.08;letter-spacing:-.025em;margin:22px 0 0;max-width:16ch;text-wrap:balance;color:#FBFCFE}
+.hero h1 em{font-style:normal;font-weight:700;color:var(--ac);background:linear-gradient(rgba(96,165,250,.55),rgba(96,165,250,.55)) 0 100%/100% 1.5px no-repeat;padding-bottom:4px}
+.apoyo{margin:26px 0 0;padding-left:20px;border-left:1px solid rgba(150,180,235,.34);display:flex;flex-direction:column;gap:16px}
+.apoyo p{font-size:16.5px;line-height:1.58;color:var(--md);max-width:44ch}
+.apoyo .row{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.lnk{display:inline-flex;align-items:center;gap:9px;color:var(--hi);font-size:15.5px;font-weight:500;padding:6px 0;border-bottom:1px solid var(--line2)}
+.lnk:hover{border-bottom-color:var(--ac)}
+.mini{font-family:var(--mono);font-size:11px;color:#5C6679;margin-top:26px;padding-left:20px;display:flex;gap:10px;flex-wrap:wrap}
+.mini .d{color:#333C4C}
+/* ESQUEMA · lote → planilla cotejada → caso observado. Lienzo en em que escala con el ancho. */
+.esc{container-type:inline-size;position:relative}
+.cv{position:relative;font-size:calc(100cqw / 60);width:60em;height:44em}
+.cp{position:absolute;font:500 .78em/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:#7C88A0;white-space:nowrap}
+.cp b{font-weight:500;color:#8FB4F0;margin-right:.6em}
+.pn{position:absolute;border-radius:.8em;border:1px solid rgba(150,180,235,.22);color:#A9B4C9;background:linear-gradient(155deg,rgba(130,165,235,.13),transparent 40%),linear-gradient(#18243D,#0F1829);box-shadow:0 2.4em 4.6em -2em rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.08)}
+/* 01 · lote */
+.lote{left:0;top:4.6em;width:15.5em;height:19.5em}
+.pg{position:absolute;inset:0;border-radius:.45em;background:#C6C8C3;box-shadow:0 1.2em 2.4em -1.2em rgba(0,0,0,.85),inset 0 0 0 1px rgba(0,0,0,.12)}
+.pg:nth-child(1){transform:translate(-1em,-1.1em) rotate(-3deg);background:#B3B6B1}
+.pg:nth-child(2){transform:translate(-.5em,-.55em) rotate(-1.4deg)}
+.dc{padding:1.4em 1.3em;font-size:.72em;line-height:1.35;color:#1D2433;background:linear-gradient(168deg,#FFFFFE,#ECEDE9);overflow:hidden}
+.dh{display:flex;justify-content:space-between;align-items:flex-start;gap:.6em;padding-bottom:1em;border-bottom:1px solid #CFD1CB;color:#4A5160}
+.dh b{display:block;font-size:1.12em;color:#1D2433}
+.dl{flex:none;width:2.3em;height:2.3em;border:1.5px solid;text-align:center;font:700 1.5em/2.2em var(--disp);color:#1D2433}
+.dc p{margin-top:.95em;font-family:var(--mono);color:#3A4150}
+.ln{display:block;height:.45em;border-radius:.3em;background:#D9DBD5;margin-top:1em}
+.dt{margin-top:1.5em;padding-top:1em;border-top:1px solid #CFD1CB;text-align:right;font-family:var(--mono);font-weight:700;font-size:1.15em}
+.files{position:absolute;left:0;top:26.4em;width:15.5em;display:flex;flex-direction:column;gap:.55em}
+.files span{display:flex;align-items:center;gap:.6em;padding:.55em .8em;border-radius:.5em;border:1px solid var(--line);background:rgba(150,180,235,.06);font:500 .8em/1 var(--mono);color:#B8C3D6}
+.files i{width:1.5em;height:1.5em;border-radius:.3em;flex:none;font:700 .62em/1.5em var(--sans);font-style:normal;text-align:center;color:#fff}
+.fi-p{background:#B4413A}.fi-x{background:#137547}.fi-d{background:#3A4C72}
+/* 02 · planilla cotejada */
+.pla{left:18.5em;top:2.4em;width:41.5em}
+.xh{display:flex;align-items:center;gap:.7em;height:3em;padding:0 1em;border-bottom:1px solid rgba(150,180,235,.16);font:500 .9em/1 var(--mono);color:#C9D3E3}
+.xh i{width:1.75em;border-radius:.3em;background:#137547;color:#fff;font:700 .85em/1.75em var(--sans);font-style:normal;text-align:center}
+.xh span{margin-left:auto;color:#6B7890;font-size:.88em}
+.xr{position:relative;display:grid;grid-template-columns:3em 1fr 7.6em 8.4em 6.4em;align-items:center;height:2.45em;font:400 .98em/1 var(--mono);color:#AEB9CC;border-bottom:1px solid rgba(150,180,235,.08);white-space:nowrap}
+.xr>i{font-style:normal;padding:0 .6em;overflow:hidden;text-overflow:ellipsis;border-left:1px solid rgba(150,180,235,.08);line-height:2.45em}
+.xr>i:first-child{border:0;text-align:center;font-size:.8em;color:#566279;background:rgba(150,180,235,.035)}
+.xr>i:nth-child(3){text-align:right}
+.xr.hd{height:2.5em;color:#6A7790}.xr.hd>i{font-size:.66em;letter-spacing:.1em}
+.xr .nd{color:#5F6B82;font-style:italic}
+.xr b{justify-self:center;font:600 .7em/1 var(--mono);letter-spacing:.04em;padding:.42em .6em;border-radius:.3em;color:#39C07C;background:rgba(57,192,124,.12)}
+.xr b.k-dif{color:#E3A33F;background:rgba(227,163,63,.13)}
+.xr b.k-dup{color:#60A5FA;background:rgba(96,165,250,.13)}
+.xr b.k-sin{color:#04211A;background:var(--cta)}
+.xr.sel{background:rgba(61,217,182,.1);box-shadow:inset .22em 0 var(--cta);color:#E6FBF5}
+.xr.sel .nd{color:#9FE8D4}
+.xf{display:flex;gap:1.3em;align-items:center;height:2.9em;padding:0 1.1em;font:500 .8em/1 var(--mono);color:#7C889C}
+.xf b{font-weight:500}.xf .o{color:#39C07C}.xf .t{color:var(--cta)}
+/* 03 · caso observado */
+.obs{position:absolute;left:28.5em;top:24.6em;width:31.5em;padding:1.3em 1.5em 1.2em;border-radius:.75em;color:#1C2333;background:linear-gradient(170deg,#FFF,#F2F4F7);box-shadow:0 3em 6em -2em rgba(0,0,0,.92),0 .2em .5em rgba(0,0,0,.3);border-top:.22em solid var(--cta)}
+.oh{display:flex;align-items:center;justify-content:space-between;font:700 .76em/1 var(--sans);letter-spacing:.07em;text-transform:uppercase;color:#17805F}
+.oh em{font:500 1em var(--mono);letter-spacing:0;text-transform:none;color:#3B4557;background:#EEF1F6;border:1px solid #D9DEE8;border-radius:.4em;padding:.35em .55em;font-style:normal}
+.ot{display:block;margin-top:.6em;font:600 1.45em/1.15 var(--disp);letter-spacing:-.01em}
+.od{display:grid;grid-template-columns:8.2em 1fr;gap:.45em .9em;margin-top:.9em;font-size:.8em;line-height:1.35}
+.od dt{color:#6B7385}.od dd{font-family:var(--mono);color:#1C2333}
+.od dd u{text-decoration:none;color:#1D4ED8}
+.on{margin-top:.95em;padding:.6em .8em;border-radius:.45em;background:#EAF8F3;border:1px solid #BFE9DA;font-size:.76em;line-height:1.45;color:#25423A}
+.lk{position:absolute;left:23.5em;top:20.3em;width:.12em;height:4.3em;background:linear-gradient(var(--cta),rgba(61,217,182,.15))}
+.lk::after{content:"";position:absolute;left:-.32em;top:-.36em;width:.75em;height:.75em;border-radius:50%;background:var(--cta);box-shadow:0 0 0 .3em rgba(61,217,182,.2)}
+.lk2{position:absolute;left:23.5em;top:24.6em;width:5em;height:.12em;background:rgba(61,217,182,.35)}
+.obs::before{content:"";position:absolute;left:3.2em;top:-.95em;border:.75em solid transparent;border-bottom-color:var(--cta);border-top:0}
+.cap{margin-top:12px;text-align:right;font:500 11px/1 var(--mono);color:#5C6679;letter-spacing:.04em}
+/* la fila del caso observado late dos veces; el resto es estático (se ve igual sin animaciones) */
+@keyframes glow{0%,100%{background:rgba(61,217,182,.1)}50%{background:rgba(61,217,182,.22)}}
+.xr.sel{animation:glow 1.6s .9s ease-in-out 2}
+/* SECCIONES */
+section{padding:84px 0}
+.k{display:flex;align-items:center;gap:10px;font-family:var(--mono);color:var(--ac-deep);font-size:11.5px;font-weight:500;letter-spacing:.13em;text-transform:uppercase}
+.k::before{content:"";width:22px;height:1px;background:currentColor;opacity:.5}
+.st{font-family:var(--disp);font-size:clamp(27px,3.2vw,40px);line-height:1.12;letter-spacing:-.025em;margin:12px 0 14px;font-weight:600;text-wrap:balance}
+.si{color:var(--ink2);max-width:680px;font-size:17px;line-height:1.6}
 .alt{background:var(--paper2);border-top:1px solid var(--pline);border-bottom:1px solid var(--pline)}
-.exp{margin-top:26px;padding:20px 24px;background:#fff;border:1px solid var(--pline);border-radius:16px;font-size:16px;color:var(--ink);max-width:820px}
-.exp b{display:block;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:6px}
 .dark{background:var(--navy);color:var(--hi)}
 .dark .k{color:#7FCAB8}.dark .si{color:var(--md)}
-.dark .card{background:var(--navy2);border-color:var(--line)}.dark .card p{color:var(--md)}.dark .n{color:var(--ac)}
-.lim li,.dat li{margin:0 0 9px 18px;color:var(--ink2);font-size:15.5px}
-.lim li b,.dat li b{color:var(--ink)}
-.box{background:#fff;border:1px solid var(--pline);border-radius:16px;padding:24px}
-.box h3{font-size:18px;letter-spacing:-.02em;margin-bottom:12px}
-.callout{margin-top:18px;padding:15px 18px;border-radius:12px;background:rgba(61,217,182,.1);border:1px solid rgba(29,158,117,.3);font-size:15px;color:var(--ink)}
-.faq details{background:#fff;border:1px solid var(--pline);border-radius:12px;padding:16px 19px;margin-top:10px}
-.faq summary{font-weight:600;cursor:pointer}
-.faq details p{color:var(--ink2);margin-top:9px;font-size:15px}
-.cta{background:var(--navy);color:var(--hi);text-align:center;padding:76px 0;border-radius:36px 36px 0 0}
-.cta h2{font-size:clamp(27px,3.3vw,38px);letter-spacing:-.03em;margin-bottom:12px}
-.cta p{color:var(--md);max-width:600px;margin:0 auto 26px;font-size:17px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+/* problema */
+.pains{display:flex;flex-direction:column;gap:12px}
+.pain{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--pline);border-radius:14px;padding:18px 20px}
+.pain .ic{flex:none;width:38px;height:38px;border-radius:10px;background:var(--ac-bg);color:var(--ac-deep);display:flex;align-items:center;justify-content:center}
+.pain h3{font-size:15.5px;letter-spacing:-.015em;margin-bottom:2px}
+.pain p{font-size:14.5px;color:var(--ink2);line-height:1.5}
+.hace{margin-top:26px;padding:20px 22px;border-radius:14px;background:var(--navy);color:var(--md);font-size:15.5px;line-height:1.6}
+.hace b{display:block;font:500 11px/1 var(--mono);letter-spacing:.13em;text-transform:uppercase;color:#7FCAB8;margin-bottom:10px}
+/* controles */
+.ctl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.cc{background:#fff;border:1px solid var(--pline);border-radius:16px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:8px;box-shadow:0 18px 40px -34px rgba(24,20,12,.45)}
+.cc h3{font-size:16.5px;letter-spacing:-.02em}
+.cc p{font-size:14.5px;color:var(--ink2);line-height:1.55;flex:1}
+.tag{align-self:flex-start;margin-top:6px;font:600 10.5px/1 var(--mono);letter-spacing:.06em;padding:6px 8px;border-radius:5px}
+.t-sin{background:#D5F7EE;color:#0E5E48}.t-dup{background:#E3EDFE;color:#1D4ED8}.t-dif{background:#FBEFD9;color:#8A5A12}.t-rev{background:#EEF0F4;color:#4A5160}.t-reg{background:#EEF0F4;color:#4A5160}
+/* entregables */
+.ent{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+.ec{background:#fff;border:1px solid var(--pline);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+.ep{height:112px;background:var(--navy2);border-bottom:1px solid var(--pline);padding:14px;display:flex;flex-direction:column;gap:6px;justify-content:center}
+.ep i{display:block;height:7px;border-radius:4px;background:rgba(150,180,235,.18)}
+.ep .r{display:flex;gap:6px;align-items:center}.ep .r i{flex:1}
+.ep .r em{flex:none;width:30px;height:9px;border-radius:3px;background:rgba(57,192,124,.5)}
+.ep .r em.t{background:var(--cta)}.ep .r em.a{background:rgba(227,163,63,.7)}.ep .r em.b{background:rgba(96,165,250,.6)}
+.ep .ref{font:500 9.5px/1 var(--mono);color:#7C88A0;margin-top:2px}
+.ep .pg2{align-self:center;width:72px;height:88px;border-radius:4px;background:#ECEDE9;padding:9px 8px;display:flex;flex-direction:column;gap:5px}
+.ep .pg2 i{height:4px;background:#C9CBC5}.ep .pg2 i.h{height:7px;width:60%;background:#2563EB}
+.ep .ck{display:flex;gap:7px;align-items:center;font:500 10px/1 var(--mono);color:#9AA6BC}
+.ep .ck::before{content:"";width:9px;height:9px;border-radius:2px;border:1px solid #6B7890}
+.eb{padding:18px 18px 20px}
+.eb .n{font:500 11px/1 var(--mono);color:var(--ac-deep);display:block;margin-bottom:8px}
+.eb h3{font-size:16px;letter-spacing:-.02em;margin-bottom:6px;line-height:1.25}
+.eb p{font-size:14px;color:var(--ink2);line-height:1.5}
+.callout{display:flex;gap:14px;align-items:flex-start;margin-top:22px;padding:16px 20px;border-radius:14px;background:#E9F8F3;border:1px solid #BFE9DA;font-size:15px;color:#21403A;line-height:1.55}
+.callout svg{flex:none;margin-top:2px}
+/* casos y límite */
+.box{background:#fff;border:1px solid var(--pline);border-radius:16px;padding:26px}
+.box h3{font-size:17px;letter-spacing:-.02em;margin-bottom:14px}
+.chk{list-style:none;display:flex;flex-direction:column;gap:11px}
+.chk li{display:flex;gap:11px;font-size:15.5px;color:var(--ink);line-height:1.45}
+.chk li::before{content:"";flex:none;width:18px;height:18px;margin-top:1px;border-radius:50%;background:var(--ac-bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6.2l2 2 4-4.4' fill='none' stroke='%231D4ED8' stroke-width='1.6'/%3E%3C/svg%3E") center/12px no-repeat}
+.lim{list-style:none;display:flex;flex-direction:column;gap:11px}
+.lim li{display:flex;gap:11px;font-size:15.5px;color:var(--ink);line-height:1.45}
+.lim li::before{content:"";flex:none;width:7px;height:7px;margin-top:8px;border-radius:50%;background:var(--ink3)}
+.note{margin-top:16px;padding-top:14px;border-top:1px solid var(--pline);font-size:14px;color:var(--ink2)}
+/* proceso */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:40px;position:relative}
+.flow::before{content:"";position:absolute;left:10%;right:10%;top:21px;height:1px;background:linear-gradient(90deg,rgba(96,165,250,.5),rgba(61,217,182,.5))}
+.fs{position:relative;padding:0 12px;text-align:center}
+.fs .dot{position:relative;z-index:1;width:42px;height:42px;margin:0 auto 18px;border-radius:50%;background:var(--navy2);border:1px solid rgba(96,165,250,.5);display:flex;align-items:center;justify-content:center;font:500 13px/1 var(--mono);color:var(--ac)}
+.fs:last-child .dot{border-color:var(--cta);color:var(--cta)}
+.fs h3{font-size:16px;letter-spacing:-.015em;margin-bottom:6px}
+.fs p{font-size:14px;color:var(--md);line-height:1.5}
+.flow-n{margin-top:34px;text-align:center;font:500 12px/1.5 var(--mono);color:#7C88A0}
+/* datos */
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px}
+.cm{border-radius:16px;padding:22px 24px;border:1px solid var(--pline);background:#fff}
+.cm.s{border-color:rgba(37,99,235,.35);box-shadow:0 0 0 3px rgba(37,99,235,.06)}
+.cm small{display:block;font:500 11px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.cm.s small{color:var(--ac-deep)}
+.cm h3{font-size:18px;letter-spacing:-.02em;margin-bottom:6px}
+.cm p{font-size:15px;color:var(--ink2);line-height:1.55}
+.acu{margin-top:14px;background:#fff;border:1px solid var(--pline);border-radius:16px;padding:24px}
+.acu h3{font-size:16.5px;letter-spacing:-.02em;margin-bottom:16px}
+.ag{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.ag div{display:flex;flex-direction:column;gap:8px}
+.ag .ic{width:36px;height:36px;border-radius:10px;background:var(--ac-bg);color:var(--ac-deep);display:flex;align-items:center;justify-content:center}
+.ag b{font-size:15px;letter-spacing:-.01em}
+.ag span{font-size:14px;color:var(--ink2);line-height:1.5}
+.acu .note{display:flex;gap:8px;align-items:center}
+/* faq + cta */
+.faq{max-width:820px}
+.faq details{background:#fff;border:1px solid var(--pline);border-radius:12px;padding:17px 20px;margin-top:10px}
+.faq summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font:400 20px/1 var(--sans);color:var(--ink3)}
+.faq details[open] summary::after{content:"–"}
+.faq details p{color:var(--ink2);margin-top:10px;font-size:15px}
+.cta{background:var(--navy);color:var(--hi);text-align:center;padding:84px 0;border-radius:36px 36px 0 0;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;bottom:-200px;left:50%;transform:translateX(-50%);width:760px;height:520px;background:radial-gradient(circle,rgba(61,217,182,.12),transparent 66%);pointer-events:none}
+.cta h2{position:relative;font-family:var(--disp);font-size:clamp(27px,3.3vw,40px);font-weight:600;letter-spacing:-.025em;margin-bottom:12px}
+.cta p{position:relative;color:var(--md);max-width:600px;margin:0 auto 28px;font-size:17px}
+.cta .btn{position:relative}
+.cta small{position:relative;display:block;margin-top:16px;font:500 11.5px/1.5 var(--mono);color:#5C6679}
 footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 .foot-in{max-width:1300px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
 .foot-links{display:flex;gap:20px;flex-wrap:wrap}.foot-links a:hover{color:var(--hi)}
-@media(max-width:1000px){.g5{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:900px){.hero-in{grid-template-columns:1fr;gap:34px}.g3,.g5{grid-template-columns:1fr 1fr}}
-@media(max-width:600px){.wrap,.foot-in{padding:0 16px}.g3,.g5,.g2{grid-template-columns:1fr}section{padding:54px 0}.hero{padding:52px 0 58px}
- .vr{grid-template-columns:1fr 1fr;gap:4px 10px}.vr.h span:nth-child(3){display:none}.vr span:nth-child(3){grid-column:1/-1}.btn{width:100%;justify-content:center}.cta{border-radius:26px 26px 0 0}}
+/* RESPONSIVE */
+@media(max-width:1000px){.hero-in{grid-template-columns:1fr;gap:44px}.hero h1{max-width:20ch}.ctl{grid-template-columns:1fr 1fr}.ent{grid-template-columns:1fr 1fr}.ag{grid-template-columns:1fr 1fr}}
+@media(max-width:820px){.two{grid-template-columns:1fr;gap:28px}.flow{grid-template-columns:1fr;gap:22px}.flow::before{left:21px;right:auto;top:10px;bottom:10px;width:1px;height:auto;background:linear-gradient(rgba(96,165,250,.5),rgba(61,217,182,.5))}
+ .fs{display:grid;grid-template-columns:42px 1fr;gap:4px 16px;text-align:left;padding:0}.fs .dot{margin:0;grid-row:span 2}.cmp{grid-template-columns:1fr}}
+@media(max-width:600px){.wrap,.foot-in{padding:0 16px}.nav-in{padding:12px 16px}section{padding:60px 0}.hero{padding:48px 0 60px}
+ .ctl,.ent,.ag{grid-template-columns:1fr}.btn{justify-content:center}.apoyo .row .btn{width:100%}.cta{border-radius:26px 26px 0 0}
+ /* celular: el esquema pasa a columna (planilla + caso observado), con letra legible */
+ .cv{font-size:calc(100cqw / 36);width:36em;height:auto;padding-top:2.4em}
+ .lote,.files{display:none}
+ .pla,.obs{position:relative;left:auto;top:auto;width:auto}
+ .c1{display:none}.c2{left:0!important;top:.4em!important}
+ .xr{grid-template-columns:2.6em 1fr 7.4em 6.6em;font-size:1.05em}.xr>i:nth-child(4){display:none}
+ .obs{margin:-.4em 1.4em 0;font-size:1.08em}
+ .od{grid-template-columns:7.4em 1fr}
+ .cap{text-align:center}}
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Control documental por proyecto","provider":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"},"description":"Servicio por proyecto: cotejo de comprobantes declarados con sus respaldos, con planilla, casos observados e informe de hallazgos con referencias de origen.","areaServed":"AR"}</script>
 </head>
 <body>
-<nav aria-label="Principal"><div class="nav-in">
+<nav class="site-nav" aria-label="Principal"><div class="nav-in">
  <a class="logo" href="/" aria-label="Dexiae, volver al inicio"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
  <span class="nav-l">
   <a href="/casos-de-uso">Casos de uso</a>
   <a href="/extractos-bancarios-excel">Extractos bancarios</a>
+  <a href="/facturas-qr-excel">Facturas por QR</a>
   <a href="/control-documental" aria-current="page">Control documental</a>
+  <a href="/#capturas">La interfaz</a>
+  <a href="/#demo">Centinela</a>
   <a href="/#precios">Precios</a>
-  <button class="btn btn-p" type="button" onclick="openControlDoc()">Contar mi caso</button>
+  <a href="/#faq">FAQ</a>
+  <a href="/app/" class="nav-demo"><span class="pl">&#9654;</span> Demo online</a>
+  <button class="btn btn-p navcta" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
  </span>
 </div></nav>
 
 <header class="hero"><div class="wrap hero-in">
  <div>
-  <span class="eyebrow">Servicio por proyecto · DEXIAE</span>
-  <h1>Control documental por proyecto: <span>cotejo de comprobantes con sus respaldos.</span></h1>
-  <p class="lead">Cuando el volumen es alto, relacionar lo declarado con sus respaldos a mano no escala. Armamos ese cotejo con reglas acordadas y te devolvemos los casos observados con la referencia para volver a cada archivo.</p>
-  <div class="row">
-   <button class="btn btn-p" type="button" onclick="openControlDoc()">Contar mi caso</button>
-   <a class="btn btn-o" href="#como-funciona">Cómo funciona</a>
-  </div>
-  <p class="small">Es un servicio por proyecto, distinto del software de DEXIAE. Se cotiza según el alcance.</p>
- </div>
- <div>
-  <div class="viz" role="img" aria-label="Esquema ilustrativo: un lote de archivos se relaciona renglón por renglón y una fila queda marcada como respaldo no recibido, con la referencia al archivo.">
-   <div class="viz-top"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="1.8" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Lote recibido</div>
-   <div class="viz-lot"><i>comprobantes/</i><i>planilla_detalle.xlsx</i><i>respaldos/</i></div>
-   <div class="viz-arrow">↓ renglones relacionados</div>
-   <div class="viz-tbl">
-    <div class="vr h"><span>Comprobante</span><span>Planilla</span><span>Respaldo</span></div>
-    <div class="vr"><b>Ejemplo-001</b><span>fila 12 · coincide</span><span class="ok">● recibido</span></div>
-    <div class="vr"><b>Ejemplo-002</b><span>fila 13 · coincide</span><span class="ok">● recibido</span></div>
-    <div class="vr ex"><b>Ejemplo-003</b><span>fila 14 · declarado</span><span class="flag">▲ no recibido</span></div>
-    <div class="vr"><b>Ejemplo-004</b><span>fila 15 · coincide</span><span class="ok">● recibido</span></div>
+  <div class="spec"><span class="bar"></span><span>Servicio por proyecto</span><span class="sep">·</span><span>Se cotiza por <b>alcance</b></span></div>
+  <h1>Comprobantes declarados, <em>cotejados con sus respaldos.</em></h1>
+  <div class="apoyo">
+   <p>Cuando el volumen es alto, relacionar lo declarado con sus respaldos a mano no escala. Armamos ese cotejo con reglas acordadas y te devolvemos los casos observados, cada uno con la referencia para volver al archivo.</p>
+   <div class="row">
+    <button class="btn btn-p" type="button" onclick="openControlDoc()">Contar mi caso</button>
+    <a class="lnk" href="#como-funciona">Cómo se trabaja <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
    </div>
-   <div class="viz-ref"><b>Caso observado.</b> El respaldo no estaba entre los archivos recibidos. <code>planilla_detalle.xlsx › fila 14</code></div>
   </div>
-  <p class="viz-cap">Esquema ilustrativo con datos inventados.</p>
+  <div class="mini"><span>Distinto del software de DEXIAE</span><span class="d">·</span><span>Alcance por escrito antes de empezar</span></div>
+ </div>
+
+ <div class="esc" role="img" aria-label="Esquema ilustrativo con datos inventados: un lote de archivos, la planilla declarada cotejada renglón por renglón con estados, y un caso observado con la referencia a la fila de la planilla y a la carpeta donde se buscó el respaldo.">
+  <div class="cv" aria-hidden="true">
+   <span class="cp c1" style="left:0;top:1.4em"><b>01</b>Lote recibido</span>
+   <div class="pn lote" style="background:none;border:0;box-shadow:none">
+    <i class="pg"></i><i class="pg"></i>
+    <div class="pg dc">
+     <div class="dh"><span><b>Proveedor Ejemplo</b>Comprobante</span><span class="dl">B</span></div>
+     <p>N.º 0002-00000415</p><p>Fecha 03/06/2026</p>
+     <i class="ln" style="width:86%"></i><i class="ln" style="width:62%"></i><i class="ln" style="width:74%"></i><i class="ln" style="width:48%"></i>
+     <div class="dt">TOTAL $ 20.140,00</div>
+    </div>
+   </div>
+   <div class="files"><span><i class="fi-d">▣</i>comprobantes/</span><span><i class="fi-x">X</i>planilla_detalle.xlsx</span><span><i class="fi-d">▣</i>respaldos/</span></div>
+
+   <span class="cp c2" style="left:18.5em;top:0"><b>02</b>Planilla cotejada</span>
+   <div class="pn pla">
+    <div class="xh"><i>X</i>planilla_detalle.xlsx<span>hoja Detalle</span></div>
+    <div class="xr hd"><i></i><i>COMPROBANTE</i><i>DECLARADO</i><i>RESPALDO</i><i>ESTADO</i></div>
+    <div class="xr"><i>11</i><i>B 0002-00000412</i><i>12.300,00</i><i>fc_0412.pdf</i><b>COINCIDE</b></div>
+    <div class="xr"><i>12</i><i>B 0002-00000413</i><i>8.750,00</i><i>fc_0413.pdf</i><b>COINCIDE</b></div>
+    <div class="xr"><i>13</i><i>B 0002-00000415</i><i>21.040,00</i><i>fc_0415.pdf</i><b class="k-dif">IMPORTE</b></div>
+    <div class="xr sel"><i>14</i><i>B 0002-00000417</i><i>18.400,00</i><i class="nd">no recibido</i><b class="k-sin">SIN RESP.</b></div>
+    <div class="xr"><i>15</i><i>B 0002-00000412</i><i>12.300,00</i><i>fc_0412.pdf</i><b class="k-dup">DUPLICADO?</b></div>
+    <div class="xr"><i>16</i><i>C 0001-00000088</i><i>5.600,00</i><i>rc_0088.pdf</i><b>COINCIDE</b></div>
+    <div class="xf"><b class="o">3 coinciden</b><span>·</span><b class="t">3 casos observados</b><span style="margin-left:auto">fila 11 a 16</span></div>
+   </div>
+
+   <div class="obs">
+    <div class="oh"><span>Caso observado</span><em>fila 14</em></div>
+    <b class="ot">Respaldo no recibido</b>
+    <dl class="od">
+     <dt>Declarado en</dt><dd><u>planilla_detalle.xlsx</u> › Detalle › fila 14</dd>
+     <dt>Comprobante</dt><dd>B 0002-00000417 · $ 18.400,00</dd>
+     <dt>Buscado en</dt><dd>respaldos/ · sin coincidencia</dd>
+    </dl>
+    <p class="on">Indica que el respaldo no estaba entre los archivos recibidos. No prueba una irregularidad.</p>
+   </div>
+  </div>
+  <p class="cap">Esquema ilustrativo · datos inventados</p>
  </div>
 </div></header>
 
 <main>
-<section><div class="wrap">
- <div class="k">El problema</div>
- <h2 class="st">Lo declarado y lo respaldado, en archivos distintos</h2>
- <p class="si">Una rendición, una carpeta de proveedores o un cierre llegan como cientos o miles de PDF, planillas y listados. Comprobar que cada renglón declarado tenga su comprobante, con el mismo importe e identificador, es un trabajo repetitivo donde lo difícil es no perder el rastro.</p>
- <div class="exp"><b>Qué se hace</b>Cotejo de comprobantes declarados con sus respaldos, revisión de importes e identificadores, y detección de faltantes y posibles duplicados, con la referencia para volver a cada archivo.</div>
+<section><div class="wrap two">
+ <div>
+  <div class="k">El problema</div>
+  <h2 class="st">Lo declarado y lo respaldado viven en archivos distintos</h2>
+  <p class="si">Una rendición, una carpeta de proveedores o un cierre llegan como cientos o miles de PDF, planillas y listados. Comprobar que cada renglón declarado tenga su comprobante, con el mismo importe e identificador, es repetitivo, y lo difícil es no perder el rastro.</p>
+  <div class="hace"><b>Qué se hace</b>Cotejo de comprobantes declarados con sus respaldos, revisión de importes e identificadores, y detección de faltantes y posibles duplicados, con la referencia para volver a cada archivo.</div>
+ </div>
+ <div class="pains">
+  <div class="pain"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><div><h3>Renglones en una planilla, comprobantes en otra carpeta</h3><p>Relacionar uno con otro, archivo por archivo, consume el tiempo que haría falta para revisar.</p></div></div>
+  <div class="pain"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 9h14M5 15h14M16 5 8 19"/></svg></span><div><h3>Mismo número, distinto importe</h3><p>Las diferencias chicas se pierden cuando se mira todo a ojo.</p></div></div>
+  <div class="pain"><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5M11 8v3M11 14h.01"/></svg></span><div><h3>Un respaldo que no aparece</h3><p>Sin una referencia exacta, cuesta volver al renglón y al archivo para aclararlo.</p></div></div>
+ </div>
 </div></section>
 
 <section class="alt"><div class="wrap">
  <div class="k">Qué se controla</div>
  <h2 class="st">Los controles se acuerdan antes de empezar</h2>
- <p class="si">No hay una lista fija. Según tu caso, definimos juntos cuáles aplican. Algunos ejemplos típicos:</p>
- <div class="grid g3">
-  <div class="card"><h3>Faltantes</h3><p>Renglones declarados cuyo respaldo no está entre los archivos recibidos.</p></div>
-  <div class="card"><h3>Posibles duplicados</h3><p>Comprobantes que aparecen más de una vez o se imputan en más de un renglón.</p></div>
-  <div class="card"><h3>Importes</h3><p>Diferencias entre el importe declarado y el que figura en el comprobante.</p></div>
-  <div class="card"><h3>Identificadores</h3><p>Números de comprobante, fechas y datos del emisor que no coinciden entre fuentes.</p></div>
-  <div class="card"><h3>Datos dudosos</h3><p>Documentos ilegibles o ambiguos, separados para que una persona los revise.</p></div>
-  <div class="card"><h3>Reglas propias</h3><p>Controles específicos de tu proceso, si se pueden expresar con claridad.</p></div>
+ <p class="si">No hay una lista fija: según tu caso, definimos juntos cuáles aplican. Cada caso observado sale marcado con su tipo, como en el esquema de arriba.</p>
+ <div class="ctl">
+  <div class="cc"><h3>Faltantes</h3><p>Renglones declarados cuyo respaldo no está entre los archivos recibidos.</p><span class="tag t-sin">SIN RESPALDO</span></div>
+  <div class="cc"><h3>Posibles duplicados</h3><p>Comprobantes que aparecen más de una vez o se imputan en más de un renglón.</p><span class="tag t-dup">DUPLICADO?</span></div>
+  <div class="cc"><h3>Importes</h3><p>Diferencias entre el importe declarado y el que figura en el comprobante.</p><span class="tag t-dif">IMPORTE</span></div>
+  <div class="cc"><h3>Identificadores</h3><p>Números de comprobante, fechas y datos del emisor que no coinciden entre fuentes.</p><span class="tag t-dif">IDENTIFICADOR</span></div>
+  <div class="cc"><h3>Datos dudosos</h3><p>Documentos ilegibles o ambiguos, separados para que una persona los revise.</p><span class="tag t-rev">A REVISAR</span></div>
+  <div class="cc"><h3>Reglas propias</h3><p>Controles específicos de tu proceso, si se pueden expresar con claridad.</p><span class="tag t-reg">A DEFINIR</span></div>
  </div>
 </div></section>
 
 <section><div class="wrap">
  <div class="k">Qué recibís</div>
  <h2 class="st">Un resultado que permite volver al archivo de origen</h2>
- <div class="grid g2">
-  <div class="card"><span class="n">01</span><h3>Planilla con referencias de origen</h3><p>Los datos acordados, ordenados en Excel, cada uno con el archivo y la ubicación de donde salió.</p></div>
-  <div class="card"><span class="n">02</span><h3>Casos observados</h3><p>El listado de excepciones según las reglas definidas, separado de lo que coincide.</p></div>
-  <div class="card"><span class="n">03</span><h3>Informe de hallazgos</h3><p>Resumen del alcance aplicado, las observaciones principales y cómo leerlas.</p></div>
-  <div class="card"><span class="n">04</span><h3>Registro de límites</h3><p>Qué no se pudo leer, qué quedó fuera del alcance y qué supuestos se usaron.</p></div>
+ <div class="ent">
+  <div class="ec"><div class="ep">
+    <div class="r"><i></i><i></i><em></em></div><div class="r"><i></i><i></i><em></em></div><div class="r"><i></i><i></i><em class="a"></em></div><div class="r"><i></i><i></i><em></em></div>
+    <span class="ref">origen: archivo › página / fila</span></div>
+   <div class="eb"><span class="n">01</span><h3>Planilla con referencias de origen</h3><p>Los datos acordados, ordenados en Excel, cada uno con el archivo y la ubicación de donde salió.</p></div></div>
+  <div class="ec"><div class="ep">
+    <div class="r"><i></i><em class="t"></em></div><div class="r"><i></i><em class="b"></em></div><div class="r"><i></i><em class="a"></em></div><div class="r"><i></i><em class="t"></em></div></div>
+   <div class="eb"><span class="n">02</span><h3>Casos observados</h3><p>El listado de excepciones según las reglas definidas, separado de lo que coincide.</p></div></div>
+  <div class="ec"><div class="ep"><div class="pg2"><i class="h"></i><i></i><i></i><i style="width:70%"></i><i></i><i style="width:55%"></i></div></div>
+   <div class="eb"><span class="n">03</span><h3>Informe de hallazgos</h3><p>Resumen del alcance aplicado, las observaciones principales y cómo leerlas.</p></div></div>
+  <div class="ec"><div class="ep"><span class="ck">no legible</span><span class="ck">fuera de alcance</span><span class="ck">supuestos usados</span></div>
+   <div class="eb"><span class="n">04</span><h3>Registro de límites</h3><p>Qué no se pudo leer, qué quedó fuera del alcance y qué supuestos se usaron.</p></div></div>
  </div>
- <div class="callout"><b>Un faltante no prueba una irregularidad.</b> Solo indica que el respaldo no estaba entre los archivos recibidos. Qué hacer con cada caso lo decidís vos.</div>
+ <div class="callout"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#17805F" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg><div><b>Un faltante no prueba una irregularidad.</b> Solo indica que el respaldo no estaba entre los archivos recibidos. Qué hacer con cada caso lo decidís vos.</div></div>
 </div></section>
 
 <section class="alt"><div class="wrap">
  <div class="k">Cuándo puede servir</div>
  <h2 class="st">Casos que podemos evaluar</h2>
- <div class="grid g2" style="margin-top:22px">
-  <div class="box"><ul class="lim">
+ <div class="two" style="margin-top:30px;gap:16px">
+  <div class="box"><h3>Trabajos típicos</h3><ul class="chk">
    <li>Rendiciones con múltiples comprobantes y planillas.</li>
    <li>Verificación documental de proveedores.</li>
    <li>Comprobantes faltantes o posibles duplicados.</li>
@@ -225,9 +405,11 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
    <li>Es un control documental asistido por tecnología.</li>
    <li>No es una auditoría contable independiente certificada.</li>
    <li>No certifica la validez fiscal ante organismos externos.</li>
+   <li>No garantiza encontrar todo: depende de la calidad y completitud de los archivos recibidos.</li>
    <li>Los hallazgos orientan la revisión; el cliente decide las acciones.</li>
    <li>El alcance, las fuentes y las exclusiones se acuerdan antes de empezar.</li>
-  </ul></div>
+  </ul>
+  <p class="note">Si necesitás una opinión profesional regulada, el encargo debe quedar a cargo de un profesional habilitado.</p></div>
  </div>
 </div></section>
 
@@ -235,69 +417,68 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <div class="k">Cómo se trabaja</div>
  <h2 class="st">Primero se acota. Después se procesa.</h2>
  <p class="si">Nada se cotiza ni se procesa sin que el alcance esté escrito.</p>
- <div class="grid g5">
-  <div class="card"><span class="n">01</span><h3>Consulta</h3><p>Contás el caso con el formulario, sin enviar archivos.</p></div>
-  <div class="card"><span class="n">02</span><h3>Alcance</h3><p>Acordamos fuentes, controles, entregables y qué queda afuera.</p></div>
-  <div class="card"><span class="n">03</span><h3>Muestra</h3><p>Si hace falta, probamos con una muestra que vos autorizás.</p></div>
-  <div class="card"><span class="n">04</span><h3>Presupuesto</h3><p>Con el alcance claro, se cotiza el proyecto.</p></div>
-  <div class="card"><span class="n">05</span><h3>Ejecución y entrega</h3><p>Se procesa el lote y se entrega lo acordado.</p></div>
+ <div class="flow">
+  <div class="fs"><span class="dot">01</span><h3>Consulta</h3><p>Contás el caso con el formulario, sin enviar archivos.</p></div>
+  <div class="fs"><span class="dot">02</span><h3>Alcance</h3><p>Acordamos fuentes, controles, entregables y qué queda afuera.</p></div>
+  <div class="fs"><span class="dot">03</span><h3>Muestra</h3><p>Si hace falta, probamos con una muestra que vos autorizás.</p></div>
+  <div class="fs"><span class="dot">04</span><h3>Presupuesto</h3><p>Con el alcance claro, se cotiza el proyecto.</p></div>
+  <div class="fs"><span class="dot">05</span><h3>Ejecución y entrega</h3><p>Se procesa el lote y se entrega lo acordado.</p></div>
  </div>
 </div></section>
 
 <section><div class="wrap">
- <div class="g2 grid" style="margin-top:0;gap:22px">
-  <div class="box lim">
-   <h3>Límites del servicio</h3>
-   <ul>
-    <li><b>No es una auditoría certificada</b> ni un dictamen contable.</li>
-    <li><b>No valida comprobantes ante ARCA</b> ni certifica su validez fiscal.</li>
-    <li><b>No garantiza encontrar todo:</b> depende de la calidad y completitud de los archivos recibidos.</li>
-    <li>Los hallazgos orientan la revisión; la decisión y la responsabilidad son tuyas.</li>
-    <li>Si necesitás una opinión profesional regulada, debe quedar a cargo de un profesional habilitado.</li>
-   </ul>
+ <div class="k">Manejo de los datos</div>
+ <h2 class="st">En este servicio sí recibimos documentos</h2>
+ <div class="cmp">
+  <div class="cm"><small>El software DEXIAE</small><h3>Lo usás vos, en tu computadora</h3><p>Lo instalás y procesás tus documentos en tu computadora: ningún documento ni dato extraído sale de ella.</p></div>
+  <div class="cm s"><small>Este servicio</small><h3>Nos entregás los documentos</h3><p>Los procesamos nosotros. Por eso, antes de recibir cualquier archivo, el manejo se acuerda por escrito.</p></div>
+ </div>
+ <div class="acu"><h3>Qué acordamos antes de recibir archivos</h3>
+  <div class="ag">
+   <div><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h12M12 6l6 6-6 6"/></svg></span><b>Canal de entrega</b><span>Por dónde se envían y quién puede enviar y recibir.</span></div>
+   <div><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg></span><b>Acceso y resguardo</b><span>Quién accede a los archivos y cómo se resguardan.</span></div>
+   <div><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></span><b>Conservación</b><span>Cuánto tiempo se guardan y cómo se eliminan al cerrar el proyecto.</span></div>
+   <div><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="8"/><path d="m6.5 6.5 11 11"/></svg></span><b>Uso</b><span>No se usan para otros fines sin tu autorización por separado.</span></div>
   </div>
-  <div class="box dat">
-   <h3>Manejo de los datos</h3>
-   <p style="color:var(--ink2);font-size:15.5px;margin-bottom:8px"><b style="color:var(--ink)">El software DEXIAE</b> lo instalás y lo usás vos, en tu computadora: los documentos que procesás no salen de tu organización.</p>
-   <p style="color:var(--ink2);font-size:15.5px;margin-bottom:10px"><b style="color:var(--ink)">Este servicio es distinto:</b> nos entregás los documentos y los procesamos nosotros. Por eso, antes de recibir cualquier archivo, acordamos por escrito:</p>
-   <ul>
-    <li>el <b>canal de entrega</b> y quién puede enviar y recibir;</li>
-    <li>quién <b>accede</b> a los archivos y cómo se resguardan;</li>
-    <li>cuánto tiempo se <b>conservan</b> y cómo se eliminan al cerrar el proyecto;</li>
-    <li>que <b>no se usan</b> para otros fines sin tu autorización por separado.</li>
-   </ul>
-   <p style="color:var(--ink3);font-size:13.5px;margin-top:6px">Por el formulario de consulta no se reciben archivos.</p>
-  </div>
+  <p class="note">Por el formulario de consulta no se reciben archivos.</p>
  </div>
 </div></section>
 
-<section class="alt faq"><div class="wrap">
+<section class="alt"><div class="wrap">
  <div class="k">Preguntas frecuentes</div>
  <h2 class="st">Antes de empezar</h2>
- <details><summary>¿Cuánto cuesta?</summary><p>Depende del alcance: volumen, cantidad de fuentes, controles y calidad de los archivos. Se presupuesta después de la consulta y de definir el alcance. No hay un precio de lista.</p></details>
- <details><summary>¿Tengo que mandar archivos para consultar?</summary><p>No. La consulta es una descripción del caso. Si hace falta una muestra, se acuerda aparte, con tu autorización y por un canal definido.</p></details>
- <details><summary>¿Reemplaza a una auditoría?</summary><p>No. Es un control documental asistido por tecnología. No es una auditoría certificada ni un dictamen.</p></details>
- <details><summary>¿Es lo mismo que comprar DEXIAE?</summary><p>No. DEXIAE es un software que se instala y se usa por cuenta propia. Este es un servicio por proyecto, y el producto no requiere entregarnos documentos.</p></details>
+ <div class="faq">
+  <details><summary>¿Cuánto cuesta?</summary><p>Depende del alcance: volumen, cantidad de fuentes, controles y calidad de los archivos. Se presupuesta después de la consulta y de definir el alcance. No hay un precio de lista.</p></details>
+  <details><summary>¿Tengo que mandar archivos para consultar?</summary><p>No. La consulta es una descripción del caso. Si hace falta una muestra, se acuerda aparte, con tu autorización y por un canal definido.</p></details>
+  <details><summary>¿Reemplaza a una auditoría?</summary><p>No. Es un control documental asistido por tecnología. No es una auditoría certificada ni un dictamen.</p></details>
+  <details><summary>¿Es lo mismo que comprar DEXIAE?</summary><p>No. DEXIAE es un software que se instala y procesa en tu computadora, sin que nos entregues documentos. Este es un servicio por proyecto.</p></details>
+ </div>
 </div></section>
 </main>
 
 <section class="cta"><div class="wrap">
  <h2>¿Tenés un lote para controlar?</h2>
- <p>Contanos qué querés cruzar, el volumen aproximado y qué resultado esperás. Sin adjuntos y sin compromiso.</p>
+ <p>Contanos qué querés cruzar, el volumen aproximado y qué resultado esperás.</p>
  <button class="btn btn-p" type="button" onclick="openControlDoc()">Contar mi caso</button>
+ <small>Sin adjuntos · sin compromiso</small>
 </div></section>
 
 <footer><div class="foot-in">
- <span class="logo" style="font-size:16px;color:var(--md)"><img class="m" src="/logo-marca.svg" alt="" width="24" height="24" decoding="async">Dexiae</span>
+ <span class="logo" style="font-size:16px;color:var(--md)"><img class="m" src="/logo-marca.svg" alt="" width="24" height="24" decoding="async" style="width:24px;height:24px">Dexiae</span>
  <div class="foot-links">
   <a href="/">Inicio</a>
   <a href="/casos-de-uso">Casos de uso</a>
   <a href="/extractos-bancarios-excel">Extractos bancarios</a>
-  <a href="/privacidad">Privacidad</a>
-  <a href="#" onclick="openControlDoc();return false">Contar mi caso</a>
+   <a href="/facturas-qr-excel">Facturas por QR</a>
+   <a href="/guia-contable">Guía Contable</a>
+   <a href="/guia-usuario">Guía del usuario</a>
+  <a href="/#precios">Precios</a>
+  <a href="/#faq">FAQ</a>
+  <a href="mailto:contacto@getdexiae.com">Contacto</a>
  </div>
  <span>© 2026 DEXIAE</span>
 </div></footer>
-<script src="/lead.js?v=20261023-cd1" defer></script>
+<script src="/lead.js?v=20261023-cd3" defer></script>
+
 </body>
 </html>

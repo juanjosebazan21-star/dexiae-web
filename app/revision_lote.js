@@ -853,7 +853,11 @@ async function rxSeguirDespues() {
   rx$('rx-vista').hidden = true; rx$('rx-pastilla').hidden = true; RX.est = null;
   if (typeof cargarHistorial === 'function') { try { cargarHistorial(); } catch (e) {} }
 }
+// (27/10/2026) Mientras se genera, ni «Generar Excel» ni «como salió» se pueden
+// volver a tocar: dos llamadas juntas pisaban el mismo temporal del Excel.
+let _rxGenerando = false;
 async function rxGenerar(comoSalio) {
+  if (_rxGenerando) return;
   const e = RX.est || {}, pend = (e.casos || []).filter(c => c.pendiente).length;
   if (comoSalio) {
     const nd = (e.casos || []).filter(c => c.pendiente && c.despues).length;
@@ -863,8 +867,23 @@ async function rxGenerar(comoSalio) {
       + '\nLa revisión queda guardada: la terminás desde el Historial y, al generar de nuevo, el Excel se reemplaza.');
     if (!ok) return;
   }
-  const r = await PY.call('rx_generar', !!comoSalio);
-  if (!r || !r.ok) { UI.toast((r && r.error) || 'No se pudo generar el Excel', 'err'); return; }
+  if (_rxGenerando) return;       // el diálogo de arriba es asíncrono: un segundo clic pudo colarse
+  _rxGenerando = true;
+  const bGen = rx$('rx-b-gen'), bComo = rx$('rx-b-como'), txtGen = bGen.innerHTML;
+  bGen.disabled = true; bComo.disabled = true;
+  bGen.innerHTML = '<i class="ti ti-loader-2"></i> Generando…';
+  let r = null;
+  try { r = await PY.call('rx_generar', !!comoSalio); }
+  catch (err) { r = null; }
+  finally {
+    _rxGenerando = false;
+    bGen.innerHTML = txtGen; bComo.disabled = false;
+  }
+  if (!r || !r.ok) {
+    try { rxContar(); } catch (err) {}          // vuelve a habilitar según lo que falta decidir
+    UI.toast((r && r.error) || 'No se pudo generar el Excel', 'err');
+    return;
+  }
   rxFinal(r);
 }
 // Los pasos de la cabecera: 1 Procesar ✓ · 2 Revisar · 3 Excel.

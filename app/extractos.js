@@ -301,8 +301,15 @@ async function extProcesar() {
 // finales (sin cliente y con cliente / después de revisar).
 function extPocasHtml(r) {
   const p = (r && r.pocas_filas) || [];
-  if (!p.length) return '';
-  return `<div class="rev-caja" style="margin-top:12px;border-color:var(--rev-fg)">
+  // (27/10/2026) Filas con fecha que el lector vio y no pudo leer: no entran al
+  // Excel, así que se dicen acá (y en «Acerca de este archivo»).
+  const sl = (r && r.filas_sin_leer) || [];
+  const sinLeer = sl.length ? `<div class="rev-caja" style="margin-top:12px;border-color:var(--rev-fg)">
+    <h3 style="color:var(--rev-fg)"><i class="ti ti-alert-triangle"></i> Hay filas con fecha que no se pudieron leer</h3>
+    <ul>${sl.slice(0, 6).map(x => `<li><b>${_he(x.nombre)}</b> (${_he(String(x.banco || '').toUpperCase())}): ${xtPl(x.filas, 'fila', 'filas')} sin un importe legible</li>`).join('')}</ul>
+    <div class="opt-hint" style="margin:6px 0 0">No están en el Excel: revisalas contra el PDF.</div></div>` : '';
+  if (!p.length) return sinLeer;
+  return sinLeer + `<div class="rev-caja" style="margin-top:12px;border-color:var(--rev-fg)">
     <h3 style="color:var(--rev-fg)"><i class="ti ti-alert-triangle"></i> ${p.length === 1 ? 'Un resumen salió con muy pocas filas' : `${p.length} resúmenes salieron con muy pocas filas`}</h3>
     <ul>${p.slice(0, 6).map(x => `<li><b>${_he(x.nombre)}</b> (${_he(String(x.banco || '').toUpperCase())}): ${_he(x.motivo)}</li>`).join('')}</ul>
     <div class="opt-hint" style="margin:6px 0 0">Entró al Excel igual; el aviso queda también en la hoja «Acerca de este archivo».</div></div>`;

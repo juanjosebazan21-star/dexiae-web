@@ -2,7 +2,7 @@
 <html lang="es" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<title>Demo interactiva · DEXIAE v2.10.0</title>
+<title>Demo interactiva · DEXIAE v2.10.1</title>
 <link rel="stylesheet" href="assets/tabler/tabler-icons.min.css">
 <link rel="stylesheet" href="revision_lote.css?v=0c0e447a3a">
 <style>
@@ -1353,7 +1353,7 @@ html.liviano .scan-doc .sd-beam,html.liviano .scan-doc .sd-glow{filter:none !imp
     </div>
     <div class="sb-badges">
       <span class="sb-badge sentinel" id="sb-edition">SENTINEL</span>
-      <span class="sb-badge ver" id="sb-version">v2.10.0</span>
+      <span class="sb-badge ver" id="sb-version">v2.10.1</span>
     </div>
     <div class="sb-client"><span class="sb-dot"></span><span id="sb-client">Cargando...</span></div>
   </div>
@@ -2853,6 +2853,7 @@ body.sl-activo #btn-iniciar, body.sl-activo #btn-cent, body.sl-activo #ext-run, 
         <label class="chk-row"><input type="checkbox" id="fus-err"> Ignorar filas con ERROR</label>
         <label class="chk-row"><input type="checkbox" id="fus-rev"> Ignorar filas en REVISAR</label>
       </div>
+      <div id="fus-aviso" hidden style="margin-top:10px;font-size:12.5px;white-space:pre-line;color:var(--err-fg);background:var(--err-bg);border:1px solid var(--err-bd);border-radius:8px;padding:8px 10px"></div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-ghost" onclick="fusCerrar()">Cancelar</button>
@@ -3413,7 +3414,7 @@ const DEMO = {
     incidente:'DX-260910-A3F7',
     mensaje:'ESTO NO ME CIERRA · DX-260910-A3F7 (demo)',wa_url:'https://wa.me/5493516574188?text=demo'}),
   abrir_url: () => ({ok:true}),
-  ayuda_datos: () => ({ok:true,version:'2.10.0',qr_sin_formato:1,buscar:'¿En qué te ayudo?',
+  ayuda_datos: () => ({ok:true,version:'2.10.1',qr_sin_formato:1,buscar:'¿En qué te ayudo?',
     destacados:['primeros','lote','plantillas'],temas:[{id:'primeros',titulo:'Primeros pasos',url:'https://getdexiae.com/guia-usuario#que-es',palabras:'empezar'},
     {id:'lote',titulo:'Procesar un lote de documentos',url:'https://getdexiae.com/guia-usuario#lote',palabras:'lote'},
     {id:'plantillas',titulo:'Laboratorio: armar una plantilla',url:'https://getdexiae.com/guia-usuario#plantillas',palabras:'plantilla'}],
@@ -3425,7 +3426,7 @@ const DEMO = {
   qr_sin_formato_marcar: () => ({ok:true}),
   uso_apagar: () => ({ok:true,avisado:true}),
   qr_sin_formato_olvidar: () => ({ok:true}),
-  actualizacion_estado: () => ({ok:true,actual:'2.10.0',ultima:'2.5.99',hay_nueva:true,
+  actualizacion_estado: () => ({ok:true,actual:'2.10.1',ultima:'2.5.99',hay_nueva:true,
     descarga:'https://getdexiae.com/',notas:'https://getdexiae.com/',
     resumen:'Ejemplo de aviso de versión (demo).',corrige_resultados:true,
     revocada:false,motivo:''}),
@@ -3445,8 +3446,8 @@ const DEMO = {
   exportar_soporte: () => ({ok:true,archivos:14,incidente:'DX-260910-K7QM',
     mensaje:'Diagnóstico exportado (demo) · 14 archivos'}),
   reporte_tecnico_previa: () => ({ok:true,mail:'contacto@getdexiae.com',wa:'5493516574188',
-    estado:{version:'2.10.0',edicion:'TRIAL',sistema:'Windows-11'},
-    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.10.0 · TRIAL · versión de Windows. Nada que te identifique'},
+    estado:{version:'2.10.1',edicion:'TRIAL',sistema:'Windows-11'},
+    items:[{clave:'estado',fijo:true,incluido:true,etiqueta:'Versión y estado del programa',detalle:'DEXIAE 2.10.1 · TRIAL · versión de Windows. Nada que te identifique'},
            {clave:'logs',fijo:false,incluido:true,etiqueta:'Registro técnico de los últimos días',detalle:'Es lo que dice qué estaba haciendo el programa cuando falló'},
            {clave:'config',fijo:false,incluido:true,etiqueta:'Plantillas, reglas y preferencias',detalle:'Sin documentos, sin Excel y sin la base de datos'},
            {clave:'equipo',fijo:false,incluido:false,etiqueta:'Identificador de tu equipo',detalle:'Tildalo sólo si el problema es con la licencia o la activación'}]}),
@@ -5242,7 +5243,16 @@ function onIniciar(){
     UI.openPrevuelo(r);
   }).catch(e=>{console.error(e);UI.toast('Error preparando lote','err');});
 }
+// (27/10/2026) «Procesar lote» una sola vez: un doble clic o un Enter repetido
+// pasaba dos veces por acá (hay un await antes de cerrar el Pre-Vuelo) y lanzaba
+// dos lotes. La bandera cubre todo el camino, hasta que el motor contestó.
+let _arrancandoLote=false;
 async function onProcesarLote(){
+  if(_arrancandoLote) return;
+  _arrancandoLote=true;
+  try{ await _procesarLote(); } finally{ _arrancandoLote=false; }
+}
+async function _procesarLote(){
   const sel=UI.pvSeleccionados();
   if(sel.length===0){UI.toast('No seleccionaste archivos','warn');return;}
   // (06/10/2026) El tope de la edición se dice ACÁ, antes de procesar: el
@@ -5269,6 +5279,7 @@ async function onProcesarLote(){
   UI.closePrevuelo();
   STATE.t0=Date.now();
   const r=await PY.call('ejecutar_lote',sel,modo,patron);
+  if(r&&r.ya_iniciando) return;   // otra llamada ya lo está iniciando: no es un error
   // Cancelar en "Guardar Excel como..." NO es un error: es el usuario diciendo
   // que no. Se vuelve al Pre-Vuelo con la misma selección (el modal conserva su
   // contenido), en vez de tirarlo al principio.
@@ -5832,7 +5843,9 @@ async function labLimpiar(){
     if(!ok) return;
   }
   // Plantilla / campos
-  LAB.plantilla=''; LAB.campos=[]; LAB.sel=-1; LAB.edit=-1;
+  // ⚠️ El Criterio de comprobantes también (27/10/2026): se guarda con la plantilla,
+  // y si quedaba cargado se pegaba a la plantilla nueva (con «controlar importes» apagado, p. ej.).
+  LAB.plantilla=''; LAB.campos=[]; LAB.sel=-1; LAB.edit=-1; LAB.criterio={};
   LAB.flags={auditar_firmas:false,buscar_anclas_en_todo_documento:false,ocr_todas_paginas:false,condicion_firma:'',tabla_continua:false,tabla_saltear:'',tabla_minimo_columnas:0,tabla_formato_numeros:'',tabla_formato_fechas:'',plantillas_companeras:[]};
   const sel=document.getElementById('lab-sel'); if(sel) sel.value='';
   labSyncFlags(); labCancelar(); labRenderCampos();
@@ -5889,7 +5902,7 @@ function appModalClose(ok){
 }
 function labCargarPlantilla(n){
   LAB.sel=-1;
-  if(!n){ LAB.plantilla='';LAB.campos=[];LAB.flags={auditar_firmas:false,buscar_anclas_en_todo_documento:false,ocr_todas_paginas:false,condicion_firma:'',tabla_continua:false,tabla_saltear:'',tabla_minimo_columnas:0,tabla_formato_numeros:'',tabla_formato_fechas:'',plantillas_companeras:[]};labSyncFlags();labCancelar();labRenderCampos();if(LAB.tab==='visual')labRenderZonas();labStatus('Nueva plantilla',false);return; }
+  if(!n){ LAB.plantilla='';LAB.campos=[];LAB.criterio={};LAB.flags={auditar_firmas:false,buscar_anclas_en_todo_documento:false,ocr_todas_paginas:false,condicion_firma:'',tabla_continua:false,tabla_saltear:'',tabla_minimo_columnas:0,tabla_formato_numeros:'',tabla_formato_fechas:'',plantillas_companeras:[]};labSyncFlags();labCancelar();labRenderCampos();if(LAB.tab==='visual')labRenderZonas();labStatus('Nueva plantilla',false);return; }
   PY.call('lab_cargar_plantilla',n).then(r=>{
     if(!r||!r.ok){UI.toast(r&&r.error||'Error','err');return;}
     const d=r.datos||{};
@@ -6681,7 +6694,10 @@ async function labImportar(){
   // usuario no lo sabe va a editar la vieja creyendo que edita la que trajo.
   if(r.renombrada) UI.toast('Ya había una con ese nombre — se guardó aparte','warn');
   // mismo patron que Guardar como / Renombrar: fijar y recargar
-  LAB.plantilla=r.nombre; labInit();
+  // ⚠️ Y CARGAR la importada en la mesa (27/10/2026): sin esto el desplegable decía
+  // la importada pero los campos eran los de la plantilla anterior, y «Guardar»
+  // escribía esos campos encima de la que se acababa de importar.
+  LAB.plantilla=r.nombre; labInit(); labCargarPlantilla(r.nombre);
 }
 async function labExportar(){
   if(!LAB.plantilla){ UI.toast('Elegí o guardá una plantilla primero','warn'); return; }
@@ -9628,32 +9644,46 @@ async function imEliminar(){
 
 // ===== FUSIONAR REPORTES =====
 const FUS={archivos:[]};
-function fusAbrir(){ FUS.archivos=[]; document.getElementById('fus-clave').value=''; document.getElementById('fus-err').checked=false; document.getElementById('fus-rev').checked=false; fusRenderLista(); document.getElementById('modal-fus').classList.add('show'); }
+function fusAbrir(){ FUS.archivos=[]; document.getElementById('fus-clave').value=''; document.getElementById('fus-err').checked=false; document.getElementById('fus-rev').checked=false; fusAviso(''); fusRenderLista(); document.getElementById('modal-fus').classList.add('show'); }
 function fusCerrar(){ document.getElementById('modal-fus').classList.remove('show'); }
+// (27/10/2026) El motivo por el que NO se armó el consolidado queda escrito en el
+// panel (qué reporte y por qué): un aviso que se va solo no alcanza para 3 archivos.
+function fusAviso(txt){ const el=document.getElementById('fus-aviso'); if(!el) return; el.textContent=txt||''; el.hidden=!txt; }
 function fusRenderLista(){
   const w=document.getElementById('fus-list');
   w.innerHTML=FUS.archivos.length?FUS.archivos.map((a,i)=>`<div class="hr-file"><i class="ti ti-file-spreadsheet"></i><span class="hf-name" title="${_he(a.nombre)}">${_he(a.nombre)}</span><i class="ti ti-x" style="cursor:pointer;color:var(--txt3)" onclick="fusQuitar(${i})"></i></div>`).join(''):'<div class="hr-file"><span class="hf-name" style="color:var(--txt3)">Ningún Excel agregado</span></div>';
   document.getElementById('fus-run').disabled=FUS.archivos.length<2;
 }
+function fusClave(a){ return (a&&a.id!==undefined&&a.id!==null) ? 'id:'+a.id : 'n:'+(a&&a.nombre); }
 function fusQuitar(i){ FUS.archivos.splice(i,1); fusRenderLista(); }
 function fusLimpiar(){ FUS.archivos=[]; fusRenderLista(); }
 async function fusSeleccionar(){
   const r=await PY.call('herr_fusionar_seleccionar');
   if(!r||!r.ok){ if(r&&!r.cancelled) UI.toast(r&&r.error||'No se pudo seleccionar','err'); return; }
-  const exist=new Set(FUS.archivos.map(a=>a.nombre));
-  (r.archivos||[]).forEach(a=>{ if(!exist.has(a.nombre)) FUS.archivos.push(a); });
+  // Se suma por ID (el del programa), no por nombre: dos reportes con el mismo nombre
+  // en carpetas distintas son dos archivos, y el mismo archivo elegido dos veces es uno.
+  const exist=new Set(FUS.archivos.map(fusClave));
+  (r.archivos||[]).forEach(a=>{ const k=fusClave(a); if(!exist.has(k)){ exist.add(k); FUS.archivos.push(a); } });
   fusRenderLista();
 }
 async function fusEjecutar(){
   if(FUS.archivos.length<2){ UI.toast('Elegí al menos 2 reportes','warn'); return; }
   const clave=document.getElementById('fus-clave').value.trim();
   const ign_err=document.getElementById('fus-err').checked, ign_rev=document.getElementById('fus-rev').checked;
+  fusAviso('');
   UI.toast('Consolidando…','info');
-  let r; try{ r=await PY.call('herr_fusionar_ejecutar',clave,ign_err,ign_rev); }catch(e){ UI.toast('Error inesperado','err'); return; }
-  if(!r||!r.ok){ if(r&&!r.cancelled) UI.toast(r&&r.error||'No se pudo fusionar','err'); return; }
+  // ⚠️ Se manda QUÉ archivos son los de la lista (id + nombre): el programa fusiona
+  // exactamente ésos, y si no coinciden con los que tiene, no fusiona nada. «Quitar» y
+  // «Limpiar» sólo tocan la lista de acá, así que sin esto se fusionaban de más.
+  const elegidos=FUS.archivos.every(a=>a.id!==undefined&&a.id!==null)?FUS.archivos.map(a=>({id:a.id,nombre:a.nombre})):null;
+  let r; try{ r=await PY.call('herr_fusionar_ejecutar',clave,ign_err,ign_rev,elegidos); }catch(e){ UI.toast('Error inesperado','err'); return; }
+  if(!r||!r.ok){
+    if(r&&!r.cancelled){ const m=r.error||'No se pudo fusionar'; fusAviso(m); UI.toast(m.split('\n')[0],'err'); }
+    return;
+  }
   UI.toast(`Consolidado: ${r.filas} filas`+(r.duplicados?` · ${r.duplicados} duplicados`:'')+(r.filtradas?` · ${r.filtradas} filtradas`:''),'ok');
   fusCerrar();
-  if(r.ruta && !PY.demo()){ const ok=await appConfirm('Fusionar Reportes',`Consolidado con ${r.filas} filas`+(r.duplicados?` (${r.duplicados} duplicados quitados)`:'')+`.\n¿Abrir el Excel?`); if(ok) PY.call('abrir_path',r.ruta); }
+  if(r.ruta && !PY.demo()){ const ok=await appConfirm('Fusionar Reportes',`Consolidado con ${r.filas} filas`+(r.duplicados?` (${r.duplicados} duplicados quitados)`:'')+`.`+(r.aviso?`\n\n${r.aviso}`:'')+`\n¿Abrir el Excel?`); if(ok) PY.call('abrir_path',r.ruta); }
 }
 
 // ===== OCR POR LOTE =====
@@ -10080,7 +10110,7 @@ async function asisDescartar(i){
 }
 function asisEditar(i){
   const g=ASIS.grupos[i]; if(!g){ UI.toast('Plantilla inválida','err'); return; }
-  LAB.plantilla=''; LAB.sel=-1; LAB.edit=-1;
+  LAB.plantilla=''; LAB.sel=-1; LAB.edit=-1; LAB.criterio={};   // la del Asistente es una plantilla NUEVA: sin el Criterio de la anterior
   LAB.campos=(g.campos||[]).filter(c=>!c._desactivado).map(c=>{ const o={}; Object.keys(c).forEach(k=>{ if(!k.startsWith('_')) o[k]=c[k]; }); return o; });
   LAB.flags={auditar_firmas:!!g.auditar_firmas,buscar_anclas_en_todo_documento:!!g.buscar_anclas_en_todo_documento,ocr_todas_paginas:!!g.ocr_todas_paginas,condicion_firma:(g.condicion_firma||'')};
   const sel=document.getElementById('lab-sel'); if(sel) sel.value='';
@@ -10282,9 +10312,9 @@ async function _init(){
     // Destino de originales: espejo por defecto (decisión de producto 14/07).
     setDestino('espejo'); syncDestinoTipo(); onOrgModo('mover');
     UI.renderRenameVars(r.columnas||[]);
-    document.getElementById('sb-version').textContent=`v${r.version||'2.10.0'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.10.1'}`;
     const ed=r.edicion||'—';
-    document.getElementById('sb-version').textContent=`v${r.version||'2.10.0'}`;
+    document.getElementById('sb-version').textContent=`v${r.version||'2.10.1'}`;
     document.getElementById('sb-edition').textContent=ed;
     document.getElementById('sb-uedicion').textContent='Licencia activa';
     document.getElementById('sb-client').textContent='DEXIAE · Producción';
@@ -11243,9 +11273,9 @@ async function rxAbrirSeguro(id, ev){
   catch(e){ const m=(e&&e.message)||String(e); logUi('Abrir la revisión: '+m); UI.toast('No se pudo abrir la revisión: '+m,'err'); return false; }
 }
 </script>
-<script src="revision_lote.js?v=95a71afe42"></script>
+<script src="revision_lote.js?v=daa1da717a"></script>
 <script src="analitica.js?v=35ff20174c"></script>
-<script src="extractos.js?v=a5e0a1d9fa"></script>
-<script defer src="demo-web.js?v=a97fc17b01"></script>
+<script src="extractos.js?v=c01ce41401"></script>
+<script defer src="demo-web.js?v=682b09a561"></script>
 </body>
 </html>

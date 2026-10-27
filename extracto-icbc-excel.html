@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Extracto ICBC a Excel y asientos · DEXIAE</title>
+<title>Extracto y movimientos de ICBC a Excel y asientos · DEXIAE</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Cómo recibir el extracto de ICBC y pasarlo a Excel con DEXIAE: lee el resumen de cuenta de ICBC, controla el saldo por tramos y arma el borrador de asientos.">
+<meta name="description" content="Cómo recibir el extracto de ICBC y pasarlo a Excel con DEXIAE: lee el resumen de cuenta y el PDF de movimientos de ICBC (el que trae la columna Fecha contable), controla la cadena de saldos y arma el borrador de asientos.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="DEXIAE">
 <meta name="language" content="es-AR">
@@ -19,8 +19,8 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://getdexiae.com/extracto-icbc-excel">
 <meta property="og:site_name" content="DEXIAE">
-<meta property="og:title" content="Extracto ICBC a Excel y asientos · DEXIAE">
-<meta property="og:description" content="Cómo recibir el extracto de ICBC y pasarlo a Excel con DEXIAE: lee el resumen de cuenta de ICBC, controla el saldo por tramos y arma el borrador de asientos.">
+<meta property="og:title" content="Extracto y movimientos de ICBC a Excel y asientos · DEXIAE">
+<meta property="og:description" content="Cómo recibir el extracto de ICBC y pasarlo a Excel con DEXIAE: lee el resumen de cuenta y el PDF de movimientos de ICBC (el que trae la columna Fecha contable), controla la cadena de saldos y arma el borrador de asientos.">
 <meta property="og:image" content="https://getdexiae.com/og/extractos-bancarios-excel.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -169,7 +169,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Extractos bancarios a Excel","item":"https://getdexiae.com/extractos-bancarios-excel"},{"@type":"ListItem","position":3,"name":"ICBC","item":"https://getdexiae.com/extracto-icbc-excel"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo lee DEXIAE los importes negativos de ICBC, que llevan el signo al final?","acceptedAnswer":{"@type":"Answer","text":"Los toma tal como vienen (1.234,56-) y los pasa a importe con signo. La fecha viene como día y mes, y el año se toma del período que figura en el encabezado."}},{"@type":"Question","name":"¿Por qué el saldo de ICBC se controla por tramos y no fila por fila?","acceptedAnswer":{"@type":"Answer","text":"Porque ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota."}},{"@type":"Question","name":"¿Sirve la exportación de movimientos de ICBC?","acceptedAnswer":{"@type":"Answer","text":"La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee. DEXIAE está calibrado con el resumen mensual de ICBC."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo lee DEXIAE los importes negativos de ICBC, que llevan el signo al final?","acceptedAnswer":{"@type":"Answer","text":"En el resumen mensual, los toma tal como vienen (1.234,56-) y los pasa a importe con signo; la fecha viene como día y mes, y el año se toma del período que figura en el encabezado. En el PDF de movimientos, el importe trae su signo y la fecha trae día, mes y año (03-nov-2025)."}},{"@type":"Question","name":"¿Por qué el saldo de ICBC se controla por tramos y no fila por fila?","acceptedAnswer":{"@type":"Answer","text":"Porque en el resumen mensual ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota."}},{"@type":"Question","name":"¿Sirve el PDF de movimientos de ICBC?","acceptedAnswer":{"@type":"Answer","text":"Sí, desde la 2.10.1, si trae las columnas Fecha contable, Concepto, Importe y Saldo. Lista de más nuevo a más viejo: DEXIAE lo pasa al Excel en orden cronológico y controla la cadena de saldos (el saldo de cada fila contra el anterior más su importe), también cuando ocupa varias páginas. Si una fila trae fecha pero no un importe legible, lo avisa al terminar y en la hoja «Acerca de este archivo»."}}]}
 </script>
 <link rel="stylesheet" href="/site-header.css?v=20261018-mobile1">
 </head>
@@ -200,7 +200,7 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
 <header class="cu-hero"><div class="wrap">
  <span class="cu-eyebrow">Extractos bancarios · ICBC</span>
  <h1>Extracto de ICBC <span>a Excel y asientos</span></h1>
- <p class="sub">Cómo recibir el resumen de cuenta de ICBC y qué hace DEXIAE con un PDF cuyo diseño se corre entre páginas y que imprime el saldo sólo en algunos renglones.</p>
+ <p class="sub">Cómo recibir el resumen de cuenta de ICBC y qué hace DEXIAE con un PDF cuyo diseño se corre entre páginas y que, en el resumen mensual, imprime el saldo sólo en algunos renglones.</p>
  <div class="hero-row">
   <a class="btn btn-p" href="https://wa.me/5493516574188?text=Hola%21%20Vengo%20de%20la%20web%20de%20DEXIAE.%20Les%20mando%20un%20resumen%20del%20banco%20para%20que%20me%20lo%20devuelvan%20en%20Excel%20con%20los%20asientos." target="_blank" rel="noopener">Mandanos un resumen por WhatsApp</a>
   <button class="btn btn-o" type="button" onclick="openLead('TRIAL')">Probar PRO gratis · 14 días</button>
@@ -234,11 +234,11 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
   <h2>Qué hace DEXIAE con el resumen de ICBC</h2>
    <div class="card">
     <dl class="ficha">
-     <div><dt>Qué lee</dt><dd>Está calibrado con el resumen mensual de ICBC. La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee.</dd></div>
+     <div><dt>Qué lee</dt><dd>El resumen mensual de ICBC y, desde la 2.10.1, también el PDF de movimientos con las columnas Fecha contable, Concepto, Importe y Saldo.</dd></div>
      <div><dt>Cómo reconoce que es ICBC</dt><dd>Por el encabezado de su tabla.</dd></div>
-     <div><dt>Fecha y signo</dt><dd>La fecha viene como día y mes: el año se toma del período del encabezado. Los negativos llevan el signo al final (1.234,56-) y se leen bien.</dd></div>
-     <div><dt>Diseño que se corre</dt><dd>El diseño se corre entre páginas, así que las columnas se toman del encabezado de cada página.</dd></div>
-     <div><dt>Cómo controla el saldo</dt><dd>ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota.</dd></div>
+     <div><dt>Fecha y signo</dt><dd>Resumen mensual: la fecha viene como día y mes (el año se toma del período del encabezado) y los negativos llevan el signo al final (1.234,56-). PDF de movimientos: la fecha trae día, mes y año y el importe lleva su signo.</dd></div>
+     <div><dt>Diseño que se corre</dt><dd>El diseño se corre entre páginas, así que las columnas se toman del encabezado de cada página. En el PDF de movimientos, si una página no repite el encabezado, se usan las columnas de la anterior.</dd></div>
+     <div><dt>Cómo controla el saldo</dt><dd>Resumen mensual: ICBC imprime el saldo sólo en algunos renglones; DEXIAE controla cada tramo entre dos saldos impresos y marca el renglón donde un tramo no cierra. PDF de movimientos: el saldo viene en cada renglón y DEXIAE controla la cadena renglón por renglón (la fila más antigua es el punto de partida).</dd></div>
     </dl>
    </div>
  </section>
@@ -259,11 +259,11 @@ footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
  <section class="sec faq" id="preguntas">
   <h2>Preguntas frecuentes sobre ICBC</h2>
   <details><summary>¿Cómo lee DEXIAE los importes negativos de ICBC, que llevan el signo al final?</summary>
-   <p>Los toma tal como vienen (1.234,56-) y los pasa a importe con signo. La fecha viene como día y mes, y el año se toma del período que figura en el encabezado.</p></details>
+   <p>En el resumen mensual, los toma tal como vienen (1.234,56-) y los pasa a importe con signo; la fecha viene como día y mes, y el año se toma del período que figura en el encabezado. En el PDF de movimientos, el importe trae su signo y la fecha trae día, mes y año (03-nov-2025).</p></details>
   <details><summary>¿Por qué el saldo de ICBC se controla por tramos y no fila por fila?</summary>
-   <p>Porque ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota.</p></details>
-  <details><summary>¿Sirve la exportación de movimientos de ICBC?</summary>
-   <p>La exportación de movimientos de una sola hoja (Fecha · Concepto · Importe · Saldo) no se lee. DEXIAE está calibrado con el resumen mensual de ICBC.</p></details>
+   <p>Porque en el resumen mensual ICBC imprime el saldo sólo en algunos renglones. DEXIAE controla cada tramo entre dos saldos impresos y, si un tramo no cierra, marca el renglón del saldo donde se nota.</p></details>
+  <details><summary>¿Sirve el PDF de movimientos de ICBC?</summary>
+   <p>Sí, desde la 2.10.1, si trae las columnas Fecha contable, Concepto, Importe y Saldo. Lista de más nuevo a más viejo: DEXIAE lo pasa al Excel en orden cronológico y controla la cadena de saldos (el saldo de cada fila contra el anterior más su importe), también cuando ocupa varias páginas. Si una fila trae fecha pero no un importe legible, lo avisa al terminar y en la hoja «Acerca de este archivo».</p></details>
  </section>
 
  <section class="sec" id="otros">

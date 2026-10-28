@@ -21,9 +21,12 @@
   // ?plan=TRIAL abre el formulario de la prueba al llegar (lead.js). Antes iba a
   // «#planes», un ancla que no existe: caía arriba de la home y había que buscar.
   var TRIAL = '/?plan=TRIAL';
+  // (28/10/2026) Cada Excel dice con qué versión se generó (el aviso decía
+  // VERSION para los dos y ninguno era de esa versión). «?v=» = huella del
+  // archivo: Cloudflare sigue sirviendo el viejo si se reemplaza con el mismo nombre.
   var XLS = {
-    extraccion: { file: 'ejemplos/DEXIAE_ejemplo_extraccion.xlsx', label: 'del lote de facturas' },
-    extracto:   { file: 'ejemplos/DEXIAE_ejemplo_extracto.xlsx',   label: 'del extracto bancario con asientos' }
+    extraccion: { file: 'ejemplos/DEXIAE_ejemplo_extraccion.xlsx', label: 'del lote de facturas', version: '2.8.0' },
+    extracto:   { file: 'ejemplos/DEXIAE_ejemplo_extracto.xlsx?v=98394895', label: 'del extracto bancario con asientos', version: '2.10.1' }
   };
   var ZONA_TOTAL = [372, 528, 752, 578]; // px sobre assets/demo_doc.png (scale=1), la usa el grabador de videos
 
@@ -112,14 +115,14 @@
   /* ---------- Excel de ejemplo (Formspree + descarga) ---------- */
   function descargar(file) {
     var a = document.createElement('a');
-    a.href = file; a.download = file.split('/').pop();
+    a.href = file; a.download = file.split('/').pop().split('?')[0];
     document.body.appendChild(a); a.click(); a.remove();
   }
   function excelListo(kind) {
     ov.innerHTML =
       '<div class="dxw-card"><div class="hd"><i class="ti ti-file-spreadsheet"></i><div class="t">Descarga iniciada</div>' +
       '<button class="x" onclick="__dxwClose()">&times;</button></div>' +
-      '<div class="bd">Es el Excel ' + esc(XLS[kind].label) + ' tal como lo genera DEXIAE ' + VERSION + ', con datos inventados.<br><br>' +
+      '<div class="bd">Es el Excel ' + esc(XLS[kind].label) + ' tal como lo genera DEXIAE ' + XLS[kind].version + ', con datos inventados.<br><br>' +
       '<b>¿Lo probás con tus propios archivos?</b> En tu computadora DEXIAE procesa todo sin subir nada a internet.</div>' +
       '<div class="ft"><button class="dxw-btn g" onclick="__dxwClose()">Seguir en la demo</button>' +
       '<a class="dxw-btn p" href="' + TRIAL + '">Descargar DEXIAE gratis</a></div></div>';
@@ -131,7 +134,7 @@
       '<div class="dxw-card"><div class="hd"><i class="ti ti-file-spreadsheet"></i>' +
       '<div class="t">Descargá el Excel de ejemplo</div><button class="x" onclick="__dxwClose()">&times;</button></div>' +
       '<div class="bd">En la web no hay archivos tuyos: podés bajar el Excel ' + esc(XLS[kind].label) +
-      ' tal como lo genera DEXIAE ' + VERSION + ', con datos inventados. Dejanos tus datos y la descarga arranca al instante.' +
+      ' tal como lo genera DEXIAE ' + XLS[kind].version + ', con datos inventados. Dejanos tus datos y la descarga arranca al instante.' +
       '<input class="dxw-inp" id="dxw-nom" placeholder="Tu nombre" autocomplete="name">' +
       '<input class="dxw-inp" id="dxw-est" placeholder="Estudio / empresa (opcional)" autocomplete="organization">' +
       '<input class="dxw-inp" id="dxw-mail" placeholder="Tu email" type="email" autocomplete="email">' +

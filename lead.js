@@ -172,7 +172,7 @@
       successTitle: '¡Listo! El Excel se está bajando',
       successSub: 'Si no se abre solo, tocá el botón. ¿Querés verlo con los movimientos de tu banco? Mandanos un resumen por WhatsApp y te lo devolvemos en Excel con los asientos.',
       primaryLabel: 'Abrir el Excel de ejemplo',
-      primaryUrl: function () { return '/app/ejemplos/DEXIAE_ejemplo_extracto.xlsx'; },
+      primaryUrl: function () { return '/app/ejemplos/DEXIAE_ejemplo_extracto.xlsx?v=98394895'; },
       isDownload: true
     },
     SENTINEL: {

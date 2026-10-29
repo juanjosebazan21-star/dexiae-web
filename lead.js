@@ -57,7 +57,36 @@
       return q.indexOf('utm_') > -1 ? q : '(directo)';
     }
   }
+  function referenciaVisita() {
+    var bruto = document.referrer || '';
+    if (!bruto) return '(directo)';
+    try {
+      var host = new URL(bruto).hostname || '';
+      var propio = (location.hostname || '').replace(/^www\./i, '').toLowerCase();
+      var externo = host.replace(/^www\./i, '').toLowerCase();
+      return externo && externo !== propio ? host.slice(0, 120) : '';
+    } catch (_) { return ''; }
+  }
+  function contextoVisita() {
+    var entrada = (location.pathname || '/').slice(0, 120);
+    var referente = referenciaVisita();
+    try {
+      var e = sessionStorage.getItem('dx_entrada');
+      var r = sessionStorage.getItem('dx_ref');
+      if (e !== null) entrada = e;
+      else sessionStorage.setItem('dx_entrada', entrada);
+      if (r !== null) referente = r;
+      else sessionStorage.setItem('dx_ref', referente);
+    } catch (_) {}
+    return { entrada: entrada, referente: referente };
+  }
+  function agregarOrigen(fd) {
+    var visita = contextoVisita();
+    fd.append('_entrada', visita.entrada);
+    fd.append('_referente', visita.referente);
+  }
   origenCampana();   /* captura al cargar, no al enviar */
+  contextoVisita();  /* conserva la primera página de esta sesión */
 
   var DEXIAE_LINKS = {
     installer: 'https://github.com/dexiaesoporte-create/dexiae-releases/releases/download/v2.10.1/DEXIAE_Setup_V2.10.1.exe',
@@ -467,6 +496,7 @@
       fd.append('_plan', 'WHATSAPP-' + rama);
       fd.append('_origen', location.pathname);
       fd.append('_utm', origenCampana());
+      agregarOrigen(fd);
       fd.append('_subject', 'Consulta por WhatsApp — ' + rama);
       var res = await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
       if (!res.ok) fallo = 'HTTP ' + res.status;
@@ -774,6 +804,8 @@
      descarga sale igual. Ver functions/api/lead.js y /privacidad (sección 3). */
   function copiaAlCentro(datos) {
     try {
+      var visita = contextoVisita();
+      datos = Object.assign({}, datos || {}, { entrada: visita.entrada, referente: visita.referente });
       fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' },
                            body: JSON.stringify(datos), keepalive: true }).catch(function () {});
     } catch (_) {}
@@ -808,6 +840,7 @@
       fd.append('_billing', billing());
       fd.append('_origen', location.pathname);   /* de qué página vino el lead */
       fd.append('_utm', origenCampana());        /* de qué pieza/campaña vino */
+      agregarOrigen(fd);
       fd.append('_subject', 'Nuevo lead DEXIAE — ' + currentPlan +
         ((currentPlan === 'CORE' || currentPlan === 'PRO' || currentPlan === 'CONTABLE') ? ' (' + billing() + ')' : '') +
         ((currentPlan === 'CONTABLE' && !fundAgotado()) ? ' · cupo fundador' : '') +
@@ -937,6 +970,7 @@
       fd.append('_plan', CD_PLAN);
       fd.append('_origen', location.pathname);
       fd.append('_utm', origenCampana());
+      agregarOrigen(fd);
       fd.append('_subject', 'Nuevo lead DEXIAE — Control documental' +
         (campoLead(form, 'interes') ? ' · ' + campoLead(form, 'interes') : ''));
       var res = await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });

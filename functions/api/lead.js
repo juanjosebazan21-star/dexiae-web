@@ -9,7 +9,7 @@
 
    POST (lead.js, sin esperar la respuesta: la descarga nunca depende de esto):
      { nombre, email, whatsapp, interes, banco, perfil, volumen, como_llego,
-       plan, billing, origen, utm }
+       plan, billing, origen, utm, entrada, referente }
    → `lead:<fecha ISO>-<azar>` en el KV `USO`, con 180 días de vida: lo que
      no se pasa a la planilla se borra solo.
 
@@ -25,7 +25,8 @@ const VIDA = 180 * 24 * 3600;
 const RE_MAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const RE_ID = /^lead:\d{4}-\d{2}-\d{2}T[\d:.]+Z-[a-z0-9]{6}$/;
 const CAMPOS = { nombre: 120, email: 120, whatsapp: 40, interes: 80, banco: 60, perfil: 60,
-                 volumen: 40, como_llego: 80, plan: 40, billing: 20, origen: 120, utm: 200 };
+                 volumen: 40, como_llego: 80, plan: 40, billing: 20, origen: 120, utm: 200,
+                 entrada: 120, referente: 120 };
 
 function texto(v, max) {
   return String(v == null ? '' : v).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max);

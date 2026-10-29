@@ -33,8 +33,11 @@
   function ss(k, v) { try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch (_) { return null; } }
   function ls(k, v) { try { if (v === undefined) return localStorage.getItem(k); localStorage.setItem(k, v); } catch (_) { return null; } }
   function origenCampana() {                       // igual que lead.js: sessionStorage 'dx_utm'
-    var q = (location.search || '').replace(/^\?/, '');
-    if (q.indexOf('utm_') > -1) ss('dx_utm', q);
+    /* (29/10/2026) sólo los utm_, como lead.js: /privacidad declara «la campaña del enlace» */
+    var q = (location.search || '').replace(/^\?/, '').split('&').filter(function (p) {
+      return /^utm_[a-z]+=/i.test(p);
+    }).join('&');
+    if (q) ss('dx_utm', q);
     return ss('dx_utm') || '(directo)';
   }
   origenCampana();

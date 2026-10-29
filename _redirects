@@ -47,6 +47,11 @@ https://www.getdexiae.com/*    https://getdexiae.com/:splat    301
 # pagina, y sin esto el `_utm` del lead dice "perfil" en los dos casos.
 /ig-hojas    /extractos-bancarios-excel?utm_source=instagram&utm_medium=historia&utm_campaign=historia_hojas    302
 
+# (29/10/2026) Mail de la campaña a contadores. El link largo con utm_ a la
+# vista «delataba» la campaña en el mail; este es el que va en el texto, y
+# lead.js saca los utm_ de la barra apenas los anota.
+/contable    /extractos-bancarios-excel?utm_source=mail&utm_medium=email&utm_campaign=mail_contable_formal    302
+
 # Para agregar un link por campana, copiar el patron:
 # /ig-asientos    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=asientos    302
 # /ig-demo        /app/?utm_source=instagram&utm_medium=bio&utm_campaign=demo                            302

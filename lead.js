@@ -91,6 +91,19 @@
     fd.append('_referente', visita.referente);
   }
   origenCampana();   /* captura al cargar, no al enviar */
+  /* (29/10/2026) Ya anotada la campaña, se sacan los utm_ de la barra: el que
+     entra ve la dirección limpia y, si la copia y la pasa, no arrastra la
+     campaña. Los demás parámetros (p. ej. ?plan=TRIAL) quedan. */
+  (function limpiarBarra() {
+    try {
+      var q = (location.search || '').replace(/^\?/, '');
+      if (!/(^|&)utm_[a-z]+=/i.test(q) || !history.replaceState) return;
+      /* sin sessionStorage la campaña se lee de la URL al enviar: ahí no se limpia */
+      if (!sessionStorage.getItem('dx_utm')) return;
+      var resto = q.split('&').filter(function (p) { return p && !/^utm_[a-z]+=/i.test(p); }).join('&');
+      history.replaceState(history.state, '', location.pathname + (resto ? '?' + resto : '') + location.hash);
+    } catch (_) {}
+  })();
   contextoVisita();  /* conserva la primera página de esta sesión */
 
   var DEXIAE_LINKS = {

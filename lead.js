@@ -30,8 +30,9 @@
   var FORMSPREE_URL = 'https://formspree.io/f/xyklkprd';
 
   /* ── ORIGEN DE LA CAMPAÑA (UTM) ─────────────────────────────
-     Por qué existe: la web NO tiene analítica (ni GA4 ni nada), así que
-     un ?utm_source=instagram en la URL no lo leía nadie. Sin esto no hay
+     Por qué existe: la web no tiene GA4 ni píxeles (sólo Cloudflare Web
+     Analytics, que no guarda la consulta), así que un ?utm_source=instagram
+     en la URL no lo leía nadie. Sin esto no hay
      forma de saber qué reel/carrusel trajo qué lead.
 
      Cómo funciona: se captura en el PRIMER pageview que traiga utm_* y se
@@ -41,13 +42,17 @@
 
      sessionStorage y no cookies a propósito: nada sale del navegador, no
      hay terceros y no cambia lo que promete /privacidad — o sea que no
-     hace falta banner de consentimiento. El dato viaja solo dentro del
-     mail de Formspree, junto al lead.
+     hace falta banner de consentimiento. El dato viaja con el lead: en el
+     mail de Formspree y en la copia de /api/lead (ver /privacidad, sección 3).
 
      Convención de utm_campaign: snake_case, igual al nombre de la pieza en
      la planilla de seguimiento (si no coinciden, no se pueden cruzar).  */
   function origenCampana() {
-    var q = (location.search || '').replace(/^\?/, '');
+    /* (28/10/2026) sólo los utm_*: un fbclid o gclid identifica el clic y
+       no es la campaña; /privacidad declara «la campaña del enlace». */
+    var q = (location.search || '').replace(/^\?/, '').split('&').filter(function (p) {
+      return /^utm_[a-z]+=/i.test(p);
+    }).join('&');
     try {
       if (q.indexOf('utm_') > -1) sessionStorage.setItem('dx_utm', q);
       return sessionStorage.getItem('dx_utm') || '(directo)';

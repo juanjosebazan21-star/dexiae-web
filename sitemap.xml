@@ -67,6 +67,18 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://getdexiae.com/extracto-bbva-excel</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://getdexiae.com/extracto-supervielle-excel</loc>
+    <lastmod>2026-11-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://getdexiae.com/mercado-pago-asientos-excel</loc>
     <lastmod>2026-10-13</lastmod>
     <changefreq>monthly</changefreq>

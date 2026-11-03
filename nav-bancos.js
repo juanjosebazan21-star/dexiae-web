@@ -9,8 +9,10 @@
     ['Santander', '/extracto-santander-excel'],
     ['Banco Macro', '/extracto-macro-excel'],
     ['ICBC', '/extracto-icbc-excel'],
+    ['BBVA Francés', '/extracto-bbva-excel'],
     ['Banco Credicoop', '/extracto-credicoop-excel'],
     ['Banco Patagonia', '/extracto-patagonia-excel'],
+    ['Supervielle', '/extracto-supervielle-excel'],
     ['Banco del Chubut', '/extracto-banco-chubut-excel'],
     ['Mercado Pago', '/mercado-pago-asientos-excel']
   ];

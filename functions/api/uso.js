@@ -23,6 +23,16 @@
    arriba, validados. Un campo con otra forma se descarta.
    ⚠️ Si el KV no está configurado, responde 204 y no hace nada: la app no se
    entera ni se traba.
+
+   (03/11/2026) AVISO POR TELEGRAM: el Centro de control sólo avisa mientras
+   está abierto; desde acá el aviso llega al celular en el momento, con la PC
+   apagada. Se manda con la primera señal de una instalación nueva, con la
+   que vuelve después de TELEGRAM_RETORNO_DIAS días sin uso (3 si no está) y
+   cuando alguien deja su contacto al empezar la prueba. El mensaje lleva
+   edición, versión y días: ni el código de la instalación, ni la licencia,
+   ni el nombre o el contacto. Si sale bien se anota en la ficha
+   (`avisos_web`) y el Centro, al leerla, guarda el evento sin volver a
+   mandarlo. Sin TELEGRAM_TOKEN y TELEGRAM_CHAT no se manda nada.
    ═══════════════════════════════════════════════════════════════════════ */
 const MAX_BODY = 2048;
 const FORMSPREE_REGISTRO = 'https://formspree.io/f/xyklkprd';
@@ -30,9 +40,56 @@ const RE_INST = /^[0-9a-f]{32}$/;
 const RE_LIC = /^[0-9a-f]{64}$/;
 const RE_VER = /^\d{1,2}\.\d{1,2}\.\d{1,3}$/;
 const RE_ED = /^[A-ZÁÉÍÓÚ ()0-9]{3,30}$/;
+const RE_DIA = /^\d{4}-\d{2}-\d{2}$/;
 
 function texto(v, max) {
   return String(v == null ? '' : v).replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, max);
+}
+
+function diasEntre(desde, hasta) {
+  if (!RE_DIA.test(String(desde || '')) || !RE_DIA.test(String(hasta || ''))) return null;
+  return Math.round((Date.parse(hasta + 'T00:00:00Z') - Date.parse(desde + 'T00:00:00Z')) / 86400000);
+}
+
+/* Qué avisar con esta señal. `previa` es la ficha antes de esta señal (null si
+   es la primera vez); `f`, la ficha ya actualizada. */
+export function avisosDeLaSenal(previa, f, hoy, conRegistro, env) {
+  if (f.apagada === hoy) return [];
+  const avisos = [];
+  const detalle = [f.edicion || 'sin edición', f.version ? 'versión ' + f.version : ''].filter(Boolean).join(' · ');
+  if (!previa) {
+    avisos.push({ tipo: 'nueva', texto: 'DEXIAE · instalación nueva\n' + detalle });
+  } else if (previa.ultima !== hoy) {
+    const n = parseInt(env.TELEGRAM_RETORNO_DIAS || '3', 10);
+    const umbral = Number.isFinite(n) && n >= 0 ? n : 3;
+    const salto = diasEntre(previa.ultima, hoy);
+    const sinUso = salto == null ? null : salto - 1;
+    if (sinUso != null && sinUso >= umbral) {
+      avisos.push({ tipo: 'retorno', texto: 'DEXIAE · volvió a usarse después de ' + sinUso +
+        (sinUso === 1 ? ' día' : ' días') + ' sin uso\n' + detalle });
+    }
+  }
+  if (conRegistro) {
+    avisos.push({ tipo: 'registro', texto: 'DEXIAE · alguien empezó la prueba y dejó su contacto\n' +
+      detalle + '\nEl contacto está en el mail.' });
+  }
+  return avisos;
+}
+
+async function avisarPorTelegram(env, clave, f, avisos, hoy) {
+  try {
+    const r = await fetch('https://api.telegram.org/bot' + env.TELEGRAM_TOKEN + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: String(env.TELEGRAM_CHAT),
+        text: avisos.map(a => a.texto).join('\n\n') + '\n\nQueda en el Centro, en Clientes y licencias.' })
+    });
+    if (!r.ok) return;
+    /* recién con el envío confirmado: si falla, el Centro sigue avisando como antes */
+    f.avisos_web = Object.assign({}, f.avisos_web);
+    for (const a of avisos) f.avisos_web[a.tipo] = hoy;
+    await env.USO.put(clave, JSON.stringify(f), { metadata: f });
+  } catch (_) { /* sin Telegram no se traba nada */ }
 }
 
 export async function onRequestPost(context) {
@@ -57,7 +114,9 @@ export async function onRequestPost(context) {
   }
   if (!/^\d{4}-\d{2}-\d{2}$/.test(hoy)) hoy = new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10);
   const clave = 'inst:' + d.instalacion;
-  const f = (await env.USO.get(clave, 'json')) || { primera: hoy, dias: 0 };
+  const guardada = await env.USO.get(clave, 'json');
+  const previa = guardada ? { ultima: guardada.ultima } : null;
+  const f = guardada || { primera: hoy, dias: 0 };
   if (f.ultima !== hoy) f.dias = (f.dias || 0) + 1;
   f.ultima = hoy;
   if (RE_VER.test(String(d.version || ''))) f.version = d.version;
@@ -85,6 +144,10 @@ export async function onRequestPost(context) {
   }
   /* la ficha va también como metadata: el Centro la lista sin una lectura por clave */
   await env.USO.put(clave, JSON.stringify(f), { metadata: f });
+  if (env.TELEGRAM_TOKEN && env.TELEGRAM_CHAT) {
+    const avisos = avisosDeLaSenal(previa, f, hoy, !!contacto, env);
+    if (avisos.length) context.waitUntil(avisarPorTelegram(env, clave, f, avisos, hoy));
+  }
   return new Response(null, { status: 204 });
 }
 

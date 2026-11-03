@@ -137,6 +137,18 @@
     return document.documentElement.classList.contains('fund-agotado');
   }
 
+  /* RESUMEN: adónde va el PDF y con qué asunto o mensaje. El banco es el que
+     quedó en el formulario (viene de la página y se puede cambiar). */
+  var MAIL_RESUMEN = 'contacto@getdexiae.com';
+  var bancoResumen = '';
+  function asuntoResumen() {
+    return 'Resumen ' + (bancoResumen || 'del banco');
+  }
+  function waResumen() {
+    return 'https://wa.me/5493516574188?text=' + encodeURIComponent('Hola! Te mando un resumen ' +
+      (bancoResumen ? 'de ' + bancoResumen : 'del banco') + ' para que me lo devuelvas en Excel con los asientos.');
+  }
+
   /* el toggle mensual/anual sólo existe en la home; en el resto es mensual */
   function billing() {
     try { if (typeof currentBilling !== 'undefined' && currentBilling) return currentBilling; } catch (e) {}
@@ -222,6 +234,25 @@
       primaryUrl: function () { return '/app/ejemplos/DEXIAE_ejemplo_extracto.xlsx?v=98394895'; },
       isDownload: true
     },
+    /* (03/11/2026) «Mandame tu resumen y te devuelvo el Excel», en las páginas
+       por banco. Antes el botón abría WhatsApp directo y no quedaba registrado
+       de qué página venía el pedido: ahora pasa por acá (un dato, mail o
+       WhatsApp; el banco viene de la página) y el éxito ofrece mandar el PDF
+       por mail o por WhatsApp. Lo que se hace con el PDF: /privacidad, sección 5. */
+    RESUMEN: {
+      pill: 'TU RESUMEN · EXCEL CON ASIENTOS',
+      title: 'Mandame el resumen de un mes',
+      sub: 'Dejame tu mail o tu WhatsApp (con uno alcanza) para devolverte el Excel. En el paso siguiente te digo adónde mandar el PDF.',
+      submitBtn: 'Seguir',
+      footNote: 'Lo uso sólo para armarte ese Excel y, cuando te lo devuelvo, borro todo: el resumen, el plan y el Excel.',
+      successTitle: 'Ahora mandame el PDF',
+      successSub: 'El de un mes, tal como lo bajás del home banking. Si querés los asientos con tus cuentas, sumá el plan de cuentas (Excel o .csv, con código y descripción).',
+      primaryLabel: 'Mandarlo por mail',
+      primaryUrl: function () {
+        return 'mailto:' + MAIL_RESUMEN + '?subject=' + encodeURIComponent(asuntoResumen());
+      },
+      isDownload: false
+    },
     SENTINEL: {
       pill: 'SENTINEL · ORGANIZACIONES',
       title: 'Cotización SENTINEL',
@@ -267,10 +298,23 @@
 '.lm-primary:hover{background:var(--ac2)}' +
 '.lm-steps{margin-top:16px;padding:14px;background:var(--paper);border:1px solid var(--pline);border-radius:10px;font-size:13px;color:var(--ink2);line-height:1.55}' +
 '.lm-steps b{color:var(--ink)}.lm-steps ol{margin:6px 0 0 18px}' +
+/* RESUMEN: el segundo canal (WhatsApp) y la dirección escrita, por si el
+   mail no abre solo. [hidden] explícito: el display de la clase le gana. */
+'.lm-wa{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;border-radius:10px;background:#fff;color:var(--ink);border:1px solid var(--pline2);font-weight:600;font-size:14px;margin-top:8px}' +
+'.lm-wa:hover{border-color:#25D366;color:#128C7E}' +
+'.lm-wa svg{width:16px;height:16px;fill:#25D366;flex-shrink:0}' +
+'.lm-dir{margin-top:14px;padding:12px 14px;background:var(--paper);border:1px solid var(--pline);border-radius:10px;font-size:13px;color:var(--ink2);line-height:1.55}' +
+'.lm-dir b{color:var(--ink);overflow-wrap:anywhere}' +
+'.lm-wa[hidden],.lm-dir[hidden]{display:none}' +
+'.lf-resumen{display:flex;flex-direction:column}' +
+'.lf-resumen .f-row{grid-template-columns:minmax(0,1fr);gap:0}' +
+/* mail y WhatsApp juntos, el banco abajo, como en la maqueta */
+'.lf-resumen #lf-banco{order:1}.lf-resumen .lm-submit,.lf-resumen .lm-note{order:2}' +
  '@media(max-width:520px){.lm-overlay{padding:calc(env(safe-area-inset-top) + 12px) 12px calc(env(safe-area-inset-bottom) + 12px);align-items:center}.lm-box{width:100%;max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px);border-radius:14px}.lm-head{padding:18px 18px 0;gap:10px}.lm-body{padding:16px 18px 18px}.f-row{grid-template-columns:minmax(0,1fr);gap:0}.field input,.field select{font-size:16px}.lm-title{font-size:20px}.lm-success{padding:8px 18px 20px}}' +
  '@supports not (height:100dvh){@media(max-width:520px){.lm-box{max-height:calc(100vh - 24px)}}}';
 
   var OPC = '<span style="opacity:.55;text-transform:none;letter-spacing:0">(opcional)</span>';
+  var OPC_CAMBIAR = '<span style="opacity:.55;text-transform:none;letter-spacing:0">(lo podés cambiar)</span>';
   var INTERES_BANCOS = 'Pasar resúmenes bancarios a Excel y asientos';
   /* el campo del banco aparece sólo si lo que quiere resolver son los bancos */
   window.leadInteres = function (v) {
@@ -303,7 +347,7 @@
 '    <option>Verificar firmas digitales</option>' +
 '    <option>Otra cosa</option>' +
 '   </select></div>' +
-'  <div class="field" id="lf-banco" hidden><label>¿Con qué banco? ' + OPC + '</label>' +
+'  <div class="field" id="lf-banco" hidden><label id="lf-banco-l">¿Con qué banco? ' + OPC + '</label>' +
 '   <input name="banco" type="text" placeholder="Ej.: Galicia, Santander, Macro" autocomplete="off"></div>' +
 '  <div class="f-row">' +
 '   <div class="field"><label>WhatsApp ' + OPC + '</label><input name="whatsapp" type="tel" placeholder="Por si el mail no llega" autocomplete="tel"></div>' +
@@ -329,6 +373,8 @@
 '  <div class="lm-ok-t" id="m-success-title"></div>' +
 '  <p class="lm-ok-s" id="m-success-sub"></p>' +
 '  <a id="m-action-primary" class="lm-primary" target="_blank" rel="noopener noreferrer"></a>' +
+'  <a id="m-action-wa" class="lm-wa" target="_blank" rel="noopener noreferrer" hidden></a>' +
+'  <div class="lm-dir" id="m-dir" hidden></div>' +
 '  <div class="lm-steps" id="m-success-note"><b>Próximos pasos:</b><ol>' +
 '   <li>Instalá el archivo .exe descargado.</li>' +
 '   <li>Abrí DEXIAE — los 14 días de prueba arrancan automáticamente.</li>' +
@@ -703,7 +749,9 @@
     }
   }
 
-  window.openLead = function (plan) {
+  /* RESUMEN: openLead('RESUMEN', 'Santander') — el banco de la página va
+     escrito en el formulario y se puede cambiar */
+  window.openLead = function (plan, banco) {
     currentPlan = planConfig[plan] ? plan : 'TRIAL';
     var c = planConfig[currentPlan];
     /* con los cupos fundadores agotados, el modal deja de hablar de ellos */
@@ -718,9 +766,21 @@
     document.getElementById('m-success').style.display = 'none';
     var f = document.getElementById('lead-form'); if (f) f.reset();
     /* desde Contable lo que quiere resolver ya se sabe: va elegido */
+    var esResumen = (currentPlan === 'RESUMEN');
     var sel = document.getElementById('lf-interes');
-    if (sel) { sel.value = (currentPlan === 'CONTABLE') ? INTERES_BANCOS : ''; window.leadInteres(sel.value); }
-    modoMinimo(currentPlan === 'EJEMPLO');
+    if (sel) { sel.value = (currentPlan === 'CONTABLE' || esResumen) ? INTERES_BANCOS : ''; window.leadInteres(sel.value); }
+    var bIn = f && f.querySelector('[name="banco"]');
+    banco = esResumen ? String(banco || '').trim() : '';
+    if (bIn) bIn.value = banco;
+    var bL = document.getElementById('lf-banco-l');
+    if (bL) bL.innerHTML = esResumen && banco ? 'Banco ' + OPC_CAMBIAR : '¿Con qué banco? ' + OPC;
+    if (f) f.classList.toggle('lf-resumen', esResumen);
+    modoMinimo(currentPlan === 'EJEMPLO' || esResumen);
+    /* con uno alcanza: el WhatsApp no es «opcional», es la otra opción */
+    var waIn = f && f.querySelector('[name="whatsapp"]');
+    var waL = waIn && waIn.closest('.field') && waIn.closest('.field').querySelector('label');
+    if (waL) waL.innerHTML = esResumen ? 'O tu WhatsApp' : 'WhatsApp ' + OPC;
+    if (waIn) waIn.placeholder = esResumen ? 'Tu número' : 'Por si el mail no llega';
     document.getElementById('lead-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
   };
@@ -836,11 +896,14 @@
     var emMin = form && form.querySelector('[name="email"]');
     if (emMin) emMin.setCustomValidity('');   /* el aviso de «mail o WhatsApp» se limpia en cada intento */
     if (form && !form.checkValidity()) { form.reportValidity(); return; }
-    if (currentPlan === 'EJEMPLO' && !campoLead(form, 'email') && !campoLead(form, 'whatsapp')) {
-      emMin.setCustomValidity('Dejanos tu mail o tu WhatsApp (con uno alcanza).');
+    var esResumen = (currentPlan === 'RESUMEN');
+    if ((currentPlan === 'EJEMPLO' || esResumen) && !campoLead(form, 'email') && !campoLead(form, 'whatsapp')) {
+      emMin.setCustomValidity(esResumen ? 'Dejame tu mail o tu WhatsApp (con uno alcanza).'
+                                        : 'Dejanos tu mail o tu WhatsApp (con uno alcanza).');
       emMin.reportValidity();
       return;
     }
+    if (esResumen) bancoResumen = campoLead(form, 'banco').slice(0, 60);
     var c = planConfig[currentPlan] || planConfig.TRIAL;
     var btn = document.getElementById('m-submit');
     btn.textContent = 'Procesando...'; btn.disabled = true;
@@ -862,7 +925,8 @@
       fd.append('_subject', 'Nuevo lead DEXIAE — ' + currentPlan +
         ((currentPlan === 'CORE' || currentPlan === 'PRO' || currentPlan === 'CONTABLE') ? ' (' + billing() + ')' : '') +
         ((currentPlan === 'CONTABLE' && !fundAgotado()) ? ' · cupo fundador' : '') +
-        (campoLead(form, 'interes') ? ' · ' + campoLead(form, 'interes') : ''));
+        (esResumen ? (bancoResumen ? ' · ' + bancoResumen : '')
+                   : (campoLead(form, 'interes') ? ' · ' + campoLead(form, 'interes') : '')));
       var res = await fetch(FORMSPREE_URL, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
       if (!res.ok) fallo = 'HTTP ' + res.status;   /* cuota agotada, rate limit, filtro de spam */
     } catch (err) {
@@ -885,8 +949,27 @@
       primary.href = url;
       primary.style.opacity = ''; primary.style.pointerEvents = '';
       if (c.isDownload) primary.setAttribute('download', ''); else primary.removeAttribute('download');
+      /* un mailto: con target=_blank deja una pestaña vacía en algunos navegadores */
+      if (/^mailto:/i.test(url)) primary.removeAttribute('target'); else primary.setAttribute('target', '_blank');
     }
     document.getElementById('m-success-note').style.display = (currentPlan === 'TRIAL') ? '' : 'none';
+    var maWa = document.getElementById('m-action-wa'), mDir = document.getElementById('m-dir');
+    if (maWa) {
+      maWa.hidden = !esResumen;
+      if (esResumen) { maWa.href = waResumen(); maWa.innerHTML = WA_SVG + 'Mandarlo por WhatsApp'; }
+    }
+    if (mDir) {
+      mDir.hidden = !esResumen;
+      /* la dirección escrita, por si el botón no abre ningún programa de correo;
+         el banco lo escribió la persona: va como texto, nunca como HTML */
+      if (esResumen) {
+        mDir.textContent = '';
+        mDir.appendChild(document.createTextNode('Por mail, adjuntalo a '));
+        var bMail = document.createElement('b'); bMail.textContent = MAIL_RESUMEN; mDir.appendChild(bMail);
+        mDir.appendChild(document.createTextNode(' con el asunto «' + asuntoResumen() + '». Si me pasás el plan, ' +
+          'le asigno una cuenta de tu plan a cada categoría y al banco; lo que no tenga una cuenta clara queda marcado para revisar.'));
+      }
+    }
     if (c.isDownload && url) { try { primary.click(); } catch (_) {} }
     if (currentPlan === 'EJEMPLO') {          /* la invitación a mandar un resumen, en la home */
       var tras = document.getElementById('mp-tras');

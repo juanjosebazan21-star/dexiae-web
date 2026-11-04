@@ -794,189 +794,27 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
   padding-left:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
 .hero-mini .d{color:#333C4C}
 
-/* ══ ESCENA · línea de auditoría ══════════════════════════════════════
-   PDF 12 del lote → reglas «Cierre de mes» → fila 12 del Excel → Informe.
-   14 s, sólo transform/opacity. El estilo BASE es el cuadro final: sin JS
-   o con reduced-motion se ve el lote terminado.
-   ⚠️ Lienzo fijo de 64×46 em (1 em = 10 px) escalado por transform desde
-   el JS: no depende de la grilla del hero y no mueve el layout (CLS 0).
-   ⚠️ Planos siempre paralelos (uno girado hace que Chrome parta capas);
-   opacity/overflow sólo en hojas: en un preserve-3d aplanan el 3D. */
-.hero-esc{perspective:none;aspect-ratio:64/46;max-height:470px}
-.hero-esc::before{content:none}
-.z-fit{position:absolute;left:50%;top:50%;width:64em;height:46em;margin:-22.6em 0 0 -32em;font-size:10px;
- transform:scale(var(--k,.99));perspective:120em;perspective-origin:50% 36%;
- --cs:1;--cx:-1.25em;--iz:7em;--ax:-13.6em;--ay:-2.4em;--az:8.5em;--mx:-1.4em;--my:-1em;--bx:18.65em;--by:-1.05em;
- --i0:-23.2em;--j0:-6.1em;--i1:-4.85em;--j1:-3.5em;
- --l1:rgba(150,180,235,.14);--l2:rgba(150,180,235,.07);
- --r0:translate3d(var(--ax),var(--ay),var(--az)) scale(.6);--n0:translate3d(var(--i0),var(--j0),-1em) scale(.45)}
-@media (max-width:1299px){.z-fit{--k:.72}}
-@media (max-width:980px){.z-fit{--k:.87}}
-@media (max-width:820px){.hero-esc{max-height:380px}.z-fit{--k:.82}}
-.z-par,.z-cam,.z-dk{transform-style:preserve-3d}
-.z-par,.z-cam{position:absolute;inset:0}
-.z-par{transition:transform .9s cubic-bezier(.2,.7,.3,1)}
-.z-cam{transform:rotateX(calc(-9.5deg*var(--cs))) rotateY(calc(-10deg*var(--cs))) translate3d(var(--cx),-.5em,-2em);
- animation:zCam 14s cubic-bezier(.45,.05,.35,1) infinite}
-.z-st{position:absolute;bottom:9em}
-.z-cp{position:absolute;left:.1em;top:-2.4em;font:500 .8em/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#7C88A0;white-space:nowrap}
-.z-cp b{font-weight:500;color:#8FB4F0;margin-right:.6em}
-.z-pn{border-radius:.8em;border:1px solid rgba(150,180,235,.22);color:#A9B4C9;
- background:linear-gradient(155deg,rgba(130,165,235,.13),transparent 40%),linear-gradient(#18243D,#0F1829);
- box-shadow:0 2.4em 4.6em -2em rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.08)}
-.hero-esc i,.hero-esc em{font-style:normal}
-/* 01 · la carpeta: Factura A con QR; la de arriba se levanta y se lee */
-.z-dk{left:1.5em;width:15em;height:19.8em;transform:translateZ(3em)}
-.z-pg{position:absolute;inset:0;border-radius:.4em;background:#D3D5D0;
- box-shadow:0 1.2em 2.4em -1.2em rgba(0,0,0,.85),inset 0 0 0 1px rgba(0,0,0,.12)}
-.z-pg:nth-child(2){transform:translate3d(-1.2em,-1.3em,-4.5em) rotate(-2deg);background:#B9BCB7}
-.z-pg:nth-child(3){transform:translate3d(-.8em,-.85em,-3em) rotate(-.8deg);background:#C6C8C3}
-.z-pg:nth-child(4){transform:translate3d(-.4em,-.4em,-1.5em) rotate(1deg)}
-.z-dc{padding:1.5em 1.4em;overflow:hidden;font-size:.7em;line-height:1.35;color:#1D2433;
- background:linear-gradient(168deg,#FFFFFE,#ECEDE9);animation:zLift 14s cubic-bezier(.3,.7,.3,1) infinite}
-.z-ih{display:flex;justify-content:space-between;gap:.6em;padding-bottom:1em;border-bottom:1px solid #CFD1CB;color:#4A5160}
-.z-ih b{display:block;font-size:1.1em;color:#1D2433}
-.z-ia{flex:none;width:2.4em;height:2.4em;border:1.5px solid;text-align:center;font:700 1.5em/2.3em var(--disp);color:#1D2433}
-.z-ir{text-align:right;font-family:var(--mono);font-size:.9em}
-.z-dc p{margin-top:.9em;font-family:var(--mono);color:#3A4150}
-.z-ln{display:block;height:.45em;border-radius:.3em;background:#D9DBD5;margin-top:1em}
-.z-it{display:flex;align-items:flex-end;gap:1em;margin-top:1.6em;padding-top:1.1em;border-top:1px solid #CFD1CB}
-.z-it svg{width:5.6em;flex:none}
-.z-it div{flex:1;display:flex;flex-direction:column;align-items:flex-end;gap:.75em;font-family:var(--mono)}
-.z-tt{font-size:1.2em;font-weight:700}
-/* campos leídos: recuadro azul como en la Revisión real, al pasar la banda */
-.z-f{position:relative}
-.z-f::after{content:"";position:absolute;inset:-.3em -.42em;border:1px solid #3B82F6;border-radius:.3em;
- background:rgba(59,130,246,.12);animation:zBox 14s ease-out var(--d) infinite backwards}
-.z-sc{position:absolute;left:0;right:0;top:0;height:4.5em;opacity:0;border-bottom:1px solid rgba(59,130,246,.7);
- background:linear-gradient(rgba(96,165,250,0),rgba(96,165,250,.18) 70%,rgba(96,165,250,.45));animation:zScan 14s linear infinite}
-/* 02 · validación: el registro se detiene y las reglas del set lo revisan */
-.z-gt{left:18em;width:15em;height:25.5em}
-.z-tb{display:flex;align-items:center;gap:.5em;height:2.9em;padding:0 1.15em;border-bottom:1px solid var(--l1);
- font:600 .82em/1 var(--disp);letter-spacing:.05em;color:#DCE6F5}
-.z-tb::before,.z-nh span::before{content:"";width:1.5em;height:1.1em;
- background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 18' fill='none' stroke='%233B82F6' stroke-width='2.6' stroke-linecap='round'%3E%3Cpath d='M2 5h4M2 9h6M2 13h4M11 2l6 7-6 7'/%3E%3C/svg%3E") 0/contain no-repeat}
-.z-tb em,.z-gh span,.z-ch em,.z-nh em,.z-nv em{line-height:1;padding:.4em .6em;border-radius:1em}
-.z-tb em{margin-left:auto;font:500 .85em var(--mono);letter-spacing:0;color:#9FE8D4;background:rgba(61,217,182,.1)}
-.z-gh{padding:1.2em 1.1em 0;font:600 1.1em/1 var(--disp);color:#EDF2FA}
-.z-gh span{display:inline-block;margin-top:.6em;font:500 .62em var(--sans);color:#A5B9DB;background:rgba(96,165,250,.12);border:1px solid rgba(96,165,250,.26)}
-.z-rl{display:flex;gap:.65em;margin:1.05em 1.1em 0;font-size:.88em;line-height:1.3;color:#C9D3E3}
-.z-rl+.z-rl{padding-top:1.05em;border-top:1px solid var(--l2)}
-.z-rl i{position:relative;flex:none;width:1.45em;height:1.45em;border-radius:50%;border:1.5px solid #3A4660}
-.z-rl i::after{content:"";position:absolute;inset:-1.5px;border-radius:50%;
- background:#39C07C url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 6.2l2 2 4-4.4' fill='none' stroke='%2306240F' stroke-width='1.8'/%3E%3C/svg%3E")}
-.z-rl em{display:block;font-size:.9em;color:#39C07C}
-/* una keyframe por regla: entran escalonadas pero se apagan juntas */
-.z-rl i::after,.z-rl em{animation:zC1 14s cubic-bezier(.2,.8,.3,1.2) infinite}
-.z-r2 i::after,.z-r2 em{animation-name:zC2}.z-r3 i::after,.z-r3 em{animation-name:zC3}
-.z-sl{position:absolute;left:1.1em;right:1.1em;bottom:1.1em;height:4.6em;padding:.6em .7em;border-radius:.5em;
- border:1px dashed rgba(150,180,235,.22);background:rgba(4,8,18,.35);font:500 .72em/1 var(--mono);letter-spacing:.06em;color:#5F6B82}
-.z-ch{position:absolute;left:18.6em;top:33.05em;width:13.6em;height:2.6em;display:flex;align-items:center;gap:.8em;padding:0 .45em 0 .9em;
- border-radius:.45em;font-family:var(--mono);color:#EAF2FF;white-space:nowrap;opacity:0;transform:translateZ(1em);
- background:linear-gradient(90deg,#2459CC,#1C4396);box-shadow:0 1.2em 2.4em -1em rgba(0,0,0,.9),0 0 0 1px rgba(140,190,255,.5);
- animation:zRec 14s cubic-bezier(.55,0,.25,1) infinite}
-.z-ch span,.z-ch b{font-size:.8em}.z-ch b{color:#9FE8D4}
-.z-ch em{margin-left:auto;font:700 .74em var(--mono);color:#39C07C;border-radius:.35em;background:#0E2A1F;border:1px solid rgba(57,192,124,.6);animation:zStamp 14s cubic-bezier(.2,.9,.3,1.3) infinite}
-/* 03 · Excel auditado */
-.z-xl{left:34em;width:29.5em;transform:translateZ(-3em)}
-.z-xh{display:flex;align-items:center;gap:.7em;height:3em;padding:0 1em;border-bottom:1px solid var(--l1);font:500 .92em/1 var(--mono);color:#C9D3E3}
-.z-xh i{width:1.75em;border-radius:.3em;background:#137547;color:#fff;font:700 .85em/1.75em var(--sans);text-align:center}
-.z-xh span{margin-left:auto;color:#6B7890;font-size:.88em}
-.z-xg p{position:relative;display:grid;grid-template-columns:2.1em 8.9em 7.1em 1fr 3.6em;align-items:center;height:2em;line-height:2em;
- font-size:1.02em;font-family:var(--mono);color:#AEB9CC;border-bottom:1px solid var(--l2);white-space:nowrap}
-.z-xg i{padding:0 .45em;overflow:hidden;text-overflow:ellipsis;border-left:1px solid var(--l2)}
-.z-xg i:first-child{padding:0;border:0;text-align:center;font-size:.78em;color:#566279;background:rgba(150,180,235,.035)}
-.z-xg i:nth-child(3){text-align:right}
-.z-xg .z-xc{height:2.5em;line-height:2.5em;color:#6A7790;border-bottom-color:var(--l1)}
-.z-xc i{font-size:.68em;letter-spacing:.1em;padding:0 .75em}.z-xc i:last-child{letter-spacing:.02em;padding:0 .4em}
-.z-xg b{justify-self:center;font-size:.74em;font-weight:500;line-height:1;padding:.35em .55em;border-radius:.3em;color:#39C07C;background:rgba(57,192,124,.12)}
-.z-xg .z-k2{color:#60A5FA;background:rgba(96,165,250,.13)}.z-xg .z-k3{color:#E3A33F;background:rgba(227,163,63,.13)}
-.z-xg .z-nd{color:#E3A33F;font-style:italic}
-/* la fila 12 nace vacía y se escribe celda por celda al llegar el registro */
-.z-12 i+i,.z-12 b{animation:zRow 14s ease-out infinite backwards}
-.z-12 i:nth-child(3){animation-delay:.06s}.z-12 i:nth-child(4){animation-delay:.12s}.z-12 b{animation-delay:.18s}
-.z-12::before{content:"";position:absolute;inset:0;background:rgba(96,165,250,.2);box-shadow:inset .22em 0 #60A5FA;opacity:0;animation:zHi 14s ease-out infinite}
-.z-xf{display:flex;gap:1em;align-items:center;height:2.9em;padding:0 1.2em;font:500 .82em/1 var(--mono);color:#7C889C}
-.z-xf b{color:#39C07C;font-weight:500}
-.z-dg{position:relative;display:inline-block;width:.62em;height:1em;overflow:hidden;vertical-align:-.12em}
-.z-dg i{position:absolute;left:0;line-height:1;transform:translateY(-1.2em);animation:zDg 14s cubic-bezier(.5,0,.2,1) infinite}
-.z-dg i+i{top:1.2em}
-/* 04 · Informe del lote, como el HTML/PDF real. Apoyado sobre el Excel
-   tapa la fila 12 y el pie: ahí se reinician, sin costura visible */
-.z-nf{position:absolute;left:34.2em;top:20.5em;width:29em;padding:1.25em 1.5em 1.1em;border-radius:.7em;color:#1C2333;
- background:linear-gradient(170deg,#FFF,#F1F3F7);box-shadow:0 3em 6em -2em rgba(0,0,0,.92),0 .2em .5em rgba(0,0,0,.3);
- transform:translateZ(var(--iz));animation:zInf 14s cubic-bezier(.3,.75,.25,1) infinite}
-.z-nh{display:flex;align-items:center;justify-content:space-between;font:700 .8em/1 var(--sans);letter-spacing:.06em;color:#2563EB}
-.z-nh span{display:flex;align-items:center;gap:.4em}
-.z-nh em{font:500 .95em var(--mono);letter-spacing:0;color:#3B4557;background:#EEF1F6;border:1px solid #D9DEE8;border-radius:.4em;animation:zSha 14s ease-out infinite}
-.z-nh small{font-size:1em;color:#8A93A5;margin-right:.5em}
-.z-nt{display:block;margin-top:.75em;font:600 1.6em/1.1 var(--disp);letter-spacing:-.01em}
-.z-ns{display:block;margin-top:.35em;font:500 .74em/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:#6B7385}
-.z-nb{margin:.85em -1.5em 0;padding:.65em 1.5em;border-top:2px solid #2563EB;background:#EAF1FE;font-size:.86em;color:#334}
-.z-nb b{color:#1D4ED8}
-.z-nk{display:grid;grid-template-columns:repeat(4,1fr);gap:.5em;margin-top:.9em}
-.z-nk span{border:1px solid #DEE3EC;border-radius:.45em;padding:.45em .6em;font-size:.72em;line-height:1.2;color:#5B6475}
-.z-nk b{display:block;font:600 1.9em/1.1 var(--disp);color:#9AA3B2}
-.z-nk :nth-child(1) b{color:#1F9D63}.z-nk :nth-child(2) b{color:#2563EB}.z-nk :nth-child(3) b{color:#B7791F}
-.z-nr{display:flex;height:.34em;margin-top:.75em;border-radius:.2em;overflow:hidden;background:#E5E9F0}
-.z-nr i{width:75%;background:#2E9E5F;transform-origin:0;animation:zBar 14s cubic-bezier(.3,.7,.2,1) infinite}
-.z-nr i+i{width:16.67%;background:#2563EB}.z-nr i+i+i{width:8.33%;background:#D69A36}
-.z-nv{display:flex;align-items:center;gap:.6em;margin-top:1em;font-size:.8em;color:#2B3344}
-.z-nv em{font:700 .82em var(--sans);color:#C0392B;background:#FCE8E6}
-.z-nv u{margin-left:auto;text-decoration:none;font-family:var(--mono);color:#6B7385}
-/* celular: la misma línea en 36×40 em; mismas keyframes, otros recorridos.
-   Los del informe van en px: ahí 1 em ya no es el del lienzo (font-size .72) */
-@media (max-width:600px){
- .hero-esc{aspect-ratio:36/40;margin:26px -16px 0;width:auto;max-width:none;justify-self:stretch}
- .z-fit{width:36em;height:40em;margin:-18.9em 0 0 -18em;--k:.9;--cs:.6;--cx:-.9em;perspective:130em;perspective-origin:50% 45%;
-  --ax:1.2em;--ay:-23.1em;--az:6em;--mx:.6em;--my:-18em;--bx:16.35em;--by:-7.75em;
-  --iz:40px;--i0:-176px;--j0:26px;--i1:-31px;--j1:10px}
- .z-dk{left:2.6em;bottom:31.2em;font-size:.72em}
- .z-dk .z-cp{font-size:1.11em;top:-3em}
- .z-gt{left:1.6em;top:22.9em;width:15.3em;height:20.6em;font-size:.9em}
- .z-gt .z-cp{font-size:.89em}
- .z-rl em,.z-xg i:nth-child(4),.z-ch b{display:none}
- .z-rl{margin-top:.75em}.z-rl+.z-rl{padding-top:.75em}
- .z-gh{padding-top:1em}
- .z-xl{left:15.4em;top:2.2em;width:20.2em}
- .z-xl,.z-gt{bottom:auto}
- .z-xg p{grid-template-columns:1.6em 9em 7.1em 1fr;font-size:.94em}
- .z-ch{left:1.85em;top:35.4em;width:12.6em}
- .z-nf{left:22.2em;top:27.8em;width:27.5em;font-size:.72em}
-}
-/* ── coreografía (% de 14 s) ── */
-@keyframes zCam{
-0%,100%{transform:rotateX(calc(-11deg*var(--cs))) rotateY(calc(-14deg*var(--cs))) translate3d(var(--cx),0,-4em)}
-55%,82%{transform:rotateX(calc(-9.5deg*var(--cs))) rotateY(calc(-10deg*var(--cs))) translate3d(var(--cx),-.5em,-2em)}}
-@keyframes zLift{0%,2.5%,36%,100%{transform:none}7.5%,30%{transform:translate3d(.5em,-1.6em,7em)}}
-@keyframes zScan{0%,7%{opacity:0;transform:translateY(-4.5em)}8%{opacity:1}17%{opacity:1;transform:translateY(29em)}18.5%,100%{opacity:0;transform:translateY(29em)}}
-@keyframes zBox{0%{opacity:0;transform:scale(1.3)}2%,21%{opacity:1;transform:none}23.5%,100%{opacity:0}}
-@keyframes zC1{0%,25%{opacity:0;transform:scale(.4)}27%,90%{opacity:1;transform:none}92%,100%{opacity:0}}
-@keyframes zC2{0%,27.5%{opacity:0;transform:scale(.4)}29.5%,90%{opacity:1;transform:none}92%,100%{opacity:0}}
-@keyframes zC3{0%,30%{opacity:0;transform:scale(.4)}32%,90%{opacity:1;transform:none}92%,100%{opacity:0}}
-/* el registro pasa por encima del PDF y de la validación: nunca los cruza */
-@keyframes zRec{
-0%,17%,43%,100%{opacity:0;transform:var(--r0)}
-18.5%{opacity:1;transform:translate3d(var(--ax),var(--ay),calc(var(--az) + .5em)) scale(.8)}
-21.5%{transform:translate3d(var(--mx),var(--my),calc(var(--az) + 1em))}
-24.5%,34%{transform:translateZ(1em)}
-37.5%{transform:translate3d(calc(var(--bx)*.8),var(--by),1.5em) scale(.98)}
-41%{opacity:1;transform:translate3d(var(--bx),var(--by),-2.7em) scale(.97)}
-42%{opacity:0;transform:translate3d(var(--bx),var(--by),-2.7em) scale(.97)}}
-@keyframes zStamp{0%,32%{opacity:0;transform:scale(1.7)}33.5%,100%{opacity:1;transform:none}}
-@keyframes zRow{0%,40.5%{opacity:0;transform:translateX(-.5em)}42%,67%{opacity:1;transform:none}68%,100%{opacity:0}}
-@keyframes zHi{0%,41%,58%,100%{opacity:0}42.5%{opacity:1}}
-@keyframes zDg{0%,42%,68%,100%{transform:none}44%,67.5%{transform:translateY(-1.2em)}}
-/* el informe nace tapado por la validación y vuelve ahí: no cruza planos */
-@keyframes zInf{
-0%,43%,96%,100%{opacity:0;transform:var(--n0)}
-43.5%,95.5%{opacity:1;transform:var(--n0)}
-47.5%,92%{transform:translate3d(var(--i1),var(--j1),-1em) scale(.7)}
-52%,88%{transform:translateZ(var(--iz))}}
-@keyframes zBar{0%,52%{transform:scaleX(0)}58%,100%{transform:none}}
-@keyframes zSha{0%,57%{opacity:0}60%,100%{opacity:1}}
-.z-off,.z-off *,.z-off ::before,.z-off ::after{animation-play-state:paused!important}
-@media (prefers-reduced-motion:reduce){.hero-esc ::before,.hero-esc ::after{animation:none!important}}
+/* ══ VIDEO DEL HERO (04/11/2026) ══════════════════════════════════════
+   Corrida real del motor (redes/reel-bancos-nuevos, composiciones Hero y
+   HeroMovil): 16:9 en escritorio, 4:5 en el celular. El póster es lo que
+   pinta primero; el video baja recién después del load y si el hero se ve,
+   no arranca solo con reduced-motion o ahorro de datos, y se pausa fuera de
+   pantalla o con la pestaña oculta. */
+.hv{margin:0;min-width:0;width:100%;justify-self:end}
+.hv-v{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#0B1120;
+ box-shadow:0 40px 80px rgba(0,0,0,.45),0 0 0 1px var(--line)}
+.hv-v img,.hv-v video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hv-v video{opacity:0;transition:opacity .4s ease}
+.hv-on .hv-v video{opacity:1}
+.hv-p{position:absolute;right:10px;bottom:10px;width:34px;height:34px;border-radius:17px;border:0;
+ background:rgba(11,17,32,.62);color:#fff;display:grid;place-items:center;cursor:pointer}
+.hv-p:hover{background:rgba(11,17,32,.85)}
+.hv-p:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.hv-p .i-play,.hv-p.es-play .i-pausa{display:none}
+.hv-p.es-play .i-play{display:block}
+.hv figcaption{font-family:var(--mono);font-size:11px;color:#7C879B;margin-top:12px;line-height:1.5}
+@media (max-width:980px){.hv{justify-self:center;max-width:640px}}
+@media (max-width:600px){.hv-v{aspect-ratio:4/5}}
 @media (max-width:980px){
   .hero-in{grid-template-columns:1fr;gap:30px}
   .hero-marca{width:380px;height:380px;left:auto;right:-8%;bottom:-14%}
@@ -995,10 +833,6 @@ table.cmp thead th{padding:6px 0 12px;vertical-align:bottom;position:sticky;
   .movil-puente{display:block}
 }
 @media (min-width:821px){ .movil-puente{display:none} }
-/* En el celular la escena queda debajo de los botones: que el navegador no la
-   calcule ni la dibuje hasta que se acerque a la pantalla. Sin esto, el primer
-   dibujado de la página se demoraba ~140 ms (Lighthouse celular 95 → 87). */
-@media (max-width:820px){ .hero-esc{content-visibility:auto} }
 
 .movil-puente{margin:18px 0 0;padding-left:20px}
 .mp-tit{font-family:var(--mono);font-size:10px;letter-spacing:.11em;
@@ -1228,85 +1062,45 @@ html.fund-agotado .fund-off{display:revert}
   </div>
  </div>
 
- <!-- Escena decorativa: el PDF 12 del lote pasa por las reglas y escribe la
-      fila 12. 12 PDF = 12 filas = 9 OK + 2 DUP + 1 REV (la REV es la sin CAE). -->
- <div class="hviz hero-esc" aria-hidden="true"><div class="z-fit"><div class="z-par"><div class="z-cam">
-  <div class="z-st z-dk">
-   <span class="z-cp" style="top:-4em"><b>01</b>Tu carpeta · 12 PDF</span>
-   <i class="z-pg"></i><i class="z-pg"></i><i class="z-pg"></i>
-   <div class="z-pg z-dc">
-    <div class="z-ih"><span><b>Distribuidora Norte SRL</b>Córdoba</span><span class="z-ia">A</span>
-     <span class="z-ir"><b>FACTURA</b>N.º 0003-00001289</span></div>
-    <p><span class="z-f" style="--d:1.32s">CUIT 30-22222222-8</span></p>
-    <p><span class="z-f" style="--d:1.42s">Fecha 18/06/2026</span></p>
-    <i class="z-ln" style="width:88%"></i><i class="z-ln" style="width:64%"></i><i class="z-ln" style="width:76%"></i><i class="z-ln" style="width:52%"></i>
-    <div class="z-it"><svg viewBox="0 0 13 13" fill="none" stroke="currentColor" shape-rendering="crispEdges"><path d="M0 .5h5m1 0h1m1 0h5M0 1.5h1m3 0h1m3 0h1m3 0h1M0 2.5h1m1 0h1m1 0h1m3 0h1m1 0h1m1 0h1M0 3.5h1m3 0h1m1 0h1m1 0h1m3 0h1M0 4.5h5m3 0h5M0 6.5h1m3 0h3m2 0h1M7 7.5h2m1 0h3M0 8.5h5m1 0h3m3 0h1M0 9.5h1m3 0h1m2 0h2M0 10.5h1m1 0h1m1 0h1m1 0h4m1 0h1M0 11.5h1m3 0h1m1 0h1m2 0h2m1 0h1M0 12.5h5m2 0h2m2 0h2"/></svg>
-     <div><span class="z-f z-tt" style="--d:2.16s">TOTAL $ 51.980,00</span><span class="z-f" style="--d:2.24s">CAE 75112233440017</span></div></div>
-    <i class="z-sc"></i>
-   </div>
+ <!-- Video del hero (04/11/2026): corrida REAL del motor sobre un resumen de
+      ejemplo con datos ficticios (redes/reel-bancos-nuevos, TEXTO_PANTALLA_HERO.md).
+      Mudo y en loop; el póster va en <picture> para que sea lo primero que pinta. -->
+ <figure class="hv" data-hv>
+  <div class="hv-v">
+   <picture>
+    <source media="(max-width:600px)" srcset="/video/hero-corrida-4x5.webp?v=848f3303" width="1080" height="1350">
+    <img src="/video/hero-corrida-16x9.webp?v=2402e2c1" width="1280" height="720" alt="Corrida real de DEXIAE: el PDF de un resumen de ejemplo pasa a un Excel con la cadena de saldos verificada, la agrupación por categoría y el borrador de asientos." fetchpriority="high" decoding="async">
+   </picture>
+   <video muted loop playsinline preload="none" aria-hidden="true" tabindex="-1"
+     data-d="/video/hero-corrida-16x9.mp4?v=7b5fc720" data-m="/video/hero-corrida-4x5.mp4?v=8c0e28de"></video>
+   <button type="button" class="hv-p" aria-label="Pausar el video" hidden>
+    <svg class="i-pausa" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="5" y="4" width="5" height="16" rx="1"></rect><rect x="14" y="4" width="5" height="16" rx="1"></rect></svg>
+    <svg class="i-play" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4l13 8-13 8z"></path></svg>
+   </button>
   </div>
-
-  <div class="z-st z-gt z-pn">
-   <span class="z-cp"><b>02</b>Validación</span>
-   <div class="z-tb">DEXIAE<em>100% local</em></div>
-   <p class="z-gh">Reglas del set<br><span>«Cierre de mes»</span></p>
-   <p class="z-rl z-r1"><i></i><span>Campos obligatorios<em>Completos</em></span></p>
-   <p class="z-rl z-r2"><i></i><span>R1 · CAE no puede quedar sin dato<em>Conforme</em></span></p>
-   <p class="z-rl z-r3"><i></i><span>Duplicados en lote e historial<em>Sin coincidencias</em></span></p>
-   <span class="z-sl">doc. 12 de 12</span>
-  </div>
-  <div class="z-ch"><span>30-22222222-8</span><b>51.980,00</b><em>OK</em></div>
-
-  <div class="z-st z-xl z-pn">
-   <span class="z-cp"><b>03</b>Excel auditado</span>
-   <div class="z-xh"><i>X</i>lote_2026-06.xlsx<span>12 filas</span></div>
-   <div class="z-xg">
-    <p class="z-xc"><i></i><i>CUIT</i><i>TOTAL</i><i>CAE</i><i>ESTADO</i></p>
-    <p><i>1</i><i>30-11111111-9</i><i>124.500,00</i><i>75260181590830</i><b>OK</b></p>
-    <p><i>2</i><i>33-11111111-9</i><i>86.200,00</i><i>71661318609139</i><b>OK</b></p>
-    <p><i>3</i><i>30-11111111-9</i><i>124.500,00</i><i>75260181590830</i><b class="z-k2">DUP</b></p>
-    <p><i>4</i><i>27-33333333-4</i><i>9.340,00</i><i>70996030824628</i><b>OK</b></p>
-    <p><i>5</i><i>30-44444444-6</i><i>212.744,10</i><i>71948219935181</i><b>OK</b></p>
-    <p><i>6</i><i>33-44444444-5</i><i>37.600,00</i><i class="z-nd">sin dato</i><b class="z-k3">REV</b></p>
-    <p><i>7</i><i>30-55555555-5</i><i>18.150,00</i><i>79093786579754</i><b>OK</b></p>
-    <p><i>8</i><i>30-66666666-4</i><i>64.020,00</i><i>73231948757491</i><b>OK</b></p>
-    <p><i>9</i><i>27-33333333-4</i><i>9.340,00</i><i>70996030824628</i><b class="z-k2">DUP</b></p>
-    <p><i>10</i><i>30-77777777-2</i><i>145.300,00</i><i>71862527601895</i><b>OK</b></p>
-    <p><i>11</i><i>33-88888888-1</i><i>22.410,00</i><i>75597971147104</i><b>OK</b></p>
-    <p class="z-12"><i>12</i><i>30-22222222-8</i><i>51.980,00</i><i>75112233440017</i><b>OK</b></p>
-   </div>
-   <div class="z-xf"><b><span class="z-dg"><i>8</i><i>9</i></span> OK</b><span>2 duplicados</span><span>1 a revisar</span></div>
-  </div>
-
-  <div class="z-nf">
-   <div class="z-nh"><span>DEXIAE</span><em><small>SHA-256</small>Excel e126…f36a</em></div>
-   <b class="z-nt">Informe del lote</b>
-   <span class="z-ns">lote_2026-06 · 12 documentos · HTML y PDF</span>
-   <p class="z-nb"><b>9 de 12 documentos sin observaciones</b>; 1 para revisar.</p>
-   <div class="z-nk"><span><b>9</b>Sin observaciones</span><span><b>2</b>Duplicados</span><span><b>1</b>Para revisar</span><span><b>0</b>Errores</span></div>
-   <i class="z-nr"><i></i><i></i><i></i></i>
-   <p class="z-nv"><em>ALTA</em>R1 · CAE no puede quedar sin dato<u>1 doc.</u></p>
-  </div>
- </div></div></div></div>
+  <figcaption>Corrida real de DEXIAE con un resumen de ejemplo (datos ficticios), armado con las columnas de BBVA Francés. Categorías y asientos: en CONTABLE, PRO, SENTINEL y la prueba gratis.</figcaption>
+ </figure>
 <script>
-/* Hero · la coreografía es toda CSS; acá sólo se escala el lienzo, se pausa
-   fuera de pantalla o con la pestaña oculta, y hay paralaje con el mouse. */
+/* Video del hero: baja después del load y sólo si el hero se ve; con
+   reduced-motion o ahorro de datos queda el póster y el botón lo arranca. */
 (function(){
- var esc=document.querySelector('.hero-esc'); if(!esc) return;
- var fit=esc.firstElementChild,par=fit.firstElementChild,sec=esc.closest('.hero'),en=1,vis=1,q=0,x=0,y=0,cel=matchMedia('(max-width:600px)');
- if(window.ResizeObserver) new ResizeObserver(function(e){
-  var r=e[e.length-1].contentRect,m=cel.matches;
-  fit.style.setProperty('--k',Math.min(r.width/(m?360:640),r.height/(m?400:460)).toFixed(4));
- }).observe(esc);
- function upd(){esc.classList.toggle('z-off',!(en&&vis))}
- if(window.IntersectionObserver) new IntersectionObserver(function(e){en=e[e.length-1].isIntersecting;upd()}).observe(esc);
- document.addEventListener('visibilitychange',function(){vis=!document.hidden;upd()});
- if(matchMedia('(prefers-reduced-motion:reduce)').matches||!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
- sec.addEventListener('pointermove',function(e){
-  var r=sec.getBoundingClientRect(); x=(e.clientX-r.left)/r.width-.5; y=(e.clientY-r.top)/r.height-.5;
-  q=q||requestAnimationFrame(function(){q=0;par.style.transform='rotateX('+(-y*4).toFixed(2)+'deg) rotateY('+(x*6).toFixed(2)+'deg)'});
- });
- sec.addEventListener('pointerleave',function(){par.style.transform=''});
+ var f=document.querySelector('[data-hv]'); if(!f) return;
+ var v=f.querySelector('video'),b=f.querySelector('.hv-p'),cel=matchMedia('(max-width:600px)');
+ var c=navigator.connection,quieto=matchMedia('(prefers-reduced-motion:reduce)').matches||!!(c&&c.saveData);
+ var src='',pidio=!quieto,en=0;
+ function fuente(){var u=cel.matches?v.getAttribute('data-m'):v.getAttribute('data-d');if(u!==src){src=u;v.src=u}}
+ function play(){fuente();var p=v.play();if(p&&p.catch)p.catch(rot)}
+ function rot(){var q=v.paused;b.setAttribute('aria-label',q?'Reproducir el video':'Pausar el video');b.classList.toggle('es-play',q)}
+ function seguir(){if(pidio&&en&&!document.hidden)play();else if(src)v.pause()}
+ v.addEventListener('playing',function(){f.classList.add('hv-on');rot()});
+ v.addEventListener('pause',rot);
+ b.hidden=false; if(!pidio)rot();
+ b.addEventListener('click',function(){if(v.paused){pidio=1;play()}else{pidio=0;v.pause()}});
+ document.addEventListener('visibilitychange',seguir);
+ if(cel.addEventListener)cel.addEventListener('change',function(){if(src){var a=!v.paused;fuente();if(a)play()}});
+ function mirar(){if(!window.IntersectionObserver){en=1;seguir();return}
+  new IntersectionObserver(function(e){en=e[e.length-1].isIntersecting;seguir()}).observe(f)}
+ if(document.readyState==='complete')mirar();else window.addEventListener('load',mirar);
 })();
 </script>
 </section>

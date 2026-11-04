@@ -36,6 +36,10 @@
 /*.webp
   Cache-Control: public, max-age=86400
 
+# Video del hero (04/11/2026): también con ?v=<huella> en el HTML.
+/*.mp4
+  Cache-Control: public, max-age=86400
+
 # Fuentes propias (antes, Google Fonts). El nombre lleva la versión
 # (inter-v20-…): un archivo nunca cambia con el mismo nombre, así que se
 # puede guardar un año. Si se actualiza una fuente, va con nombre nuevo.

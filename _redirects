@@ -57,6 +57,9 @@ https://www.getdexiae.com/*    https://getdexiae.com/:splat    301
 /contadores    /extractos-bancarios-excel?utm_source=whatsapp&utm_medium=grupo&utm_campaign=grupo_contadores    302
 /documental    /control-documental?utm_source=whatsapp&utm_medium=grupo&utm_campaign=grupo_contadores    302
 
+# (04/11/2026) Mensaje que una usuaria reenvía a colegas por WhatsApp.
+/colegas    /extractos-bancarios-excel?utm_source=whatsapp&utm_medium=recomendacion&utm_campaign=recomendacion_colegas    302
+
 # Para agregar un link por campana, copiar el patron:
 # /ig-asientos    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=asientos    302
 # /ig-demo        /app/?utm_source=instagram&utm_medium=bio&utm_campaign=demo                            302

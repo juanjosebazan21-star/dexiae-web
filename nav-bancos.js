@@ -16,6 +16,12 @@
     ['Banco del Chubut', '/extracto-banco-chubut-excel'],
     ['Mercado Pago', '/mercado-pago-asientos-excel']
   ];
+  /* (04/11/2026) La misma lista sugiere el banco en el formulario (lead.js,
+     <datalist id="lf-bancos-lista">): al calibrar un banco se suma acá y
+     aparece en el menú y en las sugerencias. */
+  window.DX_BANCOS = BANCOS.map(function (b) { return b[0]; });
+  var dl = document.getElementById('lf-bancos-lista');
+  if (dl && !dl.options.length) window.DX_BANCOS.forEach(function (n) { var o = document.createElement('option'); o.value = n; dl.appendChild(o); });
   var CSS = '' +
     '.nav-dd{position:relative;display:inline-flex;align-items:center}' +
     '.nav-dd>a::after{content:"";display:inline-block;width:5px;height:5px;margin-left:7px;' +

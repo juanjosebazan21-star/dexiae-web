@@ -348,7 +348,11 @@
 '    <option>Otra cosa</option>' +
 '   </select></div>' +
 '  <div class="field" id="lf-banco" hidden><label id="lf-banco-l">¿Con qué banco? ' + OPC + '</label>' +
-'   <input name="banco" type="text" placeholder="Ej.: Galicia, Santander, Macro" autocomplete="off"></div>' +
+'   <input name="banco" type="text" placeholder="Ej.: Galicia, Santander, Macro (o el que uses)" autocomplete="off" list="lf-bancos-lista">' +
+/* (04/11/2026) sugerencias mientras escribe (la lista de nav-bancos.js), pero
+   sigue siendo texto libre: varios bancos o uno que todavía no lee. El mail
+   automático reconoce el banco por su nombre. */
+'   <datalist id="lf-bancos-lista"></datalist></div>' +
 '  <div class="f-row">' +
 '   <div class="field"><label>WhatsApp ' + OPC + '</label><input name="whatsapp" type="tel" placeholder="Por si el mail no llega" autocomplete="tel"></div>' +
 '   <div class="field"><label>¿Sos…? ' + OPC + '</label><select name="perfil" autocomplete="off">' +
@@ -770,6 +774,8 @@
     var sel = document.getElementById('lf-interes');
     if (sel) { sel.value = (currentPlan === 'CONTABLE' || esResumen) ? INTERES_BANCOS : ''; window.leadInteres(sel.value); }
     var bIn = f && f.querySelector('[name="banco"]');
+    var dl = document.getElementById('lf-bancos-lista');
+    if (dl && !dl.options.length && window.DX_BANCOS) window.DX_BANCOS.forEach(function (n) { var o = document.createElement('option'); o.value = n; dl.appendChild(o); });
     banco = esResumen ? String(banco || '').trim() : '';
     if (bIn) bIn.value = banco;
     var bL = document.getElementById('lf-banco-l');
@@ -1095,7 +1101,7 @@
   /* (13/10/2026) el desplegable de bancos del menú vive en /nav-bancos.js */
   if (!document.querySelector('script[src^="/nav-bancos.js"]')) {
     var nb = document.createElement('script');
-    nb.src = '/nav-bancos.js?v=20261103'; nb.defer = true;
+    nb.src = '/nav-bancos.js?v=20261104'; nb.defer = true;
     document.head.appendChild(nb);
   }
 })();

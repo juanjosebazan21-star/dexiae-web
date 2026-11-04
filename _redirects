@@ -52,6 +52,11 @@ https://www.getdexiae.com/*    https://getdexiae.com/:splat    301
 # lead.js saca los utm_ de la barra apenas los anota.
 /contable    /extractos-bancarios-excel?utm_source=mail&utm_medium=email&utm_campaign=mail_contable_formal    302
 
+# (04/11/2026) Grupo de WhatsApp de contadores donde una usuaria comparte la web.
+# Mismo criterio que /contable: link corto en el texto, la campaña la anota lead.js.
+/contadores    /extractos-bancarios-excel?utm_source=whatsapp&utm_medium=grupo&utm_campaign=grupo_contadores    302
+/documental    /control-documental?utm_source=whatsapp&utm_medium=grupo&utm_campaign=grupo_contadores    302
+
 # Para agregar un link por campana, copiar el patron:
 # /ig-asientos    /extractos-bancarios-excel?utm_source=instagram&utm_medium=bio&utm_campaign=asientos    302
 # /ig-demo        /app/?utm_source=instagram&utm_medium=bio&utm_campaign=demo                            302

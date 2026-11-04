@@ -55,7 +55,55 @@ export async function onRequestPost(context) {
   l.fecha = new Date().toISOString();
   const clave = 'lead:' + l.fecha + '-' + Math.random().toString(36).slice(2, 8).padEnd(6, '0');
   await env.USO.put(clave, JSON.stringify(l), { metadata: l, expirationTtl: VIDA });
+  if (pideAutomail(l, env)) context.waitUntil(automail(l, env));
   return new Response(null, { status: 204 });
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   (04/11/2026) MAIL AUTOMÁTICO — variante A′ de
+   notas_sesiones6-11-04\PROPUESTA_MAIL_AUTOMATICO_LEADS.md (repo de la app)
+   ═══════════════════════════════════════════════════════════════════════
+   Le pasa el lead a la web app del Apps Script de la planilla (accion
+   «automail», con su propia clave). Ahí se decide TODO: qué planes tienen
+   mail (hoy prueba y resumen), el texto, el tope diario, no repetir en 30
+   días, no escribirle a quien pidió la baja; lo manda desde juan@ y lo carga
+   en la planilla. Acá sólo se reenvía, sin esperar: la respuesta al
+   navegador no depende de esto. Si falla, el lead queda en «Hoy» del Centro
+   como siempre.
+
+   Variables de Cloudflare: AUTOMAIL = «on» (cualquier otra cosa lo apaga),
+   AUTOMAIL_URL (la URL /exec de la web app) y AUTOMAIL_CLAVE (secreto; la
+   muestra crearClaveAutomail() en el editor). Sin las tres no hace nada.
+   ⚠️ Nada nuevo se guarda acá: el KV queda igual que antes.
+   ═══════════════════════════════════════════════════════════════════════ */
+export function pideAutomail(l, env) {
+  return !!(env && env.AUTOMAIL === 'on' && env.AUTOMAIL_URL && env.AUTOMAIL_CLAVE && RE_MAIL.test(l.email || ''));
+}
+
+export async function automail(l, env, f) {
+  const pedir = f || fetch;
+  try {
+    const r = await pedir(env.AUTOMAIL_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(Object.assign({}, l, { accion: 'automail', k: env.AUTOMAIL_CLAVE })),
+      redirect: 'follow'
+    });
+    let d = null;
+    try { d = await r.json(); } catch (_) { d = null; }
+    /* el tope del día: un aviso (sin datos de nadie), sólo la primera vez */
+    if (d && d.error === 'tope' && d.avisar && env.TELEGRAM_TOKEN && env.TELEGRAM_CHAT) {
+      await pedir('https://api.telegram.org/bot' + env.TELEGRAM_TOKEN + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: String(env.TELEGRAM_CHAT),
+          text: 'DEXIAE · se llegó al tope diario de mails automáticos: los leads que siguen hoy quedan sin respuesta automática (están en «Hoy» del Centro).' })
+      });
+    }
+    return d;
+  } catch (_) {
+    return null;   /* sin el Apps Script no se traba nada */
+  }
 }
 
 export async function onRequestGet(context) {

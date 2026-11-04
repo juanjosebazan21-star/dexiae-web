@@ -163,7 +163,7 @@
     TRIAL: {
       pill: 'TRIAL · 14 DÍAS GRATIS',
       title: 'Probá DEXIAE 14 días gratis',
-      sub: 'Dejanos tus datos y descargá el instalador en el acto. Los 14 días arrancan solos al instalar — sin claves, sin emails.',
+      sub: 'Dejanos tus datos y descargá el instalador en el acto. Los 14 días arrancan solos al abrir DEXIAE: sin clave ni confirmación por mail.',
       submitBtn: 'Descargar instalador y empezar',
       /* Decía "Todas las funciones desbloqueadas" y era falso: según EDICIONES
          en dexiae_license.py, el TRIAL no tiene deteccion_auto ni imputacion —

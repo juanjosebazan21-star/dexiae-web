@@ -1468,7 +1468,7 @@ html.fund-agotado .fund-off{display:revert}
  <div class="sh">
   <div class="k">El Centinela</div>
   <h2>Auditoría de PDFs en tiempo real</h2>
-  <p>El Centinela monitorea tu carpeta. Cada PDF que llega se detecta, procesa y clasifica automáticamente — sin que toques nada, y sin que el archivo salga de tu equipo.</p>
+  <p>El Centinela monitorea tu carpeta. Cada PDF que llega se detecta, procesa y clasifica con la plantilla que elegiste — sin que toques nada más, y sin que el archivo salga de tu equipo. Viene en PRO, SENTINEL y la prueba gratis.</p>
   <p class="cent-nota">Lo de abajo es una <b>animación de ejemplo</b> que corre acá mismo, para que veas cómo trabaja el Centinela. Si querés usar la interfaz de verdad, entrá a la <a href="app/">demo online interactiva →</a></p>
  </div>
  <div class="cz" id="cz">
@@ -1482,9 +1482,9 @@ html.fund-agotado .fund-off{display:revert}
   </div>
   <div class="cz-pista" id="cz-pista" aria-hidden="true"><span class="cz-pista-txt">Esperando el próximo PDF…</span></div>
   <div class="cz-bandejas">
-   <div class="cz-b ok"><div class="cz-bh"><span>OK</span><b id="c-ok">0</b></div><p class="cz-bd">Los datos pasan al Excel.</p><div class="cz-bl" id="cz-ok"></div></div>
+   <div class="cz-b ok"><div class="cz-bh"><span>OK</span><b id="c-ok">0</b></div><p class="cz-bd">Sus datos quedan en el Excel.</p><div class="cz-bl" id="cz-ok"></div></div>
    <div class="cz-b dup"><div class="cz-bh"><span>Duplicados</span><b id="c-dup">0</b></div><p class="cz-bd">Ya se había procesado.</p><div class="cz-bl" id="cz-dup"></div></div>
-   <div class="cz-b rev"><div class="cz-bh"><span>Para revisar</span><b id="c-rev">0</b></div><p class="cz-bd">Necesita tu criterio.</p><div class="cz-bl" id="cz-rev"></div></div>
+   <div class="cz-b rev"><div class="cz-bh"><span>Para revisar</span><b id="c-rev">0</b></div><p class="cz-bd">Faltan datos.</p><div class="cz-bl" id="cz-rev"></div></div>
   </div>
   <div class="cz-pie"><span><b id="c-tot">0</b> PDF procesados</span><span aria-hidden="true">·</span><span id="c-scan">—</span></div>
  </div>
@@ -2069,12 +2069,12 @@ function centState(s){
  bd.className='cz-estado '+s;
  if(s==='active'){btn.textContent='Pausar';st.textContent='Vigilando';}
  else if(s==='paused'){btn.textContent='Reanudar';st.textContent='Pausado';}
- else{btn.textContent='Volver a empezar';st.textContent='Lote completo';}
+ else{btn.textContent='Ver de nuevo';st.textContent='Fin del ejemplo';}
 }
 function czDetalle(it){
  if(it.st==='ok') return it.nr+' · '+it.em+' · '+it.f;
  if(it.st==='dup') return 'Igual a '+it.nr+', ya procesado';
- return 'Revisalo a mano';
+ return 'No se leyeron los datos: revisalo a mano';
 }
 function czBump(id){var e=document.getElementById(id);if(!e)return;e.classList.remove('cz-bump');void e.offsetWidth;e.classList.add('cz-bump');}
 function centStep(){

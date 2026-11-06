@@ -1229,7 +1229,10 @@ html.fund-agotado .fund-off{display:revert}
 /* ===== Hero nuevo (06/11/2026): titular afirmativo y escena del producto en lugar del video ===== */
 .hero h1{font-size:clamp(46px,5.6vw,84px);font-weight:700;line-height:.98;letter-spacing:-.045em;max-width:none;margin:22px 0 0}
 .hero h1 em{font-weight:700;background:none;padding-bottom:0}
-.hero .hx-tag{margin-top:0}
+.hero .hx-tag{margin-top:0;text-decoration:none;transition:border-color .2s,background .2s}
+.hero .hx-tag:hover{border-color:rgba(96,165,250,.55);background:rgba(96,165,250,.08)}
+.hx-tag-l{margin-left:4px;padding-left:12px;border-left:1px solid var(--line2);color:var(--ac);font-weight:600}
+@media (max-width:520px){.hx-tag{flex-wrap:wrap;row-gap:4px}.hx-tag-l{border-left:0;padding-left:0;margin-left:18px;flex-basis:100%}}
 .hero .hx-ok{padding-left:20px}
 .hx-tag{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--md);padding:7px 14px 7px 10px;border:1px solid var(--line2);border-radius:999px;background:rgba(150,180,235,.05)}
 .hx-tag i{width:8px;height:8px;border-radius:50%;background:var(--ac);box-shadow:0 0 0 4px rgba(37,99,235,.18)}
@@ -1355,7 +1358,7 @@ html.fund-agotado .fund-off{display:revert}
   <!-- La pastilla con puntito se fue: era el delator número uno y encima
        no decía nada. En su lugar, una línea de especificación con datos
        verificables. -->
-  <span class="hx-tag"><i></i>Software para estudios contables · Windows</span>
+  <a class="hx-tag" href="/que-es-dexiae"><i></i>Software para estudios contables · Windows<span class="hx-tag-l">Qué es DEXIAE →</span></a>
 
   <h1>Tus PDF,<br> en un Excel<br> <em>controlado.</em></h1>
 
@@ -2349,7 +2352,9 @@ function toggleCent(){
     if(!f){lista.classList.remove('fh-hay-act');return;}
     // reinicia las animaciones de la tarjeta para que corran de nuevo
     // si no hay lugar arriba (la barra tapa), la tarjeta sale debajo del renglón
-    if(!tactil()){ f.classList.toggle('fh-abajo', f.getBoundingClientRect().top < 300); }
+    // abre hacia abajo si arriba no hay lugar: por la barra fija o porque la sección recorta lo que sale por su borde
+    if(!tactil()){ var rf=f.getBoundingClientRect(), rs=lista.closest('section').getBoundingClientRect();
+      f.classList.toggle('fh-abajo', rf.top < 300 || (rf.top - rs.top) < 300); }
     f.classList.remove('fh-act'); void f.offsetWidth; f.classList.add('fh-act');
     lista.classList.add('fh-hay-act');
     var c=f.querySelector('.fh-cnt');

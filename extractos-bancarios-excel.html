@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Convertí extractos bancarios de PDF a Excel en segundos y generá el borrador de asientos. En tu computadora, sin internet. 9 bancos y Mercado Pago calibrados.">
+<meta name="description" content="Convertí extractos bancarios de PDF a Excel y generá el borrador de asientos. El PDF se procesa en tu computadora. 9 bancos y Mercado Pago calibrados.">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta name="author" content="DEXIAE">
 <meta name="language" content="es-AR">
@@ -20,7 +20,7 @@
 <meta property="og:url" content="https://getdexiae.com/extractos-bancarios-excel">
 <meta property="og:site_name" content="DEXIAE">
 <meta property="og:title" content="Convertir extracto bancario a Excel en segundos · DEXIAE">
-<meta property="og:description" content="Convertí extractos bancarios de PDF a Excel en segundos y generá el borrador de asientos. En tu computadora, sin internet. 9 bancos y Mercado Pago calibrados.">
+<meta property="og:description" content="Convertí extractos bancarios de PDF a Excel y generá el borrador de asientos. El PDF se procesa en tu computadora. 9 bancos y Mercado Pago calibrados.">
 <meta property="og:image" content="https://getdexiae.com/og/extractos-bancarios-excel.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -376,7 +376,7 @@ html.fund-agotado .fund-off{display:revert}
 {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://getdexiae.com/"},{"@type":"ListItem","position":2,"name":"Extractos bancarios a Excel","item":"https://getdexiae.com/extractos-bancarios-excel"}]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo convierto un extracto bancario de PDF a Excel?","acceptedAnswer":{"@type":"Answer","text":"Abrís DEXIAE, elegís el PDF del resumen y el sistema detecta el banco, arma la tabla de movimientos y exporta la planilla. Todo el proceso corre en tu computadora."}},{"@type":"Question","name":"¿Por qué mi extracto sale mal cuando lo paso con un conversor online?","acceptedAnswer":{"@type":"Answer","text":"Porque un conversor genérico no sabe que ese PDF es un extracto bancario: ve líneas y espacios, y copia formas. De ahí salen las columnas fusionadas, los importes tomados como texto, las fechas dadas vuelta y un movimiento partido en dos filas cuando el detalle es largo. DEXIAE no convierte el PDF: lo lee sabiendo qué es. Reconoce el banco, sabe dónde empieza y termina la tabla de movimientos, descarta la letra chica legal y los anexos de comisiones, y arma las columnas FECHA, DETALLE, IMPORTE y SALDO con los importes como números. La diferencia se puede verificar: DEXIAE recalcula la cadena de saldos fila por fila y avisa «cadena verificada N/N». Un conversor genérico no puede hacerlo, porque para comprobar un saldo hay que entender el documento, no copiarlo."}},{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC, Galicia, BBVA Francés y Supervielle, más la billetera Mercado Pago. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos."}},{"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},{"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},{"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, en DEXIAE Contable y en PRO (y en la prueba gratis de 14 días). En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. La conversión de extractos bancarios es ilimitada en todos los planes, incluida la prueba gratis de 14 días, y no descuenta del cupo de documentos: ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","inLanguage":"es-AR","mainEntity":[{"@type":"Question","name":"¿Cómo convierto un extracto bancario de PDF a Excel?","acceptedAnswer":{"@type":"Answer","text":"Abrís DEXIAE, elegís el PDF del resumen y el sistema detecta el banco, arma la tabla de movimientos y exporta la planilla. Todo el proceso corre en tu computadora."}},{"@type":"Question","name":"¿Por qué mi extracto sale mal cuando lo paso con un conversor online?","acceptedAnswer":{"@type":"Answer","text":"Porque un conversor genérico no sabe que ese PDF es un extracto bancario: ve líneas y espacios, y copia formas. De ahí salen las columnas fusionadas, los importes tomados como texto, las fechas dadas vuelta y un movimiento partido en dos filas cuando el detalle es largo. DEXIAE no convierte el PDF: lo lee sabiendo qué es. Reconoce el banco, sabe dónde empieza y termina la tabla de movimientos, descarta la letra chica legal y los anexos de comisiones, y arma las columnas FECHA, DETALLE, IMPORTE y SALDO con los importes como números. La diferencia se puede verificar: DEXIAE recalcula la cadena de saldos fila por fila y avisa «cadena verificada N/N». Un conversor genérico no puede hacerlo, porque para comprobar un saldo hay que entender el documento, no copiarlo."}},{"@type":"Question","name":"¿Qué bancos reconoce?","acceptedAnswer":{"@type":"Answer","text":"Banco del Chubut, Credicoop, Santander, Patagonia, Macro, ICBC, Galicia, BBVA Francés y Supervielle, más la billetera Mercado Pago. Si tu banco no está en la lista, nos enviás uno o dos resúmenes de muestra y lo calibramos."}},{"@type":"Question","name":"¿Necesito conexión a internet?","acceptedAnswer":{"@type":"Answer","text":"No hace falta. DEXIAE es una aplicación de escritorio para Windows y procesa el archivo en tu propia computadora, así que funciona igual con el equipo desconectado. El resumen no se envía a ningún servidor."}},{"@type":"Question","name":"¿Cómo sé que la conversión no perdió movimientos?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE recalcula la cadena de saldos fila por fila: verifica que el saldo anterior más el movimiento dé el saldo siguiente. Si en alguna fila no cierra, marca en cuál y de cuánto es el desfase."}},{"@type":"Question","name":"¿Genera los asientos contables?","acceptedAnswer":{"@type":"Answer","text":"Sí, en DEXIAE Contable y en PRO (y en la prueba gratis de 14 días). En un movimiento bancario una de las dos cuentas ya se conoce: la del banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de confianza Alta, Media o Revisar."}},{"@type":"Question","name":"¿Con qué sistema contable funciona?","acceptedAnswer":{"@type":"Answer","text":"DEXIAE arma la hoja \"Para importar\" en el formato del sistema que elijas para cada cliente. Nacional Gestión está verificado: una contadora importó el archivo en su sistema. Colppy (con un .csv aparte) y Xubio salen según la documentación de cada sistema, todavía sin probar con un usuario; Holistor (.txt), según una documentación incompleta, así que revisá su \"diseño de registros\" antes de importar. Si tu sistema no está en la lista o no importa asientos, el Excel trae igual los asientos para cargarlos a mano."}},{"@type":"Question","name":"¿Consume mi cupo mensual de documentos?","acceptedAnswer":{"@type":"Answer","text":"No. La conversión de extractos bancarios es ilimitada en todos los planes, incluida la prueba gratis de 14 días, y no descuenta del cupo de documentos: ese cupo cuenta la extracción por plantilla, la autodetección y el Centinela."}}]}
 </script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"VideoObject","name":"Extracto bancario de PDF a Excel y asientos, en tu computadora | DEXIAE Contable","description":"Soltás los resúmenes del banco en PDF y DEXIAE Contable los pasa a Excel controlando la cadena de saldos, clasifica cada movimiento y arma el borrador de asientos con el plan de cuentas de cada cliente. Todo en tu computadora: los resúmenes no se suben a internet.","thumbnailUrl":["https://getdexiae.com/video/dexiae-contable-portada.jpg","https://i.ytimg.com/vi/2OLKYAJxirM/hqdefault.jpg"],"uploadDate":"2026-10-03T00:54:18-07:00","duration":"PT2M28S","inLanguage":"es-AR","embedUrl":"https://www.youtube.com/embed/2OLKYAJxirM","contentUrl":"https://www.youtube.com/watch?v=2OLKYAJxirM","publisher":{"@type":"Organization","name":"DEXIAE","url":"https://getdexiae.com/"}}</script>
 <link rel="stylesheet" href="/site-header.css?v=20261018-mobile1">
@@ -611,8 +611,11 @@ html.fund-agotado .fund-off{display:revert}
 
    <li><span class="ico">⤓</span>
     <div><div class="hn">Para importar <span class="ed espro">CONTABLE · PRO</span></div>
-     <div class="hd">Las <b>9 columnas</b> que entran al sistema contable, sin las ayudas de revisión.
-      Se copia y se pega.</div></div></li>
+     <div class="hd">DEXIAE arma esta hoja en el formato del sistema que elijas para cada cliente.
+      <b>Nacional Gestión</b> está verificado: una contadora importó el archivo en su sistema.
+      Colppy (con un .csv aparte) y Xubio salen según la documentación de cada sistema, todavía sin probar con un usuario;
+      Holistor (.txt), según una documentación incompleta, así que revisá su «diseño de registros» antes de importar.
+      Si tu sistema no está en la lista o no importa asientos, el Excel trae igual los asientos para cargarlos a mano.</div></div></li>
 
    <li><span class="ico">⏸</span>
     <div><div class="hn">Pendientes <span class="ed espro">CONTABLE · PRO</span></div>
@@ -644,7 +647,7 @@ html.fund-agotado .fund-off{display:revert}
      <div><b>Sabés por qué eligió cada cuenta</b>
       <span>Confianza y origen son <b>dos cosas distintas</b>: la confianza es cuánto confiar
        (<b>Alta</b>, <b>Media</b>, <b>Revisar</b>) y el origen es qué la decidió
-       (<b>Memoria CUIT</b>, <b>Categoría</b>, <b>Default</b>). Lo que marcaste para decidir a mano
+       (<b>Memoria CUIT</b>, <b>Categoría</b>, <b>Sin cuenta asignada</b>). Lo que marcaste para decidir a mano
        sale sin cuenta y sin confianza, a propósito: DEXIAE no lo manda en silencio a una cuenta
        cualquiera.</span></div></li>
    </ul>
@@ -811,6 +814,8 @@ html.fund-agotado .fund-off{display:revert}
    <p>Sí, en <b>DEXIAE Contable</b> y en PRO (y en la prueba gratis de 14 días). En un movimiento bancario una de las dos cuentas ya se conoce: la del
     banco. DEXIAE propone automáticamente la contrapartida y arma el borrador del asiento, con nivel de
     confianza Alta, Media o Revisar.</p></details>
+  <details><summary>¿Con qué sistema contable funciona?</summary>
+   <p>DEXIAE arma la hoja “Para importar” en el formato del sistema que elijas para cada cliente. Nacional Gestión está verificado: una contadora importó el archivo en su sistema. Colppy (con un .csv aparte) y Xubio salen según la documentación de cada sistema, todavía sin probar con un usuario; Holistor (.txt), según una documentación incompleta, así que revisá su “diseño de registros” antes de importar. Si tu sistema no está en la lista o no importa asientos, el Excel trae igual los asientos para cargarlos a mano.</p></details>
   <details><summary>¿Consume mi cupo mensual de documentos?</summary>
    <p>No. La conversión de extractos es <b>ilimitada en todos los planes</b> —incluida la prueba
     gratis de 14 días— y <b>no descuenta del cupo de documentos</b>: ese cupo cuenta la extracción
@@ -840,6 +845,7 @@ html.fund-agotado .fund-off{display:revert}
   <a href="/facturas-qr-excel">Facturas por QR</a>
   <a href="/guia-contable">Guía Contable</a>
   <a href="/guia-usuario">Guía del usuario</a>
+  <a href="/que-es-dexiae">Qué es DEXIAE</a>
   <a href="/#precios">Precios</a>
   <a href="mailto:contacto@getdexiae.com">Contacto</a>
  </div>

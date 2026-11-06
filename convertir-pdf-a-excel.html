@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Cómo pasar un PDF a Excel sin que se desarme el formato | DEXIAE</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="/dexiae-mark.svg">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Excel o Word suelen alcanzar para una tabla de una página. Medimos qué se rompe con un resumen bancario, un listado y facturas de varias páginas, y cómo lo resuelve DEXIAE.">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="author" content="DEXIAE">
+<meta name="language" content="es-AR">
+<link rel="canonical" href="https://getdexiae.com/convertir-pdf-a-excel">
+<meta name="theme-color" content="#0B1120">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://getdexiae.com/convertir-pdf-a-excel">
+<meta property="og:site_name" content="DEXIAE">
+<meta property="og:title" content="Cómo pasar un PDF a Excel sin que se desarme el formato | DEXIAE">
+<meta property="og:description" content="Excel o Word suelen alcanzar para una tabla de una página. Medimos qué se rompe con un resumen bancario, un listado y facturas de varias páginas, y cómo lo resuelve DEXIAE.">
+<meta property="og:image" content="https://getdexiae.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="DEXIAE: extractos bancarios y facturas en PDF a Excel, en tu computadora.">
+<meta property="og:locale" content="es_AR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cómo pasar un PDF a Excel sin que se desarme el formato | DEXIAE">
+<meta name="twitter:description" content="Excel o Word suelen alcanzar para una tabla de una página. Medimos qué se rompe con un resumen bancario, un listado y facturas de varias páginas, y cómo lo resuelve DEXIAE.">
+<meta name="twitter:image" content="https://getdexiae.com/og-image.png">
+<!-- Fuentes desde el propio sitio (antes, Google Fonts): una conexión menos antes de
+     pintar el texto y ninguna visita le avisa a Google. Archivos en /fonts/, licencia OFL. -->
+<link rel="preload" href="/fonts/inter-v20-latin.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'Inter';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:700;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'Inter';font-style:normal;font-weight:800;font-display:swap;src:url(/fonts/inter-v20-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin-ext.woff2) format('woff2');unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C4, U+2113, U+2C60-2C7F, U+A720-A7FF}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+@font-face{font-family:'JetBrains Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/jetbrains-mono-v24-latin.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD}
+</style>
+<style>
+:root{
+ --navy:#0B1120;--navy2:#0F1729;--card:#17223A;--line:rgba(150,180,235,.12);--line2:rgba(150,180,235,.20);
+ --hi:#F3F6FC;--md:#A9B4C9;--lo:#6C7791;
+ --ac:#60A5FA;--ac2:#2563EB;--ac-deep:#1D4ED8;--ac-bg:rgba(37,99,235,.14);
+ --ok:#39C07C;--warn:#E3A33F;
+ --cta:#3DD9B6;--cta2:#1D9E75;--cta3:#17805F;--cta-ink:#04211A;
+ --paper:#F7F5EF;--paper2:#FBFAF6;--ink:#151721;--ink2:#565C6B;--ink3:#8A8F9C;
+ --pline:rgba(24,20,12,.10);--pline2:rgba(24,20,12,.16);
+ --sans:'Inter',system-ui,Arial,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;letter-spacing:-.012em;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:13px 22px;border-radius:11px;cursor:pointer;border:none;transition:all .15s}
+/* CTA teal (mismo sistema que la home): el botón de acción se distingue del azul de marca */
+.btn-p{background:linear-gradient(135deg,var(--cta),var(--cta2));color:var(--cta-ink);font-weight:700;
+ box-shadow:0 6px 18px -6px rgba(29,158,117,.5),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-p:hover{background:linear-gradient(135deg,#63E7C9,var(--cta3));transform:translateY(-1px);
+ box-shadow:0 10px 26px -8px rgba(29,158,117,.62),inset 0 1px 0 rgba(255,255,255,.5)}
+.btn-o{background:rgba(243,246,252,.055);color:var(--hi);border:1px solid var(--line2)}
+.btn-o:hover{border-color:var(--ac);background:var(--ac-bg)}
+.btn .pl{display:inline-flex;align-items:center;justify-content:center;width:21px;height:21px;border-radius:50%;
+ background:var(--ac);color:#fff;font-size:8.5px;padding-left:2px;flex:none}
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(11,17,32,.86);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:1300px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px;color:var(--hi)}
+.logo .m{width:28px;height:28px;border-radius:8px;background:var(--ac);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:14px}
+.nav-l{display:flex;align-items:center;gap:26px}
+.nav-l a{color:var(--md);font-size:14.5px;font-weight:500}.nav-l a:hover,.nav-l a.on{color:var(--hi)}
+.nav-demo{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:9px;
+ border:1px solid var(--line2);background:rgba(243,246,252,.05);color:var(--hi)!important}
+.nav-demo:hover{border-color:var(--ac);background:var(--ac-bg)}
+@media(max-width:980px){.nav-demo{display:none}}
+@media(max-width:820px){.nav-l a:not(.navcta){display:none}}
+/* HERO */
+.cu-hero{background:var(--navy);color:var(--hi);padding:70px 0 74px;text-align:center;position:relative;overflow:hidden}
+.cu-hero::before{content:"";position:absolute;top:-160px;left:50%;transform:translateX(-50%);width:760px;height:520px;background:radial-gradient(circle,rgba(37,99,235,.20),transparent 66%);pointer-events:none}
+.cu-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--md);background:var(--ac-bg);border:1px solid var(--line2);padding:6px 14px;border-radius:100px;margin-bottom:22px}
+.cu-eyebrow .d{width:6px;height:6px;border-radius:50%;background:var(--ok)}
+.cu-hero h1{font-size:clamp(34px,4.6vw,54px);font-weight:700;line-height:1.06;letter-spacing:-.038em;max-width:900px;margin:0 auto 18px}
+.cu-hero h1 span{color:var(--ac)}
+.cu-hero p{font-size:18px;color:var(--md);max-width:640px;margin:0 auto}
+.cu-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;margin-top:30px}
+.cu-tabs a{background:rgba(150,180,235,.08);border:1px solid var(--line2);color:var(--md);padding:9px 15px;border-radius:100px;font-size:14px;font-weight:500;transition:all .14s}
+.cu-tabs a:hover{border-color:var(--ac);color:var(--hi);background:var(--ac-bg)}
+/* CASOS */
+.cases{padding:66px 0 30px}
+.case{background:#fff;border:1px solid var(--pline);border-radius:22px;padding:34px 34px 30px;margin-bottom:26px;box-shadow:0 24px 60px -40px rgba(24,20,12,.5)}
+.case-h{display:flex;align-items:center;gap:16px;padding-bottom:22px;margin-bottom:24px;border-bottom:1px solid var(--pline)}
+.case-em{width:56px;height:56px;flex:none;border-radius:14px;background:var(--ac-bg);display:flex;align-items:center;justify-content:center;font-size:28px}
+.case-tag{font-size:12px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ac-deep)}
+.case-h h2{font-size:clamp(22px,2.5vw,29px);font-weight:700;letter-spacing:-.028em;color:var(--ink);line-height:1.14;margin-top:3px}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px 30px}
+.cell .cl{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:7px;display:flex;align-items:center;gap:7px}
+.cell.problem .cl::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--warn)}
+.cell.fix .cl::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ac)}
+.cell.save .cl::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ok)}
+.cell.fn .cl::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--ink3)}
+.cell p{font-size:15px;color:var(--ink2);line-height:1.55}
+.cell.save p{color:var(--ink);font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:2px}
+.chips span{font-size:12.5px;font-weight:600;color:var(--ac-deep);background:var(--ac-bg);border:1px solid rgba(37,99,235,.22);padding:5px 11px;border-radius:8px}
+@media(max-width:680px){.case-grid{grid-template-columns:1fr}.case{padding:26px 22px}}
+/* CTA */
+.cu-cta{background:var(--navy);color:var(--hi);text-align:center;padding:76px 0;border-radius:36px 36px 0 0;margin-top:14px;position:relative;overflow:hidden}
+.cu-cta::before{content:"";position:absolute;bottom:-180px;left:50%;transform:translateX(-50%);width:720px;height:520px;background:radial-gradient(circle,rgba(57,192,124,.12),transparent 66%);pointer-events:none}
+.cu-cta h2{font-size:clamp(28px,3.4vw,40px);font-weight:700;letter-spacing:-.03em;margin-bottom:14px}
+.cu-cta p{color:var(--md);margin-bottom:28px;font-size:17px}
+.cu-cta .row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+/* FOOTER */
+footer{background:var(--navy2);color:var(--md);padding:34px 0;font-size:14px}
+.foot-in{max-width:1300px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
+.foot-links{display:flex;gap:20px;flex-wrap:wrap}.foot-links a:hover{color:var(--hi)}
+/* Reveals */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,.84,.24,1),transform .7s cubic-bezier(.16,.84,.24,1)}
+.rv.in{opacity:1;transform:none}
+
+.logo img.m,nav img.m,.top img.m{background:none!important;padding:0;object-fit:cover;border-radius:8px;flex:0 0 auto}
+
+.qe{padding:56px 0 20px}
+.qe .case{padding:30px 34px 26px}
+.qe .case h2{font-size:clamp(21px,2.3vw,27px);font-weight:700;letter-spacing:-.026em;color:var(--ink);line-height:1.15;margin-bottom:14px}
+.qe .case p{font-size:16px;color:var(--ink2);line-height:1.62;margin-bottom:12px}
+.qe .case p:last-child{margin-bottom:0}
+.qe .case p b{color:var(--ink)}
+.qe .case a{color:var(--ac-deep);text-decoration:underline;text-underline-offset:2px}
+.qe .case ul{margin:4px 0 12px 20px}
+.qe .case li{font-size:16px;color:var(--ink2);line-height:1.62;margin-bottom:6px}
+.qe-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.qe-links a{text-decoration:none!important;font-size:14.5px;font-weight:600;color:var(--ac-deep);background:var(--ac-bg);border:1px solid rgba(37,99,235,.22);padding:8px 14px;border-radius:10px}
+.qe .case h3{font-size:18px;font-weight:700;letter-spacing:-.018em;color:var(--ink);margin:26px 0 10px}
+.qe .case ol{margin:4px 0 12px 22px}
+.qe .case ol li{font-size:16px;color:var(--ink2);line-height:1.62;margin-bottom:8px}
+.dato{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin:4px 0 12px}
+.dato b{font-size:28px;font-weight:800;letter-spacing:-.03em;color:var(--ac-deep)}
+.dato span{font-size:15px;color:var(--ink2)}
+.hoja{border:1px solid var(--pline2);border-radius:12px;overflow-x:auto;background:#fff;margin:16px 0 6px}
+.hoja table{border-collapse:collapse;font:12.5px/1.35 var(--mono);width:100%;min-width:640px}
+.hoja th{background:#F1F2F4;color:var(--ink3);font-weight:500;font-size:11.5px;padding:5px 8px;border:1px solid #E2E4E8;text-align:center}
+.hoja tbody th{width:34px}
+.hoja td{border:1px solid #E2E4E8;padding:5px 8px;white-space:nowrap;color:var(--ink)}
+.hoja td.t{font-weight:600}
+.hoja td.n{text-align:right}
+.hoja td.vacia{background:rgba(227,163,63,.22)}
+.hoja td.ok{color:#17805F;font-weight:600}
+.hoja-cap{font-size:13.5px!important;color:var(--ink3)!important;margin-bottom:6px!important}
+.cmp{overflow-x:auto}
+.cmp table{border-collapse:collapse;width:100%;min-width:560px;font-size:15px}
+.cmp th{text-align:left;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink3);padding:10px 12px;border-bottom:1px solid var(--pline2)}
+.cmp td{padding:11px 12px;border-bottom:1px solid var(--pline);color:var(--ink2);vertical-align:top}
+.cmp td:first-child{color:var(--ink);font-weight:500}
+.cmp td:last-child{color:var(--ac-deep);font-weight:600}
+</style>
+<script type="application/ld+json">
+{"@context": "https://schema.org", "@graph": [{"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://getdexiae.com/"}, {"@type": "ListItem", "position": 2, "name": "Pasar un PDF a Excel", "item": "https://getdexiae.com/convertir-pdf-a-excel"}]}, {"@type": "Article", "headline": "Cómo pasar un PDF a Excel sin que se desarme el formato", "description": "Excel o Word suelen alcanzar para una tabla de una página. Medimos qué se rompe con un resumen bancario, un listado y facturas de varias páginas, y cómo lo resuelve DEXIAE.", "inLanguage": "es-AR", "datePublished": "2026-11-06", "dateModified": "2026-11-06", "mainEntityOfPage": "https://getdexiae.com/convertir-pdf-a-excel", "author": {"@id": "https://getdexiae.com/#organizacion"}, "publisher": {"@id": "https://getdexiae.com/#organizacion"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Se puede pasar un PDF a Excel gratis?", "acceptedAnswer": {"@type": "Answer", "text": "Sí: con Excel (Datos › Obtener datos › Desde archivo › Desde PDF), abriéndolo con Word o con un conversor online. Para una tabla de una página suele alcanzar. Con documentos de varias páginas, mirá antes de usarlo si las fechas, los subtotales y los títulos de columna llegaron bien."}}, {"@type": "Question", "name": "¿Por qué se desarma el formato al convertir?", "acceptedAnswer": {"@type": "Answer", "text": "Porque esos métodos copian la forma del PDF: ven líneas y espacios, no saben que es un resumen o una factura. Lo que en el papel se entiende por contexto (la fecha que vale para todo el día, el subtotal de una sucursal, el CUIT arriba de la factura) en el Excel queda vacío, mezclado o afuera."}}, {"@type": "Question", "name": "¿Qué PDF lee DEXIAE?", "acceptedAnswer": {"@type": "Answer", "text": "Resúmenes de los bancos calibrados y de Mercado Pago, facturas electrónicas con código QR, y documentos repetitivos para los que armes una plantilla, como un listado o un formulario. Qué es DEXIAE."}}, {"@type": "Question", "name": "¿Mis PDF se suben a internet con DEXIAE?", "acceptedAnswer": {"@type": "Answer", "text": "No. DEXIAE se instala en Windows y procesa los PDF en tu computadora."}}]}, {"@type": "Organization", "@id": "https://getdexiae.com/#organizacion", "name": "DEXIAE", "url": "https://getdexiae.com/", "logo": {"@type": "ImageObject", "url": "https://getdexiae.com/logo-marca.png", "width": 512, "height": 512}, "email": "contacto@getdexiae.com"}]}
+</script>
+<link rel="stylesheet" href="/site-header.css?v=20261018-mobile1">
+</head>
+<body>
+<a class="anuncio" href="/#contable"><span class="anuncio-in">
+ <span class="an-chip">Nuevo</span>
+ <span><b>DEXIAE Contable</b><span class="an-sec"> &#183; los extractos de tus clientes, clasificados y con borrador de asientos</span></span>
+ <span class="fund-on"><span class="an-sec">&#183; Precio fundador para los primeros 10 estudios</span><span class="an-cel">&#183; precio fundador</span><span class="an-q an-sec" data-quedan=" &#183; quedan {q} de {t}" hidden></span></span>
+ <span class="an-ir">Ver &#8594;</span>
+</span></a>
+
+<nav class="site-nav" aria-label="Principal"><div class="nav-in">
+ <a class="logo" href="/" aria-label="Dexiae, volver al inicio"><img class="m" src="/logo-marca.svg" alt="" width="28" height="28" decoding="async">Dexiae</a>
+ <span class="nav-l">
+  <a href="/casos-de-uso">Casos de uso</a>
+  <a href="/extractos-bancarios-excel">Extractos bancarios</a>
+  <a href="/facturas-qr-excel">Facturas por QR</a>
+  <a href="/#capturas">La interfaz</a>
+  <a href="/#demo">Centinela</a>
+  <a href="/#precios">Precios</a>
+  <a href="/#faq">FAQ</a>
+  <a href="/control-documental">Control documental</a>
+  <a href="/app/" class="nav-demo"><span class="pl">&#9654;</span> Demo online</a>
+  <button class="btn btn-p navcta" type="button" onclick="openLead('TRIAL')">Probar PRO gratis</button>
+ </span>
+</div></nav>
+
+
+<header class="cu-hero"><div class="wrap">
+ <span class="cu-eyebrow"><span class="d"></span>Guía · medida con documentos de ejemplo</span>
+ <h1>Cómo pasar un PDF a Excel <span>sin que se desarme el formato.</span></h1>
+ <p>Los métodos gratis andan bien con una tabla de una página. Pasamos por Excel y por Word un resumen bancario de 3 páginas, un listado de 11 y una rendición de facturas, y contamos qué llega roto; después repetimos la prueba con 10 resúmenes reales. Y los mismos PDF, en DEXIAE.</p>
+ <div class="cu-tabs">
+  <a href="#metodos">Los métodos gratis</a>
+  <a href="#que-se-rompe">Qué se rompe</a>
+  <a href="#dexiae">Cómo lo resuelve DEXIAE</a>
+  <a href="#cuando">Cuándo alcanza el método gratis</a>
+  <a href="#preguntas">Preguntas</a>
+ </div>
+</div></header>
+
+<main class="qe"><div class="wrap">
+
+ <article class="case" id="metodos">
+  <h2>Los métodos gratis, paso a paso</h2>
+  <p>Son los que muestran los tutoriales más comunes. Los dos primeros se hacen con Office (los medimos en Microsoft 365; en versiones viejas de Excel puede no estar «Desde PDF»):</p>
+  <ol>
+   <li><b>Desde Excel.</b> Datos › Obtener datos › Desde archivo › Desde PDF. Excel muestra un «Navegador» con las páginas y las tablas que encontró; elegís una y la cargás en la hoja.</li>
+   <li><b>Con Word.</b> Abrís el PDF desde Word, que lo convierte en un documento editable; seleccionás la tabla, la copiás y la pegás en Excel.</li>
+   <li><b>Con un conversor online.</b> Subís el PDF a un sitio y descargás un Excel. El archivo pasa por un servidor de otra empresa: con los resúmenes y las facturas de un cliente, conviene pensarlo dos veces.</li>
+  </ol>
+  <p>Con un PDF de una página y una tabla prolija, suelen alcanzar. El problema aparece con lo que un estudio recibe todos los meses: documentos de varias páginas, con la fecha una sola vez por día, subtotales en el medio y datos que no están en ninguna tabla.</p>
+ </article>
+
+ <article class="case" id="que-se-rompe">
+  <h2>Qué se rompe: lo que medimos</h2>
+  <p>Usamos tres PDF con <b>datos ficticios</b>, que podés descargar para repetir la prueba: un <a href="/ejemplos/resumen-ejemplo-3-paginas.pdf">resumen bancario de 3 páginas</a>, un <a href="/ejemplos/listado-ejemplo-11-paginas.pdf">listado de pedidos de 11 páginas</a> y una <a href="/ejemplos/rendicion-facturas-ejemplo.pdf">rendición de 7 páginas con facturas</a>. Los pasamos por Excel (Desde PDF) y por Word, de Microsoft 365 para Windows.</p>
+
+  <h3>1 · Resumen bancario de 3 páginas (127 movimientos)</h3>
+  <div class="dato"><b>106 de 128</b><span>filas que arma Excel quedan sin fecha</span></div>
+  <ul>
+   <li><b>Excel</b> encontró una tabla que junta las 3 páginas, junto a cada página por separado. Pero el resumen imprime la fecha sólo en el primer movimiento de cada día, y Excel copia eso tal cual: para filtrar, ordenar o hacer una tabla dinámica por fecha hay que completarlas a mano. El «saldo anterior» queda mezclado como si fuera un movimiento.</li>
+   <li><b>Word</b> armó 3 tablas, una por página, y el documento pasó de 3 a 5 páginas. Los títulos de las columnas (FECHA, CONCEPTO, DÉBITO…) fueron al encabezado de página, así que al copiar las tablas no vienen; y el último movimiento quedó en la misma celda que «TOTAL MOVIMIENTOS».</li>
+   <li><b>Ninguno de los dos</b> controla nada: si se perdió un movimiento, el Excel no lo dice.</li>
+  </ul>
+  <div class="hoja" role="figure" aria-label="Primeras filas del resumen cargado con Excel Desde PDF">
+   <table>
+    <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th><th>F</th></tr></thead>
+    <tbody>
+     <tr><th>1</th><td class="t">FECHA</td><td class="t">ORIGEN</td><td class="t">CONCEPTO</td><td class="t">DEBITO</td><td class="t">CREDITO</td><td class="t">SALDO</td></tr>
+     <tr><th>2</th><td class="vacia"></td><td></td><td>SALDO ANTERIOR</td><td></td><td></td><td class="n">2.350.000,00</td></tr>
+     <tr><th>3</th><td>01/10/26</td><td></td><td>TRANSFERENCIA RECIBIDA 30111111119 ACME DEMO SA</td><td></td><td class="n">111.237,97</td><td class="n">2.461.237,97</td></tr>
+     <tr><th>4</th><td class="vacia"></td><td></td><td>IMP. LEY 25413 S/CREDITOS</td><td class="n">-667,43</td><td></td><td class="n">2.460.570,54</td></tr>
+     <tr><th>5</th><td>02/10/26</td><td></td><td>TRANSFERENCIA RECIBIDA 30222222228 CLIENTE EJEMPLO SA</td><td></td><td class="n">64.429,11</td><td class="n">2.524.999,65</td></tr>
+     <tr><th>6</th><td class="vacia"></td><td></td><td>IMP. LEY 25413 S/CREDITOS</td><td class="n">-386,57</td><td></td><td class="n">2.524.613,08</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="hoja-cap">Primeras filas de la tabla que encuentra Excel (Desde PDF) al juntar las 3 páginas, con los valores como vienen del PDF: el formato de fechas y números depende de cómo la cargues. En naranja, las fechas que faltan: siguen vacías igual.</p>
+
+  <h3>2 · Listado de 11 páginas (448 renglones y 5 de subtotales y total)</h3>
+  <div class="dato"><b>11 tablas</b><span>separadas, una por página</span></div>
+  <ul>
+   <li><b>Excel</b> ofreció 22 elementos en el Navegador: las 11 páginas y 11 tablas, una por página, ninguna que las junte. Hay que cargarlas y unirlas una por una.</li>
+   <li>Los títulos de las columnas están sólo en la primera página: las otras 10 tablas llegan sin ellos.</li>
+   <li>Los 4 subtotales y el total general quedan mezclados con los datos: si sumás la columna del importe, cada importe entra tres veces, en su renglón, en el subtotal de su sucursal y en el total.</li>
+   <li><b>Word</b> armó 11 tablas, una por página, y el documento pasó de 11 a 16 páginas.</li>
+  </ul>
+
+  <h3>3 · Rendición con facturas (carátula y 6 comprobantes en 7 páginas)</h3>
+  <div class="dato"><b>19 elementos</b><span>y ninguno con una fila por factura</span></div>
+  <ul>
+   <li><b>Excel</b> ofreció las 7 páginas y 12 tablas chicas: dos por comprobante, el detalle y los totales. En las tablas no están la fecha, el número ni el CUIT; en la vista de cada página sí, pero cada uno en otra celda y pegado a su rótulo («Fecha de Emisión: 02/09/2026»). Para tener una fila por factura hay que juntarlos página por página.</li>
+   <li><b>Word</b> armó 6 tablas, sólo con el detalle, más 6 cuadros de texto; el documento pasó de 7 a 10 páginas.</li>
+   <li>En la rendición hay una factura repetida, una nota de crédito y una factura cuyo código QR dice otro importe que el impreso. <b>Ningún método lo avisa.</b> Aun sin contar la copia repetida, si la nota de crédito se suma como las demás el total da 762.300 en lugar de 641.300.</li>
+  </ul>
+  <h3>4 · Con resúmenes reales</h3>
+  <div class="dato"><b>9 de 10</b><span>resúmenes reales sin una tabla que junte los movimientos en Excel</span></div>
+  <p>Repetimos la prueba con 10 resúmenes reales, uno por cada banco calibrado y uno de Mercado Pago: de 1 a 43 páginas, 3.247 filas en total. No publicamos ningún dato de esos resúmenes, sólo los conteos.</p>
+  <ul>
+   <li><b>Excel</b> ofreció entre 2 y 100 elementos en el Navegador. En 9 de 10 no hubo una tabla que juntara los movimientos: en los 4 resúmenes de 18 a 43 páginas, la tabla más grande traía entre 31 y 55 filas, contra 264 a 1.511 movimientos, y había que combinar entre 21 y 57 tablas.</li>
+   <li>En 7 de 10, las tablas cambian de cantidad de columnas según la página (en uno, de 2 a 19): no se pueden apilar sin acomodarlas antes.</li>
+   <li>En 4 de 10, Excel tomó un movimiento como título de columna, y ese movimiento queda fuera de los datos.</li>
+   <li>En los 10, Excel dejó todos los movimientos con su fecha: lo del ejemplo pasa con los resúmenes que imprimen la fecha una sola vez por día.</li>
+   <li><b>Word</b> no armó una tabla de movimientos en 3 de 10: quedaron como líneas de texto. En otro, el 68 % de las filas con importe quedó sin su fecha; en el más largo, la fecha y el detalle quedaron pegados en la misma celda en todas las filas.</li>
+   <li>Los métodos gratis se acercan cuando el banco imprime una grilla limpia: en 1 de los 10, Excel juntó los 441 movimientos en una sola tabla, igual que DEXIAE. Aun así, no controla los saldos.</li>
+   <li><b>DEXIAE</b> reconoció el banco en los 10 y no encontró ningún saldo que no cerrara.</li>
+  </ul>
+ </article>
+
+ <article class="case" id="dexiae">
+  <h2>Cómo lo resuelve DEXIAE</h2>
+  <p>DEXIAE no copia la forma del PDF: lee el documento sabiendo qué es y arma un Excel con una fila por dato, de todas las páginas y de todos los PDF juntos (la carpeta entera, o los extractos que elijas). Con los mismos tres ejemplos:</p>
+  <ul>
+   <li><b>Resumen bancario:</b> el ejemplo usa el mismo orden de columnas que el resumen de BBVA, uno de los bancos calibrados, y DEXIAE lo lee con ese formato. Deja los 127 movimientos en una sola tabla, con la fecha en todas las filas, el importe como número (los débitos en negativo) y el saldo controlado fila por fila: 126 de 127 cierran contra el saldo de la fila anterior y el primero queda como base. Si uno no cerrara, esa fila diría DESFASE. Los resúmenes de bancos que no están calibrados no los lee. <a href="/extractos-bancarios-excel">Extractos bancarios a Excel y bancos calibrados</a>.</li>
+   <li><b>Listado de 11 páginas:</b> con una plantilla que se arma una vez (marcando que la tabla sigue en las páginas siguientes y qué renglones saltear, como «Subtotal» y «Total») y sirve para todos los listados iguales, sale una fila por renglón (448), sin los subtotales ni el total, con los nombres de columna que elegís.</li>
+   <li><b>Rendición:</b> leyendo el código QR, sale una fila por comprobante (las 4 facturas y la nota de crédito, que resta), con la copia repetida marcada en qué páginas aparece, el importe de cada QR comparado con el impreso en la hoja y la carátula listada aparte como página sin comprobante. La columna IMPORTE COMPUTADO suma 641.300. <a href="/facturas-qr-excel">Facturas por QR</a>.</li>
+  </ul>
+  <div class="hoja" role="figure" aria-label="Primeras filas del Excel de DEXIAE para el mismo resumen">
+   <table>
+    <thead><tr><th></th><th>A</th><th>B</th><th>C</th><th>D</th><th>E</th></tr></thead>
+    <tbody>
+     <tr><th>1</th><td class="t">Fecha</td><td class="t">Detalle</td><td class="t">Importe</td><td class="t">Saldo</td><td class="t">Verif. Saldo</td></tr>
+     <tr><th>2</th><td>01/10/2026</td><td>TRANSFERENCIA RECIBIDA 30111111119 ACME DEMO SA</td><td class="n">111.237,97</td><td class="n">2.461.237,97</td><td>BASE</td></tr>
+     <tr><th>3</th><td>01/10/2026</td><td>IMP. LEY 25413 S/CREDITOS</td><td class="n">-667,43</td><td class="n">2.460.570,54</td><td class="ok">OK</td></tr>
+     <tr><th>4</th><td>02/10/2026</td><td>TRANSFERENCIA RECIBIDA 30222222228 CLIENTE EJEMPLO SA</td><td class="n">64.429,11</td><td class="n">2.524.999,65</td><td class="ok">OK</td></tr>
+     <tr><th>5</th><td>02/10/2026</td><td>IMP. LEY 25413 S/CREDITOS</td><td class="n">-386,57</td><td class="n">2.524.613,08</td><td class="ok">OK</td></tr>
+    </tbody>
+   </table>
+  </div>
+  <p class="hoja-cap">DEXIAE · el mismo resumen. Columnas elegidas de la hoja de movimientos; el Excel trae también el CUIT, el tipo y la categoría.</p>
+  <p>Todo pasa en tu computadora: los PDF no se suben a internet. <a href="/privacidad">Qué datos viajan y cuáles no</a>.</p>
+ </article>
+
+ <article class="case" id="cuando">
+  <h2>Cuándo alcanza el método gratis y cuándo no</h2>
+  <div class="cmp">
+   <table>
+    <thead><tr><th>Tu PDF</th><th>Excel o Word</th><th>DEXIAE</th></tr></thead>
+    <tbody>
+     <tr><td>Una tabla prolija en una página, una vez</td><td>Suele alcanzar</td><td>No hace falta</td></tr>
+     <tr><td>Una tabla que sigue en varias páginas</td><td>A veces la junta, a veces una tabla por página</td><td>Una sola tabla</td></tr>
+     <tr><td>Páginas con distinta cantidad de columnas</td><td>Tablas que no se pueden apilar sin acomodarlas</td><td>Las mismas columnas siempre</td></tr>
+     <tr><td>Fecha impresa una vez por día</td><td>Filas sin fecha, a completar a mano</td><td>Fecha en todas las filas</td></tr>
+     <tr><td>Subtotales, totales, saldo anterior</td><td>Mezclados con los datos</td><td>Fuera de los datos</td></tr>
+     <tr><td>Datos sueltos en la hoja (facturas)</td><td>Copiar campo por campo</td><td>Una fila por comprobante</td></tr>
+     <tr><td>Saber si falta algo</td><td>No hay control</td><td>Saldo controlado fila por fila; en facturas, repetidas e importes</td></tr>
+     <tr><td>Muchos PDF todos los meses</td><td>Uno por uno</td><td>Todos juntos, en un Excel</td></tr>
+    </tbody>
+   </table>
+  </div>
+ </article>
+
+ <article class="case" id="preguntas">
+  <h2>Preguntas</h2>
+  <h3>¿Se puede pasar un PDF a Excel gratis?</h3>
+  <p>Sí: con Excel (Datos › Obtener datos › Desde archivo › Desde PDF), abriéndolo con Word o con un conversor online. Para una tabla de una página suele alcanzar. Con documentos de varias páginas, mirá antes de usarlo si las fechas, los subtotales y los títulos de columna llegaron bien.</p>
+  <h3>¿Por qué se desarma el formato al convertir?</h3>
+  <p>Porque esos métodos copian la forma del PDF: ven líneas y espacios, no saben que es un resumen o una factura. Lo que en el papel se entiende por contexto (la fecha que vale para todo el día, el subtotal de una sucursal, el CUIT arriba de la factura) en el Excel queda vacío, mezclado o afuera.</p>
+  <h3>¿Qué PDF lee DEXIAE?</h3>
+  <p>Resúmenes de los bancos calibrados y de Mercado Pago, facturas electrónicas con código QR, y documentos repetitivos para los que armes una plantilla, como un listado o un formulario. <a href="/que-es-dexiae">Qué es DEXIAE</a>.</p>
+  <h3>¿Mis PDF se suben a internet con DEXIAE?</h3>
+  <p>No. DEXIAE se instala en Windows y procesa los PDF en tu computadora.</p>
+ </article>
+
+ <article class="case" id="medicion">
+  <h2>Cómo medimos</h2>
+  <p>El 06/11/2026, en una PC con Windows 11 y configuración regional de Argentina, con Excel y Word de Microsoft 365 (versión 16.0.20527) y DEXIAE 2.10.2. Los tres PDF de ejemplo tienen datos inventados y están para descargar arriba. Los 10 resúmenes reales se procesaron en la misma computadora, sin subirlos a ningún lado; de ellos se publican sólo conteos. No probamos conversores online, porque implican subir el archivo a un tercero.</p>
+ </article>
+
+</div></main>
+
+<section class="cu-cta"><div class="wrap">
+ <h2>Probalo con tus propios PDF</h2>
+ <p>14 días gratis con las funciones de PRO (hasta 100 documentos), sin tarjeta.</p>
+ <div class="row">
+  <button class="btn btn-p" onclick="openLead('TRIAL')">Probar PRO gratis (14 días)</button>
+  <a class="btn btn-o" href="/app/"><span class="pl">▶</span> Probar la demo online</a>
+ </div>
+</div></section>
+
+<footer><div class="foot-in">
+ <span class="logo" style="font-size:16px;color:var(--md)"><img class="m" src="/logo-marca.svg" alt="" width="24" height="24" decoding="async" style="width:24px;height:24px">Dexiae</span>
+ <div class="foot-links">
+  <a href="/">Inicio</a>
+  <a href="/casos-de-uso">Casos de uso</a>
+  <a href="/extractos-bancarios-excel">Extractos bancarios</a>
+   <a href="/facturas-qr-excel">Facturas por QR</a>
+   <a href="/guia-contable">Guía Contable</a>
+   <a href="/guia-usuario">Guía del usuario</a>
+   <a href="/que-es-dexiae">Qué es DEXIAE</a>
+   <a href="/convertir-pdf-a-excel">Pasar PDF a Excel</a>
+   <a href="/convertir-pdf-a-excel">Pasar PDF a Excel</a>
+  <a href="/#precios">Precios</a>
+  <a href="/#faq">FAQ</a>
+  <a href="mailto:contacto@getdexiae.com">Contacto</a>
+ </div>
+ <span>© 2026 DEXIAE</span>
+</div></footer>
+
+<script>
+(function(){
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+ var els=document.querySelectorAll('.case,.cu-cta');
+ var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target);}});},{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+ els.forEach(function(e){e.classList.add('rv');io.observe(e);});
+})();
+</script>
+<script src="/lead.js?v=20261104-bancos" defer></script>
+</body>
+</html>

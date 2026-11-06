@@ -1086,6 +1086,73 @@ html.fund-agotado .fund-off{display:revert}
 @media (prefers-reduced-motion:reduce){
   .fh-fx *,.fh-fx *::before,.fh-fx *::after{animation-duration:.01ms!important;animation-delay:0s!important;transition:none!important}
 }
+
+/* ===== Home homogénea con la sección de funciones (06/11/2026) ===== */
+.sh{text-align:left;max-width:none;margin:0 0 56px}
+.sh h2{font-size:clamp(36px,4.8vw,64px);font-weight:700;line-height:1.02;letter-spacing:-.035em;max-width:20ch}
+.sh p{max-width:62ch}
+.ct-head{max-width:none;text-align:left;margin:0 0 38px}
+.ct-head h2{font-size:clamp(36px,4.8vw,64px);font-weight:700;line-height:1.02;letter-spacing:-.035em;max-width:20ch}
+.ct-head p{max-width:62ch}
+.final h2{font-size:clamp(36px,4.8vw,60px);font-weight:700;line-height:1.04;letter-spacing:-.035em}
+
+/* «El problema»: renglones numerados con línea fina, como «Más que pasar el PDF a Excel» */
+.problem .problem-grid{display:block;margin-top:44px;border-top:1px solid var(--pline2)}
+.problem .p-card{display:grid;grid-template-columns:170px minmax(0,1fr) minmax(0,1.2fr);column-gap:40px;align-items:start;background:transparent;border:0;border-bottom:1px solid var(--pline2);border-radius:12px 12px 0 0;box-shadow:none;padding:32px 18px;transition:background .25s ease}
+.problem .p-card:hover{background:rgba(24,20,12,.035)}
+.problem .p-card .pn{grid-column:1;grid-row:1/span 3;margin:8px 0 0}
+.problem .p-card h3{grid-column:2;grid-row:1/span 3;font-size:clamp(21px,2.1vw,28px);line-height:1.2;letter-spacing:-.02em;margin:0}
+.problem .p-card p{grid-column:3}
+@media (max-width:900px){.problem .p-card{grid-template-columns:1fr;row-gap:8px;padding:24px 4px}.problem .p-card .pn,.problem .p-card h3,.problem .p-card p{grid-column:1;grid-row:auto}}
+
+/* Centinela: escena con carpeta vigilada y tres bandejas (en lugar de la consola) */
+.cz{position:relative;background:linear-gradient(180deg,rgba(23,34,58,.75),rgba(15,23,41,.75));border:1px solid var(--line2);border-radius:20px;padding:22px;box-shadow:0 40px 80px -30px rgba(0,0,0,.7)}
+.cz-top{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.cz-carp{display:flex;align-items:center;gap:12px;margin-right:auto}
+.cz-carp svg{width:40px;height:34px;flex:none}
+.cz-carp-n{font-family:var(--disp);font-weight:600;font-size:17px;color:var(--hi)}
+.cz-carp-s{font-size:13px;color:var(--lo)}
+.cz-estado{display:inline-flex;align-items:center;gap:8px;font-size:13px;padding:6px 12px;border-radius:999px;border:1px solid rgba(57,192,124,.3);background:rgba(57,192,124,.12);color:var(--ok)}
+.cz-estado b{font-weight:600}
+.cz-estado .dot{width:7px;height:7px;border-radius:50%;background:currentColor;animation:czLatido 1.8s ease-out infinite}
+.cz-estado.paused{color:var(--warn);border-color:rgba(227,163,63,.3);background:rgba(227,163,63,.12)}
+.cz-estado.done{color:var(--ac);border-color:var(--line2);background:var(--ac-bg)}
+.cz-estado.paused .dot,.cz-estado.done .dot{animation:none}
+.cz-btn{font:600 13px var(--sans);color:var(--hi);background:transparent;border:1px solid var(--line2);border-radius:999px;padding:7px 14px;cursor:pointer}
+.cz-btn:hover,.cz-btn:focus-visible{border-color:var(--ac)}
+.cz-pista{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;min-height:112px;margin:18px 0 0;border:1px dashed var(--line2);border-radius:14px;padding:14px;align-items:center}
+.cz-pista>.cz-doc{grid-column:2;grid-row:1}
+.cz-pista-txt{grid-column:1/-1;grid-row:1;text-align:center;color:var(--lo);font-size:14px}
+.cz-pista.ocupada .cz-pista-txt{visibility:hidden}
+.cz-bandejas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.cz-b{border-radius:14px;padding:14px;background:rgba(150,180,235,.04);border:1px solid var(--line);min-height:330px}
+.cz-bh{display:flex;align-items:baseline;justify-content:space-between}
+.cz-bh span{font-weight:600;font-size:14px;color:var(--md)}
+.cz-bh b{font-family:var(--disp);font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1;display:inline-block}
+.cz-b.ok .cz-bh b{color:var(--ok)}.cz-b.dup .cz-bh b{color:var(--ac)}.cz-b.rev .cz-bh b{color:var(--warn)}
+.cz-bd{font-size:13px;color:var(--lo);margin:4px 0 12px}
+.cz-bl{display:flex;flex-direction:column;gap:8px}
+.cz-doc{position:relative;background:var(--paper2);color:var(--ink);border-radius:10px;padding:10px 12px 10px 14px;box-shadow:0 10px 24px -14px rgba(0,0,0,.7);overflow:hidden}
+.cz-doc.volando{z-index:10}
+.cz-pdf{position:absolute;top:0;right:0;background:#C2412D;color:#fff;font:600 8px var(--mono);padding:3px 6px;border-radius:0 10px 0 8px}
+.cz-dn{font-size:13px;font-weight:600;padding-right:34px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cz-dd{font-size:12px;color:var(--ink2);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cz-chip{display:inline-block;margin-top:7px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:999px}
+.cz-chip.ok{background:rgba(57,192,124,.16);color:#1F7A4D}.cz-chip.dup{background:rgba(37,99,235,.12);color:#1D4ED8}.cz-chip.rev{background:rgba(227,163,63,.18);color:#8A5A12}
+.cz-doc.leyendo .cz-dd,.cz-doc.leyendo .cz-chip{visibility:hidden}
+.cz-doc.leyendo::after{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:var(--ac2);box-shadow:0 0 10px 2px rgba(37,99,235,.6);animation:czLee .65s ease-in-out forwards}
+.cz-doc.leido .cz-chip{animation:czPop .3s cubic-bezier(.2,.9,.3,1.5)}
+.cz-pista .cz-doc.leyendo{animation:czEntra .35s ease}
+.cz-pie{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px;color:var(--md);font-size:14px}
+.cz-pie b{color:var(--hi);font-family:var(--disp)}
+.cz-bump{animation:czBump .35s ease}
+@keyframes czLee{from{top:0}to{top:calc(100% - 2px)}}
+@keyframes czPop{from{transform:scale(.4);opacity:0}to{transform:none;opacity:1}}
+@keyframes czEntra{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:none}}
+@keyframes czBump{50%{transform:scale(1.18)}}
+@keyframes czLatido{0%{box-shadow:0 0 0 0 rgba(57,192,124,.55)}100%{box-shadow:0 0 0 9px rgba(57,192,124,0)}}
+@media (max-width:760px){.cz{padding:16px}.cz-bandejas{grid-template-columns:1fr}.cz-b{min-height:0}.cz-pista{grid-template-columns:1fr}.cz-pista>.cz-doc{grid-column:1}.cz-bl .cz-doc:nth-child(n+3){display:none}}
+@media (prefers-reduced-motion:reduce){.cz *,.cz *::after{animation:none!important}}
 </style>
 </head>
 <body>
@@ -1404,36 +1471,22 @@ html.fund-agotado .fund-off{display:revert}
   <p>El Centinela monitorea tu carpeta. Cada PDF que llega se detecta, procesa y clasifica automáticamente — sin que toques nada, y sin que el archivo salga de tu equipo.</p>
   <p class="cent-nota">Lo de abajo es una <b>animación de ejemplo</b> que corre acá mismo, para que veas cómo trabaja el Centinela. Si querés usar la interfaz de verdad, entrá a la <a href="app/">demo online interactiva →</a></p>
  </div>
- <div class="cent-ui">
-  <div class="cent-h">
-   <div class="cent-ic">◉</div>
-   <div>
-    <div class="cent-nm">CENTINELA</div>
-    <div class="cent-pt">C:\DEXIAE\Carpeta_Vigilada\Comprobantes_2026\</div>
+ <div class="cz" id="cz">
+  <div class="cz-top">
+   <div class="cz-carp">
+    <svg viewBox="0 0 40 34" aria-hidden="true"><path d="M2 6a3 3 0 0 1 3-3h9l4 4h17a3 3 0 0 1 3 3v19a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3z" fill="rgba(96,165,250,.16)" stroke="#60A5FA" stroke-width="1.8"/></svg>
+    <div><div class="cz-carp-n">Carpeta vigilada</div><div class="cz-carp-s">Comprobantes 2026</div></div>
    </div>
-   <div class="cent-st" id="cent-badge"><span class="dot"></span><b id="cent-status">ACTIVO</b></div>
-   <button class="cent-tg" id="cent-btn" onclick="toggleCent()">⏸ Pausar</button>
+   <div class="cz-estado active" id="cent-badge"><span class="dot"></span><b id="cent-status">Vigilando</b></div>
+   <button type="button" class="cz-btn" id="cent-btn" onclick="toggleCent()">Pausar</button>
   </div>
-  <div class="cent-b">
-   <div class="cent-fp">
-    <div class="cent-lb">Archivos detectados</div>
-    <div class="cent-files" id="cent-files"></div>
-   </div>
-   <div class="cent-xp">
-    <div class="cent-lb">Reporte Excel — datos extraídos en vivo</div>
-    <table class="cent-x">
-     <thead><tr><th>Archivo</th><th>Estado</th><th>Nro.</th><th>Emisor</th><th>Fecha</th></tr></thead>
-     <tbody id="cent-rows"></tbody>
-    </table>
-   </div>
+  <div class="cz-pista" id="cz-pista" aria-hidden="true"><span class="cz-pista-txt">Esperando el próximo PDF…</span></div>
+  <div class="cz-bandejas">
+   <div class="cz-b ok"><div class="cz-bh"><span>OK</span><b id="c-ok">0</b></div><p class="cz-bd">Los datos pasan al Excel.</p><div class="cz-bl" id="cz-ok"></div></div>
+   <div class="cz-b dup"><div class="cz-bh"><span>Duplicados</span><b id="c-dup">0</b></div><p class="cz-bd">Ya se había procesado.</p><div class="cz-bl" id="cz-dup"></div></div>
+   <div class="cz-b rev"><div class="cz-bh"><span>Para revisar</span><b id="c-rev">0</b></div><p class="cz-bd">Necesita tu criterio.</p><div class="cz-bl" id="cz-rev"></div></div>
   </div>
-  <div class="cent-ft">
-   <div class="cent-s"><b id="c-tot">0</b><span>PROCESADOS</span></div>
-   <div class="cent-s"><b id="c-ok" style="color:var(--ok)">0</b><span>OK</span></div>
-   <div class="cent-s"><b id="c-dup" style="color:var(--ac)">0</b><span>DUPLICADOS</span></div>
-   <div class="cent-s"><b id="c-rev" style="color:var(--warn)">0</b><span>REVISAR</span></div>
-   <div class="cent-s" style="margin-left:auto"><span id="c-scan" style="font-size:11px">Último scan: —</span></div>
-  </div>
+  <div class="cz-pie"><span><b id="c-tot">0</b> PDF procesados</span><span aria-hidden="true">·</span><span id="c-scan">—</span></div>
  </div>
 </div></section>
 
@@ -1765,6 +1818,7 @@ html.fund-agotado .fund-off{display:revert}
  </div>
  <div class="foot-legal">
   <div class="foot-legal-links">
+   <a href="/que-es-dexiae">Qué es DEXIAE</a>
    <a href="/guia-usuario">Guía del usuario</a>
    <a href="/guia-contable">Guía de DEXIAE Contable</a>
    <a href="/eula">Términos y EULA</a>
@@ -1993,7 +2047,8 @@ document.querySelectorAll('.bill-opt').forEach(b=>b.addEventListener('click',()=
  document.querySelectorAll('.p-pa').forEach(e=>e.style.display=a?'':'none');
 }));
 
-/* === CENTINELA demo — simulación con lote y reinicio (datos ficticios) === */
+/* === CENTINELA demo — escena: la carpeta vigilada reparte cada PDF en su bandeja (datos ficticios).
+   La historia cierra: cada PDF que entra termina en una bandeja y los contadores suman lo mismo que «procesados». === */
 const centQueue=[
  {n:'factura_A0045.pdf',st:'ok',nr:'A-0045',em:'Proveedor Andes SA',f:'04/06/2026'},
  {n:'factura_A0046.pdf',st:'ok',nr:'A-0046',em:'Proveedor Andes SA',f:'04/06/2026'},
@@ -2005,48 +2060,63 @@ const centQueue=[
  {n:'factura_B0102.pdf',st:'ok',nr:'B-0102',em:'Insumos Norte',f:'06/06/2026'},
  {n:'factura_B0102 (2).pdf',st:'dup',nr:'B-0102',em:'Insumos Norte',f:'06/06/2026'},
 ];
-let centI=0,centRunning=true,centTimer=null;
+let centI=0,centRunning=true,centTimer=null,czEnVuelo=false;
 const centCounts={tot:0,ok:0,dup:0,rev:0};
-function centSet(){
- document.getElementById('c-tot').textContent=centCounts.tot;
- document.getElementById('c-ok').textContent=centCounts.ok;
- document.getElementById('c-dup').textContent=centCounts.dup;
- document.getElementById('c-rev').textContent=centCounts.rev;
-}
+const czRM=window.matchMedia('(prefers-reduced-motion: reduce)');
+function centSet(){['tot','ok','dup','rev'].forEach(function(k){var e=document.getElementById('c-'+k);if(e)e.textContent=centCounts[k];});}
 function centState(s){
- const btn=document.getElementById('cent-btn'),bd=document.getElementById('cent-badge'),st=document.getElementById('cent-status');
- if(s==='active'){btn.textContent='⏸ Pausar';bd.style.background='rgba(57,192,124,.14)';bd.style.borderColor='rgba(57,192,124,.3)';st.textContent='ACTIVO';st.style.color='var(--ok)';bd.querySelector('.dot').style.background='var(--ok)';}
- else if(s==='paused'){btn.textContent='▶ Reanudar';bd.style.background='rgba(227,163,63,.14)';bd.style.borderColor='rgba(227,163,63,.3)';st.textContent='PAUSADO';st.style.color='var(--warn)';bd.querySelector('.dot').style.background='var(--warn)';}
- else{btn.textContent='↻ Reiniciar lote';bd.style.background='var(--ac-bg)';bd.style.borderColor='var(--line2)';st.textContent='LOTE COMPLETADO';st.style.color='var(--ac)';bd.querySelector('.dot').style.background='var(--ac)';}
+ var btn=document.getElementById('cent-btn'),bd=document.getElementById('cent-badge'),st=document.getElementById('cent-status');
+ bd.className='cz-estado '+s;
+ if(s==='active'){btn.textContent='Pausar';st.textContent='Vigilando';}
+ else if(s==='paused'){btn.textContent='Reanudar';st.textContent='Pausado';}
+ else{btn.textContent='Volver a empezar';st.textContent='Lote completo';}
 }
+function czDetalle(it){
+ if(it.st==='ok') return it.nr+' · '+it.em+' · '+it.f;
+ if(it.st==='dup') return 'Igual a '+it.nr+', ya procesado';
+ return 'Revisalo a mano';
+}
+function czBump(id){var e=document.getElementById(id);if(!e)return;e.classList.remove('cz-bump');void e.offsetWidth;e.classList.add('cz-bump');}
 function centStep(){
- if(!centRunning) return;
+ if(!centRunning||czEnVuelo) return;
  if(centI>=centQueue.length){centRunning=false;centState('done');return;}
- const it=centQueue[centI];centI++;
- const files=document.getElementById('cent-files');
- const cls=it.st==='ok'?'ok':it.st==='dup'?'dup':'rev';
- const lbl=it.st==='ok'?'OK':it.st==='dup'?'DUP':'REV';
- const f=document.createElement('div');f.className='cent-f';
- f.innerHTML='<span class="st '+cls+'">'+lbl+'</span><span>'+it.n+'</span>';
- files.insertBefore(f,files.firstChild);
- while(files.children.length>7)files.removeChild(files.lastChild);
- const rows=document.getElementById('cent-rows');
- const tr=document.createElement('tr');tr.className='nw';
- tr.innerHTML='<td>'+it.n+'</td><td><span class="st '+cls+'" style="font-size:8px;font-weight:700;padding:1px 6px;border-radius:3px;background:'+(cls==='ok'?'rgba(57,192,124,.16)':cls==='dup'?'rgba(37,99,235,.14)':'rgba(227,163,63,.16)')+';color:'+(cls==='ok'?'var(--ok)':cls==='dup'?'var(--ac)':'var(--warn)')+'">'+lbl+'</span></td><td>'+it.nr+'</td><td>'+it.em+'</td><td>'+it.f+'</td>';
- rows.insertBefore(tr,rows.firstChild);
- while(rows.children.length>7)rows.removeChild(rows.lastChild);
- centCounts.tot++;centCounts[it.st==='ok'?'ok':it.st==='dup'?'dup':'rev']++;centSet();
- document.getElementById('c-scan').textContent='Último scan: '+new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
- centTimer=setTimeout(centStep,1700);
+ var it=centQueue[centI];centI++;czEnVuelo=true;
+ var pista=document.getElementById('cz-pista'),lista=document.getElementById('cz-'+it.st);
+ var card=document.createElement('div');
+ card.className='cz-doc leyendo';
+ card.innerHTML='<span class="cz-pdf">PDF</span><div class="cz-dn">'+it.n+'</div><div class="cz-dd">'+czDetalle(it)+'</div><span class="cz-chip '+it.st+'">'+(it.st==='ok'?'OK':it.st==='dup'?'Duplicado':'Revisar')+'</span>';
+ pista.classList.add('ocupada');pista.appendChild(card);
+ function llegar(){
+  card.classList.remove('leyendo','leido','volando');
+  lista.insertBefore(card,lista.firstChild);
+  while(lista.children.length>3) lista.removeChild(lista.lastChild);
+  pista.classList.remove('ocupada');
+  centCounts.tot++;centCounts[it.st]++;centSet();czBump('c-'+it.st);
+  document.getElementById('c-scan').textContent='Último PDF: '+new Date().toLocaleTimeString('es-AR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  czEnVuelo=false;
+  centTimer=setTimeout(centStep,900);
+ }
+ setTimeout(function(){
+  card.classList.remove('leyendo');card.classList.add('leido');
+  setTimeout(function(){
+   if(czRM.matches||!card.animate){llegar();return;}
+   var a=card.getBoundingClientRect(),b=lista.getBoundingClientRect();
+   var dx=(b.left+b.width/2)-(a.left+a.width/2),dy=b.top-a.top;
+   card.classList.add('volando');
+   var an=card.animate([{transform:'translate(0,0)'},{transform:'translate('+dx+'px,'+dy+'px)'}],{duration:620,easing:'cubic-bezier(.5,0,.3,1)'});
+   an.onfinish=llegar;
+  },450);
+ },650);
 }
 function toggleCent(){
- if(centI>=centQueue.length && !centRunning){
-  centI=0;centCounts.tot=0;centCounts.ok=0;centCounts.dup=0;centCounts.rev=0;centSet();
-  document.getElementById('cent-files').innerHTML='';document.getElementById('cent-rows').innerHTML='';
+ if(centI>=centQueue.length&&!centRunning&&!czEnVuelo){
+  centI=0;Object.keys(centCounts).forEach(function(k){centCounts[k]=0;});centSet();
+  ['ok','dup','rev'].forEach(function(k){document.getElementById('cz-'+k).innerHTML='';});
+  document.getElementById('c-scan').textContent='—';
   centRunning=true;centState('active');centStep();return;
  }
  centRunning=!centRunning;
- if(centRunning){centState('active');centStep();}
+ if(centRunning){centState('active');if(!czEnVuelo){clearTimeout(centTimer);centStep();}}
  else{centState('paused');clearTimeout(centTimer);}
 }
 /* Arranca solo cuando la sección entra en pantalla */
